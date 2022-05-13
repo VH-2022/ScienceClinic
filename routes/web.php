@@ -55,11 +55,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('subject-master-ajax-list', "SubjectController@ajaxList");
         $backendVerified->resource('sub-subject-master', "SubSubjectController");
         $backendVerified->get('sub-subject-master-ajax-list', "SubSubjectController@ajaxList");
+        
     });
 });
 
-Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($admins) {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($frontend) {
+  
+    $frontend->get('/', 'HomeController@index');
 });

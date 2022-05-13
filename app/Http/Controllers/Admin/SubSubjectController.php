@@ -129,7 +129,13 @@ class SubSubjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $query = SubjectHelper::getList();
+        foreach($query as $val){
+            $getDetails = SubjectHelper::getParentList($val->id);
+            $val->subcategory = $getDetails;
+        }
+
+        echo "<pre>";print_R($query);die();
     }
 
     /**

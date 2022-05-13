@@ -55,4 +55,9 @@ class SubjectHelper
         $query = SubjectMaster::whereNotNull('id')->whereNotNull('parent_id')->with('subjectmaster:id,parent_id,main_title')->paginate(10);
         return $query;
     }
+
+    public static function getParentList($id){
+        $query = SubjectMaster::where('parent_id',$id)->get();
+        return $query;
+    }
 }
