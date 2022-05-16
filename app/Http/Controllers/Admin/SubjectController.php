@@ -70,7 +70,7 @@ class SubjectController extends Controller
             
             $simagesEnglish = '';
             if ($request->file('subject_image') != '') {
-                $simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
+                //$simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
             }
             $data_array = array(
                 'main_title' => $request->input('title'),
