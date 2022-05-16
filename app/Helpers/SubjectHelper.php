@@ -36,7 +36,8 @@ class SubjectHelper
         $userId = Auth()->user();
         $data['deleted_at'] = date('Y-m-d H:i:s');
         $data['deleted_by'] = $userId['id'];
-        $update = SubjectMaster::where($where)->update($data);
+        $update = SubjectMaster::where($where)->delete();
+        
         return $update;
     }
     public static function getListwithPaginate(){
@@ -56,8 +57,18 @@ class SubjectHelper
         return $query;
     }
 
+    public static function getSubjectList(){
+        $query = SubjectMaster::whereNull('parent_id')->get();
+        return $query;
+    }
     public static function getParentList($id){
         $query = SubjectMaster::where('parent_id',$id)->get();
         return $query;
     }
+
+    public static function getDetailsByEncryptId($id){
+        $query = SubjectMaster::whereRaw('sha1(id)="'.$id.'"')->first();
+        return $query;
+    }
 }
+

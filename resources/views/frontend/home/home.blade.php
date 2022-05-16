@@ -1,4 +1,4 @@
 @extends('layouts.frontend')
-@section('content-test')
+@section('content')
 dsadasd
 @endsection

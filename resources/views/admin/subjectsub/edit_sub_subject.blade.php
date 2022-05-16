@@ -19,7 +19,7 @@
                     
                         <div class="card-header py-3">
                             <div class="card-title align-items-start flex-column">
-                                <h3 class="card-label font-weight-bolder text-dark">Add Subject</h3>
+                                <h3 class="card-label font-weight-bolder text-dark">Edit Sub Subject</h3>
                             </div>
                         </div>
                     
@@ -201,7 +201,7 @@
                                                             <div class="col-md-5 mb-4">
                                                                 <div class="form-group">
                                                                     <label>Description <span class="text-danger">*</span></label>
-                                                                    <textarea placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}_error" name="description_section_two[]" id="description_section_two{{ $uniqid }}" value="{{ $vals->description}}">{{ $vals->description}}</textarea>
+                                                                    <textarea type="text" placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two{{ $uniqid }}" value="{{ $vals->description}}"  data-msg="Description">{{ $vals->description}}</textarea>
                                                                     <span class="form-text error description_section_two{{ $uniqid }}_error"></span>
                                                                 </div>
                                                             </div>
@@ -212,7 +212,9 @@
                                                         </div>
 
                                                     </div>
-                                                    <script> ClassicEditor.create(document.querySelector('#description_section_two{{ $uniqid }}'));
+                                                    <script> 
+                                                    CKEDITOR.replace( 'description_section_two{{ $uniqid }}' );
+                                                    
                                                     </script>
                                                     @endforeach
                                                     
@@ -232,7 +234,7 @@
                                                     <div class="col-md-5 mb-4">
                                                         <div class="form-group">
                                                             <label>Description <span class="text-danger">*</span></label>
-                                                            <textarea placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}_error" name="description_section_two[]" id="description_section_two"></textarea>
+                                                            <textarea type="text" placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two"  data-msg="Description"></textarea>
                                                             <span class="form-text error description_section_two{{ $uniqid }}_error"></span>
                                                         </div>
                                                     </div>
@@ -279,8 +281,8 @@
     // Class definition
     var uniqid = '{{ uniqid() }}';
     
-    ClassicEditor.create(document.querySelector("#subject_description"));
-
+    CKEDITOR.replace( 'subject_description' );
+    CKEDITOR.replace( 'description_section_two'+uniqid );
 
     function addMoreSolution() {
         var html_solution = '';
@@ -308,12 +310,12 @@
         var html_solution = '';
         var uniqid = '{{ uniqid() }}';
         var copyLength = $('.scopy_id_sec').length;
-        var length = uniqid + '' + copyLength + 1;
+        var length = Math.floor(100000000 + Math.random() * 900000000);;
         var lengths = "'" + length + "'";
         var htmls = '<div class="scopy_id_sec" id="' + length + '">' +
             '<div class="row">' +
-            '<div class="col-md-6 mb-4"><div class="form-group"><input placeholder="Title" class="form-control validate_field title_section_two'+uniqid+'_error" autocomplete="off" data-id="'+uniqid+'" id="title_section_two'+uniqid+'" type="text" data-msg="Title Section Two" name="title_section_two[]"><span class="form-text error title_section_two'+uniqid+'_error"></span> </div></div>' +
-            '<div class="col-md-5 mb-4"><div class="form-group"><textarea placeholder="Descritpion" data-id="'+uniqid+'" class="form-control validate_field description_section_two'+uniqid+'_error" name="description_section_two[]" id="description_section_two'+uniqid+'"></textarea><span class="form-text error description_section_two'+uniqid+'_error"></span></div></div>' +
+            '<div class="col-md-6 mb-4"><div class="form-group"><input placeholder="Title" class="form-control validate_field title_section_two'+uniqid+'" autocomplete="off" data-id="'+uniqid+'" id="title_section_two'+uniqid+'" type="text" data-msg="Title Section Two" name="title_section_two[]"><span class="form-text error title_section_two'+uniqid+'_error"></span> </div></div>' +
+            '<div class="col-md-5 mb-4"><div class="form-group"><textarea type="text" placeholder="Descritpion" data-id="'+length+'" class="form-control validate_field description_section_two'+length+'" name="description_section_two[]" id="description_section_two'+length+'" data-msg="Description"></textarea><span class="form-text error description_section_two'+length+'_error"></span></div></div>' +
             '<div class="col-md-1 text-end p-0" id="remove_ids_section_two">' +
             '<a class="btn btn-danger" href="javascript:void(0)" onclick="removeSolutionSection(' + lengths +
             ');">Remove</a>' +
@@ -326,8 +328,10 @@
         if ($('.scopy_id_sec').length > 1) {
             $('#remove_ids_section_two').attr('style', '');
             var id= '#description_section_two'+uniqid;
-            ClassicEditor.create(document.querySelector(id));
+            
+            
         }
+        CKEDITOR.replace( 'description_section_two'+length );
     }
 
 
@@ -340,7 +344,7 @@
 
     }
 
-    function removeSolutionSection(){
+    function removeSolutionSection(id){
         var copyLength = $('.scopy_id_sec').length;
         $('#' + id).remove();
         if ($('.scopy_id_sec').length == 1) {

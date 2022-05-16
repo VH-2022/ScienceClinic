@@ -1,4 +1,5 @@
-<table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
+
+<table class="table table-separate table-head-custom" id="kt_datatable">
     <thead>
         <tr>
             <th nowrap="nowrap"> ID</th>
@@ -31,7 +32,7 @@
                 </td>
                 <td>
                     <a href="{{ url('subject-master') }}/{{$live_in->id}}/edit"><i class="fa fa-edit"></i></a>
-                    <a></a>
+                    <a href="javascript:void(0)" class="delete-category" data-id="{{ $live_in->id}}"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -44,6 +45,6 @@
         @endif
     </tbody>
 </table>
-<div class="dogbreed_pagination">
+<div class="pagination justify-content-center">
 {{ $query->appends(request()->query())->links() }}
 </div>

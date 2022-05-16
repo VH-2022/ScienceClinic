@@ -62,4 +62,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
 Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($frontend) {
   
     $frontend->get('/', 'HomeController@index');
+    $frontend->get('/subject/{id}', 'UserSubjectController@index');
+    $frontend->get('/sub-subject/{id}', 'UserSubjectController@subSubjectDetails');
 });

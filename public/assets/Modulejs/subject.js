@@ -213,6 +213,7 @@
                 $('.subject_description_error').removeClass('is-valid');
                 $('.subject_description_error').html("");
                 if(subject_description.trim() ==''){
+                   var  dataMSG = $('#subject_description').attr('data-msg');
                     $('.subject_description_error').addClass('is-invalid').removeClass('is-valid');
                         $('.subject_description_error').html(dataMSG + ' is required.');
                         validation_status = 1;
@@ -290,40 +291,60 @@
             }
 
         });
-
-      
+        $('body').on('click', '.pagination a', function (event) {
+            $('li').removeClass('active');
+            $(this).parent('li').addClass('active');
+            event.preventDefault();
+            var myurl = $(this).attr('href');
+            var page = $(this).attr('href').split('page=')[1];
+            AjaxList(page);
+        });
         $('body').on('click', '.delete-category', function (e) {
             var dataId = $(this).attr('data-id');
+            
             $.confirm({
-                title: ' Delete ?',
-                content: 'Are You Sure Want To Delete!',
+                title: 'Are you sure?',
+                columnClass:"col-md-6",
+
+                content: "you want to delete this subject?",
                 buttons: {
-                    confirm: function () {
-                        $.ajax({
-                            url: _DELETE_URL + '/' + dataId,
-                            type: 'post',
-                            data: {
-                                '_token': _CSRF_TOKEN,
-                                '_method': "DELETE",
-                                'id': dataId
-                            },
-                            success: function (response) {
-                                toastr.success(response.error_msg);
-                                AjaxList(1);
+                    formSubmit: {
+                        text: 'Submit',
+                        btnClass: 'btn-danger',
+                        action: function () {
+                                $.ajax({
+                                    method: "POST",
+                                    url: _DELETE_URL + '/' + dataId,
+                                    data:{
+                                        '_token':_CSRF_TOKEN,
+                                        '_method':"DELETE",
+                                        'id':dataId
+                                    }
 
-                            },
-                            
+                                }).done(function (r) {
 
-                        });
+                                    toastr.success(r.error_msg);
+                                       
+                                        AjaxList(1);
+                                }).fail(function () {
+                                    _self.setContent('Something went wrong. Contact Support.');
+                                    toastr.error('Sorry, something went wrong. Please try again.');
+                                });
 
+                        }
                     },
                     cancel: function () {
-                        $.alert('Canceled!');
+                        //close
                     },
+                },
+                onContentReady: function () {
+                    // bind to events
 
                 }
             });
-        })
+        });
+      
+        
         $('body').on('click', '#edit_subject', function (e) {
             e.preventDefault();
             var _self = this;
@@ -333,7 +354,7 @@
                 validation_status += parseInt(validatField($('#' + validation_filed_array[i] + '.validate_field')));
             }
             var profile_avatar = $('input[name="subject_image"]').prop('files');
-            if (profile_avatar.length == 1) {
+            if (profile_avatar.length !=0) {
                 $('.subject_image_error').html("");
                 var FileUploadPath = profile_avatar[0].name;
                 var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
@@ -344,6 +365,15 @@
                 }
             }
             
+            var subject_description = CKEDITOR.instances['subject_description'].getData();
+                $('.subject_description_error').removeClass('is-valid');
+                $('.subject_description_error').html("");
+                if(subject_description.trim() ==''){
+                   var  dataMSG = $('#subject_description').attr('data-msg');
+                    $('.subject_description_error').addClass('is-invalid').removeClass('is-valid');
+                        $('.subject_description_error').html(dataMSG + ' is required.');
+                        validation_status = 1;
+                }
 
             $('input[name="section_one_title_more[]"]').each(function (e) {
                 var title = $(this).val();
@@ -395,19 +425,22 @@
                 }
             })
 
-            $('input[name="description_section_two[]"]').each(function (e) {
-                var title = $(this).val();
+            $('textarea[name="description_section_two[]"]').each(function (e) {
                 var dataId = $(this).attr('data-id');
+     
+               var title =  CKEDITOR.instances['description_section_two'+dataId].getData();
+          
+                
                 var dataMSG = $(this).attr('data-msg');
+             
+                $('.description_section_two' + dataId + '_error').addClass('is-valid').removeClass('is-invalid');
+                $('.description_section_two' + dataId + '_error').html("");
                 if (title.trim() == '') {
                     $('.description_section_two' + dataId + '_error').addClass('is-invalid').removeClass('is-valid');
                     $('.description_section_two' + dataId + '_error').html(dataMSG + ' is required.');
                     validation_status = 1;
                 }
-                else {
-                    $('.description_section_two' + dataId + '_error').addClass('is-valid').removeClass('is-invalid');
-                    $('.description_section_two' + dataId + '_error').html("");
-                }
+                
             })
 
             if (validation_status == 0) {

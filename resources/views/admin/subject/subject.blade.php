@@ -1,5 +1,7 @@
 @extends('layouts.master')
 @section('content')
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
+<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css?v=7.2.9') }}" rel="stylesheet" type="text/css" />
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container-fluid">
@@ -34,8 +36,12 @@
 
 @section('page-js')
 <script src="{{asset('assets/Modulejs/subject.js')}}"></script>
+<script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
 <script>
     var _AJAX_LIST = "{{url('subject-master-ajax-list')}}";
+    var _DELETE_URL = '{{ url("subject-master")}}';
+    var _CSRF_TOKEN = '{{ csrf_token() }}';
 </script>
 
 @endsection

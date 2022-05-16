@@ -15,15 +15,15 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         view()->composer('*', function ($view) {
-            $query = SubjectHelper::getList();
+            $query = SubjectHelper::getSubjectList();
             foreach ($query as $val) {
                 $getDetails = SubjectHelper::getParentList($val->id);
                 if(count($getDetails)>0){
                     foreach($getDetails as $subcate){
-                        $subcate->sub_caregory_url = URL::to('/') . '/sub-category/' . sha1($subcate->id);
+                        $subcate->sub_caregory_url = URL::to('/') . '/sub-subject/' . sha1($subcate->id);
                     }
                 }else{
-                    $val->caregory_url = URL::to('/').'/category/'.sha1($val->id);
+                    $val->caregory_url = URL::to('/').'/subject/'.sha1($val->id);
                 }
                 $val->subcategory = $getDetails;
             }

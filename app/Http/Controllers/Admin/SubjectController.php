@@ -232,7 +232,15 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+      
+
+        $update = SubjectHelper::SoftDelete(array(), array('id' => $id));
+
+        if ($update) {
+            return response()->json(['error_msg' => trans('messages.deletedSuccessfully'), 'data' => array()], 200);
+        } else {
+            return response()->json(['error_msg' => trans('messages.error_msg'),'data' => array()], 500);
+        }
     }
 
     

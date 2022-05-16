@@ -142,19 +142,19 @@
                                         @php
                                         $uniqid = uniqid();
                                         @endphp
-                                        <div class="scopy_id" id="{{ $uniqid }}">
+                                        <div class="scopy_id_section_two" id="{{ $uniqid }}">
                                             <div class="row">
                                                 <div class="col-md-6 mb-4">
                                                     <div class="form-group">
                                                         <label>Title <span class="text-danger">*</span></label>
-                                                        <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}_error" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" data-msg="Title Section Two" name="title_section_two[]">
+                                                        <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" data-msg="Title Section Two" name="title_section_two[]">
                                                         <span class="form-text error title_section_two{{ $uniqid }}_error"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5 mb-4">
                                                     <div class="form-group">
                                                         <label>Description <span class="text-danger">*</span></label>
-                                                        <textarea placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}_error" name="description_section_two[]" id="description_section_two"></textarea>
+                                                        <textarea type="text" placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two{{ $uniqid}}" data-msg="Description"></textarea>
                                                         <span class="form-text error description_section_two{{ $uniqid }}_error"></span>
                                                     </div>
                                                 </div>
@@ -199,8 +199,8 @@
     // Class definition
     var uniqid = '{{ uniqid() }}';
 
-    ClassicEditor.create(document.querySelector("#subject_description"));
-    ClassicEditor.create(document.querySelector('#description_section_two'));
+    CKEDITOR.replace( 'subject_description' );
+    CKEDITOR.replace( 'description_section_two{{$uniqid}}' );
 
     function addMoreSolution() {
         var html_solution = '';
@@ -232,8 +232,8 @@
         var lengths = "'" + length + "'";
         var htmls = '<div class="scopy_id_section_two" id="' + length + '">' +
             '<div class="row">' +
-            '<div class="col-md-6 mb-4"><div class="form-group"><input placeholder="Title" class="form-control validate_field title_section_two' + length + '_error" autocomplete="off" data-id="' + length + '" id="title_section_two' + length + '" type="text" data-msg="Title Section Two" name="title_section_two[]"><span class="form-text error title_section_two' + length + '_error"></span> </div></div>' +
-            '<div class="col-md-5 mb-4"><div class="form-group"><textarea placeholder="Descritpion" data-id="' + length + '" class="form-control validate_field description_section_two' + length + '_error" name="description_section_two[]" id="description_section_two' + length + '"></textarea><span class="form-text error description_section_two' + length + '_error"></span></div></div>' +
+            '<div class="col-md-6 mb-4"><div class="form-group"><input placeholder="Title" class="form-control validate_field title_section_two' + length + '" autocomplete="off" data-id="' + length + '" id="title_section_two' + length + '" type="text" data-msg="Title Section Two" name="title_section_two[]"><span class="form-text error title_section_two' + length + '_error"></span> </div></div>' +
+            '<div class="col-md-5 mb-4"><div class="form-group"><textarea type="text" placeholder="Descritpion" data-id="' + length + '" class="form-control validate_field description_section_two' + length + '" name="description_section_two[]" id="description_section_two' + length + '" data-msg="Description"></textarea><span class="form-text error description_section_two' + length + '_error"></span></div></div>' +
             '<div class="col-md-1 text-end p-0" id="remove_ids">' +
             '<a class="btn btn-danger" href="javascript:void(0)" onclick="removeSolutionSection(' + lengths +
             ');">Remove</a>' +
@@ -244,7 +244,8 @@
             '</div>'
         $('#solumailAddMoreSectionTwo').append(htmls);
         var id = '#description_section_two' + length;
-        ClassicEditor.create(document.querySelector(id));
+        CKEDITOR.replace( 'description_section_two' + length);
+        
         if ($('.scopy_id_section_two').length > 1) {
             $('#remove_ids_section_two').attr('style', '');
 
