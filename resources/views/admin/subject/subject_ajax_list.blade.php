@@ -35,7 +35,13 @@
                 </td>
             </tr>
         @endforeach
+        
     @endif
+    @if (count($query) == 0)
+            <tr>
+                <td colspan="6">No record available</td>
+            </tr>
+        @endif
     </tbody>
 </table>
 <div class="dogbreed_pagination">

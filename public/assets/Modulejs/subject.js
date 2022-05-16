@@ -105,8 +105,7 @@
 
         function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-
-
+        
 
         $(document).ready(function () {
            
@@ -190,7 +189,7 @@
                 e.preventDefault();
                 var _self = this;
                 var validation_status = 0;
-                var validation_filed_array = ['title', 'sub_title', 'sub_title_two', 'title_section_one'];
+                var validation_filed_array = ['title', 'sub_title', 'sub_title_two', 'title_section_one','subject_description'];
                 for (var i = 0; i < validation_filed_array.length; i++) {
                     validation_status += parseInt(validatField($('#' + validation_filed_array[i] + '.validate_field')));
                 }
@@ -259,19 +258,22 @@
                     }
                 })
 
-                $('input[name="description_section_two[]"]').each(function (e) {
-                    var title = $(this).val();
+                $('textarea[name="description_section_two[]"]').each(function (e) {
                     var dataId = $(this).attr('data-id');
+         
+                   var title =  CKEDITOR.instances['description_section_two'+dataId].getData();
+              
+                    
                     var dataMSG = $(this).attr('data-msg');
+                 
+                    $('.description_section_two' + dataId + '_error').addClass('is-valid').removeClass('is-invalid');
+                    $('.description_section_two' + dataId + '_error').html("");
                     if (title.trim() == '') {
                         $('.description_section_two' + dataId + '_error').addClass('is-invalid').removeClass('is-valid');
                         $('.description_section_two' + dataId + '_error').html(dataMSG + ' is required.');
                         validation_status = 1;
                     }
-                    else {
-                        $('.description_section_two' + dataId + '_error').addClass('is-valid').removeClass('is-invalid');
-                        $('.description_section_two' + dataId + '_error').html("");
-                    }
+                    
                 })
                 if (validation_status == 0) {
                     $('#submitid').submit();
@@ -281,6 +283,39 @@
 
         });
 
+      
+        $('body').on('click', '.delete-category', function (e) {
+            var dataId = $(this).attr('data-id');
+            $.confirm({
+                title: ' Delete ?',
+                content: 'Are You Sure Want To Delete!',
+                buttons: {
+                    confirm: function () {
+                        $.ajax({
+                            url: _DELETE_URL + '/' + dataId,
+                            type: 'post',
+                            data: {
+                                '_token': _CSRF_TOKEN,
+                                '_method': "DELETE",
+                                'id': dataId
+                            },
+                            success: function (response) {
+                                toastr.success(response.error_msg);
+                                AjaxList(1);
+
+                            },
+                            
+
+                        });
+
+                    },
+                    cancel: function () {
+                        $.alert('Canceled!');
+                    },
+
+                }
+            });
+        })
         $('body').on('click', '#edit_subject', function (e) {
             e.preventDefault();
             var _self = this;
@@ -428,7 +463,34 @@ function validatField(elem) {
             $('#' + cur_elem_id).next('.select2-container').find('.select2-selection').addClass('is-valid').removeClass('is-invalid');
         }
     }
+    if (elem_type == 'TEXTAREA') {
+        var cur_elem_type = $this.attr('type');
+        if (cur_elem_type == 'text') {
 
+            $('.' + cur_elem_id + '_error').html('');
+            if (cur_elm_val.trim() == '' && !range_valid) {
+                console.log(cur_elem_id);
+                $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
+                $('.' + cur_elem_id + '_error').html(cur_err_msg + ' is required.');
+                validation_status = 1;
+            } else if (cur_elem_data_type != "") {
+                $('.' + cur_elem_id + '_error').html('');
+                if (isNaN(cur_elm_val)) {
+                    $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
+                    $('.' + cur_elem_id + '_error').html(cur_err_msg + ' must be a number.');
+                    validation_status = 1;
+                } else {
+                    $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
+                }
+            } else if (time_valid) {
+                validation_status = calculateTime($this);
+            } else if (range_valid) {
+                validation_status = dateValidation($this);
+            } else if (!range_valid) {
+                $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
+            }
+        } 
+    }
     if (elem_type == 'INPUT') {
         var cur_elem_type = $this.attr('type');
         if (cur_elem_type == 'text') {
@@ -516,3 +578,5 @@ function validatField(elem) {
     /***/
 })
 ]);
+
+
