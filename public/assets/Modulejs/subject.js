@@ -209,6 +209,14 @@
                     validation_status = 1;
                 }
 
+                var subject_description = CKEDITOR.instances['subject_description'].getData();
+                $('.subject_description_error').removeClass('is-valid');
+                $('.subject_description_error').html("");
+                if(subject_description.trim() ==''){
+                    $('.subject_description_error').addClass('is-invalid').removeClass('is-valid');
+                        $('.subject_description_error').html(dataMSG + ' is required.');
+                        validation_status = 1;
+                }
                 $('input[name="section_one_title_more[]"]').each(function (e) {
                     var title = $(this).val();
                     var dataId = $(this).attr('data-id');
@@ -463,34 +471,7 @@ function validatField(elem) {
             $('#' + cur_elem_id).next('.select2-container').find('.select2-selection').addClass('is-valid').removeClass('is-invalid');
         }
     }
-    if (elem_type == 'TEXTAREA') {
-        var cur_elem_type = $this.attr('type');
-        if (cur_elem_type == 'text') {
-
-            $('.' + cur_elem_id + '_error').html('');
-            if (cur_elm_val.trim() == '' && !range_valid) {
-                console.log(cur_elem_id);
-                $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
-                $('.' + cur_elem_id + '_error').html(cur_err_msg + ' is required.');
-                validation_status = 1;
-            } else if (cur_elem_data_type != "") {
-                $('.' + cur_elem_id + '_error').html('');
-                if (isNaN(cur_elm_val)) {
-                    $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
-                    $('.' + cur_elem_id + '_error').html(cur_err_msg + ' must be a number.');
-                    validation_status = 1;
-                } else {
-                    $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
-                }
-            } else if (time_valid) {
-                validation_status = calculateTime($this);
-            } else if (range_valid) {
-                validation_status = dateValidation($this);
-            } else if (!range_valid) {
-                $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
-            }
-        } 
-    }
+    
     if (elem_type == 'INPUT') {
         var cur_elem_type = $this.attr('type');
         if (cur_elem_type == 'text') {
