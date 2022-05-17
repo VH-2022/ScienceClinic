@@ -227,18 +227,18 @@
     $('#ajax-crud-modal').on('hidden.bs.modal', function () {
         $('#titleerror').html("");
         $('#userForm')[0].reset();
-})
-$('#editajax-crud-modal').on('hidden.bs.modal', function () {
-        $('#title_error').html("");
-        $('#formEdit')[0].reset();
-})
-function isName(event) {
-    var regex = new RegExp("^[a-zA-Z \s]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-       event.preventDefault();
-       return false;
+    })
+    $('#editajax-crud-modal').on('hidden.bs.modal', function () {
+            $('#title_error').html("");
+            $('#formEdit')[0].reset();
+    })
+    function isName(event) {
+        var regex = new RegExp("^[a-zA-Z \s]+$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+        }
     }
-}
 </script>
 @endsection
