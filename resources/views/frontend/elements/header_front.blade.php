@@ -38,7 +38,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="find-tutor.html">Find a Tutor</a></li>
-                                    <li><a href="become-tutor.html">Become a Tutor</a></li>
+                                    <li><a href="{{route('become-tutor.index')}}">Become a Tutor</a></li>
                                     <li class="text-none" id="subject-sub"><a href="javascript:void(0)">Subjects</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
                                             @foreach($response_menu as $val)
@@ -46,7 +46,7 @@
                                             <li><a href="javascript:void(0)">{{ $val->main_title}}<i class="zmdi zmdi-chevron-right"></i></a>
                                                 <ul class="inside-menu inside-menus-sec">
                                                     @foreach($val->subcategory as $sub)
-                                                    
+
                                                     <li><a href="{{ $sub->sub_caregory_url}}">{{$sub->main_title}}</a></li>
                                                     @endforeach
 
