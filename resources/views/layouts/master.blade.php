@@ -22,9 +22,15 @@
     <link href="{{asset('assets/css/themes/layout/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/themes/layout/brand/dark.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/pages/jquery-confirm.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
     <script src="{{asset('assets/js/ckeditor.js')}}"></script>
+    <style>
+        .error_msg{
+            color:red;
+        }
+    </style>
     @yield('page-css')
 </head>
 
@@ -49,9 +55,11 @@
     <!--end::Global Theme Bundle-->
     <!--begin::Page Vendors(used by this page)-->
     <script src="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+    
     <!--end::Page Vendors-->
     <!--begin::Page Scripts(used by this page)-->
     <script src="{{asset('assets/js/pages/widgets.js')}}"></script>
+    <script src="{{asset('assets/js/pages/jquery-confirm.js')}}"></script>
     <!--end::Page Scripts-->
  
     @yield('page-js')
