@@ -69,6 +69,14 @@
                     <span class="menu-text">Tutor Level</span>
                 </a>
             </li>
+            <li class="menu-item {{Request::segment(1) == 'sub-subject-master' ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                <a href="{{route('tutor-master.index')}}" class="menu-link">
+                    <i class="menu-bullet menu-bullet-dot">
+                        <span></span>
+                    </i>
+                    <span class="menu-text">Tutor Master</span>
+                </a>
+            </li>
         </ul>
             <!--end::Menu Nav-->
             <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
