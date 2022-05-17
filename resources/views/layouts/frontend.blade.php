@@ -84,7 +84,7 @@
 <body>
   @include('frontend.elements.header_front')
 
-  @yield('content-test')
+  @yield('content')
   @include('frontend.elements.footer_front')
 
 </body>

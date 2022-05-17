@@ -11,7 +11,7 @@
     <tbody>
     @php
         
-        $i = $page * 50 - 49;
+        $i = $page * 10 - 9;
     @endphp
      @if (count($query) > 0)
         @foreach ($query as $live_in)
@@ -38,8 +38,13 @@
             </tr>
         @endforeach
     @endif
+    @if (count($query) == 0)
+            <tr>
+                <td colspan="6">No record available</td>
+            </tr>
+        @endif
     </tbody>
 </table>
-<div class="dogbreed_pagination">
+<div class="pagination">
 {{ $query->appends(request()->query())->links() }}
 </div>

@@ -1,7 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
-<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css?v=7.2.9') }}" rel="stylesheet" type="text/css" />
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container-fluid">
@@ -13,10 +11,10 @@
                     <!--begin::Header-->
                     <div class="card-header py-3">
                         <div class="card-title align-items-start flex-column">
-                            <h3 class="card-label font-weight-bolder text-dark">Subject List</h3>
+                            <h3 class="card-label font-weight-bolder text-dark">Sub Subject List</h3>
                         </div>
                         <div class="card-toolbar">
-                            <a href="{{route('subject-master.create')}}" class="btn btn-primary mr-2" style="background-color:#3498db !important">Add</a>
+                            <a href="{{route('sub-subject-master.create')}}" class="btn btn-primary mr-2" style="background-color:#3498db !important">Add</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -35,13 +33,9 @@
 @endsection
 
 @section('page-js')
-<script src="{{asset('assets/Modulejs/subject.js')}}"></script>
-<script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
+<script src="{{asset('assets/Modulejs/subsubject.js')}}"></script>
 <script>
-    var _AJAX_LIST = "{{url('subject-master-ajax-list')}}";
-    var _DELETE_URL = '{{ url("subject-master")}}';
-    var _CSRF_TOKEN = '{{ csrf_token() }}';
+    var _AJAX_LIST = "{{url('sub-subject-master-ajax-list')}}";
 </script>
 
 @endsection
