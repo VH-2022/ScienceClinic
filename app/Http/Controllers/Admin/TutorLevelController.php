@@ -60,12 +60,13 @@ class TutorLevelController extends Controller
        if(empty($auth)){
            return redirect('/login');
        }
-
-       return view('admin.tutorlevel.tutorlevel',$data);
+       $query=TutorLevelHelper::getDetailsById($id);
+       return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array($query)], 200);
    }
    public function update(Request $request, $id)
    {
-          $validator = Validator::make($request->all(), [
+     
+    $validator = Validator::make($request->all(), [
               'title' => 'required',
            ]);
            if ($validator->fails()) {
@@ -74,41 +75,32 @@ class TutorLevelController extends Controller
            $data_array = array(
               'title' => $request->input('title')
            );
-           $update = TutorLevelHelper::update($data_array,array('id'=>$request->input('id')));
-              if($update){        
-           
-           return response()->json(['error_msg' =>trans('messages.addedSuccessfully'), 'data' => array()], 200);
-           }else{
-              return response()->json(['error_msg' =>trans('messages.error'), 'data' => array()], 200);
-        }
+           $update = TutorLevelHelper::update($data_array,array('id'=>$request->input('level_id')));
+           $query=TutorLevelHelper::getDetailsById($request->input('level_id'));
+           return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array($query)], 200);
       }
 
-
-
-
-
-
-
-
-
-
-
-
-
-   public function updateStatus(Request $request)
-    {
-        $level = TutorLevel::find($request->id);
-        $level->status = $request->status;
-        $level->save();
-        if ($level) {
-            return response()->json([
-                'message' => trans('messages.statusSuccessfully')
-            ]);
-            }
-            else {
-            return response()->json([
-                'message' =>  trans('messages.notStatused')
-            ]);
-        }
+      public function destroy($id)
+      {
+      $update = TutorLevelHelper::SoftDelete(array(),array('id'=>$id));
+      if ($update) {
+          return response()->json([
+              'message' => trans('messages.deletedSuccessfully')
+          ]);
+          }
+          else {
+          return response()->json([
+              'message' =>  trans('messages.notDeleted')
+          ]);
+      }
     }
 }
+
+
+
+
+
+
+
+
+ 

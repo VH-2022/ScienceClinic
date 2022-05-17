@@ -16,7 +16,7 @@
         @foreach ($query as $val)
             <tr>
                 <td>{{ $i++ }}</td>
-                <td>{{ $val->title }}</td>
+                <td id="title{{$val->id}}">{{ $val->title }}</td>
                 <td>
                     @if ($val->created_at != '')
                         {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}
@@ -24,8 +24,8 @@
                 </td>
                 <td></td>
                 <td>
-                    <a href="{{ url('tutor-level') }}/{{ $val->id }}/edit"><i class="fa fa-edit"></i></a>
-                    <a href="{{ url('tutor-level') }}/{{ $val->id }}/delete"><i class="fa fa-trash"></i></a>
+                    <a href="javascript:void(0)" onclick="editDetail({{$val->id}})" class="edit-details" data-id="{{$val->id}}}"><i class="fa fa-edit"></i></a>
+                    <a href="javascript:void(0)" onclick="functionDelete('{{$val->id }}')" class="delete-details" data-id="{{$val->id}}}"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach

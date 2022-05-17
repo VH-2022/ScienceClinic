@@ -43,8 +43,8 @@ class TutorLevelHelper
         $query = TutorLevel::whereNotNull('id')->paginate(10);
         return $query;
     }
-    public static function getList(){
-        $query = TutorLevel::get();
+    public static function getDetailsById($id){
+        $query = TutorLevel::where('id',$id)->first();
         return $query;
     }
 }
