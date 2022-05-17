@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    .error{
+        color:red;
+    }
+    </style>
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container-fluid">
@@ -40,13 +45,15 @@
               <form id="userForm" name="userForm" class="form-horizontal">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}">
                 <div class="modal-body">
-                    <div class="form-group">
-                      <label for="name" class="col-sm-2 control-label">Name</label>
-                      <div class="col-sm-12">
-                          <input type="text" class="form-control" id="title" name="title" placeholder="Enter Name" value="" onkeypress="return isName(event)" maxlength="50">
-                          <span class="title error_msg" id="titleerror"></span>
-                      </div>
-                    </div>
+                    
+                        <div class="form-group">
+                        <label for="name" >Name</label><span class="error">*</span>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter Name" value="" onkeypress="return isName(event)" maxlength="50">
+                            <span class="title error" id="titleerror"></span>
+                        </div>
+
+                    
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btn-save" value="create" title="submit">Save 
@@ -73,11 +80,9 @@
                 <div class="modal-body">
                     <input type="hidden" name="level_id" id="level_id_edit">
                     <div class="form-group">
-                      <label for="name" class="col-sm-2 control-label">Name</label>
-                      <div class="col-sm-12">
-                          <input type="text" class="form-control" id="title-edit" name="title" placeholder="Enter Name" value="" onkeypress="return isName(event)" maxlength="50" >
-                          <span class="title error_msg" id="title_error"></span>
-                      </div>
+                      <label for="name">Name</label><span class="error">*</span>
+                      <input type="text" class="form-control" id="title-edit" name="title" placeholder="Enter Name" value="" onkeypress="return isName(event)" maxlength="50" >
+                          <span class="title error" id="title_error"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -201,7 +206,7 @@
         event.preventDefault(); // prevent form submit
         $.confirm({
             title: 'Delete!',
-            content: '"Are you sure Delete?"',
+            content: 'Are you sure Delete?',
             buttons: {
                 confirm: function () {
                     $.ajax({

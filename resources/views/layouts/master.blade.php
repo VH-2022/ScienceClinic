@@ -60,13 +60,13 @@
     @yield('page-js')
     @if(Session::has('success'))
     <script>
-        Command: toastr["success"]('<?php echo Session::get('success') ?>')
+        Command: toastr["success"]("{{Session::get('success')}}")
     </script>
     @endif
 
     @if(Session::has('error'))
     <script>
-        Command: toastr["error"]('<?php echo Session::get('error') ?>')
+        Command: toastr["error"]("{{Session::get('error')}}")
     </script>
     @endif
     @include('admin.elements.message-js')
