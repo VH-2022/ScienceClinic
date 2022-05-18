@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use URL;
 use App\Models\TutorLevel;
-use DB;
 
 class TutorLevelHelper
 {
@@ -40,7 +39,7 @@ class TutorLevelHelper
         return $update;
     }
     public static function getListwithPaginate(){
-        $query = TutorLevel::whereNotNull('id')->paginate(10);
+        $query = TutorLevel::paginate(10);
         return $query;
     }
     public static function getDetailsById($id){
