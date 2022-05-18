@@ -21,12 +21,12 @@ class SubSubjectController extends Controller
      */
     public function index()
     {
-        return view('admin.subjectsub.subject');
+        return view('admin.subjectsub.sub_subject');
     }
     public function ajaxList(Request $request){
         $data['page'] = $request->input('page');
         $data['query'] = SubjectHelper::getSubCateogryListwithPaginate();
-        return view('admin.subjectsub.subject_ajax_list',$data);
+        return view('admin.subjectsub.sub_subject_ajax_list',$data);
      }
     /**
      * Show the form for creating a new resource.
@@ -40,7 +40,7 @@ class SubSubjectController extends Controller
             return redirect('/login');
         }
         $data['query'] = SubjectHelper::getList();
-        return view('admin.subjectsub.addsubject', $data);
+        return view('admin.subjectsub.add_sub_subject', $data);
     }
 
     /**
@@ -154,7 +154,7 @@ class SubSubjectController extends Controller
         $data['basic_details'] = SubjectHelper::getDetailsByid($id);
         $data['bannerSection'] = SubjectBannerHelper::getDetailsBySubjectId($id);
         $data['SectionTwo'] = SubjectOtherSectionMasterHelper::getDetailsBySubjectId($id);
-        return view('admin.subjectsub.edit_subject',$data);
+        return view('admin.subjectsub.edit_sub_subject',$data);
     }
 
     /**

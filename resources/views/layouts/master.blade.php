@@ -25,12 +25,16 @@
     <link href="{{asset('assets/css/pages/jquery-confirm.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
+<<<<<<< HEAD
     <script src="{{asset('assets/js/ckeditor.js')}}"></script>
     <style>
         .error_msg{
             color:red;
         }
     </style>
+=======
+    <script src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+>>>>>>> c4534c7574dc76203267bc2840885343ca2cc5a2
     @yield('page-css')
 </head>
 
