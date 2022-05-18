@@ -36,7 +36,7 @@ class SubjectHelper
         $userId = Auth()->user();
         $data['deleted_at'] = date('Y-m-d H:i:s');
         $data['deleted_by'] = $userId['id'];
-        $update = SubjectMaster::where($where)->delete();
+        $update = SubjectMaster::where($where)->update($data);
         
         return $update;
     }
@@ -57,7 +57,7 @@ class SubjectHelper
         return $query;
     }
     public static function getList(){
-        $query = SubjectMaster::get();
+        $query = SubjectMaster::whereNull('parent_id')->get();
         return $query;
     }
     public static function getSubCateogryListwithPaginate(){
