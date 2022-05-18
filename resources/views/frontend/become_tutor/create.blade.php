@@ -123,9 +123,7 @@
                                                     <div class="col-md-2 add"> <a class="extra-fields-customer search-menu" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true"></i></a></div>
                                                 </div>
 
-                                                <!-- <input name="customer_age" type="number" placeholder="Age">
-                                                <input name="customer_email" type="email" placeholder="Email Address"> -->
-
+                                              
 
                                             </div>
 
@@ -282,17 +280,18 @@
                                         <div class="col-md-2 mb-23">
                                             <h6 class="mb-2">Upload your photo</h6>
                                             <div class="avatar-upload">
-
+                                                    
                                                 <div class="avatar-preview">
-                                                    <div id="imagePreview" style="background-image: url(front/img/tutors/1.jpg);">
+
+                                                    <div id="imagePreview" style="background-image: url({{asset('img/tutors/1.jpg')}});">
                                                     </div>
                                                 </div>
                                                 <div class="avatar-edit">
-                                                    <input type="file" id="imageUpload" name="profile_image" accept=".png, .jpg, .jpeg" />
-                                                    <span class="text-danger" id="error_profile_image"></span>
+                                                    <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
                                                     <label for="imageUpload">upload</label>
                                                 </div>
                                             </div>
+                                            
                                         </div>
 
                                         <div class="col-md-12 col-lg-12">

@@ -13,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tutor_university_details', function (Blueprint $table) {
+        Schema::create('sc_tutor_university_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('tutor_id');
-            $table->string('university_name');
-            $table->string('qualification');
-            $table->string('document_image');
-            $table->integer('created_by');
+            $table->integer('tutor_id')->nullable();
+            $table->string('university_name')->nullable();
+            $table->string('qualification')->nullable();
+            $table->text('document_image')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tutor_university_details');
+        Schema::dropIfExists('sc_tutor_university_details');
     }
 };
