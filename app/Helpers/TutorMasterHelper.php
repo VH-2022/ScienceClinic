@@ -3,7 +3,6 @@ namespace App\Helpers;
 
 use URL;
 use App\Models\User;
-use DB;
 
 class TutorMasterHelper
 {
@@ -20,9 +19,8 @@ class TutorMasterHelper
         $update = User::where($where)->update($data);
         return $update;
     }
-
     public static function getDetailsById($id){
-        $query = User::where('id',$id)->get();
+        $query = User::where('id',$id)->first();
         return $query;
     }
 }

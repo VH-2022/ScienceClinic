@@ -1,12 +1,11 @@
 <table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
     <thead>
         <tr>
-            <th nowrap="nowrap">Serial No</th>
+            <th nowrap="nowrap">ID</th>
             <th style="white-space: nowrap">Full Name </th>
             <th style="white-space: nowrap">Email </th>
             <th style="white-space: nowrap">Mobile </th>
             <th style="white-space: nowrap">Created Date</th>
-            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -25,7 +24,6 @@
                         {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}
                     @endif
                 </td>
-                <td></td>
                 <td>
                     <a href="{{ url('tutor-master')}}/{{$val->id}}" class="show-details"><i class="fa fa-eye"></i></a>
                     <a href="javascript:void(0)" onclick="functionDelete('{{ $val->id }}')" class="delete-details"

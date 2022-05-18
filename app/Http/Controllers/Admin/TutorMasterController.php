@@ -43,9 +43,7 @@ class TutorMasterController extends Controller
   }
     public function show($id)
     {
-        {
-            $query=TutorMasterHelper::getDetailsById($id);
-            return view('admin.tutor.tutor_view');
-        }
+            $data['totuer']=TutorMasterHelper::getDetailsById($id);
+            return view('admin.tutor.tutor_view',$data);
     }
 }
