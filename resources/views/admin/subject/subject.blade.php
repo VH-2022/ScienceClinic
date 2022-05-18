@@ -100,17 +100,17 @@
         </div>
         <!--end::Wrapper-->
         <!--begin::Purchase-->
-        <div class="offcanvas-footer" kt-hidden-height="38" style="">
-					<div class="row">
-					<div class="col-6">
-					<a class="btn btn-block btn-danger btn-shadow font-weight-bolder text-uppercase search_id">Apply</a>
-					
-					</div>
-					<div class="col-6">
-					<a class="btn btn-block btn-secondary btn-shadow font-weight-bolder text-uppercase clear">Cancel</a>
-					</div>
-					</div>
-				</div>
+        <div class="offcanvas-footer" kt-hidden-height="38">
+            <div class="row">
+                <div class="col-6">
+                    <a class="btn btn-block btn-danger btn-shadow font-weight-bolder text-uppercase search_id">Apply</a>
+            
+                </div>
+            <div class="col-6">
+            <a class="btn btn-block btn-secondary btn-shadow font-weight-bolder text-uppercase clear">Cancel</a>
+            </div>
+            </div>
+        </div>
         <!--end::Purchase-->
     </div>
     <!--end::Content-->
