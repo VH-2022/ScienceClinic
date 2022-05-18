@@ -114,15 +114,3 @@
     <!--End of Footer Area-->
 </div>
 
-<script>
-    $(document).ready(function() {
-        $("#overlays").click(function() {
-            $(".mobile-show.active").removeClass("active");
-        });
-    });
-
-    $('.header-search').on('click', function() {
-        $('.search').toggleClass('open');
-        return false;
-    });
-</script>

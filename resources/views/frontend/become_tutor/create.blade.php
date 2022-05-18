@@ -55,7 +55,7 @@
                                 </div>
                             </h4>
                             <div class="contact-form-area">
-                                <form action="{{route('become-tutor.store')}}" method="POST" id="formdata">
+                                <form action="{{route('become-tutor.store')}}" method="POST" enctype="multipart/form-data" id="formdata">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
@@ -124,7 +124,7 @@
                                                 </div>
 
                                                 <!-- <input name="customer_age" type="number" placeholder="Age">
-      <input name="customer_email" type="email" placeholder="Email Address"> -->
+                                                <input name="customer_email" type="email" placeholder="Email Address"> -->
 
 
                                             </div>
@@ -136,7 +136,9 @@
                                             <h6 class="mb-2">Subject you wish to tutor. (required)</h6>
                                             <!-- <label class="tutor-label">Subject</label> -->
                                             <div class="subject-custom">
+
                                                 <select class="selectpicker" multiple aria-label="Default select example" data-live-search="true">
+
                                                     <option value="1" selected>Accounting</option>
                                                     <option value="2">Arabic</option>
                                                     <option value="3">Art</option>
@@ -166,7 +168,9 @@
                                                     <option value="27">Sociology</option>
                                                     <option value="28">Spanish</option>
                                                     <option value="29">Statistics</option>
+
                                                 </select>
+
                                             </div>
 
                                         </div>
@@ -206,11 +210,11 @@
                                             <h6 class="mb-2">Do you have an enhanced DBS disclosure (less than a
                                                 year old)? (required)</h6>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" onclick="show1();">
+                                                <input type="radio" id="customRadio2" value="Yes" name="dbsdisclosure" class="custom-control-input" onclick="show1();">
                                                 <label class="custom-control-label" for="customRadio2">Yes</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" onclick="show2();">
+                                                <input type="radio" id="customRadio3" name="dbsdisclosure" class="custom-control-input" value="No" onclick="show2();">
                                                 <label class="custom-control-label" for="customRadio3">No</label>
                                             </div>
                                             <div id="div1" class="hide">
@@ -220,10 +224,10 @@
                                                     </div>
                                                     <div class="main-file-uplode">
                                                         <div class="file-upload-box">
-                                                            <input type="file" class="yes-no-radio" id="uploadBtn">
+                                                            <input type="file" class="yes-no-radio" id="uploadBtn" name="document_pdf">
                                                         </div>
                                                         <div class="upload-img-box">
-                                                            <img src="img/upload.png" class="img-fluid upload-img">
+                                                            <img src="{{asset('front/img/upload.png')}}" class="img-fluid upload-img">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -233,11 +237,11 @@
                                             <h6 class="mb-2">Do you have tutoring experience in the UK? (required)
                                             </h6>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+                                                <input type="radio" id="customRadio4" value="Yes" name="exprienceinuk" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio4">Yes</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
+                                                <input type="radio" id="customRadio5" name="exprienceinuk" class="custom-control-input" value="No">
                                                 <label class="custom-control-label" for="customRadio5">No</label>
                                             </div>
                                         </div>
@@ -246,17 +250,17 @@
                                                 (required)
                                             </h6>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio6" name="customRadio" class="custom-control-input">
+                                                <input type="radio" id="customRadio6" name="tutorexperienceinuk" class="custom-control-input" value="1">
                                                 <label class="custom-control-label" for="customRadio6">1-2
                                                     years</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio7" name="customRadio" class="custom-control-input">
+                                                <input type="radio" id="customRadio7" name="tutorexperienceinuk" class="custom-control-input" value="2">
                                                 <label class="custom-control-label" for="customRadio7">3-5
                                                     years</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio8" name="customRadio" class="custom-control-input">
+                                                <input type="radio" id="customRadio8" name="tutorexperienceinuk" class="custom-control-input" value="3">
                                                 <label class="custom-control-label" for="customRadio8">5 plus
                                                     years</label>
                                             </div>
@@ -267,11 +271,11 @@
                                                 you will be self-employed as a tutor and pay your own tax to the UK
                                                 Government. (required)</h6>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio11" name="customRadio" class="custom-control-input">
+                                                <input type="radio" id="customRadio11" value="Yes" name="paytax" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio11">Yes</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio10" name="customRadio" class="custom-control-input">
+                                                <input type="radio" id="customRadio10" value="No" name="paytax" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio10">No</label>
                                             </div>
                                         </div>
@@ -280,11 +284,12 @@
                                             <div class="avatar-upload">
 
                                                 <div class="avatar-preview">
-                                                    <div id="imagePreview" style="background-image: url(img/tutors/1.jpg);">
+                                                    <div id="imagePreview" style="background-image: url(front/img/tutors/1.jpg);">
                                                     </div>
                                                 </div>
                                                 <div class="avatar-edit">
-                                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                                    <input type="file" id="imageUpload" name="profile_image" accept=".png, .jpg, .jpeg" />
+                                                    <span class="text-danger" id="error_profile_image"></span>
                                                     <label for="imageUpload">upload</label>
                                                 </div>
                                             </div>
@@ -292,7 +297,8 @@
 
                                         <div class="col-md-12 col-lg-12">
                                             <div class="form-check custom-check">
-                                                <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
+                                                <input class="form-check-input terms-condition" type="checkbox" value="1" name="term" id="term">
+                                                <span class="text-danger" id="error_term"></span>
                                                 <label class="form-check-label condition-text" for="defaultCheck1">
                                                     <a class="condition-text" href="terms-and-conditions.html">Terms & conditions </a>
                                                 </label>
@@ -326,26 +332,13 @@
                 <div class="col-lg-10 offset-lg-0 col-md-12 col-12">
                     <div class="owl-carousel owl-theme testimonial-english">
                         <div class="item">
-                            <div class="max-textquote">
-                                <p class="mb-0 we-likep">
-                                    We would like to pass on our feedback and show appreciation for
-                                    Mr Hamalabi from Science Clinic Private Tutoring Ltd who worked
-                                    with our daughter and improved her Chemistry & Physics skills in
-                                    the run up to her GCSE exams He was only with us for a short
-                                    time but the work he did in that short period of time was
-                                    unbelievable. Kayleigh got A* in both subjects.
 
-                                </p>
-                                <p class="float-right writer-text">
-                                    - B.K. Thomas
-                                </p>
-                            </div>
                             <div class="card single-product-item">
                                 <div class="card-body single-product-text card-pdtestimonial">
                                     <div class="content-slideeng">
                                         <div class="slider-feedsec">
                                             <div class="quotes-testi testi1">
-                                                <img src="./img/svg/left-quotes.png" alt="left-quotes">
+                                                <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
                                             </div>
                                             <div class="max-textquote">
                                                 <p class="mb-0 we-likep">
@@ -362,7 +355,7 @@
                                                 </p>
                                             </div>
                                             <div class="quotes-testi testi2">
-                                                <img src="./img/svg/right-quotes.png" alt="right-quotes">
+                                                <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
                                             </div>
                                         </div>
 
@@ -376,7 +369,7 @@
                                     <div class="content-slideeng">
                                         <div class="slider-feedsec">
                                             <div class="quotes-testi testi1">
-                                                <img src="./img/svg/left-quotes.png" alt="left-quotes">
+                                                <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
                                             </div>
                                             <div class="max-textquote">
                                                 <p class="mb-0 we-likep">
@@ -390,7 +383,7 @@
                                                 </p>
                                             </div>
                                             <div class="quotes-testi testi2">
-                                                <img src="./img/svg/right-quotes.png" alt="right-quotes">
+                                                <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
                                             </div>
                                         </div>
 
@@ -404,7 +397,7 @@
                                     <div class="content-slideeng">
                                         <div class="slider-feedsec">
                                             <div class="quotes-testi testi1">
-                                                <img src="./img/svg/left-quotes.png" alt="left-quotes">
+                                                <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
                                             </div>
                                             <div class="max-textquote">
                                                 <p class="mb-0 we-likep">
@@ -419,7 +412,7 @@
                                                 </p>
                                             </div>
                                             <div class="quotes-testi testi2">
-                                                <img src="./img/svg/right-quotes.png" alt="right-quotes">
+                                                <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
                                             </div>
                                         </div>
 
@@ -433,7 +426,7 @@
                                     <div class="content-slideeng">
                                         <div class="slider-feedsec">
                                             <div class="quotes-testi testi1">
-                                                <img src="./img/svg/left-quotes.png" alt="left-quotes">
+                                                <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
                                             </div>
                                             <div class="max-textquote">
                                                 <p class="mb-0 we-likep">
@@ -448,7 +441,7 @@
                                                 </p>
                                             </div>
                                             <div class="quotes-testi testi2">
-                                                <img src="./img/svg/right-quotes.png" alt="right-quotes">
+                                                <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
                                             </div>
                                         </div>
 
@@ -462,7 +455,7 @@
                                     <div class="content-slideeng">
                                         <div class="slider-feedsec">
                                             <div class="quotes-testi testi1">
-                                                <img src="./img/svg/left-quotes.png" alt="left-quotes">
+                                                <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
                                             </div>
                                             <div class="max-textquote">
                                                 <p class="mb-0 we-likep">
@@ -477,7 +470,7 @@
                                                 </p>
                                             </div>
                                             <div class="quotes-testi testi2">
-                                                <img src="./img/svg/right-quotes.png" alt="right-quotes">
+                                                <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
                                             </div>
                                         </div>
 
@@ -495,7 +488,87 @@
     <!-- English Testimonials area Start-->
 
 </div>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+
+
+@endsection
+@section('page-js')
+<script src="{{asset('front/js/bootstrap-select.min.js')}}"></script>
+
+<!-- bootstrap-select. -->
+<script>
+    $('.testimonial-english').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        navText: ["<img src='{{asset('front/img/svg/left-arrow-test.png')}}'>", "<img src='{{asset('front/img/svg/right-arrow-test.png')}}'>"],
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
+        }
+    })
+</script>
+
+<script>
+    $('.extra-fields-customer').click(function() {
+        $('.customer_records').clone().appendTo('.customer_records_dynamic');
+        $('.customer_records_dynamic .customer_records').addClass('single remove');
+        $('.single .extra-fields-customer').remove();
+        $('.single').append('<a href="#" class="remove-field btn-remove-customer"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a>');
+        $('.customer_records_dynamic > .single').attr("class", "remove");
+
+        $('.customer_records_dynamic input').each(function() {
+            var count = 0;
+            var fieldname = $(this).attr("name");
+            $(this).attr('name', fieldname + count);
+            count++;
+        });
+
+    });
+
+    $(document).on('click', '.remove-field', function(e) {
+        $(this).parent('.remove').remove();
+        e.preventDefault();
+    });
+</script>
+
+
+
+
+<script>
+    //header footer script
+    $(document).ready(function() {
+        $("#header").load("header.html");
+    });
+
+    $(document).ready(function() {
+        $("#footer").load("footer.html");
+    });
+</script>
+
+<script>
+    function show1() {
+        document.getElementById('div1').style.display = 'block';
+    }
+
+    function show2() {
+        document.getElementById('div1').style.display = 'none';
+    }
+    //---------------------
+    $(document).ready(function() {
+        document.getElementById("uploadBtn").onchange = function() {
+            document.getElementById("uploadFile").value = this.value;
+        };
+    });
+</script>
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -518,75 +591,105 @@
         return expr.test(email);
 
     }
-    $(document).ready(function() {
-                $("#formdata").submit(function() {
-                        var name = $("#name").val();
-                        var email = $("#email").val();
-                        var mobile = $("#mobile").val();
-                        var address1 = $("#address1").val();
-                        var address2 = $("#address2").val();
-                        var address3 = $("#address3").val();
-                        var city = $("#city").val();
-                        var postcode = $("#postcode").val();
-                        var bio = $("#bio").val();
-                        var temp = 0;
-                        $("#error_name").html('');
-                        $("#error_email").html('');
-                        $("#error_mobile").html('');
-                        $("#error_address1").html('');
-                        $("#error_address2").html('');
-                        $("#error_address3").html('');
-                        $("#error_city").html('');
-                        $("#error_postcode").html('');
-                        $("#error_bio").html('');
 
-                        if (name.trim() == '') {
-                            $('#error_name').html('Please enter name');
+    $("#formdata").submit(function() {
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var mobile = $("#mobile").val();
+        var address1 = $("#address1").val();
+        var address2 = $("#address2").val();
+        var address3 = $("#address3").val();
+        var city = $("#city").val();
+        var postcode = $("#postcode").val();
+        var bio = $("#bio").val();
+        var profile_image = $("#imageUpload").prop('files');
+        // var term = $("#term").val();
+        var temp = 0;
+        $("#error_name").html('');
+        $("#error_email").html('');
+        $("#error_mobile").html('');
+        $("#error_address1").html('');
+        $("#error_address2").html('');
+        $("#error_address3").html('');
+        $("#error_city").html('');
+        $("#error_postcode").html('');
+        $("#error_bio").html('');
+        $("#error_profile_image").html('');
+        // $("#error_term").html('');
+
+        if (name.trim() == '') {
+            $('#error_name').html('Please enter name');
+            temp++;
+        }
+        if (email == '') {
+            $('#error_email').html('Please enter email');
+            temp++;
+        } else {
+            if (!ValidateEmail(email)) {
+                $('#error_email').html("Invalid email");
+                temp++;
+            } else {
+                $.ajax({
+                    async: false,
+                    global: false,
+                    url: "{{route('check.email')}}",
+                    type: "get",
+                    data: {
+                        email: email
+                    },
+                    success: function(response) {
+                        if (response.status == 1) {
+                            $('#error_email').html("Email is already exist");
                             temp++;
-                        }
-                        if (email == '') {
-                            $('#error_email').html('Please enter email');
-                            temp++;
+
                         } else {
-                            if (!ValidateEmail(email)) {
-                                $('#error_email').html("Invalid email");
-                                temp++;
-                            }
+                            $('#error_email').html("");
+
                         }
-                            if (mobile.trim() == '') {
-                                $('#error_mobile').html('Please enter mobile');
-                                temp++;
-                            }
-                            if (address1.trim() == '') {
-                                $('#error_address1').html('Please enter address1');
-                                temp++;
-                            }
-                            if (address2.trim() == '') {
-                                $('#error_address2').html('Please enter address2');
-                                temp++;
-                            }
-                            if (address3.trim() == '') {
-                                $('#error_address3').html('Please enter address3');
-                                temp++;
-                            }
-                            if (city.trim() == '') {
-                                $('#error_city').html('Please enter city');
-                                temp++;
-                            }
-                            if (postcode.trim() == '') {
-                                $('#error_postcode').html('Please enter postcode');
-                                temp++;
-                            }
-                            if (bio.trim() == '') {
-                                $('#error_bio').html('Please enter bio');
-                                temp++;
-                            }
-                            if (temp == 0) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        });
+                    }
                 });
+            }
+        }
+        if (mobile.trim() == '') {
+            $('#error_mobile').html('Please enter mobile');
+            temp++;
+        }
+        if (address1.trim() == '') {
+            $('#error_address1').html('Please enter address1');
+            temp++;
+        }
+        if (address2.trim() == '') {
+            $('#error_address2').html('Please enter address2');
+            temp++;
+        }
+        if (address3.trim() == '') {
+            $('#error_address3').html('Please enter address3');
+            temp++;
+        }
+        if (city.trim() == '') {
+            $('#error_city').html('Please enter city');
+            temp++;
+        }
+        if (postcode.trim() == '') {
+            $('#error_postcode').html('Please enter postcode');
+            temp++;
+        }
+        if (bio.trim() == '') {
+            $('#error_bio').html('Please enter bio');
+            temp++;
+        }
+
+        if (profile_image.length == 0) {
+            $('#error_profile_image').html('Required');
+            temp++
+        }
+
+        if (temp == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 </script>
+
 @endsection
