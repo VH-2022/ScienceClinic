@@ -35,11 +35,13 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="exampleSelectd">Select Subject <span class="text-danger">*</span></label>
-                                            <select class="form-control" name="main_subject" id="exampleSelectd">
+                                            <select class="form-control validate_field main_subject" name="main_subject" id="main_subject" data-msg="Subject">
+                                            <option value="">Select Subject</option>
                                                 @foreach($query as $val)
                                                     <option value="{{$val->id}}" @if(isset($basic_details->parent_id) AND $basic_details->parent_id == $val->id) selected @endif>{{$val->main_title}}</option>
                                                 @endforeach
                                             </select>
+                                            <span class="form-text error main_subject_error"></span>
                                         </div>
                                     </div>
                                 </div>

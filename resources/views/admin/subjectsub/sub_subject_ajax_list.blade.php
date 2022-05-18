@@ -33,7 +33,7 @@
                 </td>
                 <td>
                     <a href="{{ url('sub-subject-master') }}/{{$live_in->id}}/edit"><i class="fa fa-edit"></i></a>
-                    <a></a>
+                    <a href="javascript:void(0)" class="delete-category" data-id="{{ $live_in->id}}"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
