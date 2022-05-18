@@ -40,8 +40,16 @@ class SubjectHelper
         
         return $update;
     }
-    public static function getListwithPaginate(){
-        $query = SubjectMaster::whereNull('sc_subject_master.parent_id')->paginate(50);
+    public static function getListwithPaginate($title,$created_date){
+        $query = SubjectMaster::whereNull('sc_subject_master.parent_id');
+                if($title !=""){
+                    $query->where('main_title','LIKE','%'.$title.'%');
+                }
+                if($created_date !=""){
+                    $explode = explode('-',$created_date);
+                    $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
+                }
+        $query = $query->paginate(50);
         return $query;
     }
     public static function getDetailsByid($id){

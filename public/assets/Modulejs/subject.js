@@ -343,7 +343,7 @@
                 }
             });
         });
-      
+        
         
         $('body').on('click', '#edit_subject', function (e) {
             e.preventDefault();
@@ -450,6 +450,14 @@
         }
 
     });
+    $('.search_id').click(function(e){
+        AjaxList(1);
+    })
+    $('.clear').click(function(e){
+        $('#title').val("");
+        $('#created_date').val("");
+        AjaxList(1);
+    })
     });
 
     function validateLink(link){
@@ -458,9 +466,10 @@
     }
 
     function AjaxList(page){
+        $('.ki-close').click();
         var title = $('#title').val();
-        var created_date = $('#kt_daterangepicker_6').val();
-        $('.btn-close').click();
+        var created_date = $('#created_date').val();
+        
         $.ajax({
             type: "GET",
             url: _AJAX_LIST,

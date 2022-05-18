@@ -26,7 +26,9 @@ class SubjectController extends Controller
     }
     public function ajaxList(Request $request){
         $data['page'] = $request->input('page');
-        $data['query'] = SubjectHelper::getListwithPaginate();
+        $created_date = $request->input('created_date');
+        $title = $request->input('title');
+        $data['query'] = SubjectHelper::getListwithPaginate($title,$created_date);
         return view('admin.subject.subject_ajax_list',$data);
      }
     /**

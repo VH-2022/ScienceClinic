@@ -1,8 +1,13 @@
 @extends('layouts.master')
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
-
-
+<link href="{{asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css">
+<style>
+.daterangepicker{
+	z-index: 999999 !important;
+}
+    </style>
 
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
@@ -79,11 +84,20 @@
     <div class="offcanvas-content">
         <!--begin::Wrapper-->
         <div class="form-group row">
-						<label class="col-4 col-form-label">Search Text</label>
-						<div class="col-8">
-							 <input class="form-control" placeHolder="Enter Search Text" type="text" name="name" id="example-text-input">
-						</div>
-					</div>
+            <label class="col-4 col-form-label">Search Text</label>
+            <div class="col-8">
+                    <input class="form-control" placeHolder="Enter Search Text" type="text" name="name" id="title">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Due Date</label>
+            <div class="col-8">
+            <div class="input-group" id="kt_daterangepicker_3">
+                    <input type="text" name="created_date" id="created_date"  class="form-control" placeholder="Due Date">
+            
+                </div>
+            </div>
+        </div>
         <!--end::Wrapper-->
         <!--begin::Purchase-->
         <div class="offcanvas-footer" kt-hidden-height="38" style="">
@@ -107,10 +121,36 @@
 <script src="{{asset('assets/Modulejs/subject.js')}}"></script>
 <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
+<script src="{{asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
 <script>
     var _AJAX_LIST = "{{url('subject-master-ajax-list')}}";
     var _DELETE_URL = '{{ url("subject-master")}}';
     var _CSRF_TOKEN = '{{ csrf_token() }}';
+    $(function(){
+	
+
+	var start = moment().subtract(29, 'days');
+        var end = moment();
+
+		$('#kt_daterangepicker_3').daterangepicker({
+            buttonClasses: ' btn',
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-secondary',
+
+            startDate: start,
+            endDate: end,
+            ranges: {
+               'Today': [moment(), moment()],
+               'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+               'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+               'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+               'This Month': [moment().startOf('month'), moment().endOf('month')],
+               'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, function(start, end, label) {
+            $('#kt_daterangepicker_3 .form-control').val( start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+        });
+})
 </script>
 
 @endsection
