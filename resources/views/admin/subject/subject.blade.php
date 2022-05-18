@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
+
 <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css?v=7.2.9') }}" rel="stylesheet" type="text/css" />
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->

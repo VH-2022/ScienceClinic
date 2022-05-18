@@ -23,10 +23,27 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    protected $guarded = ["id"];
+    protected $table = 'users';
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'profile_photo',
+        'status',
+        'type',
         'email',
         'password',
+        'mobile_id',
+        'created_by',
+        'updated_by',
+        'deleted_by ',
+        'deleted_at',
+        'address1',
+        'address2',
+        'address3 ',
+        'city',
+        'postcode',
+        'bio',
     ];
 
     /**
@@ -58,4 +75,5 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    
 }

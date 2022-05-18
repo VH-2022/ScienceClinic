@@ -41,7 +41,7 @@ class SubjectHelper
         return $update;
     }
     public static function getListwithPaginate(){
-        $query = SubjectMaster::whereNotNull('id')->whereNull('sc_subject_master.parent_id')->paginate(10);
+        $query = SubjectMaster::whereNotNull('id')->whereNull('sc_subject_master.parent_id')->paginate(1);
         return $query;
     }
     public static function getDetailsByid($id){

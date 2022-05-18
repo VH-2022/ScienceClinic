@@ -67,4 +67,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('/', 'HomeController@index');
     $frontend->get('/subject/{id}', 'UserSubjectController@index');
     $frontend->get('/sub-subject/{id}', 'UserSubjectController@subSubjectDetails');
+    $frontend->resource('become-tutor', "BecomeTutorController");
+
 });
