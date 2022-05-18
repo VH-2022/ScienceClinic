@@ -29,8 +29,8 @@
 
   <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('front/css/bootstrap-select.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('front/css/bootstrap-select.min.css')}}">
 
   <!-- Plugins CSS
 		============================================ -->
@@ -88,39 +88,55 @@
   @yield('content')
   @include('frontend.elements.footer_front')
 
+
+  <script src="{{ asset('front/js/vendor/jquery-1.12.4.min.js')}}"></script>
+
+  <!-- popper JS
+		============================================ -->
+  <script src="{{ asset('front/js/popper.min.js')}}"></script>
+
+  <!-- bootstrap JS
+		============================================ -->
+  <script src="{{ asset('front/js/bootstrap.min.js')}}"></script>
+
+  <!-- AJax Mail JS
+		============================================ -->
+  <script src="{{ asset('front/js/ajax-mail.js')}}"></script>
+
+  <!-- plugins JS
+		============================================ -->
+  <script src="{{ asset('front/js/plugins.js')}}"></script>
+
+  <!-- StyleSwitch JS
+		============================================ -->
+  <script src="{{ asset('front/js/styleswitch.js')}}"></script>
+
+  <!-- owl carousel Js
+		============================================ -->
+  <script src="{{ asset('front/js/owl.carousel.js')}}"></script>
+
+  <!-- main JS
+		============================================ -->
+  <script src="{{ asset('front/js/main.js')}}"></script>
+
+  <script type='text/javascript' src='https://d3a1eo0ozlzntn.cloudfront.net/assets/js/frontend-v2/widgets-v2.24a197bed6.v2.js' defer></script>
+
+
+  <script src="{{ asset('front/js/bootstrap-select.min.js')}}"></script>
+
+  <script>
+    $(document).ready(function() {
+      $("#overlays").click(function() {
+        $(".mobile-show.active").removeClass("active");
+      });
+    });
+
+    $('.header-search').on('click', function() {
+      $('.search').toggleClass('open');
+      return false;
+    });
+  </script>
+  @yield('page-js')
 </body>
-<script src="{{ asset('front/js/vendor/jquery-1.12.4.min.js')}}"></script>
-
-<!-- popper JS
-		============================================ -->
-<script src="{{ asset('front/js/popper.min.js')}}"></script>
-
-<!-- bootstrap JS
-		============================================ -->
-<script src="{{ asset('front/js/bootstrap.min.js')}}"></script>
-
-<!-- AJax Mail JS
-		============================================ -->
-<script src="{{ asset('front/js/ajax-mail.js')}}"></script>
-
-<!-- plugins JS
-		============================================ -->
-<script src="{{ asset('front/js/plugins.js')}}"></script>
-
-<!-- StyleSwitch JS
-		============================================ -->
-<script src="{{ asset('front/js/styleswitch.js')}}"></script>
-
-<!-- owl carousel Js
-		============================================ -->
-<script src="{{ asset('front/js/owl.carousel.js')}}"></script>
-
-<!-- main JS
-		============================================ -->
-<script src="{{ asset('front/js/main.js')}}"></script>
-
-<script type='text/javascript' src='https://d3a1eo0ozlzntn.cloudfront.net/assets/js/frontend-v2/widgets-v2.24a197bed6.v2.js' defer></script>
-
-
 
 </html>
