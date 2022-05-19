@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Traits\ImageUploadTrait;
 use App\Helpers\TutorDetailHelper;
 use App\Helpers\UserHelper;
+use App\Helpers\SubjectHelper;
+use App\Helpers\TutorLevelHelper;
+use App\Helpers\TutorUniversityDetailHelper;
+use App\Helpers\TutorSubjectDetailHelper;
+use App\Helpers\TutorLevelDetailHelper;
 class BecomeTutorController extends Controller
 {
     public $successStatus = 200;
@@ -27,7 +32,9 @@ class BecomeTutorController extends Controller
      */
     public function index()
     {
-        return view('frontend.become_tutor.create');
+        $data['subject_list'] = SubjectHelper::getAllSubjectList();
+        $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
+        return view('frontend.become_tutor.create',$data);
     }
 
     /**
@@ -64,10 +71,15 @@ class BecomeTutorController extends Controller
             'exprienceinuk' => 'required',
             'tutorexperienceinuk' => 'required',
             'paytax' => 'required',
-
+            'subject' => 'required',
+            'level' => 'required',
+            'university' => 'required',
+            'qualification' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/become-tutor")
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
             $image = '';
             if ($request->file('profile_image') != '') {
@@ -100,7 +112,7 @@ class BecomeTutorController extends Controller
                     }
                 }
                 $tutorDetails = array(
-                    'tutor_id' => $id,
+                    'tutor_id' => $data,
                     'dbs_disclosure' => $request->dbsdisclosure,
                     'experience_in_uk' => $request->exprienceinuk,
                     'total_experience_in_uk' => $request->tutorexperienceinuk,
@@ -108,6 +120,54 @@ class BecomeTutorController extends Controller
                     'document'=> $document
                 );
                 TutorDetailHelper::save($tutorDetails);
+
+                $university = $request->input('university');
+                if(!empty($university)){
+                    foreach($university as $key=>$val){
+                        $document_image ='';
+                        if ($request->file('document_certi') != '') {
+                            $document_image = $this->uploadImageWithCompress($request->file('document_certi')[$key], 'uploads/user/certificate');
+                        }
+                        $tutorUniversityDetails = array(
+                            'tutor_id' => $data,
+                            'university_name' => $val,
+                            'qualification' =>$request->input('qualification')[$key],
+                            'document_image'=>$document_image
+                        );
+
+                        TutorUniversityDetailHelper::save($tutorUniversityDetails);
+                    }
+                }
+
+
+                $subject = $request->input('subject');
+                if(!empty($subject)){
+                    foreach($subject as $key=>$vals){
+                       
+                        $tutorSubjectDetails = array(
+                            'tutor_id' => $data,
+                            'subject_id' => $vals,
+                           
+                        );
+
+                        TutorSubjectDetailHelper::save($tutorSubjectDetails);
+                    }
+                }
+                
+                $level = $request->input('level');
+                if(!empty($level)){
+                    foreach($level as $key=>$vals){
+                       
+                        $tutorLevelDetails = array(
+                            'tutor_id' => $data,
+                            'level_id' => $vals,
+                           
+                        );
+
+                        TutorLevelDetailHelper::save($tutorLevelDetails);
+                    }
+                }
+
                 Session::flash('success', trans('messages.addedSuccessfully'));
                 return redirect('/become-tutor');
             } else {

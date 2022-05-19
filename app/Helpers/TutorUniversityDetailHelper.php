@@ -3,10 +3,10 @@
 namespace App\Helpers;
 
 use URL;
-use App\Models\TutorLevel;
-use DB;
+use App\Models\TutorUniversityDetail;
 
-class TutorLevelHelper
+
+class TutorUniversityDetailHelper
 {
     public static function save($data)
     {
@@ -15,7 +15,7 @@ class TutorLevelHelper
         if ($userId) {
             $data['created_by'] = $userId['id'];
         }
-        $insert = new TutorLevel($data);
+        $insert = new TutorUniversityDetail($data);
         $insert->save();
         $insertId = $insert->id;
         return $insertId;
@@ -28,7 +28,7 @@ class TutorLevelHelper
         if ($userId) {
             $data['updated_by'] = $userId['id'];
         }
-        $update = TutorLevel::where($where)->update($data);
+        $update = TutorUniversityDetail::where($where)->update($data);
         return $update;
     }
     public static function SoftDelete($data, $where)
@@ -36,19 +36,9 @@ class TutorLevelHelper
         $userId = Auth()->user();
         $data['deleted_at'] = date('Y-m-d H:i:s');
         $data['deleted_by'] = $userId['id'];
-        $update = TutorLevel::where($where)->update($data);
+        $update = TutorUniversityDetail::where($where)->update($data);
+
         return $update;
     }
-    public static function getListwithPaginate(){
-        $query = TutorLevel::whereNull('deleted_at')->paginate(10);
-        return $query;
-    }
-    public static function getDetailsById($id){
-        $query = TutorLevel::where('id',$id)->first();
-        return $query;
-    }
-    public static function getAllTutorList(){
-        $query = TutorLevel::whereNull('deleted_at')->orderBy('title','asc')->get();
-        return $query;
-    }
+   
 }
