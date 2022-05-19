@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TutorLevel;
 use App\Helpers\TutorLevelHelper;
-use Validator;
-use Session;
+use Illuminate\Support\Facades\Validator;
 
 class TutorLevelController extends Controller
 {
@@ -68,7 +67,7 @@ class TutorLevelController extends Controller
    public function update(Request $request, $id)
    {
      
-    $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
               'title' => 'required',
            ]);
            if ($validator->fails()) {
