@@ -51,8 +51,13 @@ class TutorMasterController extends Controller
     }
     public function show($id)
     {
-            $data['totuer']=TutorMasterHelper::getDetailsById($id);
+        $data['tutor']=TutorMasterHelper::getDetailsById($id);
+        if(isset($data['tutor']->id)){
             return view('admin.tutor.tutor_view',$data);
+        }else{
+            abort(404);
+        }
+        
     }
     public function getUniversityDetails(Request $request){
         $data['page'] = $request->page;
@@ -76,6 +81,12 @@ class TutorMasterController extends Controller
     }
 
     public function changeStatus(Request $request){
-        return UserHelper::updateStatus($request->id,$request->status);
+       $query = UserHelper::updateStatus($request->id,$request->status);
+       if($query){
+        return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array('status'=>$request->status)], 200);
+       }else{
+        return response()->json(['error_msg' =>trans('messages.error'), 'data' => array()], 500);
+       }
+
     }
 }
