@@ -56,6 +56,7 @@ class TutorMasterController extends Controller
     }
     public function getUniversityDetails(Request $request){
         $data['page'] = $request->page;
+
         $tutor_id = $request->tutor_id;
         $data['query'] = TutorUniversityDetailHelper::getListwithPaginate($tutor_id);
         return view('admin.tutor.tutor_university_list',$data);
@@ -70,6 +71,7 @@ class TutorMasterController extends Controller
         $data['page'] = $request->page;
         $tutor_id = $request->tutor_id;
         $data['query'] = TutorLevelDetailHelper::getListwithPaginate($tutor_id);
+    
         return view('admin.tutor.tutor_level_list',$data);
     }
 

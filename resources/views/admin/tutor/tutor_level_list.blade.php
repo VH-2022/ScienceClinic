@@ -3,8 +3,8 @@
         <tr>
         <tr>
             <th>ID</th>
-            <th>Tutor ID</th>
-            <th>Level ID</th>
+          
+            <th>Level Name</th>
             <th>Created Date</th>
         </tr>
     </thead>
@@ -16,8 +16,8 @@
             @foreach ($query as $val)
                 <tr>
                     <td>{{ $i++ }}</td>
-                    <td>{{ $val->tutor_id }}</td>
-                    <td>{{ $val->level_id }}</td>
+                    
+                    <td>{{ $val->tutorLevelRelation->title }}</td>
                     <td>
                         @if ($val->created_at != '')
                             {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}

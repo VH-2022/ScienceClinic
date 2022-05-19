@@ -151,14 +151,14 @@
             });
             return false;
         }
-        ajaxList(1);
+        ajaxList1(1); 
         $('body').on('click', '.pagination a', function(event) {
             $('li').removeClass('active');
             $(this).parent('li').addClass('active');
             event.preventDefault();
             var myurl = $(this).attr('href');
             var page = $(this).attr('href').split('page=')[1];
-            ajaxList(page);
+            ajaxList1(page);
         });
         $('.search_id').click(function(e) {
             ajaxList1(1);

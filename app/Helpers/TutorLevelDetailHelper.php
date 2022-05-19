@@ -39,7 +39,16 @@ class TutorLevelDetailHelper
         return $update;
     }
     public static function getListwithPaginate($id){
-        $query = TutorLevelDetail::whereNull('deleted_at')->where('tutor_id',$id)->paginate(10);
+        $query = TutorLevelDetail::with('tutorLevelRelation')->where('tutor_id',$id)->paginate(10);
+        
+        return $query;
+    }
+    public static function getSearchUserId($search)
+    {
+
+        $query = TutorLevelDetail::select('tutor_id')->whereHas('tutorLevelRelation', function ($q) use ($search) {
+            $q->where('title', 'LIKE', '%' . $search . '%');
+        })->get();
         return $query;
     }
 }

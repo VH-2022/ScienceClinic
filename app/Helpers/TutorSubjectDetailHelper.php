@@ -43,7 +43,17 @@ class TutorSubjectDetailHelper
    
       
     public static function getListwithPaginate($id){
-        $query = TutorSubjectDetail::whereNull('deleted_at')->where('tutor_id',$id)->paginate(10);
+        $query = TutorSubjectDetail::select('sb.main_title as subject_name')
+                ->leftjoin('sc_subject_master as sb',function($join){
+                    $join->on('sb.id','=','sc_tutor_subject_details.subject_id');
+                })->whereNull('sc_tutor_subject_details.deleted_at')->where('sc_tutor_subject_details.tutor_id',$id)->paginate(10);
+        return $query;
+    }
+    public static function getSearchUserId($search){
+       
+        $query = TutorSubjectDetail::select('tutor_id')->whereHas('subjectMasters',function($q) use ($search) {
+            $q->where('main_title','LIKE','%'.$search.'%');
+        })->get();
         return $query;
     }
 }

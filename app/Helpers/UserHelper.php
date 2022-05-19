@@ -54,4 +54,9 @@ class UserHelper
         $query  = User::where('id', $id)->update($data);
         return $query;
     }
+
+    public static function getTutorListLimitFive($userId){
+        $query =User::where('status', '1')->where('type', 2)->whereIn('id', $userId)->orderBy('id','desc')->limit(5)->get();
+        return $query;
+    }
 }

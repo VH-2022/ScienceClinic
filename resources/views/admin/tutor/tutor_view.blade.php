@@ -7,9 +7,9 @@
             <div class="d-flex flex-row">
                 <!--begin::Content-->
                 <div class="flex-row-fluid" id="personam_id">
-                    <div class="card card-custom card-stretch">
+                    
                         <!--begin::Header-->
-                        <div class="card card-custom">
+                        <div class="card card-custom gutter-b">
                             <div class="card-header">
                                 <div class="card-title">
                                     <span class="nav-profile-name">Tutor Detail</span>
@@ -77,45 +77,27 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--end::Content-->
-                </div>
-                <!--end::Subject List-->
-            </div>
-            <!--end::Container-->
-        </div>
-        <!--end::Card-->
-    </div>
-    <!--end::Container-->
-    <div class="example mb-10"></div>
-    <div class="d-flex flex-column-fluid">
-        <!--begin::Container-->
-        <div class="container-fluid">
-            <!--begin::Subject List-->
-            <div class="d-flex flex-row">
-                <!--begin::Content-->
-                <div class="flex-row-fluid" id="personam_id">
-                    <div class="card card-custom card-stretch">
+                   
                         <!--begin::Header-->
                         <div class="card card-custom">
                             <div class="card-header">
                                 <div class="card-title tutor">
                                     <ul class="nav nav-pills nav-fill">
                                         <li class="nav-item">
-                                            <a class="nav-link active" onclick="getUniversityDetails()" href="#university"
+                                            <a class="nav-link active" onclick="getUniversityDetails(1)" href="#university"
                                                 data-toggle="tab">
                                                 <span class="nav-text">University</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#subject" onclick="getSubjectDetails()"
+                                            <a class="nav-link" href="#subject" onclick="getSubjectDetails(1)"
                                                 data-toggle="tab" aria-controls="Subject">
                                                 <span class="nav-text">Subject Tutor</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#level" data-toggle="tab"
-                                                onclick="getLevelDetails()" aria-controls="Level">
+                                                onclick="getLevelDetails(1)" aria-controls="Level">
                                                 <span class="nav-text">Level Tutor</span>
                                             </a>
                                         </li>
@@ -144,11 +126,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                   
+                   
                 </div>
+                <!--end::Subject List-->
             </div>
+            <!--end::Container-->
         </div>
+        <!--end::Card-->
     </div>
+    <!--end::Container-->
+    
 @endsection
 @section('page-js')
     <script>
@@ -166,7 +154,7 @@
                 }
             })
         }
-        getUniversityDetails();
+        getUniversityDetails(1);
 
         function getSubjectDetails(page) {
             $.ajax({
@@ -182,7 +170,7 @@
                 }
             })
         }
-        getSubjectDetails();
+        getSubjectDetails(1);
 
         function getLevelDetails(page) {
             $.ajax({
@@ -198,7 +186,7 @@
                 }
             })
         }
-        getLevelDetails();
+        getLevelDetails(1);
 
         
     </script>

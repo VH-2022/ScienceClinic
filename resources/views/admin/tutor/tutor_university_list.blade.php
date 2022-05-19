@@ -3,7 +3,7 @@
         <tr>
         <tr>
             <th>ID</th>
-            <th>Tutor Id</th>
+            
             <th>University Name </th>
             <th>Qualification </th>
             <th>Document Image </th>
