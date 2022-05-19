@@ -51,7 +51,7 @@ class TutorLevelController extends Controller
          
          return response()->json(['error_msg' =>trans('messages.addedSuccessfully'), 'data' => array()], 200);
          }else{
-            return response()->json(['error_msg' =>trans('messages.error'), 'data' => array()], 200);
+            return response()->json(['error_msg' =>trans('messages.error'), 'data' => array()], 500);
       }
    }
     public function edit($id)
