@@ -43,7 +43,7 @@ class TutorSubjectDetailHelper
    
       
     public static function getListwithPaginate($id){
-        $query = TutorSubjectDetail::select('sb.main_title as subject_name')
+        $query = TutorSubjectDetail::select('sb.main_title as subject_name','sc_tutor_subject_details.created_at')
                 ->leftjoin('sc_subject_master as sb',function($join){
                     $join->on('sb.id','=','sc_tutor_subject_details.subject_id');
                 })->whereNull('sc_tutor_subject_details.deleted_at')->where('sc_tutor_subject_details.tutor_id',$id)->paginate(10);
