@@ -282,7 +282,7 @@
                 $(".details-section").toggle();
                 if (json.length != 0) {
                     $.each(json, function(i, v) {
-                        tutor_res += '<div class="col-md-6 col-lg-3 tutor-card">' + '<a class = "tutor-content" href = "tutors-details.html" >' + '<div class = "single-product-item">' + '<div class = "single-product-image">' + '<img src = "' + v.profile_photo + '">' + '</div> <div class = "single-product-text"> ' + '<h4 class = "testing-user" >' + v.first_name + '</h4></div></div></a></div>';
+                        tutor_res += '<div class="col-md-6 col-lg-3 tutor-card">' + '<a class = "tutor-content" href = "'+v.url+'" >' + '<div class = "single-product-item">' + '<div class = "single-product-image">' + '<img src = "' + v.profile_photo + '">' + '</div> <div class = "single-product-text"> ' + '<h4 class = "testing-user" >' + v.first_name + '</h4></div></div></a></div>';
                     })
                 }
                 $('#res_tutor_id').html("");
