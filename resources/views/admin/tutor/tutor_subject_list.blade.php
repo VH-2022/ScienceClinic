@@ -11,6 +11,7 @@
      <tbody>
          @php
              $i = $page * 10 - 9;
+            
          @endphp
          @if (count($query) > 0)
              @foreach ($query as $val)
