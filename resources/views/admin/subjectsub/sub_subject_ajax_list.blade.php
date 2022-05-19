@@ -24,7 +24,7 @@
                     {{ $live_in->main_title}}
                 </td>
                 <td>
-                    {{ $live_in->subjectmaster->main_title}}
+                    {{ $live_in->mtitle}}
                 </td>
                 <td>
                  @if($live_in->created_at !='')
