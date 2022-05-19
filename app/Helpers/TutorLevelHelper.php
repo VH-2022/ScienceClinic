@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use URL;
 use App\Models\TutorLevel;
-use DB;
 
 class TutorLevelHelper
 {
