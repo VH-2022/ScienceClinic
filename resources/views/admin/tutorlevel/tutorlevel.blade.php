@@ -145,9 +145,9 @@
                             <label for="name" class="col-md-4 col-form-label">Name<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-12">
-                                <input type="text" name="title" class="form-control" value="" id="title"
-                                    placeholder="Enter Name" onkeypress='return isName(event) ' maxlength='50'>
-                                <span class="title error_msg" id="titleerror"></span>
+                                <input type="text" name="title" class="form-control" value="" id="title_add"
+                                    placeholder="Enter Name">
+                                <span class="title error_msg error" id="titleerror"></span>
                             </div>
                         </div>
                     </div>
@@ -180,8 +180,8 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-12">
                                 <input type="text" name="title" class="form-control" value="" id="title-edit"
-                                    placeholder="Enter Name" onkeypress='return isName(event) ' maxlength='50'>
-                                <span class="title error_msg" id="title_error"></span>
+                                    placeholder="Enter Name" >
+                                <span class="title error_msg error" id="title_error"></span>
                             </div>
                         </div>
                     </div>
@@ -235,13 +235,14 @@
 
 
         $('#btn-save').click(function(e) {
-            var title = $('#title').val();
+            var title = $('#title_add').val();
             var cnt = 0;
             $('#titleerror').html("");
             if (title.trim() == '') {
                 $('#titleerror').html("Name is required");
                 cnt = 1;
             }
+            console.log(cnt);
             if (cnt == 1) {
                 return false;
             } else {
@@ -317,7 +318,7 @@
             event.preventDefault(); // prevent form submit
             $.confirm({
                 title: 'Delete!',
-                content: '"Are you sure Delete?"',
+                content: 'Are you sure Delete?',
                 buttons: {
                     confirm: function() {
                         $.ajax({
