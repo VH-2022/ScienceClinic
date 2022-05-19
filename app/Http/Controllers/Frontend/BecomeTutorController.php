@@ -99,6 +99,7 @@ class BecomeTutorController extends Controller
                 'bio' => $request->bio,
                 'profile_photo' => $image,
                 'type'=>2,
+                
             );
             
             $data = UserHelper::save($data_array);
