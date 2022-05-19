@@ -99,32 +99,52 @@
                         <!--begin::Header-->
                         <div class="card card-custom">
                             <div class="card-header">
-                                <div class="card-title">
+                                <div class="card-title tutor">
                                     <ul class="nav nav-pills nav-fill">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="university" data-toggle="tab" href="#">
+                                            <a class="nav-link active" onclick="getUniversityDetails()" href="#university"
+                                                data-toggle="tab">
                                                 <span class="nav-text">University</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="subject" data-toggle="tab" href="#" aria-controls="Subject">
+                                            <a class="nav-link" href="#subject" onclick="getSubjectDetails()"
+                                                data-toggle="tab" aria-controls="Subject">
                                                 <span class="nav-text">Subject Tutor</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="level" data-toggle="tab" href="#" aria-controls="Level">
+                                            <a class="nav-link" href="#level" data-toggle="tab"
+                                                onclick="getLevelDetails()" aria-controls="Level">
                                                 <span class="nav-text">Level Tutor</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="other" data-toggle="tab" href="#" aria-controls="Other">
+                                            <a class="nav-link" href="#other" data-toggle="tab" aria-controls="Other">
                                                 <span class="nav-text">Other</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-body">
+
+                            <div>
+                                <div class="tab-content" id="tabs">
+                                    <div class="tab-pane active" id="university">
+                                        <span id="responsive_id"></span>
+                                    </div>
+
+                                    <div class="tab-pane" id="subject">
+                                        <span id="responsive_Id"></span>
+                                    </div>
+
+                                    <div class="tab-pane" id="level">
+                                        <span id="responsived_id"></span>
+                                    </div>
+
+                                    <div class="tab-pane" id="other">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,4 +152,64 @@
             </div>
         </div>
     </div>
+@endsection
+@section('page-js')
+    <script>
+        $(function() {
+            $("#tutor").tabs({
+                active: false
+            });
+        });
+
+        function getUniversityDetails(page) {
+            var tutor_id = $('#tutor_id').val();
+            var university_name = $('#university_name').val();
+            var qualification = $('#qualification').val();
+            
+            var created_date = $('#created_date').val();
+            $.ajax({
+                type: "GET",
+                url:  "{{ route('tutor-university') }}",
+                data: {
+                    'tutor_id': '{{$totuer->id}}',
+                    'page': page,
+                },
+                success: function(res) {
+                    $('#responsive_id').html("");
+                    $('#responsive_id').html(res);
+                }
+            })
+        }
+        getUniversityDetails();
+
+        function getSubjectDetails() {
+            $.ajax({
+                type: "GET",
+                url:  "{{ route('tutor-subject') }}",
+                data: {
+                    'tutor_id': '{{$totuer->id}}',
+                },
+                success: function(res) {
+                    $('#responsive_Id').html("");
+                    $('#responsive_Id').html(res);
+                }
+            })
+        }
+        getSubjectDetails();
+
+        function getLevelDetails() {
+            $.ajax({
+                type: "GET",
+                url:  "{{ route('tutor-level-list') }}",
+                data: {
+                    'tutor_id': '{{$totuer->id}}',
+                },
+                success: function(res) {
+                    $('#responsived_id').html("");
+                    $('#responsived_id').html(res);
+                }
+            })
+        }
+        getLevelDetails();
+    </script>
 @endsection

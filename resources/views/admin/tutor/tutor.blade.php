@@ -3,8 +3,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
     <link href="{{ asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}"
         rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.css') }}" rel="stylesheet"
-        type="text/css">
     <style>
         .daterangepicker {
             z-index: 999999 !important;
@@ -123,7 +121,6 @@
     </div>
 @endsection
 @section('page-js')
-    <script src="{{ asset('assets/Modulejs/subject.js') }}"></script>
     <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
     <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
@@ -153,6 +150,14 @@
             })
         }
         ajaxList(1);
+        $('body').on('click', '.pagination a', function (event) {
+            $('li').removeClass('active');
+            $(this).parent('li').addClass('active');
+            event.preventDefault();
+            var myurl = $(this).attr('href');
+            var page = $(this).attr('href').split('page=')[1];
+            ajaxList(page);
+        });
         $('.search_id').click(function(e) {
             ajaxList(1);
         })

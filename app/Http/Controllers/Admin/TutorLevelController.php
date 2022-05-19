@@ -23,8 +23,8 @@ class TutorLevelController extends Controller
        return view('admin.tutorlevel.tutorlevel');
     }
     public function ajaxList(Request $request){
-        $data['page'] = $request->input('page'); 
-        $title = $request->input('title');
+        $data['page'] = $request->page; 
+        $title = $request->title;
         $created_date = $request->created_date;
         $data['query'] = TutorLevelHelper::getListwithPaginate($title,$created_date);
         return view('admin.tutorlevel.tutor_level_ajax',$data);
@@ -45,7 +45,7 @@ class TutorLevelController extends Controller
              return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 'inactive', 'data' => array()], 400);
          }
          $data_array = array(
-            'title' => $request->input('title')
+            'title' => $request->title
          );
          $update = TutorLevelHelper::save($data_array);
             if($update){        
@@ -55,8 +55,7 @@ class TutorLevelController extends Controller
             return response()->json(['error_msg' =>trans('messages.error'), 'data' => array()], 200);
       }
    }
-
-   public function edit($id)
+    public function edit($id)
    {
        $auth = auth()->user();
        if(empty($auth)){
@@ -75,14 +74,13 @@ class TutorLevelController extends Controller
                return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 'inactive', 'data' => array()], 400);
            }
            $data_array = array(
-              'title' => $request->input('title')
+              'title' => $request->title
            );
            $update = TutorLevelHelper::update($data_array,array('id'=>$request->input('level_id')));
            $query=TutorLevelHelper::getDetailsById($request->input('level_id'));
            return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array($query)], 200);
       }
-
-      public function destroy($id)
+    public function destroy($id)
       {
       $update = TutorLevelHelper::SoftDelete(array(),array('id'=>$id));
       if ($update) {
