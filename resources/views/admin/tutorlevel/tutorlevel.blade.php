@@ -87,7 +87,7 @@
     </div>
     <div id="kt_demo_panel" class="offcanvas offcanvas-right p-10 ">
         <!--begin::Header-->
-        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="47" style="">
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7" kt-hidden-height="47" >
             <h4 class="font-weight-bold m-0">Search</h4>
             <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_demo_panel_close">
                 <i class="ki ki-close icon-xs text-muted"></i>
@@ -114,7 +114,7 @@
             </div>
             <!--end::Wrapper-->
             <!--begin::Purchase-->
-            <div class="offcanvas-footer" kt-hidden-height="38" style="">
+            <div class="offcanvas-footer" kt-hidden-height="38">
                 <div class="row">
                     <div class="col-6">
                         <a class="btn btn-block btn-danger btn-shadow font-weight-bolder text-uppercase search_id">Apply</a>
@@ -197,7 +197,7 @@
     </div>
 @endsection
 @section('page-js')
-    <script src="{{ asset('assets/Modulejs/subject.js') }}"></script>
+   
     <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
     <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>

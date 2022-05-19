@@ -45,7 +45,7 @@ class UserHelper
     }
     public static function checkDuplicateEmail($email)
     {
-        $query  = User::where('status', '1')->where('email', $email)->count();
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',2)->count();
         return $query;
     }
 }

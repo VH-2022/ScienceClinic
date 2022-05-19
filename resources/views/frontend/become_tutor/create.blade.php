@@ -633,6 +633,7 @@
             $('#error_name').html('Please enter name');
             temp++;
         }
+        
         if (email == '') {
             $('#error_email').html('Please enter email');
             temp++;
@@ -656,12 +657,12 @@
 
                         } else {
                             $('#error_email').html("");
-
-                        }
+                                                 }
                     }
                 });
             }
         }
+    
         if (mobile.trim() == '') {
             $('#error_mobile').html('Please enter mobile');
             temp++;
@@ -752,6 +753,7 @@
                 }
             }
         })
+        
         if(disclose ==false){
             $('#dbsdisclosure_error').html('Please select DBS disclosure');
             temp++
@@ -777,6 +779,7 @@
             $('#paytax_error').html('Please select tutor and pay your own tax');
             temp++
         }
+        console.log(disclose+"1"+exprienceinuk+"2"+tutorexperienceinuk+"3"+paytax);
         if (temp == 0) {
             return true;
         } else {

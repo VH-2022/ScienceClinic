@@ -98,6 +98,7 @@ class BecomeTutorController extends Controller
                 'postcode' => $request->postcode,
                 'bio' => $request->bio,
                 'profile_photo' => $image,
+                'type'=>2,
             );
             
             $data = UserHelper::save($data_array);
@@ -226,8 +227,9 @@ class BecomeTutorController extends Controller
     {
         // dd($request->all());
         $email = $request->email;
-        $data =  User::where('email', $email)->where('deleted_at', NULL)->first();
-        if (isset($data)) {
+        $data =  UserHelper::checkDuplicateEmail($email);
+      
+        if ($data !=0) {
             return response()->json(['status' => 1]);
         } else {
             return response()->json(['status' => 0]);

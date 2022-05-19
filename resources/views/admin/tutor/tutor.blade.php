@@ -123,14 +123,14 @@
     </div>
 @endsection
 @section('page-js')
-    <script src="{{ asset('assets/Modulejs/subject.js') }}"></script>
+  
     <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
     <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
         var _AJAX_LIST = "{{ route('tutor-master-ajax') }}";
 
-        function ajaxList(page) {
+        function ajaxList1(page) {
             var first_name = $('#first_name').val();
             var email = $('#email').val();
             var mobile_id = $('#mobile_id').val();
@@ -150,18 +150,19 @@
                     $('#response_id').html("");
                     $('#response_id').html(res);
                 }
-            })
+            });
+            return false;
         }
-        ajaxList(1);
+        ajaxList1(1);
         $('.search_id').click(function(e) {
-            ajaxList(1);
+            ajaxList1(1);
         })
         $('.clear').click(function(e) {
             $('#first_name').val("");
             $('#email').val("");
             $('#mobile_id').val("");
             $('#created_date').val("");
-            ajaxList(1);
+            ajaxList1(1);
         })
     </script>
     <script type="text/javascript">
@@ -182,7 +183,7 @@
                             },
                             success: function(response) {
                                 toastr.success(response.message);
-                                ajaxList(1);
+                                ajaxList1(1);
                             }
                         });
                     },

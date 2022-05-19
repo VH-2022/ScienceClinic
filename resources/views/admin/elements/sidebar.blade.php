@@ -69,7 +69,7 @@
                         <span class="menu-text">Subject Master</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="menu-submenu" kt-hidden-height="80" style="">
+                    <div class="menu-submenu" kt-hidden-height="80" >
                         <i class="menu-arrow"></i>
                         <ul class="menu-subnav">
                            
@@ -118,7 +118,7 @@
                         <span class="menu-text">Tutor Master</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="menu-submenu" kt-hidden-height="80" style="">
+                    <div class="menu-submenu" kt-hidden-height="80">
                         <i class="menu-arrow"></i>
                         <ul class="menu-subnav">
                            
@@ -130,6 +130,14 @@
                                     <span class="menu-text">Tutor Level</span>
                                 </a>
                             </li>
+                            <li class="menu-item {{Request::segment(1) == 'tutor-master' ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                            <a href="{{route('tutor-master.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Tutor Master</span>
+                            </a>
+                        </li>
                             
                         </ul>
                     </div>
