@@ -24,7 +24,11 @@ class TutorMasterController extends Controller
     }
     public function ajaxList(Request $request){
         $data['page'] = $request->input('page');
-        $data['query'] = TutorMasterHelper::getListwithPaginate();
+        $first_name = $request->input('first_name');
+        $email = $request->input('email');
+        $mobile = $request->input('mobile_id');
+        $created_date = $request->input('created_date');
+        $data['query'] = TutorMasterHelper::getListwithPaginate($first_name,$email,$mobile,$created_date);
         return view('admin.tutor.tutor_ajax',$data);
     }
     public function destroy($id)

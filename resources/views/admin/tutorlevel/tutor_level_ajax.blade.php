@@ -1,4 +1,4 @@
-<table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
+<table class="table table-separate table-head-custom">
     <thead>
         <tr>
             <th nowrap="nowrap">ID</th>
@@ -11,6 +11,7 @@
         @php
             $i = $page * 10 - 9;
         @endphp
+         @if (count($query) > 0)
         @foreach ($query as $val)
             <tr>
                 <td>{{ $i++ }}</td>
@@ -26,12 +27,14 @@
                 </td>
             </tr>
         @endforeach
-        @if(count($query) ==0)
-            <tr>
-                <td>No record available</td>
-            </tr>
         @endif
+        @if (count($query) == 0)
+                <tr>
+                    <td colspan="4">No record available</td>
+                </tr>
+            @endif
     </tbody>
 </table>
+{!! $query->withQueryString()->links('pagination::bootstrap-5') !!}
 
 

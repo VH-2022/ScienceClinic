@@ -1,5 +1,15 @@
 @extends('layouts.master')
 @section('content')
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
+    <link href="{{ asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}"
+        rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.css') }}" rel="stylesheet"
+        type="text/css">
+    <style>
+        .daterangepicker {
+            z-index: 999999 !important;
+        }
+ </style>
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container-fluid">
@@ -69,28 +79,29 @@
                 <label class="col-4 col-form-label">Full Name</label>
                 <div class="col-8">
                     <input class="form-control" placeHolder="Enter Search Full Name" type="text" name="firstname"
-                        id="example-text-input">
+                        id="first_name">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-4 col-form-label">Email</label>
                 <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Email" type="text" name="email"
-                        id="example-text-input">
+                    <input class="form-control" placeHolder="Enter Search Email" type="text" name="email" id="email">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-4 col-form-label">Mobile No</label>
                 <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Full Name" type="text" name="mobile"
-                        id="example-text-input">
+                    <input class="form-control" placeHolder="Enter Search Mobile No" type="text" name="mobile"
+                        id="mobile_id">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-4 col-form-label">Created Date</label>
                 <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Created Date" type="text" name="created_date"
-                        id="example-text-input">
+                    <div class="input-group" id="kt_daterangepicker_3">
+                        <input type="text" name="created_date" id="created_date" class="form-control"
+                            placeholder="Created Date">
+                    </div>
                 </div>
             </div>
             <!--end::Wrapper-->
@@ -112,6 +123,10 @@
     </div>
 @endsection
 @section('page-js')
+    <script src="{{ asset('assets/Modulejs/subject.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
+    <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
         var _AJAX_LIST = "{{ route('tutor-master-ajax') }}";
 
@@ -119,8 +134,8 @@
             var first_name = $('#first_name').val();
             var email = $('#email').val();
             var mobile_id = $('#mobile_id').val();
-            var created_date = $('#kt_daterangepicker_6').val();
-
+            var created_date = $('#created_date').val();
+            $('.ki-close').click();
             $.ajax({
                 type: "GET",
                 url: _AJAX_LIST,
@@ -138,6 +153,16 @@
             })
         }
         ajaxList(1);
+        $('.search_id').click(function(e) {
+            ajaxList(1);
+        })
+        $('.clear').click(function(e) {
+            $('#first_name').val("");
+            $('#email').val("");
+            $('#mobile_id').val("");
+            $('#created_date').val("");
+            ajaxList(1);
+        })
     </script>
     <script type="text/javascript">
         function functionDelete(Id) {
@@ -165,8 +190,29 @@
                 }
             });
         }
-        $('.clear').click(function(e) {
-            $('.ki-close').click();
+
+        $(function() {
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+            $('#kt_daterangepicker_3').daterangepicker({
+                buttonClasses: ' btn',
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-secondary',
+                startDate: start,
+                endDate: end,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                        'month').endOf('month')]
+                }
+            }, function(start, end, label) {
+                $('#kt_daterangepicker_3 .form-control').val(start.format('MM/DD/YYYY') + ' - ' + end
+                    .format('MM/DD/YYYY'));
+            });
         })
     </script>
 @endsection
