@@ -61,7 +61,11 @@ class SubjectHelper
         return $query;
     }
     public static function getSubCateogryListwithPaginate(){
-        $query = SubjectMaster::whereNotNull('id')->whereNotNull('parent_id')->with('subjectmaster:id,parent_id,main_title')->paginate(10);
+        $query = SubjectMaster::select('sc_subject_master.*','scb.main_title as mtitle')
+                ->leftjoin('sc_subject_master as scb',function($join){
+                    $join->on('scb.id','=','sc_subject_master.parent_id');
+                })->whereNotNull('sc_subject_master.parent_id')->paginate();
+        
         return $query;
     }
 
