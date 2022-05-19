@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('sc_tutor_details', function (Blueprint $table) {
             $table->id();
             $table->integer('tutor_id');
-            $table->string('subject_to_wish_tutor')->nullable();
-            $table->string('level_to_wish_tutor')->nullable();
+         
             $table->string('dbs_disclosure')->nullable();
             $table->string('experience_in_uk')->nullable();
             $table->integer('total_experience_in_uk')->nullable();

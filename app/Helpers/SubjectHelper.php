@@ -78,5 +78,10 @@ class SubjectHelper
         $query = SubjectMaster::whereRaw('sha1(id)="'.$id.'"')->first();
         return $query;
     }
+
+    public static function getAllSubjectList(){
+        $query = SubjectMaster::whereNull('deleted_at')->orderBy('main_title','asc')->get();
+        return $query;
+    }
 }
 

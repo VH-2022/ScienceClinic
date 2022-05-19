@@ -60,40 +60,40 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input type="text" name="name" id="name" placeholder="Name">
-                                            <span class="text-danger" id="error_name"></span>
+                                            <span class="text-danger" id="error_name">{{ $errors->useredit->first('name')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="email" id="email" placeholder="Email">
-                                            <span class="text-danger" id="error_email"></span>
+                                            <span class="text-danger" id="error_email">{{ $errors->useredit->first('email')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="mobile" id="mobile" placeholder="Telephone">
-                                            <span class="text-danger" id="error_mobile"></span>
+                                            <span class="text-danger" id="error_mobile">{{ $errors->useredit->first('mobile')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="address1" id="address1" placeholder="Address 1">
-                                            <span class="text-danger" id="error_address1"></span>
+                                            <span class="text-danger" id="error_address1">{{ $errors->useredit->first('address1')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="address2" id="address2" placeholder="Address 2">
-                                            <span class="text-danger" id="error_address2"></span>
+                                            <span class="text-danger" id="error_address2">{{ $errors->useredit->first('address2')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="address3" id="address3" placeholder="Address 3">
-                                            <span class="text-danger" id="error_address3"></span>
+                                            <span class="text-danger" id="error_address3">{{ $errors->useredit->first('address3')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="city" id="city" placeholder="Town/City">
-                                            <span class="text-danger" id="error_city"></span>
+                                            <span class="text-danger" id="error_city">{{ $errors->useredit->first('city')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="text" name="postcode" id="postcode" placeholder="Postcode">
-                                            <span class="text-danger" id="error_postcode"></span>
+                                            <span class="text-danger" id="error_postcode">{{ $errors->useredit->first('postcode')}}</span>
                                         </div>
                                         <div class="col-md-12">
                                             <textarea name="bio" id="bio" cols="30" rows="10" placeholder="Bio
                                                 "></textarea>
-                                            <span class="text-danger" id="error_bio"></span>
+                                            <span class="text-danger" id="error_bio">{{ $errors->useredit->first('bio')}}</span>
 
                                         </div>
 
@@ -110,18 +110,33 @@
                                                 </div>
                                             </div>
                                             <div class="customer_records position-relative">
-                                                <div class="row">
-                                                    <div class="col-md-3"><input name="customer_name" type="text" placeholder="University/Institution"></div>
-                                                    <div class="col-md-3"><input name="customer_name" type="text" placeholder="Qualification"></div>
-                                                    <div class="col-md-3">
-                                                        <div class="downloaded-file">
-                                                            <div class="chemistry-icon-text">
-                                                                <button type="button" class="btn download-pdfs uplod"><i class="fa fa-book mr-2"></i>Certificates-1</button>
+                                                <div id="main_id">
+                                                    @php 
+                                                        $uniqid = uniqid();
+                                                    @endphp
+                                                    <div class="copy_id" id="{{$uniqid}}">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <input name="university[]" data-id="{{$uniqid}}" type="text" placeholder="University/Institution">
+                                                                <span id="customer_name_{{$uniqid}}_error" class="text-danger">{{ $errors->useredit->first('university')}}</span>
                                                             </div>
+                                                            <div class="col-md-3">
+                                                                <input name="qualification[]" data-id="{{$uniqid}}" type="text" placeholder="Qualification">
+                                                                <span id="qualification{{$uniqid}}_error" class="text-danger">{{ $errors->useredit->first('qualification')}}</span>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="downloaded-file">
+                                                                    <div class="chemistry-icon-text">
+                                                                    <input type="file" name="document_certi[]" data-id="{{$uniqid}}" >
+                                                                    <span id="document_certi{{$uniqid}}_error" class="text-danger"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 add"> <a class="extra-fields-customer search-menu" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true"></i></a></div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2 add"> <a class="extra-fields-customer search-menu" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true"></i></a></div>
                                                 </div>
+                                                
 
                                               
 
@@ -135,39 +150,15 @@
                                             <!-- <label class="tutor-label">Subject</label> -->
                                             <div class="subject-custom">
 
-                                                <select class="selectpicker" multiple aria-label="Default select example" data-live-search="true">
-
-                                                    <option value="1" selected>Accounting</option>
-                                                    <option value="2">Arabic</option>
-                                                    <option value="3">Art</option>
-                                                    <option value="4">Biology</option>
-                                                    <option value="5">Business Studies</option>
-                                                    <option value="6">Chemistry</option>
-                                                    <option value="7">Computer Science</option>
-                                                    <option value="8">Drama</option>
-                                                    <option value="9">Economics</option>
-                                                    <option value="10">English Language</option>
-                                                    <option value="11">English Literature</option>
-                                                    <option value="12">ESL</option>
-                                                    <option value="13">French</option>
-                                                    <option value="14">Geography</option>
-                                                    <option value="15">German</option>
-                                                    <option value="16">History</option>
-                                                    <option value="17">International Baccalaureate (IB)</option>
-                                                    <option value="18">Italian</option>
-                                                    <option value="19">Law</option>
-                                                    <option value="20">Maths</option>
-                                                    <option value="21">Mechanics</option>
-                                                    <option value="22">Physics</option>
-                                                    <option value="23">Politics</option>
-                                                    <option value="24">Psychology</option>
-                                                    <option value="25">Russian</option>
-                                                    <option value="26">Science</option>
-                                                    <option value="27">Sociology</option>
-                                                    <option value="28">Spanish</option>
-                                                    <option value="29">Statistics</option>
+                                                <select class="selectpicker" name="subject[]" multiple aria-label="Default select example" data-live-search="true">
+                                                    <option value="">Select Subject</option>
+                                                    @foreach($subject_list as $val)
+                                                        <option value="{{ $val->id}}">{{ $val->main_title}}</option>
+                                                    @endforeach
+                                                    
 
                                                 </select>
+                                                <span class="text-danger" id="subject_error">{{ $errors->useredit->first('subject')}}</span>
 
                                             </div>
 
@@ -177,27 +168,14 @@
                                             <h6 class="mb-2">Level you wish to tutor. (required)</h6>
                                             <!-- <label class="tutor-label">Level of Tuition</label> -->
                                             <div class="subject-custom">
-                                                <select class="selectpicker" multiple aria-label="Default select example" data-live-search="true">
-                                                    <option value="levels" selected>A-level (Years 12 & 13)
-                                                    </option>
-                                                    <option value="gcse">GCSE/ IGCSE (Years 9,10 & 11)
-                                                    </option>
-                                                    <option value="ks3">KS3 (Years 7 & 8) </option>
-                                                    <option value="ks2">KS2 (Years 4, 5 & 6) </option>
-                                                    <option value="ks1">KS1 (Years 1, 2, & 3) </option>
-                                                    <option value="scottish">Scottish Highers (S5) </option>
-                                                    <option value="national">National 5 (S4) </option>
-                                                    <option value="ib">IB </option>
-                                                    <option value="adult">Adult learning & Functional Skills
-                                                    </option>
-                                                    <option value="plus1">11+ </option>
-                                                    <option value="plus">13+ </option>
-                                                    <option value="common">Common entrance Exam </option>
-                                                    <option value="primary">Primary </option>
-                                                    <option value="p1">P1 - P7 (Scottish Primary)</option>
-                                                    <option value="s1">S1 - S3 (Scottish Secondary)
-                                                    </option>
+                                                <select class="selectpicker" name="level[]" multiple aria-label="Default select example" data-live-search="true">
+                                                <option value="">Select Tutor Level</option>
+                                                    @foreach($tutor_level_list as $val)
+                                                        <option value="{{ $val->id}}">{{ $val->title}}</option>
+                                                    @endforeach
+                                                
                                                 </select>
+                                                <span class="text-danger" id="level_error">{{ $errors->useredit->first('level')}}</span>
                                             </div>
                                         </div>
 
@@ -210,11 +188,14 @@
                                             <div class="custom-control custom-radio">
                                                 <input type="radio" id="customRadio2" value="Yes" name="dbsdisclosure" class="custom-control-input" onclick="show1();">
                                                 <label class="custom-control-label" for="customRadio2">Yes</label>
+                                                
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="customRadio3" name="dbsdisclosure" class="custom-control-input" value="No" onclick="show2();">
+                                                <input type="radio" id="customRadio3" name="dbsdisclosure" class="custom-control-input" value="No" onclick="show1();">
                                                 <label class="custom-control-label" for="customRadio3">No</label>
+                                                
                                             </div>
+                                            <span class="text-danger" id="dbsdisclosure_error">{{ $errors->useredit->first('dbsdisclosure')}}</span>
                                             <div id="div1" class="hide">
                                                 <div class="main-file-box">
                                                     <div class="file-flex">
@@ -229,7 +210,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <span class="text-danger" id="document_pdf_error"></span>
                                             </div>
+                                            
                                         </div>
                                         <div class="col-md-6 mb-23">
                                             <h6 class="mb-2">Do you have tutoring experience in the UK? (required)
@@ -242,6 +225,7 @@
                                                 <input type="radio" id="customRadio5" name="exprienceinuk" class="custom-control-input" value="No">
                                                 <label class="custom-control-label" for="customRadio5">No</label>
                                             </div>
+                                            <span class="text-danger" id="exprienceinuk_error">{{ $errors->useredit->first('exprienceinuk')}}</span>
                                         </div>
                                         <div class="col-md-6 mb-23">
                                             <h6 class="mb-2">If yes, how much UK tutoring experience do you have?
@@ -262,7 +246,7 @@
                                                 <label class="custom-control-label" for="customRadio8">5 plus
                                                     years</label>
                                             </div>
-
+                                            <span class="text-danger" id="tutorexperienceinuk_error">{{ $errors->useredit->first('tutorexperienceinuk')}}</span>
                                         </div>
                                         <div class="col-md-6 mb-23">
                                             <h6 class="mb-2">Are you legally entitled to work in the UK? Remember
@@ -276,6 +260,7 @@
                                                 <input type="radio" id="customRadio10" value="No" name="paytax" class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadio10">No</label>
                                             </div>
+                                            <span class="text-danger" id="paytax_error">{{ $errors->useredit->first('paytax')}}</span>
                                         </div>
                                         <div class="col-md-2 mb-23">
                                             <h6 class="mb-2">Upload your photo</h6>
@@ -287,11 +272,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="avatar-edit">
-                                                    <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+                                                    <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="profile_image">
                                                     <label for="imageUpload">upload</label>
                                                 </div>
                                             </div>
-                                            
+                                            <span class="text-danger" id="profile_pic_error">{{ $errors->useredit->first('profile_image')}}</span>
                                         </div>
 
                                         <div class="col-md-12 col-lg-12">
@@ -299,7 +284,7 @@
                                                 <input class="form-check-input terms-condition" type="checkbox" value="1" name="term" id="term">
                                                 <span class="text-danger" id="error_term"></span>
                                                 <label class="form-check-label condition-text" for="defaultCheck1">
-                                                    <a class="condition-text" href="terms-and-conditions.html">Terms & conditions </a>
+                                                    <a class="condition-text" href="#">Terms & conditions </a>
                                                 </label>
                                             </div>
                                         </div>
@@ -518,18 +503,42 @@
 
 <script>
     $('.extra-fields-customer').click(function() {
-        $('.customer_records').clone().appendTo('.customer_records_dynamic');
-        $('.customer_records_dynamic .customer_records').addClass('single remove');
-        $('.single .extra-fields-customer').remove();
-        $('.single').append('<a href="#" class="remove-field btn-remove-customer"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a>');
-        $('.customer_records_dynamic > .single').attr("class", "remove");
+        var length = $('.copy_id').length;
+        var mathRand = Math.floor(100000000 + Math.random() * 900000000);
+        var htmlRep = '';
+        htmlRep +='<div class="copy_id customer_records_dynamic remove" id="'+mathRand+'">'+
+                        '<div class="row">'+
+                        '<div class="col-md-3">'+
+                        '<input name="university[]" data-id="'+mathRand+'" type="text" placeholder="University/Institution">'+
+                        '<span id="customer_name_'+mathRand+'_error" class="text-danger"></span>'+
+                        '</div>'+
+                        '<div class="col-md-3">'+
+                        '<input name="qualification[]" data-id="'+mathRand+'" type="text" placeholder="Qualification">'+
+                        '<span id="qualification'+mathRand+'_error" class="text-danger"></span>'+
+                        '</div>'+
+                        '<div class="col-md-3">'+
+                        '<div class="downloaded-file">'+
+                        '<div class="chemistry-icon-text"><input type="file" name="document_certi[]" data-id="'+mathRand+'" ><span id="document_certi'+mathRand+'_error" class="text-danger"></span>'+
+                        
+                                        '</div>'+
+                                        '</div>'+
+                                        '</div>'+
+                                        '<div class="col-md-2 add"> <a href="#" class="remove-field btn-remove-customer"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a></div>'+
+                                        '</div>'+
+                                        '</div>';
+                $('#main_id').append(htmlRep);
+        // $('.customer_records').clone().appendTo('.customer_records_dynamic');
+        // $('.customer_records_dynamic .customer_records').addClass('single remove');
+        // $('.single .extra-fields-customer').remove();
+        // $('.single').append('<a href="#" class="remove-field btn-remove-customer"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a>');
+        // $('.customer_records_dynamic > .single').attr("class", "remove");
 
-        $('.customer_records_dynamic input').each(function() {
-            var count = 0;
-            var fieldname = $(this).attr("name");
-            $(this).attr('name', fieldname + count);
-            count++;
-        });
+        // $('.customer_records_dynamic input').each(function() {
+        //     var count = 0;
+        //     var fieldname = $(this).attr("name");
+        //     $(this).attr('name', fieldname );
+        //     count++;
+        // });
 
     });
 
@@ -542,25 +551,19 @@
 
 
 
-<script>
-    //header footer script
-    $(document).ready(function() {
-        $("#header").load("header.html");
-    });
 
-    $(document).ready(function() {
-        $("#footer").load("footer.html");
-    });
-</script>
 
 <script>
     function show1() {
-        document.getElementById('div1').style.display = 'block';
+        var names = $('input[name="dbsdisclosure"]:checked').val();
+        if(names =='Yes'){
+            document.getElementById('div1').style.display = 'block';
+        }else{
+            document.getElementById('div1').style.display = 'none';
+        }
+        
     }
 
-    function show2() {
-        document.getElementById('div1').style.display = 'none';
-    }
     //---------------------
     $(document).ready(function() {
         document.getElementById("uploadBtn").onchange = function() {
@@ -602,6 +605,14 @@
         var postcode = $("#postcode").val();
         var bio = $("#bio").val();
         var profile_image = $("#imageUpload").prop('files');
+        var subject = $('select[name="subject[]"]').val();
+        var level = $('select[name="level[]"]').val();
+        var disclose = $('input[name="dbsdisclosure"]').is(":checked");
+        var exprienceinuk = $('input[name="exprienceinuk"]').is(":checked");
+        var tutorexperienceinuk = $('input[name="tutorexperienceinuk"]').is(":checked");
+        var paytax = $('input[name="paytax"]').is(":checked");
+        var document_pdf = $('input[name="document_pdf"]').prop('files');
+
         // var term = $("#term").val();
         var temp = 0;
         $("#error_name").html('');
@@ -614,6 +625,8 @@
         $("#error_postcode").html('');
         $("#error_bio").html('');
         $("#error_profile_image").html('');
+        $("#subject_error").html('');
+        $("#level_error").html('');
         // $("#error_term").html('');
 
         if (name.trim() == '') {
@@ -677,12 +690,93 @@
             $('#error_bio').html('Please enter bio');
             temp++;
         }
+        if(subject ==null){
+            $('#subject_error').html('Please select subject');
+            temp++;
+        }
+        if(level ==null){
+            $('#level_error').html('Please select level');
+            temp++;
+        }
 
         if (profile_image.length == 0) {
-            $('#error_profile_image').html('Required');
+            $('#profile_pic_error').html('Please select profile image');
             temp++
         }
 
+        if (profile_image.length != 0) {
+            var FileUploadPath = profile_image[0].name;
+                var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+                if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg') {
+                    $('#profile_pic_error').html("");
+                } else {
+                    $('#profile_pic_error').html("Photo only allows image types of PNG, JPG, JPEG");
+                    temp++;
+                }
+        }
+        $('input[name="university[]"]').each(function(e){
+            var dataId = $(this).attr('data-id');
+            var  value = $(this).val();
+            $('#customer_name_'+dataId+'_error').html("");
+            if(value.trim() ==''){
+                $('#customer_name_'+dataId+'_error').html("Please enter university/institution");
+                temp++;
+            }
+        })
+        $('input[name="qualification[]"]').each(function(e){
+            var dataId = $(this).attr('data-id');
+            var  value = $(this).val();
+            $('#qualification'+dataId+'_error').html("");
+            if(value.trim() ==''){
+                $('#qualification'+dataId+'_error').html("Please enter university/institution");
+                temp++;
+            }
+        })
+        $('input[name="document_certi[]"]').each(function(e){
+            var dataId = $(this).attr('data-id');
+            var  value = $(this).prop('files');
+            $('#document_certi'+dataId+'_error').html("");
+            if(value.length ==0){
+                $('#document_certi'+dataId+'_error').html("Please upload certificate");
+                temp++;
+            }else{
+                var FileUploadPath = value[0].name;
+                var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+                if (Extension == 'pdf') {
+                    
+                } else {
+                    $('#document_certi'+dataId+'_error').html("Only Pdf Allowed");
+                    temp++;
+                }
+            }
+        })
+        if(disclose ==false){
+            $('#dbsdisclosure_error').html('Please select DBS disclosure');
+            temp++
+        }else{
+            var disclosed = $('input[name="dbsdisclosure"]:checked').val();
+            if(disclosed =="Yes"){
+                if(document_pdf.length ==0){
+                    $('#document_pdf_error').html("Please upload document");
+                    temp++
+                }   
+            }
+        }
+
+        if(exprienceinuk ==false){
+            $('#exprienceinuk_error').html('Please select tutoring experience');
+            temp++
+        }
+        if(tutorexperienceinuk ==false){
+            $('#tutorexperienceinuk_error').html('Please select UK tutoring experience');
+            temp++
+        }
+        if(paytax ==false){
+            $('#paytax_error').html('Please select tutor and pay your own tax');
+            temp++
+        }
         if (temp == 0) {
             return true;
         } else {

@@ -23,8 +23,10 @@ class TutorLevelController extends Controller
        return view('admin.tutorlevel.tutorlevel');
     }
     public function ajaxList(Request $request){
-        $data['page'] = $request->input('page');
-        $data['query'] = TutorLevelHelper::getListwithPaginate();
+        $data['page'] = $request->input('page'); 
+        $title = $request->input('title');
+        $created_date = $request->created_date;
+        $data['query'] = TutorLevelHelper::getListwithPaginate($title,$created_date);
         return view('admin.tutorlevel.tutor_level_ajax',$data);
      }
 

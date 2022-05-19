@@ -95,7 +95,7 @@
                 </li>
                 @php 
                     $tutorFlag = 0;
-                    if(Request::segment(1) =='tutor-level'){
+                    if(Request::segment(1) =='tutor-level' || Request::segment(1) =='tutor-master'){
                         $tutorFlag = 1;
                     }
 
