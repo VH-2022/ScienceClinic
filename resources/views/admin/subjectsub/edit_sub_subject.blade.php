@@ -38,10 +38,10 @@
                                             <select class="form-control validate_field main_subject" name="main_subject" id="main_subject" data-msg="Subject">
                                             <option value="">Select Subject</option>
                                                 @foreach($query as $val)
-                                                    <option value="{{$val->id}}" @if(isset($basic_details->parent_id) AND $basic_details->parent_id == $val->id) selected @endif>{{$val->main_title}}</option>
+                                                    <option value="{{$val->id}}" @if(isset($basic_details->parent_id) && $basic_details->parent_id == $val->id) selected @endif>{{$val->main_title}}</option>
                                                 @endforeach
                                             </select>
-                                            <span class="form-text error main_subject_error"></span>
+                                            <span class="form-text error main_subject_error">{{ $errors->useredit->first('main_subject')}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -50,14 +50,14 @@
                                         <div class="form-group">
                                             <label>Title <span class="text-danger">*</span></label>
                                             <input class="form-control validate_field" placeholder="Title" autocomplete="off" id="title" type="text" data-msg="Title" name="title" value="{{ $basic_details->main_title}}">
-                                            <span class="form-text error title_error"></span>
+                                            <span class="form-text error title_error">{{ $errors->useredit->first('title')}}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Sub Title <span class="text-danger">*</span></label>
                                             <input class="form-control validate_field" placeholder="Sub Title" autocomplete="off" id="sub_title" type="text" data-msg="Sub Title" name="sub_title"  value="{{ $basic_details->sub_title_one}}">
-                                            <span class="form-text error sub_title_error"></span>
+                                            <span class="form-text error sub_title_error">{{ $errors->useredit->first('sub_title')}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                         <div class="form-group">
                                             <label>Sub Title 2 <span class="text-danger">*</span></label>
                                             <input class="form-control validate_field" placeholder="Sub Title 2" autocomplete="off" id="sub_title_two" type="text" data-msg="Sub Title Two" name="sub_title_two" value="{{ $basic_details->sub_title_two}}">
-                                            <span class="form-text error sub_title_two_error"></span>
+                                            <span class="form-text error sub_title_two_error">{{ $errors->useredit->first('sub_title_two')}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                                         <div class="form-group">
                                             <label>Title <span class="text-danger">*</span></label>
                                             <input placeholder="Title" class="form-control validate_field" autocomplete="off" id="title_section_one" type="text" data-msg="Title" name="title_section_one" value="{{ $basic_details->title}}">
-                                            <span class="form-text error title_section_one_error"></span>
+                                            <span class="form-text error title_section_one_error">{{ $errors->useredit->first('title_section_one')}}</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -174,7 +174,7 @@
                                         <div class="form-group">
                                             <label>Description <span class="text-danger">*</span></label>
                                             <textarea placeholder="Description" name="subject_description" id="subject_description" data-msg="Description" value="{{ $basic_details->description}}">{{ $basic_details->description}}</textarea>
-                                            <span class="form-text error subject_description_error"></span>
+                                            <span class="form-text error subject_description_error">{{ $errors->useredit->first('subject_description')}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Cancel</button>
+                                <a class="btn btn-secondary" href="{{ url('sub-subject-master')}}">Cancel</a>
                             </div>
                             <!--end::Body-->
                             
