@@ -38,8 +38,17 @@ class TutorLevelHelper
         $update = TutorLevel::where($where)->update($data);
         return $update;
     }
-    public static function getListwithPaginate(){
-        $query = TutorLevel::paginate(10);
+    public static function getListwithPaginate($title,$created_date){
+        $query = TutorLevel::orderBy('id','desc');
+        if($title !=''){
+            $query->where('title','LIKE','%'.$title.'%');
+        }
+
+        if($created_date !=''){
+            $explode = explode('-',$created_date);
+            $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
+        }
+        $query = $query->paginate(10);
         return $query;
     }
     public static function getDetailsById($id){
