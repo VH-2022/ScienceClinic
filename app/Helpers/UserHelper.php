@@ -48,4 +48,10 @@ class UserHelper
         $query  = User::where('status', '1')->where('email', $email)->count();
         return $query;
     }
+    public static function updateStatus($id,$status)
+    {
+        $data['status']= $status;
+        $query  = User::where('id', $id)->update($data);
+        return $query;
+    }
 }

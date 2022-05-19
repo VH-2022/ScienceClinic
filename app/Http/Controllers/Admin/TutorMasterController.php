@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Helpers\UserHelper;
 use App\Helpers\TutorMasterHelper;
 use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\TutorSubjectDetailHelper;
@@ -70,5 +71,9 @@ class TutorMasterController extends Controller
         $tutor_id = $request->tutor_id;
         $data['query'] = TutorLevelDetailHelper::getListwithPaginate($tutor_id);
         return view('admin.tutor.tutor_level_list',$data);
+    }
+
+    public function changeStatus(Request $request){
+        return UserHelper::updateStatus($request->id,$request->status);
     }
 }

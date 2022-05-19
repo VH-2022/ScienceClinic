@@ -14,14 +14,12 @@
                                 <div class="card-title">
                                     <span class="nav-profile-name">Tutor Detail</span>
                                     <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
-
-                                    </h3>
                                 </div>
                                 <div class="card-toolbar">
-                                    <a href="#" class="btn btn-primary mr-2"
-                                        style="background-color:#34db5e !important">Accept</a>
-                                    <a href="#" class="btn btn-primary mr-2"
-                                        style="background-color:#db3434 !important">Reject</a>
+                                    <a href="javascript:void(0);" class="btn btn-primary mr-2"
+                                        style="background-color:#34db5e !important  accept" onclick="changeStatus('Accept',{{$totuer->id}})">Accept</a>
+                                    <a href="javascript:void(0);" class="btn btn-primary mr-2"
+                                        style="background-color:#db3434 !important" onclick="changeStatus('Reject',{{$totuer->id}})">Reject</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -67,13 +65,15 @@
                                         {{ $totuer->city }}
                                     </div>
                                     <div class="col-lg-4">
-                                        <strong>Post Code:</strong>
-                                        {{ $totuer->postcode }}
+                                        <div class="d-flex mb-4">
+                                            <strong>Post Code:</strong>
+                                            {{ $totuer->postcode }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <strong>Bio:</strong>
-                                    {{ $totuer->bio }}
+                                    <div class="col-lg-12">
+                                        <strong>Bio:</strong>
+                                        {{ $totuer->bio }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,23 +127,20 @@
                                     </ul>
                                 </div>
                             </div>
+                            <div class="tab-content" id="tabs">
+                                <div class="tab-pane active" id="university">
+                                    <span id="responsive_id"></span>
+                                </div>
 
-                            <div>
-                                <div class="tab-content" id="tabs">
-                                    <div class="tab-pane active" id="university">
-                                        <span id="responsive_id"></span>
-                                    </div>
+                                <div class="tab-pane" id="subject">
+                                    <span id="responsive_Id"></span>
+                                </div>
 
-                                    <div class="tab-pane" id="subject">
-                                        <span id="responsive_Id"></span>
-                                    </div>
+                                <div class="tab-pane" id="level">
+                                    <span id="responsived_id"></span>
+                                </div>
 
-                                    <div class="tab-pane" id="level">
-                                        <span id="responsived_id"></span>
-                                    </div>
-
-                                    <div class="tab-pane" id="other">
-                                    </div>
+                                <div class="tab-pane" id="other">
                                 </div>
                             </div>
                         </div>
@@ -155,23 +152,12 @@
 @endsection
 @section('page-js')
     <script>
-        $(function() {
-            $("#tutor").tabs({
-                active: false
-            });
-        });
-
         function getUniversityDetails(page) {
-            var tutor_id = $('#tutor_id').val();
-            var university_name = $('#university_name').val();
-            var qualification = $('#qualification').val();
-            
-            var created_date = $('#created_date').val();
             $.ajax({
                 type: "GET",
-                url:  "{{ route('tutor-university') }}",
+                url: "{{ route('tutor-university') }}",
                 data: {
-                    'tutor_id': '{{$totuer->id}}',
+                    'tutor_id': '{{ $totuer->id }}',
                     'page': page,
                 },
                 success: function(res) {
@@ -182,12 +168,13 @@
         }
         getUniversityDetails();
 
-        function getSubjectDetails() {
+        function getSubjectDetails(page) {
             $.ajax({
                 type: "GET",
-                url:  "{{ route('tutor-subject') }}",
+                url: "{{ route('tutor-subject') }}",
                 data: {
-                    'tutor_id': '{{$totuer->id}}',
+                    'tutor_id': '{{ $totuer->id }}',
+                    'page': page,
                 },
                 success: function(res) {
                     $('#responsive_Id').html("");
@@ -197,12 +184,13 @@
         }
         getSubjectDetails();
 
-        function getLevelDetails() {
+        function getLevelDetails(page) {
             $.ajax({
                 type: "GET",
-                url:  "{{ route('tutor-level-list') }}",
+                url: "{{ route('tutor-level-list') }}",
                 data: {
-                    'tutor_id': '{{$totuer->id}}',
+                    'tutor_id': '{{ $totuer->id }}',
+                    'page': page,
                 },
                 success: function(res) {
                     $('#responsived_id').html("");
@@ -211,5 +199,22 @@
             })
         }
         getLevelDetails();
+
+        
     </script>
+    <script>
+        function changeStatus(status,id) {
+          
+          $.ajax({
+                type: "GET",
+                url: "{{ route('changestatus') }}",
+                data: {
+                   id:id,
+                    status:status},
+                success: function(res) {
+                   
+                }
+            });
+        }
+        </script>
 @endsection

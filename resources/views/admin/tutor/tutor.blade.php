@@ -7,7 +7,8 @@
         .daterangepicker {
             z-index: 999999 !important;
         }
- </style>
+
+    </style>
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container-fluid">
@@ -45,7 +46,6 @@
                                             <!--end::Svg Icon-->
                                         </span>Search</button>
                                     <!--begin::Dropdown Menu-->
-
                                 </div>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
             })
         }
         ajaxList(1);
-        $('body').on('click', '.pagination a', function (event) {
+        $('body').on('click', '.pagination a', function(event) {
             $('li').removeClass('active');
             $(this).parent('li').addClass('active');
             event.preventDefault();
