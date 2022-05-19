@@ -3,13 +3,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
     <link href="{{ asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}"
         rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/css/pages/bootstrap-datetimepicker/bootstrap-datetimepicker.css') }}" rel="stylesheet"
-        type="text/css">
     <style>
         .daterangepicker {
             z-index: 999999 !important;
         }
- </style>
+
+    </style>
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container-fluid">
@@ -47,7 +46,6 @@
                                             <!--end::Svg Icon-->
                                         </span>Search</button>
                                     <!--begin::Dropdown Menu-->
-
                                 </div>
                             </div>
                         </div>
@@ -153,7 +151,15 @@
             });
             return false;
         }
-        ajaxList1(1);
+        ajaxList(1);
+        $('body').on('click', '.pagination a', function(event) {
+            $('li').removeClass('active');
+            $(this).parent('li').addClass('active');
+            event.preventDefault();
+            var myurl = $(this).attr('href');
+            var page = $(this).attr('href').split('page=')[1];
+            ajaxList(page);
+        });
         $('.search_id').click(function(e) {
             ajaxList1(1);
         })

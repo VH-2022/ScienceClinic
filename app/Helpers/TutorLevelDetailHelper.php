@@ -20,7 +20,6 @@ class TutorLevelDetailHelper
         $insertId = $insert->id;
         return $insertId;
     }
-
     public static function update($data, $where)
     {
         $userId = Auth()->user();
@@ -37,8 +36,10 @@ class TutorLevelDetailHelper
         $data['deleted_at'] = date('Y-m-d H:i:s');
         $data['deleted_by'] = $userId['id'];
         $update = TutorLevelDetail::where($where)->update($data);
-
         return $update;
     }
-   
+    public static function getListwithPaginate($id){
+        $query = TutorLevelDetail::whereNull('deleted_at')->where('tutor_id',$id)->paginate(10);
+        return $query;
+    }
 }

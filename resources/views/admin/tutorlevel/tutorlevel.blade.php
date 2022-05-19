@@ -145,8 +145,8 @@
                             <label for="name" class="col-md-4 col-form-label">Name<span
                                     class="text-danger">*</span></label>
                             <div class="col-md-12">
-                                <input type="text" name="title" class="form-control" value="" id="title"
-                                    placeholder="Enter Name" onkeypress='return isName(event) ' maxlength='50'>
+                                <input type="text" name="title" class="form-control" value="" id="title-add"
+                                    placeholder="Enter Name">
                                 <span class="title error_msg" id="titleerror"></span>
                             </div>
                         </div>
@@ -180,7 +180,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-md-12">
                                 <input type="text" name="title" class="form-control" value="" id="title-edit"
-                                    placeholder="Enter Name" onkeypress='return isName(event) ' maxlength='50'>
+                                    placeholder="Enter Name" >
                                 <span class="title error_msg" id="title_error"></span>
                             </div>
                         </div>
@@ -223,6 +223,14 @@
             })
         }
         ajaxList(1);
+        $('body').on('click', '.pagination a', function (event) {
+            $('li').removeClass('active');
+            $(this).parent('li').addClass('active');
+            event.preventDefault();
+            var myurl = $(this).attr('href');
+            var page = $(this).attr('href').split('page=')[1];
+            ajaxList(page);
+        });
 
         $('.search_id').click(function(e) {
             ajaxList(1);
@@ -233,9 +241,8 @@
             ajaxList(1);
         })
 
-
         $('#btn-save').click(function(e) {
-            var title = $('#title').val();
+            var title = $('#title-add').val();
             var cnt = 0;
             $('#titleerror').html("");
             if (title.trim() == '') {
@@ -356,26 +363,26 @@
             }
         }
 
-    $(function(){
-    var start = moment().subtract(29, 'days');
-        var end = moment();
-		$('#kt_daterangepicker_3').daterangepicker({
-            buttonClasses: ' btn',
-            applyClass: 'btn-primary',
-            cancelClass: 'btn-secondary',
-            startDate: start,
-            endDate: end,
-            ranges: {
-               'Today': [moment(), moment()],
-               'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-               'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-               'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-               'This Month': [moment().startOf('month'), moment().endOf('month')],
-               'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            }
-        }, function(start, end, label) {
-            $('#kt_daterangepicker_3 .form-control').val( start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-        });
-})
+        $(function(){
+        var start = moment().subtract(29, 'days');
+            var end = moment();
+            $('#kt_daterangepicker_3').daterangepicker({
+                buttonClasses: ' btn',
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-secondary',
+                startDate: start,
+                endDate: end,
+                ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, function(start, end, label) {
+                $('#kt_daterangepicker_3 .form-control').val( start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+            });
+    })
 </script>
 @endsection

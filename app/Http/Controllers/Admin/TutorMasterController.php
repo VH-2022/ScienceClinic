@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Helpers\UserHelper;
 use App\Helpers\TutorMasterHelper;
+use App\Helpers\TutorUniversityDetailHelper;
+use App\Helpers\TutorSubjectDetailHelper;
+use App\Helpers\TutorLevelDetailHelper;
 use Validator;
 use Session;
 
@@ -23,11 +27,11 @@ class TutorMasterController extends Controller
        return view('admin.tutor.tutor');
     }
     public function ajaxList(Request $request){
-        $data['page'] = $request->input('page');
-        $first_name = $request->input('first_name');
-        $email = $request->input('email');
-        $mobile = $request->input('mobile_id');
-        $created_date = $request->input('created_date');
+        $data['page'] = $request->page;
+        $first_name = $request->first_name;
+        $email = $request->email;
+        $mobile = $request->mobile_id;
+        $created_date = $request->created_date;
         $data['query'] = TutorMasterHelper::getListwithPaginate($first_name,$email,$mobile,$created_date);
         return view('admin.tutor.tutor_ajax',$data);
     }
@@ -43,11 +47,33 @@ class TutorMasterController extends Controller
         return response()->json([
             'message' =>  trans('messages.notDeleted')
         ]);
+        }
     }
-  }
     public function show($id)
     {
             $data['totuer']=TutorMasterHelper::getDetailsById($id);
             return view('admin.tutor.tutor_view',$data);
+    }
+    public function getUniversityDetails(Request $request){
+        $data['page'] = $request->page;
+        $tutor_id = $request->tutor_id;
+        $data['query'] = TutorUniversityDetailHelper::getListwithPaginate($tutor_id);
+        return view('admin.tutor.tutor_university_list',$data);
+    }
+    public function getSubjectDetails(Request $request){
+        $data['page'] = $request->page;
+        $tutor_id = $request->tutor_id;
+        $data['query'] = TutorSubjectDetailHelper::getListwithPaginate($tutor_id);
+        return view('admin.tutor.tutor_subject_list',$data);
+    }
+    public function getLevelDetails(Request $request){
+        $data['page'] = $request->page;
+        $tutor_id = $request->tutor_id;
+        $data['query'] = TutorLevelDetailHelper::getListwithPaginate($tutor_id);
+        return view('admin.tutor.tutor_level_list',$data);
+    }
+
+    public function changeStatus(Request $request){
+        return UserHelper::updateStatus($request->id,$request->status);
     }
 }

@@ -48,4 +48,10 @@ class UserHelper
         $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',2)->count();
         return $query;
     }
+    public static function updateStatus($id,$status)
+    {
+        $data['status']= $status;
+        $query  = User::where('id', $id)->update($data);
+        return $query;
+    }
 }

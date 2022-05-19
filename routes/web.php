@@ -57,9 +57,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('sub-subject-master-ajax-list', "SubSubjectController@ajaxList");
         $backendVerified->resource('tutor-level', "TutorLevelController");
         $backendVerified->get('tutor-level-ajax', "TutorLevelController@ajaxList")->name('tutor-level-ajax');
-        $backendVerified->get('tutor-master-ajax', "TutorMasterController@ajaxList")->name('tutor-master-ajax');;
+        $backendVerified->get('tutor-master-ajax', "TutorMasterController@ajaxList")->name('tutor-master-ajax');
         $backendVerified->resource('tutor-master', "TutorMasterController");
-        
+        $backendVerified->get('tutor-university', "TutorMasterController@getUniversityDetails")->name('tutor-university');
+        $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
+        $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
+        $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
     });
 });
 

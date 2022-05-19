@@ -41,4 +41,9 @@ class TutorSubjectDetailHelper
         return $update;
     }
    
+      
+    public static function getListwithPaginate($id){
+        $query = TutorSubjectDetail::whereNull('deleted_at')->where('tutor_id',$id)->paginate(10);
+        return $query;
+    }
 }
