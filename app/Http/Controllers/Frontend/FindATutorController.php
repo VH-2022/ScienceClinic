@@ -11,7 +11,7 @@ use App\Helpers\TutorSubjectDetailHelper;
 use App\Helpers\TutorLevelDetailHelper;
 use App\Helpers\UserHelper;
 use App\Models\User;
-
+use URL;
 class FindATutorController extends Controller
 {
     public function index()
@@ -41,7 +41,15 @@ class FindATutorController extends Controller
         }
        
         $query = UserHelper::getTutorListLimitFive($final_array);
+        foreach($query as $val){
+            $val->url = URL::to('/').'/tutors-details/'.sha1($val->id);
+        }
         return response()->json(['error_msg' => "Success", 'data' => $query], 200);
         
+    }
+
+    public function tutorDetails($id){
+        
+        return view('frontend.SearchTutor.view_tutor_detail');
     }
 }
