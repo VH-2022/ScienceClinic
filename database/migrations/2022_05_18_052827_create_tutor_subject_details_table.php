@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tutor_subject_details', function (Blueprint $table) {
+        Schema::create('sc_tutor_subject_details', function (Blueprint $table) {
             $table->id();
-            $table->string('subject_name');
-            $table->integer('created_by');
+            $table->integer('tutor_id')->nullable();
+            $table->string('subject_id')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tutor_subject_details');
+        Schema::dropIfExists('sc_tutor_subject_details');
     }
 };

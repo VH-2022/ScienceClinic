@@ -45,7 +45,18 @@ class UserHelper
     }
     public static function checkDuplicateEmail($email)
     {
-        $query  = User::where('status', '1')->where('email', $email)->count();
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',2)->count();
+        return $query;
+    }
+    public static function updateStatus($id,$status)
+    {
+        $data['status']= $status;
+        $query  = User::where('id', $id)->update($data);
+        return $query;
+    }
+
+    public static function getTutorListLimitFive($userId){
+        $query =User::where('status', 'Accepted')->where('type', 2)->whereIn('id', $userId)->orderBy('id','desc')->limit(5)->get();
         return $query;
     }
 }

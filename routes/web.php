@@ -55,7 +55,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('subject-master-ajax-list', "SubjectController@ajaxList");
         $backendVerified->resource('sub-subject-master', "SubSubjectController");
         $backendVerified->get('sub-subject-master-ajax-list', "SubSubjectController@ajaxList");
-        
+        $backendVerified->resource('tutor-level', "TutorLevelController");
+        $backendVerified->get('tutor-level-ajax', "TutorLevelController@ajaxList")->name('tutor-level-ajax');
+        $backendVerified->get('tutor-master-ajax', "TutorMasterController@ajaxList")->name('tutor-master-ajax');
+        $backendVerified->resource('tutor-master', "TutorMasterController");
+        $backendVerified->get('tutor-university', "TutorMasterController@getUniversityDetails")->name('tutor-university');
+        $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
+        $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
+        $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
     });
 });
 
@@ -66,5 +73,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('/sub-subject/{id}', 'UserSubjectController@subSubjectDetails');
     $frontend->resource('become-tutor', "BecomeTutorController");
     $frontend->get('check-email', "BecomeTutorController@checkEmail")->name('check.email');
-
+    $frontend->get('find-tutor', "FindATutorController@index")->name('find.tutor');
+    $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
+    $frontend->get('tutor-detail/{id}', "FindATutorController@tutorDetails");
 });

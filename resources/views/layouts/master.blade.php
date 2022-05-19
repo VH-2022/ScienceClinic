@@ -22,6 +22,7 @@
     <link href="{{asset('assets/css/themes/layout/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/themes/layout/brand/dark.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/pages/jquery-confirm.css')}}" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
     <script src="https://cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
@@ -49,35 +50,28 @@
     <!--end::Global Theme Bundle-->
     <!--begin::Page Vendors(used by this page)-->
     <script src="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+    
     <!--end::Page Vendors-->
     <!--begin::Page Scripts(used by this page)-->
     <script src="{{asset('assets/js/pages/widgets.js')}}"></script>
+    <script src="{{asset('assets/js/pages/jquery-confirm.js')}}"></script>
     <!--end::Page Scripts-->
  
     @yield('page-js')
     @if(Session::has('success'))
     <script>
-        Command: toastr["success"]('<?php echo Session::get('success') ?>')
+        Command: toastr["success"]("{{Session::get('success')}}")
     </script>
     @endif
 
     @if(Session::has('error'))
     <script>
-        Command: toastr["error"]('<?php echo Session::get('error') ?>')
+        Command: toastr["error"]("{{Session::get('error')}}")
     </script>
     @endif
     @include('admin.elements.message-js')
     <script>
-        setInterval(function() {
-            sessionForget();
-        }, 1100);
-
-        function sessionForget() {
-            '{{ Session::forget('
-            success ') }}'
-            '{{ Session::forget('
-            error ') }}'
-        }
+        
         window.addEventListener("pageshow", function(event) {
             var historyTraversal = event.persisted ||
                 (typeof window.performance != "undefined" &&

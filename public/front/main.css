@@ -8420,3 +8420,6 @@ a.header-number:first-child {
 .logo-mb-20{
     margin-bottom: 20px!important;
 }
+.h-auto{
+    height: auto !important;
+}

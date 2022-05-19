@@ -55,7 +55,7 @@
   <!-- Modernizr JS
 		============================================ -->
   <script src="{{ asset('front/js/vendor/modernizr-2.8.3.min.js')}}"></script>
-
+  <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
   <!-- Color Css Files
 		============================================ -->
   <link rel="alternate stylesheet" type="text/css" href="{{ asset('front/switcher/color-two.css')}}" title="color-two" media="screen" />
@@ -123,8 +123,10 @@
 
 
   <script src="{{ asset('front/js/bootstrap-select.min.js')}}"></script>
+  <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
 
   <script>
+    
     $(document).ready(function() {
       $("#overlays").click(function() {
         $(".mobile-show.active").removeClass("active");
@@ -135,7 +137,10 @@
       $('.search').toggleClass('open');
       return false;
     });
+    
   </script>
+  
+   
   @yield('page-js')
 </body>
 
