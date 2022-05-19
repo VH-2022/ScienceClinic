@@ -5,6 +5,7 @@
             <th style="white-space: nowrap">Full Name </th>
             <th style="white-space: nowrap">Email </th>
             <th style="white-space: nowrap">Mobile </th>
+            <th style="white-space: nowrap">Status</th>
             <th style="white-space: nowrap">Created Date</th>
             <th>Actions</th>
         </tr>
@@ -20,6 +21,15 @@
                     <td>{{ $val->first_name }}</td>
                     <td>{{ $val->email }}</td>
                     <td>{{ $val->mobile_id }}</td>
+                    <td>
+                        @if($val->status =='Pending')
+                            <span class="badge badge-primary">Pending</span>
+                        @elseif($val->status =='Accepted')
+                        <span class="badge badge-success">Accepted</span>
+                        @else
+                        <span class="badge badge-danger">Rejected</span>
+                        @endif
+                        </td>
                     <td>
                         @if ($val->created_at != '')
                             {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}
