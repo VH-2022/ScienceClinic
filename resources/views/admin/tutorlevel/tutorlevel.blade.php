@@ -243,12 +243,14 @@
 
         $('#btn-save').click(function(e) {
             var title = $('#title-add').val();
+           
             var cnt = 0;
             $('#titleerror').html("");
             if (title.trim() == '') {
                 $('#titleerror').html("Name is required");
                 cnt = 1;
             }
+            console.log(cnt);
             if (cnt == 1) {
                 return false;
             } else {
@@ -324,7 +326,7 @@
             event.preventDefault(); // prevent form submit
             $.confirm({
                 title: 'Delete!',
-                content: '"Are you sure Delete?"',
+                content: 'Are you sure Delete?',
                 buttons: {
                     confirm: function() {
                         $.ajax({

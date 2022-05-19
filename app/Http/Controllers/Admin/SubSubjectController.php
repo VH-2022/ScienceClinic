@@ -65,7 +65,9 @@ class SubSubjectController extends Controller
             'subject_image' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/sub-subject-master/create")
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
             
             $simagesEnglish = '';
@@ -180,7 +182,9 @@ class SubSubjectController extends Controller
         
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/sub-subject-master/".$request->input('id').'/edit')
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
             
             $simagesEnglish = '';

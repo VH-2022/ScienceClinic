@@ -67,12 +67,14 @@ class SubjectController extends Controller
             'subject_image' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/subject-master/create")
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
             
             $simagesEnglish = '';
             if ($request->file('subject_image') != '') {
-                //$simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
+                $simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
             }
             $data_array = array(
                 'main_title' => $request->input('title'),
@@ -173,7 +175,9 @@ class SubjectController extends Controller
         
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/subject-master/".$request->input('id').'/edit')
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
             
             $simagesEnglish = '';
