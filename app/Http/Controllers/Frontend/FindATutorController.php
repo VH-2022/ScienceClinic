@@ -22,23 +22,32 @@ class FindATutorController extends Controller
    
     public function getTutors(Request $request)
     {
-        $subjectUserList = TutorSubjectDetailHelper::getSearchUserId($request->subject);
         $final_array = array();
-        foreach($subjectUserList as $val){
-            if(in_array($val->tutor_id, $final_array)){
 
-            }   else{
-                $final_array[] = $val->tutor_id;
+        if($request->subject !=''){
+            
+            $subjectUserList = TutorSubjectDetailHelper::getSearchUserId($request->subject);
+      
+        
+            foreach($subjectUserList as $val){
+                if(in_array($val->tutor_id, $final_array)){
+
+                }   else{
+                    $final_array[] = $val->tutor_id;
+                }
             }
         }
-       
-        $tutorUserList = TutorLevelDetailHelper::getSearchUserId($request->input('level'));
-        foreach ($tutorUserList as $vals) {
-            if (in_array($vals->tutor_id, $final_array)) {
-            } else {
-                $final_array[] = $vals->tutor_id;
+ 
+        if($request->level !=''){
+            $tutorUserList = TutorLevelDetailHelper::getSearchUserId($request->level);
+            foreach ($tutorUserList as $vals) {
+                if (in_array($vals->tutor_id, $final_array)) {
+                } else {
+                    $final_array[] = $vals->tutor_id;
+                }
             }
         }
+        
        
         $query = UserHelper::getTutorListLimitFive($final_array);
         foreach($query as $val){
