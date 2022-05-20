@@ -138,6 +138,11 @@
       return false;
     });
     
+    function imgError(image) {
+        image.onerror = "";
+        image.src = "{{asset('img/noimage.jpg')}}";
+        return true;
+    }
   </script>
   
    
