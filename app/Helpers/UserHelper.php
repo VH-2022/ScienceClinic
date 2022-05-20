@@ -56,7 +56,7 @@ class UserHelper
     }
 
     public static function getTutorListLimitFive($userId){
-        $query =User::where('status', 'Accepted')->where('type', 2)->whereIn('id', $userId)->orderBy('id','desc')->limit(5)->get();
+        $query =User::where('status', 'Accepted')->where('type', 2)->whereNull('deleted_at')->whereIn('id', $userId)->orderBy('id','desc')->limit(5)->get();
         return $query;
     }
 }
