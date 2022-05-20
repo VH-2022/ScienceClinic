@@ -46,7 +46,7 @@ class TutorSubjectDetailHelper
         $query = TutorSubjectDetail::select('sb.main_title as subject_name','sc_tutor_subject_details.created_at')
                 ->leftjoin('sc_subject_master as sb',function($join){
                     $join->on('sb.id','=','sc_tutor_subject_details.subject_id');
-                })->whereNull('sc_tutor_subject_details.deleted_at')->where('sc_tutor_subject_details.tutor_id',$id)->paginate(10);
+                })->whereNull('sc_tutor_subject_details.deleted_at')->whereNull('sb.deleted_at')->where('sc_tutor_subject_details.tutor_id',$id)->paginate(10);
         return $query;
     }
     public static function getSearchUserId($search){
