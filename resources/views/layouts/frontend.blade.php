@@ -30,7 +30,7 @@
   <!-- Bootstrap CSS
 		============================================ -->
   <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{ asset('front/css/bootstrap-select.min.css')}}">
+
 
   <!-- Plugins CSS
 		============================================ -->
@@ -46,7 +46,7 @@
 
   <!-- owl.carousel.css
 		============================================ -->
-  <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.css')}}">
+
 
   <!-- Responsive CSS
 		============================================ -->
@@ -118,8 +118,6 @@
   <!-- main JS
 		============================================ -->
   <script src="{{ asset('front/js/main.js')}}"></script>
-
-  <script type='text/javascript' src='https://d3a1eo0ozlzntn.cloudfront.net/assets/js/frontend-v2/widgets-v2.24a197bed6.v2.js' defer></script>
 
 
   <script src="{{ asset('front/js/bootstrap-select.min.js')}}"></script>

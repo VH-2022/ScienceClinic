@@ -40,5 +40,14 @@ class TutorLevelDetailHelper
 
         return $update;
     }
+
+    public static function getSearchUserId($search)
+    {
+
+        $query = TutorLevelDetail::select('tutor_id')->whereHas('tutorLevelRelation', function ($q) use ($search) {
+            $q->where('title', 'LIKE', '%' . $search . '%');
+        })->get();
+        return $query;
+    }
    
 }

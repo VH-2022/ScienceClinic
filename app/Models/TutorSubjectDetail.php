@@ -12,4 +12,10 @@ class TutorSubjectDetail extends Model
     protected $guarded = ["id"];
     protected $table = 'sc_tutor_subject_details';
    protected $fillable = ['id', 'tutor_id', 'subject_id','created_by', 'updated_by', 'deleted_by', 'deleted_at', 'created_at', 'updated_at'];
+
+
+   public function subjectMasters()
+   {
+       return $this->belongsTo(SubjectMaster::class, 'subject_id', 'id');
+   }
 }

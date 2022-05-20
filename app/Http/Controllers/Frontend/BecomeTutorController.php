@@ -98,6 +98,7 @@ class BecomeTutorController extends Controller
                 'postcode' => $request->postcode,
                 'bio' => $request->bio,
                 'profile_photo' => $image,
+                'status'=>0
             );
             
             $data = UserHelper::save($data_array);

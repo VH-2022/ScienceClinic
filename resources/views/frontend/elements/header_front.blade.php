@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-lg-2 col-md-6 col-6">
                     <div class="logo">
-                        <a href="index.html"><img src="{{asset('front/img/logo2.png')}}" alt="EDUCAT"></a>
+                        <a href="{{url('/')}}"><img src="{{asset('front/img/logo2.png')}}" alt="EDUCAT"></a>
                     </div>
                 </div>
                 <div class="col-lg-10 col-md-6 col-6">

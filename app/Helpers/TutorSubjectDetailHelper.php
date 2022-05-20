@@ -40,5 +40,13 @@ class TutorSubjectDetailHelper
 
         return $update;
     }
+
+    public static function getSearchUserId($search){
+       
+        $query = TutorSubjectDetail::select('tutor_id')->whereHas('subjectMasters',function($q) use ($search) {
+            $q->where('main_title','LIKE','%'.$search.'%');
+        })->get();
+        return $query;
+    }
    
 }
