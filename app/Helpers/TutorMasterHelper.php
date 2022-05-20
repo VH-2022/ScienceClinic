@@ -8,7 +8,7 @@ class TutorMasterHelper
 {
     public static function getListwithPaginate($first_name,$email,$mobile,$created_date){
 
-        $query = User::where('type',2);
+        $query = User::where('type',2)->whereNull('deleted_at');
         if($first_name !=''){
             $query->where('first_name','LIKE','%'.$first_name.'%');
         }
