@@ -14,4 +14,8 @@ class TutorLevelDetail extends Model
     public function tutorLevelRelation(){
         return $this->belongsTo(TutorLevel::class, 'level_id', 'id');
     }
+    public function level()
+    {
+        return $this->hasOne(TutorLevel::class, 'id', 'level_id');
+    }
 }

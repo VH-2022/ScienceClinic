@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\SubjectMaster;
 use URL;
 use App\Models\TutorLevelDetail;
 
@@ -51,4 +52,12 @@ class TutorLevelDetailHelper
         })->get();
         return $query;
     }
+
+    public static function getTutorLevelDetails($id)
+    {
+        $query = TutorLevelDetail::with('level')->whereRaw('sha1(tutor_id)="' . $id . '"')->get();
+        return $query;
+    }
+
+    
 }

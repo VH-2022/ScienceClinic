@@ -41,4 +41,9 @@ class TutorUniversityDetailHelper
         $query = TutorUniversityDetail::whereNull('deleted_at')->where('tutor_id',$id)->paginate(1);
         return $query;
     }
+    public static function getTutorUniversityDetails($id)
+    {
+        $query = TutorUniversityDetail::whereRaw('sha1(tutor_id)="' . $id . '"')->get();
+        return $query;
+    }
 }

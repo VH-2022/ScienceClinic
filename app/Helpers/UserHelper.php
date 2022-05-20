@@ -59,4 +59,9 @@ class UserHelper
         $query =User::where('status', 'Accepted')->where('type', 2)->whereIn('id', $userId)->orderBy('id','desc')->limit(5)->get();
         return $query;
     }
+    public static function getTutorDetails($id)
+    {
+      $query = User::whereRaw('sha1(id)="' . $id . '"')->first();
+      return $query;
+    }
 }

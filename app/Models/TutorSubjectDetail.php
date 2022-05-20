@@ -16,4 +16,6 @@ class TutorSubjectDetail extends Model
    {
        return $this->belongsTo(SubjectMaster::class, 'subject_id', 'id');
    }
+   
+  
 }

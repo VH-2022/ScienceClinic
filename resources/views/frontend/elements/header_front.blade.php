@@ -37,7 +37,7 @@
                                             <li> <a href="https://suite.smarttech-prod.com/login">Smart Notebook</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="find-tutor.html">Find a Tutor</a></li>
+                                    <li><a href="{{route('find.tutor')}}">Find a Tutor</a></li>
                                     <li><a href="{{route('become-tutor.index')}}">Become a Tutor</a></li>
                                     <li class="text-none" id="subject-sub"><a href="javascript:void(0)">Subjects</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
