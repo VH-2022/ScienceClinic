@@ -147,7 +147,7 @@
                             <div class="col-md-12">
                                 <input type="text" name="title" class="form-control" value="" id="title-add"
                                     placeholder="Enter Name">
-                                <span class="title error_msg" id="titleerror"></span>
+                                <span class="title error_msg error" id="titleerror"></span>
                             </div>
                         </div>
                     </div>
@@ -181,7 +181,7 @@
                             <div class="col-md-12">
                                 <input type="text" name="title" class="form-control" value="" id="title-edit"
                                     placeholder="Enter Name" >
-                                <span class="title error_msg" id="title_error"></span>
+                                <span class="title error_msg error" id="title_error"></span>
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
             event.preventDefault(); // prevent form submit
             $.confirm({
                 title: 'Delete!',
-                content: 'Are you sure Delete?',
+                content: 'you want to delete this tutor level?',
                 buttons: {
                     confirm: function() {
                         $.ajax({
