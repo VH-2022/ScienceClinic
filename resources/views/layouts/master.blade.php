@@ -37,7 +37,9 @@
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
                 @include('admin.elements.header')
                 @include('admin.elements.sidebar')
+                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 @yield('content')
+                </div>
                 @include('admin.elements.footer')
             </div>
         </div>
