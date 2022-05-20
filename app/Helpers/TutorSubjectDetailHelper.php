@@ -52,7 +52,8 @@ class TutorSubjectDetailHelper
     public static function getSearchUserId($search){
        
         $query = TutorSubjectDetail::select('tutor_id')->whereHas('subjectMasters',function($q) use ($search) {
-            $q->where('main_title','LIKE','%'.$search.'%');
+            $q->whereRaw('LOWER(main_title) LIKE "%'. strtolower($search) .'%"');
+            
         })->get();
         return $query;
     }

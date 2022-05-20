@@ -47,7 +47,7 @@ class TutorLevelDetailHelper
     {
 
         $query = TutorLevelDetail::select('tutor_id')->whereHas('tutorLevelRelation', function ($q) use ($search) {
-            $q->where('title', 'LIKE', '%' . $search . '%');
+            $q->whereRaw('LOWER(title) LIKE "%'. strtolower($search) .'%"');
         })->get();
         return $query;
     }
