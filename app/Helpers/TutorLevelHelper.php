@@ -39,7 +39,7 @@ class TutorLevelHelper
         return $update;
     }
     public static function getListwithPaginate($title,$created_date){
-        $query = TutorLevel::orderBy('id','desc');
+        $query = TutorLevel::WhereNull('deleted_at');
         if($title !=''){
             $query->where('title','LIKE','%'.$title.'%');
         }
@@ -48,7 +48,7 @@ class TutorLevelHelper
             $explode = explode('-',$created_date);
             $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
         }
-        $query = $query->paginate(10);
+        $query = $query->orderBy('id','desc')->paginate(10);
         return $query;
     }
     public static function getDetailsById($id){

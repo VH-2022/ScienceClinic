@@ -74,6 +74,7 @@ class TutorMasterController extends Controller
     }
 
     public function changeStatus(Request $request){
-        return UserHelper::updateStatus($request->id,$request->status);
+         UserHelper::updateStatus($request->id,$request->status);
+
     }
 }

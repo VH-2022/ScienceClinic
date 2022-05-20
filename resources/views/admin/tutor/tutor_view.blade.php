@@ -203,18 +203,51 @@
         
     </script>
     <script>
-        function changeStatus(status,id) {
-          
-          $.ajax({
-                type: "GET",
-                url: "{{ route('changestatus') }}",
-                data: {
-                   id:id,
-                    status:status},
-                success: function(res) {
-                   
+function changeStatus(status,id) {
+            $.confirm({
+                title: 'Are you sure?',
+                columnClass:"col-md-6",
+                content: "you want to change status?",
+                buttons: {
+                    formSubmit: {
+                        text: 'Submit',
+                        btnClass: 'btn-primary',
+                        action: function () {
+                                $.ajax({
+                                    method: "GET",
+                                    url:"{{ route('changestatus') }}",
+                                    data:{ 
+                                        'id':id,
+                                        'status':status
+                                    }
+                                }).done(function (r) {
+                                    toastr.success(r.error_msg);
+                                    $('.rejected_id').attr('style','display:block');
+                                    $('.accepted_id').attr('style','display:block');
+                                    if( r.data.status =="Accepted"){
+                                        var html_res = '<span class="badge badge-success">Accepted</span>';
+                                        $('.accepted_id').attr('style','display:none');
+                                    }else{
+                                        var html_res = '<span class="badge badge-danger">Rejected</span>';
+                                        $('.rejected_id').attr('style','display:none');
+                                    }
+                                    $('#status_id').html(html_res);
+                                    
+                                }).fail(function () {
+                                    _self.setContent('Something went wrong. Contact Support.');
+                                    toastr.error('Sorry, something went wrong. Please try again.');
+                                });
+                        }
+                    },
+                    cancel: function () {
+                        //close
+                    },
+                },
+                onContentReady: function () {
+                    // bind to events
                 }
             });
+         
         }
         </script>
 @endsection
