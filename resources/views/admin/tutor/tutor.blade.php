@@ -176,24 +176,35 @@
             event.preventDefault(); // prevent form submit
             $.confirm({
                 title: 'Delete!',
-                content: '"Are you sure Delete?"',
+                content: 'you want to delete this tutor?',
                 buttons: {
-                    confirm: function() {
-                        $.ajax({
-                            url: "{{ url('tutor-master') }}/" + Id,
-                            type: "DELETE",
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                _method: "DELETE",
+                    formSubmit: {
+                        text: 'Submit',
+                        btnClass: 'btn-danger',
+                        action: function () {
+                                $.ajax({
+                                    method: "POST",
+                                    url:"{{ url('tutor-master') }}/"+ Id,
+                                    data:{
+                                        '_token':'{{ csrf_token() }}',
+                                        '_method':"DELETE",
+                                        'id':Id
+                                    }
 
-                            },
-                            success: function(response) {
-                                toastr.success(response.message);
-                                ajaxList1(1);
-                            }
-                        });
+                                }).done(function (r) {
+
+                                    toastr.success(r.message);
+                                    ajaxList1(1);
+                                }).fail(function () {
+                                    
+                                    toastr.error('Sorry, something went wrong. Please try again.');
+                                });
+
+                        }
                     },
-                    cancel: function() {}
+                    cancel: function () {
+                        //close
+                    },
                 }
             });
         }
