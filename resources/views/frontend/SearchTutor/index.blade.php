@@ -62,11 +62,11 @@
                             <div class="col-md-10">
                                 <div class="row">
                                     <div class="col-sm-3 col-md-6 col-lg-4">
-                                        <input type="text" name="text" placeholder="Subject">
+                                        <input type="text" name="text" placeholder="Subject" id="subject">
                                     </div>
                                     <div class="col-sm-3 col-md-6 col-lg-3">
                                         <div class="form-group">
-                                            <input type="text" name="text" placeholder="Level">
+                                            <input type="text" name="text" placeholder="Level" id="level">
                                         </div>
                                     </div>
                                     <div class="col-sm-3 col-md-6 col-lg-3">
@@ -117,7 +117,7 @@
             <div class="container">
                 <div class="row justify-content-center res-mb-2">
                     <div class="col-lg-11 col-md-12">
-                        <img src="{{ asset('Front/img/svg/find-new.jpeg')}}">
+                        <img src="{{ asset('front/img/svg/find-new.jpeg')}}">
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                                         <div class="layer">
                                             <h2>Mathematics</h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/mimg4.jpeg')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/mimg4.jpeg')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -153,7 +153,7 @@
                                         <div class="layer">
                                             <h2>English Language & Literature</h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/eimg3.png')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/eimg3.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -164,7 +164,7 @@
                                         <div class="layer">
                                             <h2>Physics</h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/pimg5.png')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/pimg5.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -175,7 +175,7 @@
                                         <div class="layer">
                                             <h2>Biology</h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/bimg1.jpg')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/bimg1.jpg')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -186,7 +186,7 @@
                                         <div class="layer">
                                             <h2>chemistry</h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/cimg2.png')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/cimg2.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -197,7 +197,7 @@
                                         <div class="layer">
                                             <h2>Computer Science</h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/computer.png')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/computer.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -210,7 +210,7 @@
                                             <h2>Primary
                                             </h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/primary.png')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/primary.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -237,7 +237,7 @@
 
                                             </h2>
                                         </div>
-                                        <img src="{{asset('Front/img/banner/other.png')}}" class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{asset('Front/img/banner/other.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
                                     </div>
                                 </a>
                             </div>
@@ -268,7 +268,7 @@
     $("#hideshow").click(function() {
         var level = $('#level').val();
         var subject = $('#subject').val();
-
+        
         $.ajax({
             url: "{{ route('get.tutors')}}",
             data: {
@@ -279,13 +279,15 @@
                 console.log(res);
                 var json = res.data;
                 var tutor_res = '';
-                $(".details-section").toggle();
+                $('#res_tutor_id').html("");
                 if (json.length != 0) {
+                    $(".details-section").toggle();
+       
                     $.each(json, function(i, v) {
                         tutor_res += '<div class="col-md-6 col-lg-3 tutor-card">' + '<a class = "tutor-content" href = "'+v.url+'" >' + '<div class = "single-product-item">' + '<div class = "single-product-image">' + '<img src = "' + v.profile_photo + '">' + '</div> <div class = "single-product-text"> ' + '<h4 class = "testing-user" >' + v.first_name + '</h4></div></div></a></div>';
                     })
                 }
-                $('#res_tutor_id').html("");
+                
                 $('#res_tutor_id').html(tutor_res);
             }
         })
