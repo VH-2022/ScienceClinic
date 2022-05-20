@@ -527,18 +527,7 @@
                                         '</div>'+
                                         '</div>';
                 $('#main_id').append(htmlRep);
-        // $('.customer_records').clone().appendTo('.customer_records_dynamic');
-        // $('.customer_records_dynamic .customer_records').addClass('single remove');
-        // $('.single .extra-fields-customer').remove();
-        // $('.single').append('<a href="#" class="remove-field btn-remove-customer"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a>');
-        // $('.customer_records_dynamic > .single').attr("class", "remove");
-
-        // $('.customer_records_dynamic input').each(function() {
-        //     var count = 0;
-        //     var fieldname = $(this).attr("name");
-        //     $(this).attr('name', fieldname );
-        //     count++;
-        // });
+       
 
     });
 
@@ -657,7 +646,7 @@
 
                         } else {
                             $('#error_email').html("");
-                                                 }
+                        }
                     }
                 });
             }
