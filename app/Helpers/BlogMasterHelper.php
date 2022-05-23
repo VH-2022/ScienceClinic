@@ -59,4 +59,9 @@ class BlogMasterHelper
         $query = BlogMaster::where('id',$id)->first();
         return $query;
     }
+
+    public static function getBlogList(){
+        $query = BlogMaster::get();
+        return $query;
+    }
 }

@@ -79,4 +79,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
     $frontend->get('tutor-detail/{id}', "FindATutorController@tutorDetails");
+    $frontend->get('blog', "BlogController@index")->name('blog');
+    $frontend->get('blog-detail/{id}', "BlogController@blogDetails")->name('blog-detail');
 });
