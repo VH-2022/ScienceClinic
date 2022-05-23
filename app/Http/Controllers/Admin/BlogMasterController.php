@@ -54,23 +54,22 @@ class BlogMasterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            //  'blog_image' => 'required',
+            'title' => 'required|unique:sc_blog_master,title',
+            'image' => 'required|mimes:jpg,jpeg,png,bmp,tiff',
             'description' => 'required'
          ]);
                  
-          $simagesEnglish = '';
-          if ($request->file('blog_image') != '') {
-              $simagesEnglish = $this->uploadImageWithCompress($request->file('blog_image'), 'uploads/blog');
-          }
+         $image = '';
+            if ($request->file('image') != '') {
+                $image = $this->uploadImageWithCompress($request->file('image'), 'uploads/blog');
+            }
         
         $data_array = array(
           'title' => $request->title,
           'description' => $request->description,
+          'image'=>$image
+
        );
-       if ($simagesEnglish != '') {
-        $data_array['blog_image'] = $simagesEnglish;
-    }
         $update = BlogMasterHelper::save($data_array);
         if ($update) {
             Session::flash('success', trans('messages.addedSuccessfully'));
@@ -104,15 +103,21 @@ class BlogMasterController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
-            //  'blog_image' => 'required',
+            'title' => 'required|unique:sc_blog_master,title,'.$id,
+            'image' => 'required|mimes:jpg,jpeg,png,bmp,tiff',
             'description' => 'required'
         ]);
-
+        $image = '';
+        if ($request->file('image') != '') {
+            $image = $this->uploadImageWithCompress($request->file('image'), 'uploads/blog');
+        }
         $data_array = array(
         'title' => $request->title,
-        'description' => $request->description,
+        'description' => $request->description
         );
+        if ($image != '') {
+            $data_array['image'] = $image;
+        }
 
         $update = BlogMasterHelper::update($data_array,array('id'=>$request->id));
         $query=BlogMasterHelper::getDetailsById($request->id);

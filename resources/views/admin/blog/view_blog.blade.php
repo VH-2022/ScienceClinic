@@ -27,14 +27,14 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="d-flex mb-4">
-                                        <strong>Image: </strong> {{ $blog->email }}
+                                        <strong>Image: </strong>
+
+                                        <img src="{{ $blog->image }}" style="width:60px;height:60px;">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="d-flex mb-4">
-                                        <strong>Description: </strong>
-                                        {!! $blog->description !!}
-                                    </div>
+                                <div class="col-lg-12">
+                                    <strong>Description: </strong>
+                                    {!! $blog->description !!}
                                 </div>
                             </div>
                         </div>

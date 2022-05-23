@@ -46,9 +46,10 @@
                                                 <div class="form-group">
                                                     <label>Image <span class="text-danger">*</span></label>
                                                     <div>
-                                                        <input type="file" name="subject_image" data-msg="Image"
+                                                        <input type="file" name="image" data-msg="Image" id="image"
                                                             accept=".png, .jpg, .jpeg">
-                                                        <span class="form-text error subject_image_error"></span>
+                                                            <span class="form-text error title_error"
+                                                            id="title_error">{{ $errors->first('title') }}</span>
                                                     </div>
                                                 </div>
                                             </div>
