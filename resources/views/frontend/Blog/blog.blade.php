@@ -53,7 +53,7 @@
                                                 alt=""></a>
                                     </div>
                                     <div class="single-product-text texttwoline">
-                                        <a href="{{ route('blog') }}">
+                                        <a href="{{ route('blog-detail', $val->id) }}">
                                             <h4 class="mb-2">{{ $val->title }}</h4>
                                             <a>
                                                 <h5>

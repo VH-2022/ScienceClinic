@@ -21,12 +21,10 @@ class BlogController extends Controller
     {
 
         $data['blog'] = BlogMasterHelper::getBlogList();
-        // dd($data['blog']);
         return view('frontend.Blog.blog',$data);
     }
     public function blogDetails($id){
       $data['blog'] = BlogMasterHelper::getDetailsById($id);
-      // dd($data['blog'] );
       return view('frontend.Blog.blog-deatils',$data);
   }
 }
