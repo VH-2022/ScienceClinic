@@ -23,7 +23,7 @@
                             </div>
                         </div>
 
-                        <form class="form" id="submitid" method="GET"
+                        <form class="form" id="submitid" method="POST"
                             action="{{ route('blog-master.update', $blog->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('put')
@@ -73,8 +73,9 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="update" id="edit_blog" class="btn btn-primary mr-2"
-                                    style="background-color:#3498db !important">Update</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light mr-1" title="Submit">Update</button>
+                                {{-- <button type="update" id="edit_blog" class="btn btn-primary mr-2"
+                                    style="background-color:#3498db !important">Update</button> --}}
                                 <button type="reset" class="btn btn-secondary"
                                     onclick="window.location.href='{{ url('blog-master') }}'">Cancel</button>
                             </div>

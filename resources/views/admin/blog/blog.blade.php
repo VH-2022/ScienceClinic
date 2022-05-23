@@ -189,7 +189,7 @@
                                     }
                                 }).done(function (r) {
                                     toastr.success(r.message);
-                                    ajaxList1(1);
+                                    ajaxList(1);
                                 }).fail(function () {
                                     
                                     toastr.error('Sorry, something went wrong. Please try again.');

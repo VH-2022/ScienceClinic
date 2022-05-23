@@ -59,8 +59,4 @@ class BlogMasterHelper
         $query = BlogMaster::where('id',$id)->first();
         return $query;
     }
-    // public static function getDetailsByIdView($id){
-    //     $query = BlogMaster::where('id',$id)->first();
-    //     return $query;
-    // }
 }
