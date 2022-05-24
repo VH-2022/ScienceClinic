@@ -111,16 +111,7 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="side-subject ">
-                                        <div class="subject-details ">
-                                            <div class="title-education mb-3 ">
-                                                <h5>Availability</h5>
-                                            </div>
-                                            <div class="inline-dates">
-                                                <div id="datepicker"></div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                
 
                                 <div class="main-custom-calendar">
                                     <div id='calendar'></div>
