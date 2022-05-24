@@ -95,23 +95,26 @@
                                             <h5>SUBJECTS</h5>
                                         </div>
                                         <div class="education-subject">
-                                            @foreach($tutorSubjectDetails as $value)
+
+                                            @foreach($tutorSubjectLevelDetails as $value)
+
                                             <ul class="subject-tutor-ul ">
-                                                <p style="font-weight: 600; ">{{$value->subjectMasters->main_title}}</p>
-                                                <li><img src="{{asset('front/img/svg/right-arrow.png')}} " class="list-arrows ">A-level
+                                                <p style="font-weight: 600; ">{{$value->main_title}}</p>
+
+
+                                                @foreach($value->level_details as $level)
+                                                <li><img src="{{asset('front/img/svg/right-arrow.png')}} " class="list-arrows">{{$level->title}}
                                                 </li>
-                                                <li><img src="{{asset('front/img/svg/right-arrow.png')}} " class="list-arrows ">AS</li>
-                                                <li><img src="{{asset('front/img/svg/right-arrow.png')}} " class="list-arrows ">GCSE
-                                                </li>
-                                                <li><img src="{{asset('front/img/svg/right-arrow.png ')}}" class="list-arrows ">KS3
-                                                </li>
+                                                @endforeach
+
+
                                             </ul>
                                             @endforeach
                                         </div>
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="main-custom-calendar">
                                     <div id='calendar'></div>
@@ -133,16 +136,21 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-lg-6">
                                                     <label class="tutor-label">First Name</label>
-                                                    <input type="text " name="name " placeholder="First Name ">
+                                                    <input type="text " id="first_name" name="first_name" placeholder="First Name ">
+                                                    <span class="text-danger" id="error_first_name"></span>
+
                                                 </div>
                                                 <div class="col-md-6 col-lg-6">
                                                     <label class="tutor-label">Last Name</label>
-                                                    <input type="text" name="text" placeholder="Last Name ">
-                                                </div>
+                                                    <input type="text" id="last_name" name="last_name" placeholder="Last Name ">
+                                                    <span class="text-danger" id="error_last_name"></span>
 
+                                                </div>
                                                 <div class="col-md-6 col-lg-6 ">
                                                     <label class="tutor-label">Email</label>
-                                                    <input type="text " name="name " placeholder="Email ">
+                                                    <input type="text" id="email" name="email" placeholder="Email ">
+                                                    <span class="text-danger" id="error_email"></span>
+
                                                 </div>
                                                 <!-- <div class="col-md-4">
                                                         <label class="tutor-label">Password</label>
@@ -150,492 +158,115 @@
                                                     </div> -->
                                                 <div class="col-md-6 col-lg-6">
                                                     <label class="tutor-label">Phone</label>
-                                                    <input type="email " name="email " placeholder="Phone ">
+                                                    <input type="text " id="phone" name="phone" placeholder="Phone ">
+                                                    <span class="text-danger" id="error_phone"></span>
+
                                                 </div>
+                                                @php $daysArr = [ 'Monday' =>'monday',
+                                                'Tuesday' => 'tuesday',
+                                                'Wednesday' => 'wednesday',
+                                                'Thursday' => 'thursday',
+                                                'Friday' => 'friday',
+                                                'Saturday' => 'saturday',
+                                                'Sunday' => 'sunday'] @endphp
+
                                                 <div class="col-md-6 col-lg-6 mb-23">
                                                     <label class="tutor-label">Subject</label>
                                                     <div class="subject-custom">
-                                                        <select class="selectpicker select-sub " multiple aria-label="Default select example" data-live-search="true">
-                                                            <option value="1" selected>Maths</option>
-                                                            <option value="2">Further Maths (GCSE)
-                                                            </option>
-                                                            <option value="3">Further Maths (A-level) </option>
-                                                            <option value="4">Maths </option>
+                                                        <select class="selectpicker select-sub " aria-label="Default select example" data-live-search="true" id="subject">
 
-                                                            <option value="5">Maths (A-Level)
-                                                            </option>
-                                                            <option value="6"> Maths (Degree)
-                                                            </option>
-                                                            <option value="7">Maths (GCSE)
-                                                            </option>
-                                                            <option value="8">Maths (KS3)
-                                                            </option>
-                                                            <option value="9">Maths (National 5)
-                                                            </option>
-                                                            <option value="10">Maths (Primary)
-                                                            </option>
-                                                            <option value="11">Maths (Scottish Highers)
-                                                            </option>
-                                                            <option value="12">Mechanics
-                                                            </option>
-                                                            <option value="13">Mechanics (A-Level)
-                                                            </option>
-                                                            <option value="14">Mechanics (Scottish Highers)
-                                                            </option>
-                                                            <option value="15">Pure Maths
-                                                            </option>
-                                                            <option value="16">Statistics
-                                                            </option>
-
-
-                                                            <option value="17">Statistics (A-Level)
-                                                            </option>
-                                                            <option value="18">Statistics (Scottish Highers)
-
-                                                            </option>
-                                                            <option value="19">English
-                                                            </option>
-                                                            <option value="20">English Language (A-Level)
-                                                            </option>
-                                                            <option value="21">English Language (GCSE)
-                                                            </option>
-                                                            <option value="22">English (KS3)
-                                                            </option>
-                                                            <option value="23">English (National 5)
-                                                            </option>
-                                                            <option value="24">English (Primary)
-                                                            </option>
-                                                            <option value="25">English (Scottish Highers)
-
-                                                            </option>
-                                                            <option value="26">English Literature (National 5)
-                                                            </option>
-                                                            <option value="27">English Literature (Scottish Highers)
-
-                                                            </option>
-                                                            <option value="28">Science
-
-                                                            </option>
-                                                            <option value="29">Biochemistry
-                                                            </option>
-                                                            <option value="30">Biology (A-Level)
-                                                            </option>
-                                                            <option value="31">Biology (GCSE)
-
-                                                            </option>
-                                                            <option value="32">Biology (National 5)
-                                                            </option>
-                                                            <option value="33">Biology (Scottish Highers)
-
-                                                            </option>
-                                                            <option value="34">Biomedical Science
-                                                            </option>
-                                                            <option value="35">Chemistry (A-Level)
-
-                                                            </option>
-                                                            <option value="36">Chemistry (GCSE)
-
-                                                            </option>
-                                                            <option value="37">Chemistry (National 5)
-                                                            </option>
-                                                            <option value="38">Chemistry (Scottish Highers)
-
-                                                            </option>
-                                                            <option value="39">Environmental Science
-
-                                                            </option>
-                                                            <option value="40">Physics (A-Level)
-                                                            </option>
-                                                            <option value="41">Physics (GCSE)
-
-                                                            </option>
-                                                            <option value="42">Physics (National 5)
-
-                                                            </option>
-                                                            <option value="43">Physics (Scottish Highers)
-                                                            </option>
-                                                            <option value="44">Science (A-Level)
-
-                                                            </option>
-                                                            <option value="45">Science (GCSE)
-
-                                                            </option>
-                                                            <option value="46">Science (National 5)
-
-                                                            </option>
-                                                            <option value="47">Science (Scottish Highers)
-
-                                                            </option>
-                                                            <option value="48">Primary and Early Years
-
-                                                            </option>
-                                                            <option value="49">Early Years and Reception</option>
-                                                            <option value="50">Eleven Plus 11+ </option>
-                                                            <option value="51"> Primary</option>
-                                                            <option value="52"> Primary (Key Stage 1)</option>
-                                                            <option value="53"> Primary (Key Stage 2)</option>
-                                                            <option value="54"> SATs
-                                                            </option>
-                                                            <option value="55">Essay Writing
-                                                            </option>
-                                                            <option value="56"> Phonics
-                                                            </option>
-                                                            <option value="57"> Reading
-                                                            </option>
-                                                            <option value="58"> Writing
-                                                            </option>
-                                                            <option value="59"> Humanities & Arts
-                                                            </option>
-                                                            <option value="60">Art
-                                                            </option>
-                                                            <option value="61">Citizenship
-                                                            </option>
-                                                            <option value="62"> Design and Technology</option>
-                                                            <option value="63"> Drama
-                                                            </option>
-                                                            <option value="64">Economics
-                                                            </option>
-                                                            <option value="65">Economics (A-Level)
-                                                            </option>
-                                                            <option value="66">Economics (GCSE)
-                                                            </option>
-                                                            <option value="67"> Economics (National 5)</option>
-                                                            <option value="68">Economics (Scottish Highers)
-                                                            </option>
-                                                            <option value="69">Food Technology
-                                                            </option>
-                                                            <option value="70">Geography </option>
-                                                            <option value="71">Geography (A-Level) </option>
-                                                            <option value="72">Geography (GCSE)
-                                                            </option>
-                                                            <option value="73">Geography (National 5)
-                                                            </option>
-                                                            <option value="74">Geography (Scottish Highers) </option>
-                                                            <option value="75">History
-                                                            </option>
-                                                            <option value="76">History (A-Level) </option>
-                                                            <option value="77"> History (GCSE)
-                                                            </option>
-                                                            <option value="78">History (National 5)
-                                                            </option>
-                                                            <option value="79">History (Scottish Highers) </option>
-                                                            <option value="80"> History of Art</option>
-                                                            <option value="81">Humanities </option>
-                                                            <option value="82">Performing Arts
-                                                            </option>
-
-                                                            <option value="83">Philosophy
-                                                            </option>
-
-                                                            <option value="84">Philosophy (A-Level)
-                                                            </option>
-
-                                                            <option value="85"> Philosophy (Scottish Highers)
-                                                            </option>
-
-                                                            <option value="86"> Photography
-                                                            </option>
-
-                                                            <option value="87">Photography (A-Level)
-                                                            </option>
-
-                                                            <option value="88">Photography (Scottish Highers) </option>
-
-                                                            <option value="89">Politics </option>
-                                                            <option value="90"> Politics (GCSE)
-                                                            </option>
-                                                            <option value="91">Politics (National 5)
-                                                            </option>
-                                                            <option value="92">Psychology
-                                                            </option>
-                                                            <option value="90">Psychology (A-Level) </option>
-                                                            <option value="93"> Psychology (GCSE)
-                                                            </option>
-                                                            <option value="94">Psychology (National 5) </option>
-                                                            <option value="95">Psychology (Scottish Highers) </option>
-                                                            <option value="96">Religious Education </option>
-                                                            <option value="97">Sociology
-                                                            </option>
-                                                            <option value="98">Sociology (A-Level)
-                                                            </option>
-                                                            <option value="99">Sociology (GCSE)
-                                                            </option>
-                                                            <option value="100">Sociology (National 5) </option>
-                                                            <option value="101">Sociology (Scottish Highers)
-                                                            </option>
-                                                            <option value="102">Languages
-                                                            </option>
-                                                            <option value="103">Arabic
-                                                            </option>
-                                                            <option value="104">English as a Foreign Language EFL
-                                                            </option>
-                                                            <option value="105">French
-                                                            </option>
-                                                            <option value="106">German
-                                                            </option>
-                                                            <option value="107">IELTS and ESOL </option>
-
-                                                            <option value="108">Italian
-                                                            </option>
-                                                            <option value="109">Latin
-                                                            </option>
-                                                            <option value="110">Portuguese
-                                                            </option>
-                                                            <option value="111">Russian
-                                                            </option>
-                                                            <option value="112">Sign Language
-                                                            </option>
-                                                            <option value="113">Spanish
-                                                            </option>
-                                                            <option value="114">Business and Professional Studies
-                                                            </option>
-                                                            <option value="115">Accounting
-                                                            </option>
-                                                            <option value="116">Accounting (A-Level)
-                                                            </option>
-                                                            <option value="117">Accounting (Scottish Highers) </option>
-                                                            <option value="118">Business Studies
-                                                            </option>
-                                                            <option value="119">Business Studies (A-Level)
-                                                            </option>
-                                                            <option value="120">Business Studies (Scottish Highers)
-                                                            </option>
-                                                            <option value="121">Law
-                                                            </option>
-                                                            <option value="122">Law (A-Level)
-                                                            </option>
-                                                            <option value="123">Law (Scottish Highers)</option>
-                                                            <option value="124">Media Studies
-                                                            </option>
-                                                            <option value="125">Computing
-                                                            </option>
-                                                            <option value="126">ASP.net</option>
-                                                            <option value="127">Acrobat
-                                                            </option>
-                                                            <option value="128">Android Development </option>
-                                                            <option value="129">Apple
-                                                            </option>
-                                                            <option value="130">Autocad
-                                                            </option>
-                                                            <option value="131">Autodesk
-                                                            </option>
-                                                            <option value="132">Basic IT Skills
-                                                            </option>
-                                                            <option value="133">Computer Graphics </option>
-                                                            <option value="134">Computer Literacy </option>
-                                                            <option value="135">Computer Programming </option>
-                                                            <option value="136">Computing
-                                                            </option>
-                                                            <option value="137">Databases </option>
-                                                            <option value="138">HTML
-                                                            </option>
-                                                            <option value="139">ICT
-                                                            </option>
-
-                                                            <option value="140">Information Security </option>
-                                                            <option value="141">Information Technology </option>
-                                                            <option value="142">Java </option>
-                                                            <option value="143">Matlab </option>
-                                                            <option value="144">Microsoft Access
-                                                            </option>
-                                                            <option value="145"> Microsoft Excel </option>
-                                                            <option value="146">Microsoft Office </option>
-                                                            <option value="147">Microsoft Outlook </option>
-                                                            <option value="148">Microsoft Powerpoint </option>
-                                                            <option value="149">Microsoft Word </option>
-                                                            <option value="150">PHP </option>
-                                                            <option value="151">Programming
-                                                            </option>
-                                                            <option value="152">Python </option>
-                                                            <option value="153">Ruby </option>
-                                                            <option value="154">SQL
-                                                            </option>
-                                                            <option value="155">Search Engine Optimisation </option>
-                                                            <option value="156">Web Design </option>
-                                                            <option value="157">Special Educational Needs </option>
-                                                            <option value="158">Autism </option>
-                                                            <option value="159">Dyscalculia </option>
-                                                            <option value="160">Dyslexia </option>
-                                                            <option value="161">Dyspraxia </option>
-                                                            <option value="162">Special Educational Needs </option>
-                                                            <option value="163">Music
-                                                            </option>
-                                                            <option value="164">Bagpipes</option>
-                                                            <option value="165">Banjo
-                                                            </option>
-                                                            <option value="166">Bass Guitar</option>
-                                                            <option value="167">Bassoon </option>
-                                                            <option value="168">Cello
-                                                            </option>
-                                                            <option value="169">Clarinet
-                                                            </option>
-                                                            <option value="170">Composition </option>
-                                                            <option value="171">Conducting</option>
-                                                            <option value="172">Cornet
-                                                            </option>
-                                                            <option value="173">Double Bass
-                                                            </option>
-                                                            <option value="174">Drums
-                                                            </option>
-                                                            <option value="175">Euphonium </option>
-                                                            <option value="176">Flugel Horn
-                                                            </option>
-                                                            <option value="177">Flute
-                                                            </option>
-                                                            <option value="178">French Horn </option>
-                                                            <option value="179">Guitar </option>
-                                                            <option value="180">Harmonica</option>
-                                                            <option value="181">Harp
-                                                            </option>
-                                                            <option value="182">Harpsichord
-                                                            </option>
-                                                            <option value="183">Keyboard
-                                                            </option>
-                                                            <option value="184">Mandolin
-                                                            </option>
-                                                            <option value="185">Music
-                                                            </option>
-                                                            <option value="186">Music Production
-                                                            </option>
-                                                            <option value="187">Music Technology</option>
-                                                            <option value="188">Music Theory</option>
-                                                            <option value="189">Oboe</option>
-                                                            <option value="190">Organ
-                                                            </option>
-                                                            <option value="191">Percussion
-                                                            </option>
-                                                            <option value="192">Piano
-                                                            </option>
-                                                            <option value="193">Piccolo
-                                                            </option>
-                                                            <option value="194">Recorder
-
-                                                            </option>
-                                                            <option value="195">Saxophone
-                                                            </option>
-                                                            <option value="196">Singing
-                                                            </option>
-                                                            <option value="197">Sitar
-
-                                                            </option>
-                                                            <option value="198">Tenor Horn
-
-                                                            </option>
-                                                            <option value="199">Trombone
-                                                            </option>
-                                                            <option value="200">Trumpet
-
-                                                            </option>
-                                                            <option value="201">Tuba
-
-                                                            </option>
-                                                            <option value="202">Ukulele
-
-                                                            </option>
-                                                            <option value="203">Viola
-
-                                                            </option>
-                                                            <option value="204">Violin
-
-
-                                                            </option>
+                                                            @foreach($subject_list as $subject)
+                                                            <option value="{{$subject->id}}">{{$subject->main_title}}</option>
+                                                            @endforeach
 
                                                         </select>
+                                                        <span class="text-danger" id="error_subject"></span>
                                                     </div>
+
 
                                                 </div>
                                                 <div class="col-md-6 col-lg-6 mb-23">
 
                                                     <label class="tutor-label">Level of Tuition</label>
                                                     <div class="subject-custom">
-                                                        <select class="selectpicker select-sub" multiple aria-label="Default select example" data-live-search="true">
-                                                            <option value="levels" selected>A-level (Years 12 & 13)
-                                                            </option>
-                                                            <option value="gcse">GCSE/ IGCSE (Years 9,10 & 11)
-                                                            </option>
-                                                            <option value="ks3">KS3 (Years 7 & 8) </option>
-                                                            <option value="ks2">KS2 (Years 4, 5 & 6) </option>
-                                                            <option value="ks1">KS1 (Years 1, 2, & 3) </option>
-                                                            <option value="scottish">Scottish Highers (S5) </option>
-                                                            <option value="national">National 5 (S4) </option>
-                                                            <option value="ib">IB </option>
-                                                            <option value="adult">Adult learning & Functional Skills
-                                                            </option>
-                                                            <option value="plus1">11+ </option>
-                                                            <option value="plus">13+ </option>
-                                                            <option value="common">Common entrance Exam </option>
-                                                            <option value="primary">Primary </option>
-                                                            <option value="p1">P1 - P7 (Scottish Primary)</option>
-                                                            <option value="s1">S1 - S3 (Scottish Secondary)
-                                                            </option>
+                                                        <select class="selectpicker select-sub" multiple aria-label="Default select example" data-live-search="true" id="level">
 
-
+                                                            @foreach($tutor_level_list as $level)
+                                                            <option value="{{$level->id}}">{{$level->title}}
+                                                            </option>
+                                                            @endforeach
 
                                                         </select>
+                                                        <span class="text-danger" id="error_level"></span>
+
                                                     </div>
+
+
                                                 </div>
+                                                <!-- <div id="subjectDiv">
+                                                </div> -->
+
+                                                <!-- <div class="col-md-1" style="margin-top: 32px;" id="subjectDiv"><a class="extra-fields-customer1 search-menu" onclick="addmoreSubject()" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true" style="margin-top: 4px;"></i></a></div> -->
+
+
+
+
                                                 <!-- <div class="col-md-6">
                                                         <label class="tutor-label">Address</label>
                                                         <textarea name="message" cols="20" rows="10" placeholder="Address"></textarea>
                                                     </div> -->
                                                 <div class="col-md-6 col-lg-6">
                                                     <label class="tutor-label">Day of Tuition</label>
-                                                    <select name="" id="">
-                                                        <option>
-                                                            Monday
+                                                    <select name="days" id="days">
+                                                        @foreach($daysArr as $key=>$val)
+                                                        <option value="{{$val}}">
+                                                            {{$key}}
                                                         </option>
-                                                        <option>
-                                                            Tuesday
-                                                        </option>
-                                                        <option>
-                                                            Wednesday
-                                                        </option>
-                                                        <option>
-                                                            Thursday
-                                                        </option>
-                                                        <option>
-                                                            Friday
-                                                        </option>
-                                                        <option>
-                                                            Saturday
-                                                        </option>
-                                                        <option>
-                                                            Sunday
-                                                        </option>
+                                                        @endforeach
+
                                                     </select>
+                                                    <span class="text-danger" id="error_days"></span>
+
                                                 </div>
                                                 <div class="col-md-6 col-lg-6">
                                                     <label class="tutor-label">Ideal Tuition Time</label>
-                                                    <select name="" id="">
-                                                        <option>
+                                                    <select id="time" name="tuition_time">
+                                                        <option value="8am-9am">
                                                             8am- 9am
                                                         </option>
-                                                        <option>
+                                                        <option value="9am-10am">
                                                             9am - 10am
                                                         </option>
-                                                        <option>
+                                                        <option value="10am-11am">
                                                             10am - 11am
                                                         </option>
                                                     </select>
+                                                    <span class="text-danger" id="error_time"></span>
+
                                                 </div>
-                                                <!-- <div class="col-md-6">
-                                                        <div class="terms-checkbox">
-                                                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" class="terms-condition">
-                                                            <p class="condition-text">Terms & conditions</p>
-                                                        </div>
-                                                    </div> -->
+
+
                                                 <div class="col-md-12">
                                                     <label class="tutor-label">Address</label>
-                                                    <textarea name="message" cols="20" rows="10" placeholder="Address" class="mb-2"></textarea>
+                                                    <textarea name="address" cols="20" rows="10" id="address" placeholder="Address" class="mb-2"></textarea>
+                                                    <span class="text-danger" id="error_address"></span>
+
                                                 </div>
+
                                                 <div class="col-md-6 col-lg-6">
                                                     <label class="tutor-label">Username</label>
-                                                    <input type="text " name="name " placeholder="Username ">
+                                                    <input type="text " name="username" id="username" placeholder="Username ">
+                                                    <span class="text-danger" id="error_username"></span>
+
                                                 </div>
+
                                                 <div class="col-md-6 col-lg-6">
                                                     <label class="tutor-label">Password</label>
-                                                    <input type="password" name="password" placeholder="Password">
+                                                    <input type="password" id="password" name="password" placeholder="Password">
+                                                    <span class="text-danger" id="error_password"></span>
+
                                                 </div>
+
                                                 <div class="col-md-6 col-lg-4">
                                                     <div class="form-check custom-check">
                                                         <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
@@ -648,7 +279,7 @@
                                                 <div class="col-md-12 mr-0">
                                                     <div class="tutor-btn-end mr-0">
                                                         <div class="banner-readmore">
-                                                            <a class="button-default inline" href="javascript:void(0)">submit</a>
+                                                            <a class="button-default inline" onclick="saveinquiry();" href="javascript:void(0)">submit</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1046,16 +677,11 @@
             contentHeight: "auto",
             allDaySlot: false,
             editable: true,
-            // timeZone: 'UTC',
             initialView: 'timeGridWeek',
             slotDuration: '01:00',
             displayEventTime: false,
             events: [
-                // {
-                //     title: 'Availability',
-                //     start: '2022-03-27T03:00:00',
-                //     classNames: 'event-availability-label',
-                // },
+
                 {
                     title: 'Booked',
                     start: '2022-03-27T24:00:00',
@@ -1129,6 +755,86 @@
             }
         }
     })
+
+    function saveinquiry() {
+        var firstName = $('#first_name').val();
+        var lastName = $('#last_name').val();
+        var email = $('#email').val();
+        var phone = $('#phone').val();
+        var address = $('#address').val();
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        var temp = 0;
+
+        $('#error_first_name').html('');
+        $('#error_last_name').html('');
+        $('#error_email').html('');
+        $('#error_phone').html('');
+        $('#error_address').html('');
+        $('#error_username').html('');
+        $('#error_password').html('');
+
+
+        if (firstName.trim() == '') {
+            $('#error_first_name').html('Firstname is required');
+            temp++;
+        }
+        if (lastName.trim() == '') {
+            $('#error_last_name').html('Lastname is required');
+            temp++;
+        }
+        if (email.trim() == '') {
+            $('#error_email').html('Email is required');
+            temp++;
+        }
+        if (phone.trim() == '') {
+            $('#error_phone').html('Phone is required');
+            temp++;
+        }
+        if (address.trim() == '') {
+            $('#error_address').html('Address is required');
+            temp++;
+        }
+        if (username == '') {
+            $('#error_username').html('Username is required');
+            temp++;
+        }
+        if (password == '') {
+            $('#error_password').html('Password is required');
+            temp++;
+        }
+
+        if (temp == 0) {
+            // $.ajax({
+            //     url: "{{ route('submit.review')}}",
+            //     data: {
+            //         'id': id,
+            //         'description': description,
+            //         'subject': subject,
+            //         'outcome': outcome,
+            //         'rating': rating
+            //     },
+            //     success: function(res) {
+            //         console.log(res.data);  
+            //     }
+            // })
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
+
+
+    function addmoreSubject() {
+        var html = ' <div class="col-md-6 col-lg-6 mb-23"> <label class="tutor-label">Subject</label> <div class="subject-custom"> <select class="selectpicker select-sub " aria-label="Default select example" data-live-search="true" id="subject"> @foreach($subject_list as $subject) <option value="{{$subject->id}}">{{$subject->main_title}}</option> @endforeach </select> </div><span class="text-danger" id="error_subject"></span> </div><div class="col-md-5 col-lg-5 mb-23"> <label class="tutor-label">Level of Tuition</label> <div class="subject-custom"> <select class="selectpicker select-sub" multiple aria-label="Default select example" data-live-search="true" id="level"> @foreach($tutor_level_list as $level) <option value="{{$level->id}}">{{$level->title}}</option> @endforeach </select> </div><span class="text-danger" id="error_level"></span> </div>';
+        $('#subjectDiv').html('');
+        $('#subjectDiv').html();
+
+    }
 </script>
 <script>
     $(function() {

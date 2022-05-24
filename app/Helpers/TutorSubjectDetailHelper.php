@@ -113,6 +113,10 @@ class TutorSubjectDetailHelper
         return $query;
 
     }
-
+    public static function getTutorSubjectDetails($id)
+    {
+        $query = TutorSubjectDetail::with('subjectMasters')->whereRaw('sha1(tutor_id)="' . $id . '"')->get();
+        return $query;
+    }
 }
 

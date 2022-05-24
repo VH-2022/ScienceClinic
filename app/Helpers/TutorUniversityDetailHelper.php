@@ -83,6 +83,12 @@ class TutorUniversityDetailHelper
         return $query;
 
     }
+    public static function getTutorUniversityDetails($id)
+    {
+        $query = TutorUniversityDetail::whereRaw('sha1(tutor_id)="' . $id . '"')->get();
+        return $query;
+    }
+
 
 }
 

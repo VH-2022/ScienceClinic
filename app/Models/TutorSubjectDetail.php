@@ -29,10 +29,12 @@ class TutorSubjectDetail extends Model
    public function subjectMasters()
 
    {
-
        return $this->belongsTo(SubjectMaster::class, 'subject_id', 'id');
-
    }
+    public function getLevelDetail()
+    {
+        return $this->hasOne(TutorLevel::class, 'id', 'subject_id');
+    }
 
 }
 

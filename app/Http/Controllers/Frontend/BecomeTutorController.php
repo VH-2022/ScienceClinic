@@ -33,6 +33,9 @@ use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\TutorSubjectDetailHelper;
 
 use App\Helpers\TutorLevelDetailHelper;
+use Illuminate\Support\Facades\Hash;
+
+use function GuzzleHttp\Promise\all;
 
 class BecomeTutorController extends Controller
 
@@ -70,8 +73,7 @@ class BecomeTutorController extends Controller
 
         $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
 
-        return view('frontend.become_tutor.create',$data);
-
+        return view('frontend.become_tutor.create', $data);
     }
 
 
@@ -112,7 +114,6 @@ class BecomeTutorController extends Controller
 
     {
 
-       
 
         $validator = Validator::make($request->all(), [
 
@@ -144,9 +145,9 @@ class BecomeTutorController extends Controller
 
             'paytax' => 'required',
 
-            'subject' => 'required',
+            'user_name' => 'required',
 
-            'level' => 'required',
+            'password' => 'required',
 
             'university' => 'required',
 
@@ -158,10 +159,9 @@ class BecomeTutorController extends Controller
 
             return redirect("/become-tutor")
 
-            ->withErrors($validator, 'useredit')
+                ->withErrors($validator, 'useredit')
 
-            ->withInput();
-
+                ->withInput();
         } else {
 
             $image = '';
@@ -169,12 +169,11 @@ class BecomeTutorController extends Controller
             if ($request->file('profile_image') != '') {
 
                 $image = $this->uploadImageWithCompress($request->file('profile_image'), 'uploads/user');
-
             }
 
-               
 
-            
+
+
 
             $data_array = array(
 
@@ -198,26 +197,29 @@ class BecomeTutorController extends Controller
 
                 'profile_photo' => $image,
 
-                'type'=>2,
+                'type' => 2,
 
-                
+                'user_name' => $request->user_name,
+
+                'password' => Hash::make($request->password)
+
+
 
             );
-            $data = UserHelper::save($data_array);
-            if ($data) {
+           $data = UserHelper::save($data_array);
+           
+          if ($data) {
 
                 $document = '';
 
-                if($request->dbsdisclosure =='Yes'){
+                if ($request->dbsdisclosure == 'Yes') {
 
-                    
+
 
                     if ($request->file('document_pdf') != '') {
 
                         $document = $this->uploadImageWithCompress($request->file('document_pdf'), 'uploads/user');
-
                     }
-
                 }
 
                 $tutorDetails = array(
@@ -232,7 +234,7 @@ class BecomeTutorController extends Controller
 
                     'pay_tex' => $request->paytax,
 
-                    'document'=> $document
+                    'document' => $document
 
                 );
 
@@ -242,16 +244,15 @@ class BecomeTutorController extends Controller
 
                 $university = $request->input('university');
 
-                if(!empty($university)){
+                if (!empty($university)) {
 
-                    foreach($university as $key=>$val){
+                    foreach ($university as $key => $val) {
 
-                        $document_image ='';
+                        $document_image = '';
 
                         if ($request->file('document_certi') != '') {
 
                             $document_image = $this->uploadImageWithCompress($request->file('document_certi')[$key], 'uploads/user/certificate');
-
                         }
 
                         $tutorUniversityDetails = array(
@@ -260,59 +261,49 @@ class BecomeTutorController extends Controller
 
                             'university_name' => $val,
 
-                            'qualification' =>$request->input('qualification')[$key],
+                            'qualification' => $request->input('qualification')[$key],
 
-                            'document_image'=>$document_image
+                            'document_image' => $document_image
 
                         );
 
 
 
                         TutorUniversityDetailHelper::save($tutorUniversityDetails);
-
                     }
-
                 }
-                $subject = $request->input('subject');
+                $subject = $request->input('main_subject_id');
 
-                if(!empty($subject)){
+                if (!empty($subject)) {
 
-                    foreach($subject as $key=>$vals){
-                        $level = $request->input('level');
-                       
-                        foreach( $level as $levels){
+                    foreach ($subject as $vals) {
+                        
+                        $levelArray = $request->input('level' . $vals);
+                        foreach($levelArray as $val){
+                            $subject = $request->input('subject' . $vals);
                             $tutorLevelDetails = array(
 
                                 'tutor_id' => $data,
-    
-                                'level_id' => $levels,
-                                'subject_id' => $vals,
+
+                                'level_id' => $val,
+                                'subject_id' => $request->input('subject' . $vals)[0],
 
                             );
                             TutorLevelDetailHelper::save($tutorLevelDetails);
                         }
-
+                       
                     }
-
                 }
-
-
-
-
                 Session::flash('success', trans('messages.addedSuccessfully'));
 
                 return redirect('/become-tutor');
-
             } else {
 
                 Session::flash('error', trans('messages.error'));
 
                 return redirect('/become-tutor');
-
             }
-
         }
-
     }
 
 
@@ -417,19 +408,14 @@ class BecomeTutorController extends Controller
 
         $data =  UserHelper::checkDuplicateEmail($email);
 
-      
 
-        if ($data !=0) {
+
+        if ($data != 0) {
 
             return response()->json(['status' => 1]);
-
         } else {
 
             return response()->json(['status' => 0]);
-
         }
-
     }
-
 }
-

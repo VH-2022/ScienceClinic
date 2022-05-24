@@ -81,7 +81,11 @@ class TutorDetailHelper
         return $update;
 
     }
-
+    public static function getTutorDetails($id)
+    {
+        $query = TutorDetail::whereRaw('sha1(tutor_id)="' . $id . '"')->first();
+        return $query;
+    }
    
 
 }

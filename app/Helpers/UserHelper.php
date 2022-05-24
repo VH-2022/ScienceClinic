@@ -119,6 +119,11 @@ class UserHelper
         return $query;
 
     }
+    public static function getTutorDetails($id)
+    {
+        $query = User::whereRaw('sha1(id)="' . $id . '"')->first();
+        return $query;
+    }
 
 }
 

@@ -4,8 +4,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
-
+use App\Helpers\ReviewMasterHelper;
+use App\Helpers\SubjectHelper;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -25,7 +25,9 @@ use App\Helpers\UserHelper;
 use App\Models\User;
 
 use URL;
-
+use App\Helpers\TutorDetailHelper;
+use App\Helpers\TutorLevelHelper;
+use App\Helpers\TutorUniversityDetailHelper;
 class FindATutorController extends Controller
 
 {
@@ -50,52 +52,16 @@ class FindATutorController extends Controller
 
 
 
-        if($request->subject !=''){
+        $subjectUserList = TutorLevelDetailHelper::getSearchUserId($request->subject, $request->level);
 
-            
+        foreach ($subjectUserList as $val) {
 
-            $subjectUserList = TutorSubjectDetailHelper::getSearchUserId($request->subject);
+            if (in_array($val->tutor_id, $final_array)) {
+            } else {
 
-      
-
-        
-
-            foreach($subjectUserList as $val){
-
-                if(in_array($val->tutor_id, $final_array)){
-
-
-
-                }   else{
-
-                    $final_array[] = $val->tutor_id;
-
-                }
-
+                $final_array[] = $val->tutor_id;
             }
-
         }
-
- 
-
-        if($request->level !=''){
-
-            $tutorUserList = TutorLevelDetailHelper::getSearchUserId($request->level);
-
-            foreach ($tutorUserList as $vals) {
-
-                if (in_array($vals->tutor_id, $final_array)) {
-
-                } else {
-
-                    $final_array[] = $vals->tutor_id;
-
-                }
-
-            }
-
-        }
-
         
 
        
@@ -117,10 +83,38 @@ class FindATutorController extends Controller
 
 
     public function tutorDetails($id){
-
         
+        $data['data'] = UserHelper::getTutorDetails($id);
 
-        return view('frontend.SearchTutor.view_tutor_detail');
+        $tutorSubjectLevelDetails = TutorLevelDetailHelper::getTutorLevelDetails($id);
+
+        foreach($tutorSubjectLevelDetails as $val){
+            $query = TutorLevelDetailHelper::getAllLevelDetials($val->subject_id,$id);
+            $val->level_details = $query;
+        }
+    
+        $data['tutorSubjectLevelDetails'] = $tutorSubjectLevelDetails;
+        $data['tutorDetails'] = TutorDetailHelper::getTutorDetails($id);
+        $data['tutorUniversityDetails'] = TutorUniversityDetailHelper::getTutorUniversityDetails($id);
+        $data['subject_list'] = SubjectHelper::getAllSubjectList();
+
+        $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
+      
+        return view('frontend.SearchTutor.view_tutor_detail',$data);
+
+    }
+     public function saveReview(Request $request)
+    {
+         $data = array(
+            'tutor_id' => $request->id,
+            'descriptions' =>$request->description,
+            'subject' => $request->subject,
+            'outcome' => $request->outcome,
+            'rating' => $request->rating,
+        );
+         ReviewMasterHelper::save($data);
+
+        return response()->json(['error_msg' => "Success", 'data' => $data], 200);
 
     }
 

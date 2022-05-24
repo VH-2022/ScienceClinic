@@ -40,5 +40,11 @@ class TutorLevelDetail extends Model
 
     }
 
+    public function getLevelDetail()
+    {
+        return $this->hasOne(TutorLevel::class, 'id', 'level_id');
+    }
+
+
 }
 
