@@ -130,7 +130,7 @@
                                     <div class="col-md-12">
                                         <textarea name="message" cols="30" rows="10" placeholder="Message" id='message'></textarea>
                                         <span class="error" id="message_error"></span>
-                                        <button type="submit" class="button-default" id="add_contact">SUBMIT</button>
+                                        <button type="button" class="button-default" id="add_contact">SUBMIT</button>
                                     </div>
                                 </div>
                             </form>
@@ -366,14 +366,14 @@
             }
             $('#tutor_error').html("");
             if (tutor_type.trim() == '') {
-                $('#tutor_error').html("Name is required");   
+                $('#tutor_error').html("Tutor Type is required");   
             }
             $('#email_error').html("");
             if (email.trim() == '') {
                 $('#email_error').html("Email is required");
             }
             $('#message_error').html("");
-            if (message.write(message) == '') {
+            if (message.trim() == '') {
                 $('#message_error').html("Message is required");
             }  cnt = 1;
             console.log(cnt);
