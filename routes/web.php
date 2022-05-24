@@ -63,6 +63,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
         $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
+        $backendVerified->get('contact-ajax', "ContactListController@ajaxList")->name('contact-ajax');
+        $backendVerified->resource('contact-list', "ContactListController");
     });
 });
 
@@ -76,7 +78,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
     $frontend->get('tutor-detail/{id}', "FindATutorController@tutorDetails");
-    $frontend->get('contact', "ContactController@index")->name('contact');
-    $frontend->get('contact/create', "ContactController@create")->name('contact-create');
-    $frontend->post('contact/store', "ContactController@store")->name('contact-store');
+    $frontend->resource('contact', "ContactController");
+    // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
+    // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });

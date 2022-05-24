@@ -99,7 +99,7 @@
                                         <i class="fa fa-angle-down mmbtns" aria-hidden="true"></i>
                                     </li>
                                     <li><a href="about.html">About</a></li>
-                                    <li class="text-none" id="tutor-sub"><a href="{{route('contact')}}">Contact</a>
+                                    <li class="text-none" id="tutor-sub"><a href="{{route('contact.index')}}">Contact</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
                                             <li><a href="blog.html">Blog</a></li>
 
