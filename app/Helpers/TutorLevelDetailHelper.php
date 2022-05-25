@@ -79,8 +79,12 @@ class TutorLevelDetailHelper
 
     public static function getListwithPaginate($id){
 
-        $query = TutorLevelDetail::with('tutorLevelRelation')->where('tutor_id',$id)->paginate(10);
-
+        //$query = TutorLevelDetail::with('tutorLevelRelation')->where('tutor_id',$id)->paginate(10);
+        $qeury = $query = TutorLevelDetail::selectRaw('sc_tutor_level_details.*,sb.main_title,GROUP_CONCAT(level.title) as level_name')->leftjoin('sc_subject_master as sb', function ($join) {
+            $join->on('sb.id', '=', 'sc_tutor_level_details.subject_id');
+        })->leftjoin('sc_tutor_level as level', function ($join) {
+            $join->on('level.id', '=', 'sc_tutor_level_details.level_id');
+        })->where('sc_tutor_level_details.tutor_id',$id)->groupBy('sb.id')->paginate(10);
         
 
         return $query;
