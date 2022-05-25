@@ -66,6 +66,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('blog-master', "BlogMasterController");
         $backendVerified->get('blog-master-ajax', "BlogMasterController@ajaxList")->name('blog-master-ajax');
         $backendVerified->get('change-status', "TutorMasterController@changeStatus")->name('change-status');
+        $backendVerified->get('contact-ajax', "ContactListController@ajaxList")->name('contact-ajax');
+        $backendVerified->resource('contact-list', "ContactListController");
     });
 });
 
@@ -83,5 +85,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
     $frontend->get('blog', "BlogController@index")->name('blog');
     $frontend->get('blog-detail/{id}', "BlogController@blogDetails")->name('blog-detail');
-    
+
+    $frontend->resource('contact', "ContactController");
+    // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
+    // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });

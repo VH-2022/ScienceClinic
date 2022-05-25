@@ -3,7 +3,7 @@
     <!--begin::Brand-->
     <div class="brand flex-column-auto" id="kt_brand">
         <!--begin::Logo-->
-        <a href="{{ url('/admin')}}" class="brand-logo">
+        <a href="{{ url('/admin') }}" class="brand-logo">
             <img alt="Logo" src="{{ asset('assets/media/logos/logo-light.png') }}" />
         </a>
         <!--end::Logo-->
@@ -172,12 +172,12 @@
                     </div>
                 </li>
                 @php
-                    $blogFlag = 0;
-                    if (Request::segment(1) == 'blog-master') {
-                        $blogFlag = 1;
+                    $contactFlag = 0;
+                    if (Request::segment(1) == 'contact') {
+                        $contactFlag = 1;
                     }
                 @endphp
-                <li class="menu-item menu-item-submenu @if ($blogFlag == 1) menu-item-open @endif"
+                <li class="menu-item menu-item-submenu @if ($contactFlag == 1) menu-item-open @endif"
                     aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
@@ -198,33 +198,32 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">Blog Master</span>
+                        <span class="menu-text">Contact</span>
                         <i class="menu-arrow"></i>
                     </a>
                     <div class="menu-submenu" kt-hidden-height="80">
                         <i class="menu-arrow"></i>
                         <ul class="menu-subnav">
 
-                            <li class="menu-item {{ Request::segment(1) == 'blog-master' ? 'menu-item-active' : '' }}"
+                            <li class="menu-item {{ Request::segment(1) == 'contact' ? 'menu-item-active' : '' }}"
                                 aria-haspopup="true">
-                                <a href="{{ route('blog-master.index') }}" class="menu-link">
+                                <a href="{{ route('contact-list.index') }}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
-                                    <span class="menu-text">Blog Master</span>
+                                    <span class="menu-text">Contact</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-            </ul>
-            <!--end::Menu Nav-->
-            <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-            </div>
-            <div class="ps__rail-y" style="top: 0px; height: 285px; right: 4px;">
-                <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 70px;"></div>
-            </div>
+                <!--end::Menu Nav-->
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                </div>
+                <div class="ps__rail-y" style="top: 0px; height: 285px; right: 4px;">
+                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 70px;"></div>
+                </div>
         </div>
         <!--end::Menu Container-->
     </div>
