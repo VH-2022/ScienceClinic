@@ -162,7 +162,6 @@ class BecomeTutorController extends Controller
 
             ->withInput();
         } else {
-            dd($request->all());
             $image = '';
 
             if ($request->file('profile_image') != '') {
