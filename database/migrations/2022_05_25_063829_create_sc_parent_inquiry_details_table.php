@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sc_tuition_days', function (Blueprint $table) {
+        Schema::create('sc_parent_inquiry_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('parent_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->integer('subject_id')->nullable();
+            $table->integer('level_id')->nullable();
             $table->string('tuition_day')->nullable();
             $table->string('tuition_time')->nullable();
             $table->integer('created_by')->nullable();
@@ -33,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sc_tuition_days');
+        Schema::dropIfExists('sc_parent_inquiry_details');
     }
 };

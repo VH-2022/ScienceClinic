@@ -92,7 +92,7 @@ class UserHelper
 
     {
 
-        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',2)->count();
+        $query  = User::whereNull('deleted_at')->where('email', $email)->count();
 
         return $query;
 

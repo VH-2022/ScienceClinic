@@ -77,5 +77,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
     $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
+    $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
 
 });

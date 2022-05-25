@@ -352,7 +352,7 @@
                                                             <div class="col-md-5">
                                                                 <select class="selectpicker" data-id="{{$uniqid }}" name="level{{$uniqid}}[]" multiple aria-label="Default select example" data-live-search="true">
 
-                                                                    <option value="">Select Tutor Level</option>
+                                                                
 
                                                                     @foreach ($tutor_level_list as $val)
                                                                     <option value="{{ $val->id }}">{{ $val->title }}

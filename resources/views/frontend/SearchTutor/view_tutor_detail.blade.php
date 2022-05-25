@@ -133,248 +133,244 @@
                                 <div class="contact-form-area tutors-detail-form">
                                     <div class="row justify-content-center">
                                         <div class="col-lg-10 col-md-12 col-12">
-                                            <div class="row">
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label class="tutor-label">First Name</label>
-                                                    <input type="text " id="first_name" name="first_name" placeholder="First Name ">
-                                                    <span class="text-danger" id="error_first_name"></span>
+                                            <form id="submitinquiry" method="POST">
+                                                @csrf
+                                                <div class="row">
 
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label class="tutor-label">Last Name</label>
-                                                    <input type="text" id="last_name" name="last_name" placeholder="Last Name ">
-                                                    <span class="text-danger" id="error_last_name"></span>
 
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 ">
-                                                    <label class="tutor-label">Email</label>
-                                                    <input type="text" id="email" name="email" placeholder="Email ">
-                                                    <span class="text-danger" id="error_email"></span>
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <label class="tutor-label">First Name</label>
+                                                        <input type="text " id="first_name" name="first_name" placeholder="First Name ">
+                                                        <span class="text-danger" id="error_first_name">{{ $errors->useredit->first('first_name') }}</span>
 
-                                                </div>
-                                                <!-- <div class="col-md-4">
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <label class="tutor-label">Last Name</label>
+                                                        <input type="text" id="last_name" name="last_name" placeholder="Last Name ">
+                                                        <span class="text-danger" id="error_last_name">{{ $errors->useredit->first('last_name') }}</span>
+
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 ">
+                                                        <label class="tutor-label">Email</label>
+                                                        <input type="text" id="email" name="email" placeholder="Email ">
+                                                        <span class="text-danger" id="error_email">{{ $errors->useredit->first('email') }}</span>
+
+                                                    </div>
+                                                    <!-- <div class="col-md-4">
                                                         <label class="tutor-label">Password</label>
                                                         <input type="password" name="password" placeholder="Password">
                                                     </div> -->
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label class="tutor-label">Phone</label>
-                                                    <input type="text " id="phone" name="phone" placeholder="Phone ">
-                                                    <span class="text-danger" id="error_phone"></span>
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <label class="tutor-label">Phone</label>
+                                                        <input type="text " id="phone" name="phone" placeholder="Phone ">
+                                                        <span class="text-danger" id="error_phone">{{ $errors->useredit->first('phone') }}</span>
 
-                                                </div>
-                                                @php $daysArr = [ 'Monday' =>'monday',
-                                                'Tuesday' => 'tuesday',
-                                                'Wednesday' => 'wednesday',
-                                                'Thursday' => 'thursday',
-                                                'Friday' => 'friday',
-                                                'Saturday' => 'saturday',
-                                                'Sunday' => 'sunday'] @endphp
+                                                    </div>
+                                                    @php $daysArr = [ 'Monday' =>'monday',
+                                                    'Tuesday' => 'tuesday',
+                                                    'Wednesday' => 'wednesday',
+                                                    'Thursday' => 'thursday',
+                                                    'Friday' => 'friday',
+                                                    'Saturday' => 'saturday',
+                                                    'Sunday' => 'sunday'] @endphp
 
-                                                <div class="col-md-6 col-lg-6 mb-23">
-                                                    <label class="tutor-label">Subject</label>
-                                                    <div class="subject-custom">
-                                                        <select class="selectpicker select-sub " aria-label="Default select example" data-live-search="true" id="subject">
+                                                    <div class="col-md-6 col-lg-6 mb-23">
+                                                        <label class="tutor-label">Subject</label>
+                                                        <div class="subject-custom">
+                                                            <select class="selectpicker select-sub " aria-label="Default select example" data-live-search="true" name="subjectinquiry" id="subjectinquiry">
+                                                                <option value="">Select Subject</option>
+                                                                @foreach($subject_list as $subject)
+                                                                <option value="{{$subject->id}}">{{$subject->main_title}}</option>
+                                                                @endforeach
 
-                                                            @foreach($subject_list as $subject)
-                                                            <option value="{{$subject->id}}">{{$subject->main_title}}</option>
-                                                            @endforeach
+                                                            </select>
+                                                            <span class="text-danger" id="error_subjectinquiry">{{ $errors->useredit->first('subjectinquiry') }}</span>
+                                                        </div>
 
-                                                        </select>
-                                                        <span class="text-danger" id="error_subject"></span>
+
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 mb-23">
+
+                                                        <label class="tutor-label">Level of Tuition</label>
+                                                        <div class="subject-custom">
+                                                            <select class="selectpicker select-sub" aria-label="Default select example" data-live-search="true" name="level" id="level">
+                                                                <option value="">Select Level</option>
+                                                                @foreach($tutor_level_list as $level)
+                                                                <option value="{{$level->id}}">{{$level->title}}
+                                                                </option>
+                                                                @endforeach
+
+                                                            </select>
+                                                            <span class="text-danger" id="error_level">{{ $errors->useredit->first('level') }}</span>
+
+                                                        </div>
+
+
                                                     </div>
 
-
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 mb-23">
-
-                                                    <label class="tutor-label">Level of Tuition</label>
-                                                    <div class="subject-custom">
-                                                        <select class="selectpicker select-sub" multiple aria-label="Default select example" data-live-search="true" id="level">
-
-                                                            @foreach($tutor_level_list as $level)
-                                                            <option value="{{$level->id}}">{{$level->title}}
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <label class="tutor-label">Day of Tuition</label>
+                                                        <select name="days" id="days">
+                                                            <option value="">Select Days</option>
+                                                            @foreach($daysArr as $key=>$val)
+                                                            <option value="{{$val}}">
+                                                                {{$key}}
                                                             </option>
                                                             @endforeach
 
                                                         </select>
-                                                        <span class="text-danger" id="error_level"></span>
+                                                        <span class="text-danger" id="error_days">{{ $errors->useredit->first('days') }}</span>
+
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <label class="tutor-label">Ideal Tuition Time</label>
+                                                        <select id="time" name="tuition_time">
+                                                            <option value="">Select Time</option>
+                                                            <option value="8:00-9:00">
+                                                                8am- 9am
+                                                            </option>
+                                                            <option value="9:00-10:00">
+                                                                9am - 10am
+                                                            </option>
+                                                            <option value="10:00-11:00">
+                                                                10am - 11am
+                                                            </option>
+                                                        </select>
+                                                        <span class="text-danger" id="error_time">{{ $errors->useredit->first('tuition_time') }}</span>
 
                                                     </div>
 
 
-                                                </div>
-                                                <!-- <div id="subjectDiv">
-                                                </div> -->
-
-                                                <!-- <div class="col-md-1" style="margin-top: 32px;" id="subjectDiv"><a class="extra-fields-customer1 search-menu" onclick="addmoreSubject()" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true" style="margin-top: 4px;"></i></a></div> -->
-
-
-
-
-                                                <!-- <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <label class="tutor-label">Address</label>
-                                                        <textarea name="message" cols="20" rows="10" placeholder="Address"></textarea>
-                                                    </div> -->
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label class="tutor-label">Day of Tuition</label>
-                                                    <select name="days" id="days">
-                                                        @foreach($daysArr as $key=>$val)
-                                                        <option value="{{$val}}">
-                                                            {{$key}}
-                                                        </option>
-                                                        @endforeach
+                                                        <textarea name="address" cols="20" rows="10" id="address" placeholder="Address" class="mb-2"></textarea>
+                                                        <span class="text-danger" id="error_address">{{ $errors->useredit->first('address') }}</span>
 
-                                                    </select>
-                                                    <span class="text-danger" id="error_days"></span>
-
-                                                </div>
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label class="tutor-label">Ideal Tuition Time</label>
-                                                    <select id="time" name="tuition_time">
-                                                        <option value="8am-9am">
-                                                            8am- 9am
-                                                        </option>
-                                                        <option value="9am-10am">
-                                                            9am - 10am
-                                                        </option>
-                                                        <option value="10am-11am">
-                                                            10am - 11am
-                                                        </option>
-                                                    </select>
-                                                    <span class="text-danger" id="error_time"></span>
-
-                                                </div>
-
-
-                                                <div class="col-md-12">
-                                                    <label class="tutor-label">Address</label>
-                                                    <textarea name="address" cols="20" rows="10" id="address" placeholder="Address" class="mb-2"></textarea>
-                                                    <span class="text-danger" id="error_address"></span>
-
-                                                </div>
-
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label class="tutor-label">Username</label>
-                                                    <input type="text " name="username" id="username" placeholder="Username ">
-                                                    <span class="text-danger" id="error_username"></span>
-
-                                                </div>
-
-                                                <div class="col-md-6 col-lg-6">
-                                                    <label class="tutor-label">Password</label>
-                                                    <input type="password" id="password" name="password" placeholder="Password">
-                                                    <span class="text-danger" id="error_password"></span>
-
-                                                </div>
-
-                                                <div class="col-md-6 col-lg-4">
-                                                    <div class="form-check custom-check">
-                                                        <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
-                                                        <label class="form-check-label condition-text" for="defaultCheck1">
-                                                            <a class="condition-text" href="terms-and-conditions.html">Terms & conditions </a>
-                                                        </label>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-md-12 mr-0">
-                                                    <div class="tutor-btn-end mr-0">
-                                                        <div class="banner-readmore">
-                                                            <a class="button-default inline" onclick="saveinquiry();" href="javascript:void(0)">submit</a>
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <label class="tutor-label">Username</label>
+                                                        <input type="text " name="username" id="username" placeholder="Username ">
+                                                        <span class="text-danger" id="error_username">{{ $errors->useredit->first('username') }}</span>
+
+                                                    </div>
+
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <label class="tutor-label">Password</label>
+                                                        <input type="password" id="password" name="password" placeholder="Password">
+                                                        <span class="text-danger" id="error_password">{{ $errors->useredit->first('password') }}</span>
+
+                                                    </div>
+
+                                                    <div class="col-md-6 col-lg-4">
+                                                        <div class="form-check custom-check">
+                                                            <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
+                                                            <label class="form-check-label condition-text" for="defaultCheck1">
+                                                                <a class="condition-text" href="terms-and-conditions.html">Terms & conditions </a>
+                                                            </label>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-12 col-md-12 col-12">
-                                                    <div class="comments comments-overflow-show" id="down">
-                                                        <div class="section-title-wrapper section-title-wrapper-star">
-                                                            <div class="section-title">
-                                                                <h3 class="mb-4">Reviews and References</h3>
+                                                    <div class="col-md-12 mr-0">
+                                                        <div class="tutor-btn-end mr-0">
+                                                            <div class="banner-readmore">
+
+                                                                <a class="button-default inline" href="javascript:void(0)" onclick="saveinquiry();">submit</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </form>
+                                            <div class="col-lg-12 col-md-12 col-12">
+                                                <div class="comments comments-overflow-show" id="down">
+                                                    <div class="section-title-wrapper section-title-wrapper-star">
+                                                        <div class="section-title">
+                                                            <h3 class="mb-4">Reviews and References</h3>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="mb-3 mt-3">
+                                                        <label for="comment">Description</label>
+                                                        <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                                                        <span class="text-danger" id="error_description"></span>
+                                                    </div>
+                                                    <form action="">
+                                                        <div class="row">
+                                                            <div class="col-6">
+
+                                                                <div class="from-group">
+                                                                    <label for="subject">Subject:</label>
+                                                                    <input type="text" class="form-control" id="subject" placeholder="" name="subject">
+                                                                </div>
+                                                                <span class="text-danger" id="error_subject"></span>
                                                             </div>
 
-
-                                                        </div>
-
-                                                        <div class="mb-3 mt-3">
-                                                            <label for="comment">Description</label>
-                                                            <textarea class="form-control" rows="5" id="description" name="description"></textarea>
-                                                            <span class="text-danger" id="error_description"></span>
-                                                        </div>
-                                                        <form action="">
-                                                            <div class="row">
-                                                                <div class="col-6">
-
-                                                                    <div class="from-group">
-                                                                        <label for="subject">Subject:</label>
-                                                                        <input type="text" class="form-control" id="subject" placeholder="" name="subject">
-                                                                    </div>
-                                                                    <span class="text-danger" id="error_subject"></span>
+                                                            <div class="col-6">
+                                                                <div class="from-group">
+                                                                    <label for="outcome">Outcome:</label>
+                                                                    <input type="text" class="form-control" id="outcome" placeholder="" name="outcome">
                                                                 </div>
+                                                                <span class="text-danger" id="error_outcome"></span>
+                                                            </div>
+                                                            <div class="stars-review">
+                                                                <div>
+                                                                    <fieldset class="rate">
+                                                                        <input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
+                                                                        <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
+                                                                        <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
+                                                                        <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
+                                                                        <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
+                                                                        <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5 stars"></label>
+                                                                        <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
+                                                                        <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5 stars"></label>
+                                                                        <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
+                                                                        <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5 star"></label>
 
-                                                                <div class="col-6">
-                                                                    <div class="from-group">
-                                                                        <label for="outcome">Outcome:</label>
-                                                                        <input type="text" class="form-control" id="outcome" placeholder="" name="outcome">
-                                                                    </div>
-                                                                    <span class="text-danger" id="error_outcome"></span>
+                                                                    </fieldset>
                                                                 </div>
-                                                                <div class="stars-review">
-                                                                    <div>
-                                                                        <fieldset class="rate">
-                                                                            <input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
-                                                                            <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
-                                                                            <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
-                                                                            <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
-                                                                            <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
-                                                                            <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5 stars"></label>
-                                                                            <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
-                                                                            <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5 stars"></label>
-                                                                            <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
-                                                                            <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5 star"></label>
+                                                                <span class="text-danger" style="margin-left: 20px;" id="error_rating"></span>
+                                                            </div>
 
-                                                                        </fieldset>
-                                                                    </div>
-                                                                    <span class="text-danger" style="margin-left: 20px;" id="error_rating"></span>
-                                                                </div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="tutor-btn-end mr-0">
-                                                                        <div class="banner-readmore">
-                                                                            <a class="button-default inline" onclick="submitreview('{{$data->id}}')" href="javascript:void(0)">submit</a>
-                                                                        </div>
+                                                            <div class="col-md-12">
+                                                                <div class="tutor-btn-end mr-0">
+                                                                    <div class="banner-readmore">
+                                                                        <a class="button-default inline" onclick="submitreview('{{$data->id}}')" href="javascript:void(0)">submit</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                    </div>
-
-                                                    </form>
-
+                                                        </div>
 
                                                 </div>
-                                            </div>
-                                            <div class="comments">
-                                                <h4 class="title">Comments</h4>
-                                                <div class="single-comment" id="reviewcomment">
 
-                                                </div>
+                                                </form>
+
 
                                             </div>
                                         </div>
+                                        <div class="comments">
+                                            <h4 class="title">Comments</h4>
+                                            <div class="single-comment" id="reviewcomment">
 
+                                            </div>
 
-
+                                        </div>
                                     </div>
+
+
+
                                 </div>
-
                             </div>
-                            </form>
+
                         </div>
+                        </form>
                     </div>
-
                 </div>
-            </div>
 
+            </div>
     </div>
+
+</div>
 </div>
 </div>
 </div>
@@ -610,6 +606,13 @@
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
 <script>
+    function ValidateEmail(email) {
+
+        var expr =
+            /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        return expr.test(email);
+    }
+
     function submitreview(id) {
         var description = $('#description').val();
         var subject = $('#subject').val();
@@ -764,7 +767,10 @@
         var address = $('#address').val();
         var username = $('#username').val();
         var password = $('#password').val();
-
+        var subject = $("select[name='subjectinquiry']").val();
+        var level = $("select[name='level']").val();
+        var days = $("select[name='days']").val();
+        var tuitionTime = $("select[name='tuition_time']").val();
         var temp = 0;
 
         $('#error_first_name').html('');
@@ -774,6 +780,10 @@
         $('#error_address').html('');
         $('#error_username').html('');
         $('#error_password').html('');
+        $('#error_subjectinquiry').html('');
+        $('#error_level').html('');
+        $('#error_days').html('');
+        $('#error_time').html('');
 
 
         if (firstName.trim() == '') {
@@ -787,6 +797,54 @@
         if (email.trim() == '') {
             $('#error_email').html('Email is required');
             temp++;
+        } else {
+
+            if (!ValidateEmail(email)) {
+
+                $('#error_email').html("Invalid email");
+
+                temp++;
+
+            } else {
+
+                $.ajax({
+
+                    async: false,
+
+                    global: false,
+
+                    url: "{{ route('check.email') }}",
+
+                    type: "get",
+
+                    data: {
+
+                        email: email
+
+                    },
+
+                    success: function(response) {
+
+                        if (response.status == 1) {
+
+                            $('#error_email').html("Email is already exist");
+
+                            temp++;
+
+
+
+                        } else {
+
+                            $('#error_email').html("");
+
+                        }
+
+                    }
+
+                });
+
+            }
+
         }
         if (phone.trim() == '') {
             $('#error_phone').html('Phone is required');
@@ -804,35 +862,41 @@
             $('#error_password').html('Password is required');
             temp++;
         }
+        if (subject.trim() == '') {
+            $('#error_subjectinquiry').html('Subject is required');
+            temp++;
+        }
 
+        if (days.trim() == '') {
+            $('#error_days').html('Days is required');
+            temp++;
+        }
+        if (tuitionTime.trim() == '') {
+            $('#error_time').html('Time is required');
+            temp++;
+        }
+        if (level.trim() == '') {
+            $('#error_level').html('Level is required');
+            temp++;
+        }
         if (temp == 0) {
-            // $.ajax({
-            //     url: "{{ route('submit.review')}}",
-            //     data: {
-            //         'id': id,
-            //         'description': description,
-            //         'subject': subject,
-            //         'outcome': outcome,
-            //         'rating': rating
-            //     },
-            //     success: function(res) {
-            //         console.log(res.data);  
-            //     }
-            // })
+            $.ajax({
+                url: "{{route('submit.inquiry')}}",
+                type: 'post',
+                data: new FormData($('#submitinquiry')[0]),
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(res) {
+                    console.log(res.data);
+                    // toastr.success(res.error_msg);
+                    $('#submitinquiry').trigger("reset");
+                }
+            })
             return true;
         } else {
             return false;
         }
-
-    }
-
-
-
-
-    function addmoreSubject() {
-        var html = ' <div class="col-md-6 col-lg-6 mb-23"> <label class="tutor-label">Subject</label> <div class="subject-custom"> <select class="selectpicker select-sub " aria-label="Default select example" data-live-search="true" id="subject"> @foreach($subject_list as $subject) <option value="{{$subject->id}}">{{$subject->main_title}}</option> @endforeach </select> </div><span class="text-danger" id="error_subject"></span> </div><div class="col-md-5 col-lg-5 mb-23"> <label class="tutor-label">Level of Tuition</label> <div class="subject-custom"> <select class="selectpicker select-sub" multiple aria-label="Default select example" data-live-search="true" id="level"> @foreach($tutor_level_list as $level) <option value="{{$level->id}}">{{$level->title}}</option> @endforeach </select> </div><span class="text-danger" id="error_level"></span> </div>';
-        $('#subjectDiv').html('');
-        $('#subjectDiv').html();
 
     }
 </script>
@@ -842,5 +906,24 @@
     });
 </script>
 
-
+<!-- <script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": 0,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    };
+</script> -->
 @endsection
