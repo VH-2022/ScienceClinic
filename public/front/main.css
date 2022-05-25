@@ -2165,7 +2165,7 @@ input[type="number"] {
 }
 
 .single-product-image img {
-    width: 270px;
+    /* width: 270px; */
     height: 294px;
 }
 
