@@ -8,6 +8,11 @@
         right: -103px;
 
     }
+
+    .form-data .col-md-6,
+    .form-data .col-md-12 {
+        margin-bottom: 23px;
+    }
 </style>
 <div class="as-mainwrapper">
 
@@ -47,14 +52,6 @@
 
                                         guide and inspire students of all ages and levels.</p>
 
-
-
-                                    <!-- <div class="banner-readmore">
-
-                                                    <a class="button-default inline" href="find-tutor.html">Find a Tutors</a>
-
-                                                </div> -->
-
                                 </div>
 
                             </div>
@@ -79,7 +76,6 @@
 
                     <div class="mt-20">
 
-                        <!-- <h5 class="we-inter">We are interested in hearing from experienced private tutors who can educate, guide and inspire students of all ages and levels.</h5> -->
 
                         <p class="become-para">If you have what it takes to motivate, impart knowledge and enabling
 
@@ -105,9 +101,6 @@
 
                                 <div class="single-item-text">
 
-                                    <!-- <h4 class="mb-3">Science Clinic Private Tutoring Ltd Application Form
-
-                                            </h4> -->
 
                                     <h4 class="mb-3">Apply To Tutor With Science Clinic Private Tutors
 
@@ -123,11 +116,11 @@
 
                                     @csrf
 
-                                    <div class="row">
+                                    <div class="row form-data">
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="name" id="name" placeholder="Name">
+                                            <input type="text" name="name" class="mb-0" autocomplete="off" id="name" placeholder="Name">
 
                                             <span class="text-danger" id="error_name">{{ $errors->useredit->first('name') }}</span>
 
@@ -135,7 +128,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="email" id="email" placeholder="Email">
+                                            <input type="text" name="email" class="mb-0" autocomplete="off" id="email" placeholder="Email">
 
                                             <span class="text-danger" id="error_email">{{ $errors->useredit->first('email') }}</span>
 
@@ -143,7 +136,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="mobile" id="mobile" placeholder="Telephone">
+                                            <input type="text" class="mb-0 numberCls" class="mb-0" maxlength="12" autocomplete="off" name="mobile" id="mobile" placeholder="Telephone">
 
                                             <span class="text-danger" id="error_mobile">{{ $errors->useredit->first('mobile') }}</span>
 
@@ -151,7 +144,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="address1" id="address1" placeholder="Address 1">
+                                            <input type="text" name="address1" class="mb-0" autocomplete="off" id="address1" placeholder="Address 1">
 
                                             <span class="text-danger" id="error_address1">{{ $errors->useredit->first('address1') }}</span>
 
@@ -159,7 +152,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="address2" id="address2" placeholder="Address 2">
+                                            <input type="text" name="address2" class="mb-0" autocomplete="off" id="address2" placeholder="Address 2">
 
                                             <span class="text-danger" id="error_address2">{{ $errors->useredit->first('address2') }}</span>
 
@@ -167,7 +160,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="address3" id="address3" placeholder="Address 3">
+                                            <input type="text" name="address3" class="mb-0" autocomplete="off" id="address3" placeholder="Address 3">
 
                                             <span class="text-danger" id="error_address3">{{ $errors->useredit->first('address3') }}</span>
 
@@ -175,7 +168,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="city" id="city" placeholder="Town/City">
+                                            <input type="text" name="city" class="mb-0" autocomplete="off" id="city" placeholder="Town/City">
 
                                             <span class="text-danger" id="error_city">{{ $errors->useredit->first('city') }}</span>
 
@@ -183,7 +176,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="postcode" id="postcode" placeholder="Postcode">
+                                            <input type="text" name="postcode" class="mb-0" autocomplete="off" id="postcode" placeholder="Postcode">
 
                                             <span class="text-danger" id="error_postcode">{{ $errors->useredit->first('postcode') }}</span>
 
@@ -191,7 +184,7 @@
 
                                         <div class="col-md-12">
 
-                                            <textarea name="bio" id="bio" cols="30" rows="10" placeholder="Bio
+                                            <textarea name="bio" id="bio" class="mb-0" cols="30" rows="10" placeholder="Bio
 
                                                 "></textarea>
 
@@ -243,7 +236,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="university[]" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution">
+                                                                <input name="university[]" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution">
 
                                                                 <span id="customer_name_{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('university') }}</span>
 
@@ -251,7 +244,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="qualification[]" data-id="{{ $uniqid }}" type="text" placeholder="Qualification">
+                                                                <input name="qualification[]" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="Qualification">
 
                                                                 <span id="qualification{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('qualification') }}</span>
 
@@ -263,10 +256,10 @@
 
                                                                     <div class="chemistry-icon-text">
                                                                         <div class="input-file-bio">
-                                                                            <p type="text" id="uploadeviFile" class="input-upload-bio"> </p>
+                                                                            <p type="text" class="mb-0" id="uploadeviFile" class="input-upload-bio"> </p>
                                                                         </div>
 
-                                                                        <input type="file" name="document_certi[]" data-id="{{ $uniqid }}" class="bio-input-fild" id="uploadeviBtn">
+                                                                        <input type="file" class="mb-0" name="document_certi[]" data-id="{{ $uniqid }}" class="bio-input-fild" id="uploadeviBtn">
 
                                                                         <span id="document_certi{{ $uniqid }}_error" class="text-danger"></span>
 
@@ -352,7 +345,7 @@
                                                             <div class="col-md-5">
                                                                 <select class="selectpicker" data-id="{{$uniqid }}" name="level{{$uniqid}}[]" multiple aria-label="Default select example" data-live-search="true">
 
-                                                                
+
 
                                                                     @foreach ($tutor_level_list as $val)
                                                                     <option value="{{ $val->id }}">{{ $val->title }}
@@ -414,7 +407,7 @@
 
                                                         <div class="file-flex">
 
-                                                            <input class="blank-input file-input-box" id="uploadFile" type="text">
+                                                            <input class="mb-0 blank-input file-input-box" id="uploadFile" type="text">
 
                                                         </div>
 
@@ -583,17 +576,17 @@
 
                                         <div class="col-md-5">
                                             <h6>User Name</h6>
-                                            <input name="user_name" id="user_name" type="text" placeholder="User Name">
+                                            <input name="user_name" class="mb-0" autocomplete="off" id="user_name" type="text" placeholder="User Name">
 
-                                            <span id="user_name_error" class="text-danger"></span>
+                                            <span id="user_name_error" class="text-danger">{{ $errors->useredit->first('user_name') }}</span>
 
                                         </div>
 
                                         <div class="col-md-5">
                                             <h6>Password</h6>
-                                            <input name="password" id="password" type="password" placeholder="Password">
+                                            <input name="password" class="mb-0" id="password" type="password" placeholder="Password">
 
-                                            <span id="password_error" class="text-danger"></span>
+                                            <span id="password_error" class="text-danger">{{ $errors->useredit->first('password') }}</span>
 
                                         </div>
 
@@ -1424,7 +1417,6 @@
 
         }
 
-        console.log(temp + '1');
 
         if (profile_image.length != 0) {
 
@@ -1447,7 +1439,7 @@
             }
 
         }
-        console.log(temp + '2');
+
         $('input[name="university[]"]').each(function(e) {
 
             var dataId = $(this).attr('data-id');
@@ -1483,7 +1475,7 @@
             }
 
         })
-        console.log(temp + '3');
+
         $('input[name="document_certi[]"]').each(function(e) {
 
             var dataId = $(this).attr('data-id');
@@ -1522,8 +1514,7 @@
             }
 
         })
-
-
+        $('#dbsdisclosure_error').html('');
 
         if (disclose == false) {
 
@@ -1548,7 +1539,7 @@
             }
 
         }
-        console.log(temp + '43');
+
         $('input[name="main_subject_id[]"]').each(function(e) {
             var dataId = $(this).val();
             var dataValue = $('#sub' + dataId).val();
@@ -1566,10 +1557,6 @@
                 temp++
             }
         })
-        console.log(temp + '434');
-       
-
-
 
         if (exprienceinuk == false) {
 
@@ -1595,10 +1582,59 @@
 
         }
 
-        console.log(disclose + "1" + exprienceinuk + "2" + tutorexperienceinuk + "3" + paytax);
-        console.log(temp + '4341');
         if (temp == 0) {
-
+            // $.ajax({
+            //     async: false,
+            //     url: "{{ route('become-tutor.store') }}",
+            //     type: "POST",
+            //     enctype: 'multipart/form-data',
+            //     data: new FormData($('#formdata')[0]),
+            //     processData: false,
+            //     contentType: false,
+            //     cache: false,
+            //     success: function(result) {
+            //         if (result == 1) {
+            //             toastr.success('<?php echo Session::get('success') ?>', 'Successfully Inserted', {
+            //                 timeOut: 5000,
+            //                 closeButton: false
+            //             });
+            //         }
+            //     },
+            //     error: function(jqXHR, textStatus, errorThrown) {
+            //         var tempVal = 0;
+            //         if (jqXHR.responseJSON.message.full_name) {
+            //             tempVal++;
+            //             $('#nameError').text(jqXHR.responseJSON.message.full_name);
+            //         } else {
+            //             $('#nameError').text('');
+            //         }
+            //         if (jqXHR.responseJSON.message.email) {
+            //             tempVal++;
+            //             $('#emailError').text(jqXHR.responseJSON.message.email);
+            //         } else {
+            //             $('#emailError').text('');
+            //         }
+            //         if (jqXHR.responseJSON.message.role) {
+            //             tempVal++;
+            //             $('#roleError').text(jqXHR.responseJSON.message.role);
+            //         } else {
+            //             $('#roleError').text('');
+            //         }
+            //         if (jqXHR.responseJSON.message.password) {
+            //             tempVal++;
+            //             $('#passwordError').text(jqXHR.responseJSON.message.password);
+            //         } else {
+            //             $('#passwordError').text('');
+            //         }
+            //         if (tempVal == 0) {
+            //             $('#user_modal').modal('hide');
+            //             return true;
+            //         } else {
+            //             $('#user_modal').modal('show');
+            //             return false;
+            //         }
+            //     }
+            // });
             return true;
 
         } else {

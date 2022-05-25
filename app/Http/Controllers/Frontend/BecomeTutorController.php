@@ -117,19 +117,19 @@ class BecomeTutorController extends Controller
 
         $validator = Validator::make($request->all(), [
 
-            'name' => 'required',
+            'name' => 'required | max:50',
 
-            'email' => 'required',
+            'email' => 'required | email',
 
-            'mobile' => 'required',
+            'mobile' => 'required | numeric',
 
-            'address1' => 'required',
+            'address1' => 'required | max:255',
 
-            'address2' => 'required',
+            'address2' => 'required | max:255',
 
-            'address3' => 'required',
+            'address3' => 'required | max:255',
 
-            'city' => 'required',
+            'city' => 'required | max:255',
 
             'postcode' => 'required',
 
@@ -145,25 +145,24 @@ class BecomeTutorController extends Controller
 
             'paytax' => 'required',
 
-            'user_name' => 'required',
+            'user_name' => 'required | max:30',
 
-            'password' => 'required',
+            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
 
-            'university' => 'required',
+            'university' => 'required | max:50',
 
-            'qualification' => 'required',
+            'qualification' => 'required | max:50',
 
         ]);
 
         if ($validator->fails()) {
-
             return redirect("/become-tutor")
 
-                ->withErrors($validator, 'useredit')
+            ->withErrors($validator, 'useredit')
 
-                ->withInput();
+            ->withInput();
         } else {
-
+            dd($request->all());
             $image = '';
 
             if ($request->file('profile_image') != '') {
@@ -196,14 +195,9 @@ class BecomeTutorController extends Controller
                 'bio' => $request->bio,
 
                 'profile_photo' => $image,
-
                 'type' => 2,
-
                 'user_name' => $request->user_name,
-
                 'password' => Hash::make($request->password)
-
-
 
             );
            $data = UserHelper::save($data_array);
