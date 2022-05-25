@@ -63,6 +63,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
         $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
+        $backendVerified->resource('blog-master', "BlogMasterController");
+        $backendVerified->get('blog-master-ajax', "BlogMasterController@ajaxList")->name('blog-master-ajax');
+        $backendVerified->get('change-status', "TutorMasterController@changeStatus")->name('change-status');
     });
 });
 
@@ -78,5 +81,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
-
+    $frontend->get('blog', "BlogController@index")->name('blog');
+    $frontend->get('blog-detail/{id}', "BlogController@blogDetails")->name('blog-detail');
+    
 });

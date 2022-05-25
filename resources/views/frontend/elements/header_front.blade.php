@@ -203,11 +203,7 @@
                                     <li class="text-none" id="tutor-sub"><a href="contact.html">Contact</a>
 
                                         <ul class="sub-menu mobile-section border-bottom-ul">
-
-                                            <li><a href="blog.html">Blog</a></li>
-
-
-
+                                            <li><a href="{{route('blog')}}">Blog</a></li>
                                         </ul>
 
                                         <i class="fa fa-angle-down mmbtns" aria-hidden="true"></i>
