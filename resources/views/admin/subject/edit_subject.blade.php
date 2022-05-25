@@ -608,7 +608,7 @@
 
             '<div class="col-md-6 mb-4"><div class="form-group"><input placeholder="Title" class="form-control validate_field title_section_two'+uniqid+'_error" autocomplete="off" data-id="'+uniqid+'" maxlength="255" id="title_section_two'+uniqid+'" type="text" data-msg="Title Section Two" name="title_section_two[]"><span class="form-text error title_section_two'+uniqid+'_error"></span> </div></div>' +
 
-            '<div class="col-md-5 mb-4"><div class="form-group"><textarea type="text" placeholder="Descritpion" data-id="'+length+'" class="form-control validate_field description_section_two'+length+'" maxlength="255" name="description_section_two[]" id="description_section_two'+length+'"  data-msg="Description"></textarea><span class="form-text error description_section_two'+length+'_error"></span></div></div>' +
+            '<div class="col-md-5 mb-4"><div class="form-group"><textarea type="text" placeholder="Descritpion" data-id="'+length+'" class="form-control validate_field description_section_two'+length+'" name="description_section_two[]" id="description_section_two'+length+'"  data-msg="Description"></textarea><span class="form-text error description_section_two'+length+'_error"></span></div></div>' +
 
             '<div class="col-md-1 text-end p-0" id="remove_ids_section_two">' +
 
