@@ -236,7 +236,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="university[]" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution">
+                                                                <input name="university[]" maxlength="255" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution">
 
                                                                 <span id="customer_name_{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('university') }}</span>
 
@@ -244,7 +244,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="qualification[]" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="Qualification">
+                                                                <input name="qualification[]" maxlength="255" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="Qualification">
 
                                                                 <span id="qualification{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('qualification') }}</span>
 
@@ -1057,7 +1057,7 @@
 
             '<div class="col-md-3">' +
 
-            '<input name="university[]" data-id="' + mathRand +
+            '<input name="university[]" maxlength="255" data-id="' + mathRand +
             '" type="text" placeholder="University/Institution">' +
 
             '<span id="customer_name_' + mathRand + '_error" class="text-danger"></span>' +
@@ -1066,7 +1066,7 @@
 
             '<div class="col-md-3">' +
 
-            '<input name="qualification[]" data-id="' + mathRand +
+            '<input name="qualification[]" maxlength="255" data-id="' + mathRand +
             '" type="text" placeholder="Qualification">' +
 
             '<span id="qualification' + mathRand + '_error" class="text-danger"></span>' +
