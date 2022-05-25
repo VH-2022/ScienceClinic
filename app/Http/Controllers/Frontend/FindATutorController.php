@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\ParentDetailHelper;
 use App\Helpers\ParentInquiryHelper;
 use App\Helpers\ReviewMasterHelper;
 use App\Helpers\SubjectHelper;
@@ -25,11 +26,11 @@ use App\Helpers\UserHelper;
 
 use App\Models\User;
 
-use URL;
 use App\Helpers\TutorDetailHelper;
 use App\Helpers\TutorLevelHelper;
 use App\Helpers\TutorUniversityDetailHelper;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class FindATutorController extends Controller
@@ -104,6 +105,21 @@ class FindATutorController extends Controller
     }
     public function saveReview(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+
+            'description' => 'required',
+
+            'subject' => 'required|max:30',
+
+            'outcome' => 'required|max:30',
+
+            'rating' => 'required',
+        ]);
+        if ($validator->fails()) {
+
+        return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
+        }else{
         $data = array(
             'tutor_id' => $request->id,
             'descriptions' => $request->description,
@@ -113,20 +129,21 @@ class FindATutorController extends Controller
         );
         ReviewMasterHelper::save($data);
 
-        return response()->json(['error_msg' => "Success", 'data' => $data], 200);
+        return response()->json(['error_msg' => "Successfully instered", 'data' => $data], 200);
+        }
     }
 
     public function saveInquiry(Request $request)
     {
         $validator = Validator::make($request->all(), [
 
-            'first_name' => 'required',
+            'first_name' => 'required| max:30',
 
-            'last_name' => 'required',
+            'last_name' => 'required| max:30',
 
-            'email' => 'required',
+            'email' => 'required| max:30',
 
-            'phone' => 'required',
+            'phone' => 'required|max:12',
 
             'subjectinquiry' => 'required',
 
@@ -136,23 +153,16 @@ class FindATutorController extends Controller
 
             'tuition_time' => 'required',
 
-            'address' => 'required',
+            'address' => 'required| max:255',
 
-            'username' => 'required',
+            'username' => 'required| max:30',
 
-            'password' => 'required',
+            'password' => 'required| max:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
 
         ]);
-
         if ($validator->fails()) {
-
-            return redirect("/find-tutor")
-
-                ->withErrors($validator, 'useredit')
-
-                ->withInput();
-        } else {
-
+        return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
+        }else{
             $userArr = array(
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -164,16 +174,21 @@ class FindATutorController extends Controller
                 'password' => Hash::make($request->password),
 
             );
-            $id = UserHelper::save($userArr);
+            $userData = UserHelper::save($userArr);
+if($userData){
             $inquiryArr = array(
-                'user_id' => $id,
+                'user_id' => $userData,
                 'subject_id' => $request->subjectinquiry,
                 'level_id' => $request->level,
                 'tuition_day' => $request->days,
                 'tuition_time' => $request->tuition_time,
             );
-            ParentInquiryHelper::save($inquiryArr);
+            ParentDetailHelper::save($inquiryArr);
             return response()->json(['error_msg' => "Successfully instered", 'data' => $userArr], 200);
+            }else{
+                return response()->json(['error_msg' => "Something went wrong", 'data' => ''], 500);
+            }
         }
-    }
+        }
+    
 }
