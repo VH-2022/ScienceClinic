@@ -18,11 +18,13 @@
         }
 
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script>
-        toastr.success("s");
-    </script>
+    <link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
+
+
+    {{-- toastr js --}}
+
+
+
     <!--Main Wrapper Start-->
     <div class="as-mainwrapper">
         <!--Bg White Start-->
@@ -105,25 +107,30 @@
                             <form id="contact-form" action="{{ route('contact.store') }}" method="POST">
 
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" name="name" placeholder="Name" id="name" onkeypress='return isName(event) ' maxlength="255">
-
-                                        <span class="error" id="name_error"></span>
+                                    <div class="col-md-6 ">
+                                        <input type="text" class="mb-0" name="name" placeholder="Name" id="name"
+                                            onkeypress='return isName(event) ' maxlength="255">
+                                        <span class="error" id="name_error">{{ $errors->first('name') }}</span>
 
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="phone_no" placeholder="Phone No" id="phone_no"  onkeypress='return isNumber(event)'maxlength="12">
-                                        <span class="error" id="phone_error"></span>
+                                        <input type="text" name="phone_no" placeholder="Phone No" id="phone_no"
+                                            onkeypress='return isNumber(event)' maxlength="12">
+                                        <span class="error"
+                                            id="phone_error">{{ $errors->first('phone_no') }}</span>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
-                                        <select name="tutor_type" id="tutor_type">
-                                            <option>
+                                        <select name="tutor_type" id="tutor_type" class="mb-0">
+                                            <option value="">Select Type</option>
+                                            <option value="Tutor Type">
                                                 Tutor Type
                                             </option>
-                                            <option>
+                                            <option value="Face to Face Tution">
                                                 Face to Face Tution
                                             </option>
-                                            <option>
+                                            <option value="Online Tution">
                                                 Online Tution
                                             </option>
                                         </select>
@@ -131,11 +138,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <input type="email" name="email" placeholder="Email" id="email">
-                                        <span class="error" id="email_error"></span>
+                                        <span class="error mt-0" id="email_error">{{ $errors->first('email') }}</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="address" name="address" placeholder="Address" id="address">
+                                        <span class="error mt-0" id="address_error">{{ $errors->first('address') }}</span>
                                     </div>
                                     <div class="col-md-12">
                                         <textarea name="message" cols="30" rows="10" placeholder="Message" id='message'></textarea>
-                                        <span class="error" id="message_error"></span>
+                                        <span class="error"
+                                            id="message_error">{{ $errors->first('message') }}</span>
                                     </div>
                                     <div class="col-md-12">
                                         <button type="button" class="button-default" id="btn-save" title="Submit">Submit
@@ -328,6 +340,7 @@
     <!--End of Main Wrapper Area-->
 @endsection
 @section('page-js')
+    <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script>
         $('.testimonial-english').owlCarousel({
             loop: true,
@@ -354,17 +367,20 @@
         var _Add_SUBJECT = "{{ route('contact.store') }}";
     </script>
     <script>
-         function ValidateEmail(email) {
-        var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return expr.test(email);
+        function ValidateEmail(email) {
+            var expr =
+                /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            return expr.test(email);
 
-    }
+        }
+
         $('#btn-save').click(function(e) {
 
             var name = $('#name').val();
             var phone_no = $('#phone_no').val();
             var tutor_type = $('#tutor_type').val();
             var email = $('#email').val();
+            var address = $('#address').val();
             var message = $('#message').val();
 
             var temp = 0;
@@ -382,7 +398,7 @@
                 $('#phone_error').html("");
             }
             if (tutor_type.trim() == '') {
-                $('#tutor_type_error').html("Tutor Type is required");
+                $('#tutor_type_error').html("Type is required");
                 temp++;
             } else {
                 $('#tutor_type_error').html("");
@@ -390,12 +406,22 @@
             if (email.trim() == '') {
                 $('#email_error').html("Email is required");
                 temp++;
-            }  else {
-            if (!ValidateEmail(email)) {
-                $('#email_error').html("Invalid email");
-                temp++;
+            } else {
+                if (!ValidateEmail(email)) {
+                    $('#email_error').html("Invalid email");
+                    temp++;
+                }
+                else{
+                    $('#email_error').html("");
+                }
             }
-               }
+            if (address.trim() == '') {
+                $('#address_error').html("Address is required");
+                temp++;
+            } else {
+                $('#address_error').html("");
+            }
+            
             if (message.trim() == '') {
                 $('#message_error').html("Message is required");
                 temp++;
@@ -415,15 +441,17 @@
                         phone_no: phone_no,
                         tutor_type: tutor_type,
                         email: email,
+                        address:address,
                         message: message
                     },
                     dataType: "json",
                     success: function(data) {
-                        console.log(data);
-                        toastr.success(data.messages);
+
+                        toastr.success(data.error_msg);
+                        $('#contact-form')[0].reset();
                     },
                     error: function(response) {
-                        toastr.success(data.messages);
+                        toastr.success(data.error_msg);
                     }
                 });
                 return true;
@@ -432,24 +460,25 @@
             }
 
         })
-    function isName(event) {
-        var regex = new RegExp("^[a-zA-Z \s]+$");
-        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-        if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
+
+        function isName(event) {
+            var regex = new RegExp("^[a-zA-Z \s]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
         }
-    }
-</script>
-<script>
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode >
-            31 && (charCode < 48 || charCode > 57)) {
-            return false;
+    </script>
+    <script>
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode >
+                31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
     </script>
 @endsection
