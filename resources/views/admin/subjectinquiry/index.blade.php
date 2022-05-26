@@ -135,7 +135,13 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search How Often" type="text" name="often" id="often">
+
+                <select class="form-control" name="often" id="often">
+                    <option value="">Select</option>
+                    <option value="One Off">One Off</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Fortnightly">Fortnightly</option>
+                </select>
 
             </div>
 

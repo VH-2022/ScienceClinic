@@ -129,7 +129,7 @@ class FindATutorController extends Controller
         );
         ReviewMasterHelper::save($data);
 
-        return response()->json(['error_msg' => "Successfully instered", 'data' => $data], 200);
+        return response()->json(['error_msg' => "Successfully inserted", 'data' => $data], 200);
         }
     }
 

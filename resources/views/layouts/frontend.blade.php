@@ -159,7 +159,8 @@
   <link rel="alternate stylesheet" type="text/css" href="{{ asset('front/switcher/background4.css')}}" title="background4" media="screen" />
 
   <link rel="alternate stylesheet" type="text/css" href="{{ asset('front/switcher/background5.css')}}" title="background5" media="screen" />
-  <link rel="alternate stylesheet" type="text/css" href="{{ asset('assets/css/toastr.css')}}"/>
+  <link rel="alternate stylesheet" type="text/css" href="{{ asset('assets/css/toastr.css')}}" />
+
 
   @yield('page-css')
 
@@ -250,7 +251,7 @@
   <script src="{{ asset('front/js/bootstrap-select.min.js')}}"></script>
 
   <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
-  <script src="{{asset('assets/js/toastr.min.js')}}"></script>
+
 
 
 
@@ -295,29 +296,22 @@
 
     }
   </script>
+  <script src="{{asset('assets/js/toastr.min.js')}}"></script>
+  <script>
+    toastr.options.timeOut = 10000;
+  </script>
+  @if(Session::has('error'))
+  toastr.error('{{ Session::get('error ') }}');
+  @elseif(Session::has('success'))
+  toastr.success('{{ Session::get('success ') }}');
+  @endif
 
 
 
 
 
   @yield('page-js')
-  @if(Session::has('success'))
 
-  <script>
-    Command: toastr["success"]("{{Session::get('success')}}")
-  </script>
-  
-  @endif
-
-
-
-  @if(Session::has('error'))
-
-  <script>
-    Command: toastr["error"]("{{Session::get('error')}}")
-  </script>
-
-  @endif
 
 </body>
 

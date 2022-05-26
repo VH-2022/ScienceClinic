@@ -73,7 +73,7 @@
 
                                         <div class="custom-control custom-radio custom-radio ">
 
-                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="one_off">
+                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="one off">
 
                                             <label class="custom-control-label" for="customRadio1">One Off</label>
 

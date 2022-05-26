@@ -141,19 +141,19 @@
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">First Name</label>
-                                                        <input type="text " class="mb-0" id="first_name" name="first_name" placeholder="First Name ">
+                                                        <input type="text " class="mb-0" maxlength="35" id="first_name" name="first_name" placeholder="First Name ">
                                                         <span class="text-danger" id="error_first_name"></span>
 
                                                     </div>
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Last Name</label>
-                                                        <input type="text" class="mb-0" id="last_name" name="last_name" placeholder="Last Name ">
+                                                        <input type="text" class="mb-0" maxlength="35" id="last_name" name="last_name" placeholder="Last Name ">
                                                         <span class="text-danger" id="error_last_name"></span>
 
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 ">
                                                         <label class="tutor-label">Email</label>
-                                                        <input type="text" class="mb-0" id="email" name="email" placeholder="Email ">
+                                                        <input type="text" class="mb-0" maxlength="35" id="email" name="email" placeholder="Email ">
                                                         <span class="text-danger" id="error_email"></span>
 
                                                     </div>
@@ -251,7 +251,7 @@
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Username</label>
-                                                        <input type="text" class="mb-0" name="username" id="username" placeholder="Username ">
+                                                        <input type="text" class="mb-0" maxlength="35" name="username" id="username" placeholder="Username ">
                                                         <span class="text-danger" id="error_username"></span>
 
                                                     </div>
@@ -302,7 +302,7 @@
 
                                                                 <div class="from-group">
                                                                     <label for="subject">Subject:</label>
-                                                                    <input type="text" class="form-control mb-0" id="subject" placeholder="" name="subject">
+                                                                    <input type="text" class="form-control mb-0" id="subject" placeholder="" name="subject" maxlength="35">
                                                                 </div>
                                                                 <span class="text-danger" id="error_subject"></span>
                                                             </div>
@@ -310,27 +310,29 @@
                                                             <div class="col-6">
                                                                 <div class="from-group">
                                                                     <label for="outcome">Outcome:</label>
-                                                                    <input type="text" class="form-control mb-0" id="outcome" placeholder="" name="outcome">
+                                                                    <input type="text" class="form-control mb-0" id="outcome" maxlength="35" placeholder="" name="outcome">
                                                                 </div>
                                                                 <span class="text-danger" id="error_outcome"></span>
                                                             </div>
-                                                            <div class="stars-review">
-                                                                <div>
-                                                                    <fieldset class="rate">
-                                                                        <input type="radio" id="rating10" name="rating" value="5" class="mb-0" /><label for="rating10" title="5 stars"></label>
-                                                                        <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
-                                                                        <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
-                                                                        <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
-                                                                        <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
-                                                                        <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5 stars"></label>
-                                                                        <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
-                                                                        <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5 stars"></label>
-                                                                        <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
-                                                                        <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5 star"></label>
+                                                            <div class="col-md-6">
+                                                                <div class="stars-review mt-4">
+                                                                    <div>
+                                                                        <fieldset class="rate">
+                                                                            <input type="radio" id="rating10" name="rating" value="5" class="mb-0" /><label for="rating10" title="5 stars"></label>
+                                                                            <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
+                                                                            <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
+                                                                            <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
+                                                                            <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
+                                                                            <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5 stars"></label>
+                                                                            <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
+                                                                            <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5 stars"></label>
+                                                                            <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
+                                                                            <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5 star"></label>
 
-                                                                    </fieldset>
+                                                                        </fieldset>
+                                                                    </div>
+                                                                    <span class="text-danger" id="error_rating"></span>
                                                                 </div>
-                                                                <span class="text-danger" style="margin-left: 20px;" id="error_rating"></span>
                                                             </div>
 
                                                             <div class="col-md-12">
@@ -656,6 +658,7 @@
                 },
                 success: function(res) {
                     console.log(res.data);
+                    toastr.success(res.error_msg);
                     var review = '<div class=single-comment><div class=comment-text><div class=author-info><h4><a href=#>MD Tokdir Ali</a></h4><span class=reply><div class=review-score><div class="stars stars2"aria-label="Rating of this product is 2.3 out of 5."style=--rating:' + res.data.rating + '></div></div></span></div><p>' + res.data.descriptions + '<div class=author-subject><div class=subject-divs><p class=subject-details>Subject :<p class=subject-name>' + res.data.subject + '</div><div class=subject-divs><p class=subject-details>Outcome :<p class=subject-name>' + res.data.outcome + '</div></div></div></div>';
                     $('#reviewcomment').html("");
                     $('#reviewcomment').html(review);
@@ -921,12 +924,12 @@
                 contentType: false,
                 cache: false,
                 success: function(res) {
-                    console.log(res.data);
+                    console.log(res);
                     toastr.success(res.error_msg);
                     $('#submitinquiry').trigger("reset");
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    
+
                     var tempVal = 0;
                     if (jqXHR.responseJSON.message.first_name) {
                         tempVal++;
@@ -1020,25 +1023,6 @@
     });
 </script>
 
-<script>
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "3000",
-        "extendedTimeOut": 0,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
-        "tapToDismiss": false
-    };
-</script>
+
 
 @endsection
