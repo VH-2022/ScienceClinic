@@ -79,6 +79,4 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
     $frontend->get('tutor-detail/{id}', "FindATutorController@tutorDetails");
     $frontend->resource('contact', "ContactController");
-    // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
-    // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
