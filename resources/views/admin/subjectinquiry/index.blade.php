@@ -129,14 +129,46 @@
     <div class="offcanvas-content">
 
         <!--begin::Wrapper-->
-
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Name</label>
+            <label class="col-4 col-form-label">How Often</label>
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="title">
+                <input class="form-control" placeHolder="Enter Search How Often" type="text" name="often" id="often">
+
+            </div>
+
+        </div>
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Subject</label>
+
+            <div class="col-8">
+
+                <input class="form-control" placeHolder="Enter Search Subject" type="text" name="subject" id="subject">
+
+            </div>
+
+        </div>
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Level</label>
+
+            <div class="col-8">
+
+                <input class="form-control" placeHolder="Enter Search Level" type="text" name="level" id="level">
+
+            </div>
+
+        </div>
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Postcode</label>
+
+            <div class="col-8">
+
+                <input class="form-control" placeHolder="Enter Search Postcode" type="text" name="postcode" id="postcode">
 
             </div>
 
@@ -208,9 +240,16 @@
 
     function ajaxList(page) {
 
-        var title = $('#title').val();
+        var often = $('#often').val();
 
         var created_date = $('#created_date').val();
+
+        var subject = $('#subject').val();
+
+        var level = $('#level').val();
+
+        var postcode = $('#postcode').val();
+
 
         $('.ki-close').click();
 
@@ -222,7 +261,10 @@
 
             data: {
 
-                'title': title,
+                'often': often,
+                'subject': subject,
+                'level': level,
+                'postcode': postcode,
 
                 'page': page,
 
@@ -323,9 +365,14 @@
     })
     $('.clear').click(function(e) {
 
-        $('#title').val("");
+        $('#often').val("");
+
+        $('#subject').val("");
+        $('#level').val("");
 
         $('#created_date').val("");
+        $('#postcode').val("");
+
 
         ajaxList(1);
 

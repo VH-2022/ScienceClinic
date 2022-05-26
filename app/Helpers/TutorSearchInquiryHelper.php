@@ -40,7 +40,7 @@ class TutorSearchInquiryHelper
 
         return $update;
     }
-    public static function getListwithPaginate($subject, $created_date)
+    public static function getListwithPaginate($subject, $postcode, $often, $level, $created_date)
     {
 
         $query = TutorSearchInquiry::orderBy('id', 'desc');
@@ -49,7 +49,18 @@ class TutorSearchInquiryHelper
 
             $query->where('subject', 'LIKE', '%' . $subject . '%');
         }
+        if ($postcode != '') {
 
+            $query->where('pincode', 'LIKE', '%' . $postcode . '%');
+        }
+        if ($often != '') {
+
+            $query->where('tuition_often', 'LIKE', '%' . $often . '%');
+        }
+        if ($level != '') {
+
+            $query->where('level', 'LIKE', '%' . $level . '%');
+        }
 
 
         if ($created_date != '') {

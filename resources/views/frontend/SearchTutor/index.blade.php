@@ -1,7 +1,6 @@
 @extends('layouts.frontend')
 
 @section('content')
-
 <div class="as-mainwrapper">
 
     <!--Bg White Start-->
@@ -54,9 +53,9 @@
 
                                     <!-- <div class="banner-readmore">
 
-                                            <a class="button-default inline" href="javascript:void(0)">Find a Tutors</a>
+                                                <a class="button-default inline" href="javascript:void(0)">Find a Tutors</a>
 
-                                        </div> -->
+                                            </div> -->
 
                                 </div>
 
@@ -74,7 +73,7 @@
 
                                         <div class="custom-control custom-radio custom-radio ">
 
-                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="one_off">
 
                                             <label class="custom-control-label" for="customRadio1">One Off</label>
 
@@ -84,7 +83,7 @@
 
                                         <div class="custom-control custom-radio custom-radio">
 
-                                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="weekly">
 
                                             <label class="custom-control-label" for="customRadio2">Weekly</label>
 
@@ -94,7 +93,7 @@
 
                                         <div class="custom-control custom-radio custom-radio">
 
-                                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" value="fortnightly">
 
                                             <label class="custom-control-label" for="customRadio3">Fortnightly</label>
 
@@ -104,7 +103,7 @@
 
                                     <div class="pearson p">
 
-                                       
+
 
                                     </div>
 
@@ -144,7 +143,7 @@
 
                                         <div class="form-group">
 
-                                            <input type="text" name="text" placeholder="Post Code">
+                                            <input type="text" name="text" placeholder="Post Code" id="pincode_id">
 
                                         </div>
 
@@ -152,9 +151,7 @@
 
                                     <div class="col-sm-3 col-md-3 col-lg-2">
 
-                                        <button class="btn btn-search-tutore " id="hideshow"><span class="
-
-                                                zmdi zmdi-search-for tutore-search"></span>Search</button>
+                                        <button class="btn btn-search-tutore " onclick="getSearch()"><span class="zmdi zmdi-search-for tutore-search"></span>Search</button>
 
                                     </div>
 
@@ -236,7 +233,7 @@
 
                     <div class="col-lg-11 col-md-12">
 
-                        <img src="{{ asset('front/img/svg/find-new.jpeg')}}">
+                        <img src="{{ asset('front/img/svg/find-new.jpeg') }}">
 
                     </div>
 
@@ -286,7 +283,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/mimg4.jpeg')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/mimg4.jpeg') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -308,7 +305,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/eimg3.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/eimg3.png') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -330,7 +327,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/pimg5.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/pimg5.png') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -352,7 +349,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/bimg1.jpg')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/bimg1.jpg') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -374,7 +371,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/cimg2.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/cimg2.png') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -396,7 +393,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/computer.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/computer.png') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -422,7 +419,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/primary.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/primary.png') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -476,7 +473,7 @@
 
                                         </div>
 
-                                        <img src="{{asset('Front/img/banner/other.png')}}" onerror="imgError(this)"  class="img-over" alt="Jenny of Oldstones" />
+                                        <img src="{{ asset('Front/img/banner/other.png') }}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones" />
 
                                     </div>
 
@@ -519,36 +516,27 @@
 
 
 <!-- Color Switcher -->
-
-
-
 @endsection
 
 @section('page-js')
-
-
-
-
-
 <script>
-
-    $("#hideshow").click(function() {
-
+    function getSearch() {
+        $(".details-section").attr('style', 'display:flex');
         var level = $('#level').val();
 
         var subject = $('#subject').val();
-
-        
-
+        var tutor_often = $('input[name="customRadio"]:checked').val();
+        var pincode_id = $('#pincode_id').val();
         $.ajax({
 
-            url: "{{ route('get.tutors')}}",
+            url: "{{ route('get.tutors') }}",
 
             data: {
 
                 'subject': subject,
-
-                'level': level
+                'tutor_often': tutor_often,
+                'level': level,
+                'pincode': pincode_id
 
             },
 
@@ -564,28 +552,34 @@
 
                 if (json.length != 0) {
 
-                    $(".details-section").toggle();
 
-       
+
+
 
                     $.each(json, function(i, v) {
 
-                        tutor_res += '<div class="col-md-6 col-lg-3 tutor-card">' + '<a class = "tutor-content" href = "'+v.url+'" >' + '<div class = "single-product-item">' + '<div class = "single-product-image">' + '<img src = "' + v.profile_photo + '" onerror="imgError(this)">' + '</div> <div class = "single-product-text"> ' + '<h4 class = "testing-user" >' + v.first_name + '</h4></div></div></a></div>';
+                        tutor_res += '<div class="col-md-6 col-lg-3 tutor-card">' +
+                            '<a class = "tutor-content" href = "' + v.url + '" >' +
+                            '<div class = "single-product-item">' +
+                            '<div class = "single-product-image">' + '<img src = "' + v
+                            .profile_photo + '" onerror="imgError(this)">' +
+                            '</div> <div class = "single-product-text"> ' +
+                            '<h4 class = "testing-user" >' + v.first_name +
+                            '</h4></div></div></a></div>';
 
                     })
 
+                } else {
+                    tutor_res = "<center>No record available</center>";
                 }
 
-                
+
 
                 $('#res_tutor_id').html(tutor_res);
 
             }
 
         })
-
-    });
-
+    }
 </script>
-
 @endsection

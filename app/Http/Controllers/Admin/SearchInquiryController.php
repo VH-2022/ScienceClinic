@@ -19,11 +19,14 @@ class SearchInquiryController extends Controller
 
         $data['page'] = $request->page;
 
-        $title = $request->title;
+        $subject = $request->subject;
+        $often = $request->often;
+        $level = $request->level;
+        $postcode = $request->postcode;
 
         $created_date = $request->created_date;
 
-        $data['query'] = TutorSearchInquiryHelper::getListwithPaginate($title, $created_date);
+        $data['query'] = TutorSearchInquiryHelper::getListwithPaginate($subject, $postcode, $often, $level, $created_date);
 
         return view('admin.subjectinquiry.search_inquiry_ajax', $data);
     }
