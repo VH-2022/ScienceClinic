@@ -61,7 +61,7 @@ class BlogMasterHelper
     }
 
     public static function getBlogList(){
-        $query = BlogMaster::get();
+        $query = BlogMaster::orderBy('id','desc')->get();
         return $query;
     }
 }

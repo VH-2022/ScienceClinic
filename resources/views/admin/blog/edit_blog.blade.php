@@ -48,11 +48,11 @@
                                                     <div>
                                                         <input type="file" name="image" data-msg="Image" id="image"
                                                             accept=".png, .jpg, .jpeg">
-                                                            <span class="form-text error title_error"
-                                                            id="title_error">{{ $errors->first('title') }}</span>
+                                                        <span class="form-text error image_error" id="image_error"></span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="oldmg" value="{{ $blog->image }}" />
                                             <div class="col-md-2">
                                                 <img src="{{ $blog->image }}" style="width:60px;height:60px;">
                                             </div>
@@ -66,15 +66,14 @@
                                             <textarea type="text" data-msg="Description" class="form-control validate_field" placeholder="Description"
                                                 name="description" id="description" value="{{ $blog->description }}"
                                                 data-msg="Description">{{ $blog->description }}</textarea>
-                                            @if ($errors->has('description'))
-                                                <span class="text-danger">{{ $errors->first('description') }}</span>
-                                            @endif
+                                            <span class="form-text error description_error" id="description_error"></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light mr-1" title="Submit">Update</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light mr-1" title="Submit"
+                                    id="edit_blog">Update</button>
                                 {{-- <button type="update" id="edit_blog" class="btn btn-primary mr-2"
                                     style="background-color:#3498db !important">Update</button> --}}
                                 <button type="reset" class="btn btn-secondary"
@@ -94,5 +93,42 @@
 @section('page-js')
     <script>
         CKEDITOR.replace('description');
+        $('#edit_blog').click(function(e) {
+
+            var title = $('#title').val();
+            var oldmg = $("#oldmg").val();
+            var image = $('#image').prop('files');
+            var description = CKEDITOR.instances['description'].getData();
+
+            var temp = 0;
+
+            if (title.trim() == '') {
+                $('#title_error').html("Titel is required");
+                temp++;
+            } else {
+                $('#title_error').html("");
+            }
+            if(oldmg == ''){
+                if (image.length == 0) {
+                $('#image_error').html("Image is required");
+                temp++;
+            } else {
+                $('#image_error').html("");
+            }
+            }
+            
+            if (description.trim() == '') {
+                $('#description_error').html("Description is required");
+                temp++;
+            } else {
+                $('#description_error').html("");
+            }
+            
+            if (temp == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        })
     </script>
 @endsection
