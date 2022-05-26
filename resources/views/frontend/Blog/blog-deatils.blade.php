@@ -20,7 +20,7 @@
                             <img src="{{ $blog->image }}" alt="">
                             <div class="date-img">
                                 <p class="mb-0">
-                                    {{ $blog->created_at }}
+                                    {{ date('F d, Y', strtotime($blog->created_at)) }}
 
                                 </p>
                             </div>
