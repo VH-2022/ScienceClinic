@@ -273,7 +273,7 @@
 
                 @endphp
 
-                <li class="menu-item menu-item-submenu @if ($subjectFlag == 1) menu-item-open @endif" aria-haspopup="true" data-menu-toggle="hover">
+                <li class="menu-item {{ Request::segment(1) == 'subject-inquiry' ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
 
                     <a href="{{route('subject.inquiry')}}" class="menu-link menu-toggle">
 
