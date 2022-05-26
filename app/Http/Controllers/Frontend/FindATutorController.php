@@ -5,7 +5,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\ParentDetailHelper;
-use App\Helpers\ParentInquiryHelper;
 use App\Helpers\ReviewMasterHelper;
 use App\Helpers\SubjectHelper;
 use Illuminate\Http\Request;
@@ -29,6 +28,7 @@ use App\Models\User;
 use App\Helpers\TutorDetailHelper;
 use App\Helpers\TutorLevelHelper;
 use App\Helpers\TutorUniversityDetailHelper;
+use App\Models\ParentDetail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;

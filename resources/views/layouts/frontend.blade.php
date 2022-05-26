@@ -255,6 +255,7 @@
 
 
 
+
   <script>
     $('.numberCls').keypress(function(event) {
       if (event.keyCode < 48 || event.keyCode > 57) {
@@ -306,7 +307,16 @@
   toastr.success('{{ Session::get('success ') }}');
   @endif
 
-
+  @if(Session::has('success'))
+  <script>
+    Command: toastr["success"]('<?php echo Session::get('success') ?>')
+  </script>
+  @endif
+  @if(Session::has('error'))
+  <script>
+    Command: toastr["error"]('<?php echo Session::get('error') ?>')
+  </script>
+  @endif
 
 
 

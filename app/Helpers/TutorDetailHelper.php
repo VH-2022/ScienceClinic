@@ -87,6 +87,11 @@ class TutorDetailHelper
         return $query;
     }
    
+    public static function getOtherListwithPaginate($id){
 
+        $query = TutorDetail::where('tutor_id',$id)->paginate(10);
+        return $query;
+
+    }
 }
 
