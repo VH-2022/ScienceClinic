@@ -72,6 +72,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('change-status', "TutorMasterController@changeStatus")->name('change-status');
         $backendVerified->get('contact-ajax', "ContactListController@ajaxList")->name('contact-ajax');
         $backendVerified->resource('contact-list', "ContactListController");
+        $backendVerified->get('parent-list', "ParentMasterController@index")->name('parent.index');
+        $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
+
     });
 });
 

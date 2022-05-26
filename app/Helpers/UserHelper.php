@@ -125,5 +125,46 @@ class UserHelper
         return $query;
     }
 
+
+
+    public static function getParentList($name, $email, $phone, $address, $status, $created_date)
+    {
+        $query = User::orderBy('id', 'desc')->where('type', 3)->whereNull('deleted_at');
+
+        if ($name != '') {
+          
+            $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", [$name]);
+         
+            
+        }
+        if ($email != '') {
+
+            $query->where('email', 'LIKE', '%' . $email . '%');
+        }
+        if ($phone != '') {
+
+            $query->where('mobile_id', 'LIKE', '%' . $phone . '%');
+        }
+        if ($address != '') {
+
+            $query->where('address1', 'LIKE', '%' . $address . '%');
+        }
+        if ($status != '') {
+
+            $query->where('status', 'LIKE', '%' . $status . '%');
+        }
+
+        if ($created_date != '') {
+
+            $explode = explode('-', $created_date);
+
+            $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
+        }
+
+        $query = $query->paginate(10);
+
+
+        return $query;
+    }
 }
 
