@@ -67,6 +67,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('subject-inquiry', "SearchInquiryController@index")->name('subject.inquiry');
         $backendVerified->get('subject-inquiry-ajax', "SearchInquiryController@ajaxList")->name('subject-inquiry-ajax');
 
+        $backendVerified->resource('blog-master', "BlogMasterController");
+        $backendVerified->get('blog-master-ajax', "BlogMasterController@ajaxList")->name('blog-master-ajax');
+        $backendVerified->get('change-status', "TutorMasterController@changeStatus")->name('change-status');
+        $backendVerified->get('contact-ajax', "ContactListController@ajaxList")->name('contact-ajax');
+        $backendVerified->resource('contact-list', "ContactListController");
     });
 });
 
@@ -82,5 +87,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
+    $frontend->get('blog', "BlogController@index")->name('blog');
+    $frontend->get('blog-detail/{id}', "BlogController@blogDetails")->name('blog-detail');
 
+    $frontend->resource('contact', "ContactController");
+    // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
+    // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });

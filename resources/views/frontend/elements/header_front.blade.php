@@ -199,21 +199,12 @@
                                     </li>
 
                                     <li><a href="about.html">About</a></li>
-
-                                    <li class="text-none" id="tutor-sub"><a href="contact.html">Contact</a>
-
+                                    <li class="text-none" id="tutor-sub"><a href="{{route('contact.index')}}">Contact</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
-
                                             <li><a href="blog.html">Blog</a></li>
-
-
-
-                                        </ul>
-
-                                        <i class="fa fa-angle-down mmbtns" aria-hidden="true"></i>
-
+                                            </ul>
                                     </li>
-
+                                   
 
 
                                     <li class="text-none" id="tutor-sub"><a href="javascript:void(0)">Login</a>
