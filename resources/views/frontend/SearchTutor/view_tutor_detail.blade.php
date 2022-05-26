@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
 @endsection
+
 <div class="as-mainwrapper">
     <!--Bg White Start-->
     <div class="bg-white">
@@ -140,20 +141,20 @@
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">First Name</label>
-                                                        <input type="text " id="first_name" name="first_name" placeholder="First Name ">
-                                                        <span class="text-danger" id="error_first_name">{{ $errors->useredit->first('first_name') }}</span>
+                                                        <input type="text " class="mb-0" id="first_name" name="first_name" placeholder="First Name ">
+                                                        <span class="text-danger" id="error_first_name"></span>
 
                                                     </div>
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Last Name</label>
-                                                        <input type="text" id="last_name" name="last_name" placeholder="Last Name ">
-                                                        <span class="text-danger" id="error_last_name">{{ $errors->useredit->first('last_name') }}</span>
+                                                        <input type="text" class="mb-0" id="last_name" name="last_name" placeholder="Last Name ">
+                                                        <span class="text-danger" id="error_last_name"></span>
 
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 ">
                                                         <label class="tutor-label">Email</label>
-                                                        <input type="text" id="email" name="email" placeholder="Email ">
-                                                        <span class="text-danger" id="error_email">{{ $errors->useredit->first('email') }}</span>
+                                                        <input type="text" class="mb-0" id="email" name="email" placeholder="Email ">
+                                                        <span class="text-danger" id="error_email"></span>
 
                                                     </div>
                                                     <!-- <div class="col-md-4">
@@ -162,8 +163,8 @@
                                                     </div> -->
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Phone</label>
-                                                        <input type="text " id="phone" name="phone" placeholder="Phone ">
-                                                        <span class="text-danger" id="error_phone">{{ $errors->useredit->first('phone') }}</span>
+                                                        <input type="text " class="mb-0 numberCls" id="phone" name="phone" placeholder="Phone " maxlength="12">
+                                                        <span class="text-danger" id="error_phone"></span>
 
                                                     </div>
                                                     @php $daysArr = [ 'Monday' =>'monday',
@@ -177,14 +178,14 @@
                                                     <div class="col-md-6 col-lg-6 mb-23">
                                                         <label class="tutor-label">Subject</label>
                                                         <div class="subject-custom">
-                                                            <select class="selectpicker select-sub " aria-label="Default select example" data-live-search="true" name="subjectinquiry" id="subjectinquiry">
+                                                            <select class="selectpicker select-sub mb-0" aria-label="Default select example" data-live-search="true" name="subjectinquiry" id="subjectinquiry">
                                                                 <option value="">Select Subject</option>
                                                                 @foreach($subject_list as $subject)
-                                                                <option value="{{$subject->id}}">{{$subject->main_title}}</option>
+                                                                <option value="{{$subject->id}}"></option>
                                                                 @endforeach
 
                                                             </select>
-                                                            <span class="text-danger" id="error_subjectinquiry">{{ $errors->useredit->first('subjectinquiry') }}</span>
+                                                            <span class="text-danger" id="error_subjectinquiry"></span>
                                                         </div>
 
 
@@ -193,7 +194,7 @@
 
                                                         <label class="tutor-label">Level of Tuition</label>
                                                         <div class="subject-custom">
-                                                            <select class="selectpicker select-sub" aria-label="Default select example" data-live-search="true" name="level" id="level">
+                                                            <select class="selectpicker select-sub mb-0" aria-label="Default select example" data-live-search="true" name="level" id="level">
                                                                 <option value="">Select Level</option>
                                                                 @foreach($tutor_level_list as $level)
                                                                 <option value="{{$level->id}}">{{$level->title}}
@@ -201,7 +202,7 @@
                                                                 @endforeach
 
                                                             </select>
-                                                            <span class="text-danger" id="error_level">{{ $errors->useredit->first('level') }}</span>
+                                                            <span class="text-danger" id="error_level"></span>
 
                                                         </div>
 
@@ -210,7 +211,7 @@
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Day of Tuition</label>
-                                                        <select name="days" id="days">
+                                                        <select name="days" class="mb-0" id="days">
                                                             <option value="">Select Days</option>
                                                             @foreach($daysArr as $key=>$val)
                                                             <option value="{{$val}}">
@@ -219,12 +220,12 @@
                                                             @endforeach
 
                                                         </select>
-                                                        <span class="text-danger" id="error_days">{{ $errors->useredit->first('days') }}</span>
+                                                        <span class="text-danger" id="error_days"></span>
 
                                                     </div>
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Ideal Tuition Time</label>
-                                                        <select id="time" name="tuition_time">
+                                                        <select id="time" class="mb-0" name="tuition_time">
                                                             <option value="">Select Time</option>
                                                             <option value="8:00-9:00">
                                                                 8am- 9am
@@ -236,29 +237,29 @@
                                                                 10am - 11am
                                                             </option>
                                                         </select>
-                                                        <span class="text-danger" id="error_time">{{ $errors->useredit->first('tuition_time') }}</span>
+                                                        <span class="text-danger" id="error_time"></span>
 
                                                     </div>
 
 
                                                     <div class="col-md-12">
                                                         <label class="tutor-label">Address</label>
-                                                        <textarea name="address" cols="20" rows="10" id="address" placeholder="Address" class="mb-2"></textarea>
-                                                        <span class="text-danger" id="error_address">{{ $errors->useredit->first('address') }}</span>
+                                                        <textarea name="address" cols="20" rows="10" id="address" placeholder="Address" class="mb-0"></textarea>
+                                                        <span class="text-danger" id="error_address"></span>
 
                                                     </div>
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Username</label>
-                                                        <input type="text " name="username" id="username" placeholder="Username ">
-                                                        <span class="text-danger" id="error_username">{{ $errors->useredit->first('username') }}</span>
+                                                        <input type="text" class="mb-0" name="username" id="username" placeholder="Username ">
+                                                        <span class="text-danger" id="error_username"></span>
 
                                                     </div>
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Password</label>
-                                                        <input type="password" id="password" name="password" placeholder="Password">
-                                                        <span class="text-danger" id="error_password">{{ $errors->useredit->first('password') }}</span>
+                                                        <input type="password" id="password" class="mb-0" name="password" placeholder="Password">
+                                                        <span class="text-danger" id="error_password"></span>
 
                                                     </div>
 
@@ -292,7 +293,7 @@
 
                                                     <div class="mb-3 mt-3">
                                                         <label for="comment">Description</label>
-                                                        <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                                                        <textarea class="form-control mb-0" rows="5" id="description" name="description"></textarea>
                                                         <span class="text-danger" id="error_description"></span>
                                                     </div>
                                                     <form action="">
@@ -301,7 +302,7 @@
 
                                                                 <div class="from-group">
                                                                     <label for="subject">Subject:</label>
-                                                                    <input type="text" class="form-control" id="subject" placeholder="" name="subject">
+                                                                    <input type="text" class="form-control mb-0" id="subject" placeholder="" name="subject">
                                                                 </div>
                                                                 <span class="text-danger" id="error_subject"></span>
                                                             </div>
@@ -309,14 +310,14 @@
                                                             <div class="col-6">
                                                                 <div class="from-group">
                                                                     <label for="outcome">Outcome:</label>
-                                                                    <input type="text" class="form-control" id="outcome" placeholder="" name="outcome">
+                                                                    <input type="text" class="form-control mb-0" id="outcome" placeholder="" name="outcome">
                                                                 </div>
                                                                 <span class="text-danger" id="error_outcome"></span>
                                                             </div>
                                                             <div class="stars-review">
                                                                 <div>
                                                                     <fieldset class="rate">
-                                                                        <input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
+                                                                        <input type="radio" id="rating10" name="rating" value="5" class="mb-0" /><label for="rating10" title="5 stars"></label>
                                                                         <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
                                                                         <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
                                                                         <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
@@ -605,6 +606,7 @@
 <script src="{{asset('front/js/bootstrap-select.min.js')}}"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+
 <script>
     function ValidateEmail(email) {
 
@@ -657,6 +659,38 @@
                     var review = '<div class=single-comment><div class=comment-text><div class=author-info><h4><a href=#>MD Tokdir Ali</a></h4><span class=reply><div class=review-score><div class="stars stars2"aria-label="Rating of this product is 2.3 out of 5."style=--rating:' + res.data.rating + '></div></div></span></div><p>' + res.data.descriptions + '<div class=author-subject><div class=subject-divs><p class=subject-details>Subject :<p class=subject-name>' + res.data.subject + '</div><div class=subject-divs><p class=subject-details>Outcome :<p class=subject-name>' + res.data.outcome + '</div></div></div></div>';
                     $('#reviewcomment').html("");
                     $('#reviewcomment').html(review);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var tempVal = 0;
+                    if (jqXHR.responseJSON.message.description) {
+                        tempVal++;
+                        $('#error_description').text(jqXHR.responseJSON.message.description);
+                    } else {
+                        $('#error_description').text('');
+                    }
+                    if (jqXHR.responseJSON.message.subject) {
+                        tempVal++;
+                        $('#error_subject').text(jqXHR.responseJSON.message.subject);
+                    } else {
+                        $('#error_subject').text('');
+                    }
+                    if (jqXHR.responseJSON.message.outcome) {
+                        tempVal++;
+                        $('#error_outcome').text(jqXHR.responseJSON.message.outcome);
+                    } else {
+                        $('#error_outcome').text('');
+                    }
+                    if (jqXHR.responseJSON.message.rating) {
+                        tempVal++;
+                        $('#error_rating').text(jqXHR.responseJSON.message.rating);
+                    } else {
+                        $('#error_rating').text('');
+                    }
+                    if (tempVal == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             })
 
@@ -830,9 +864,6 @@
                             $('#error_email').html("Email is already exist");
 
                             temp++;
-
-
-
                         } else {
 
                             $('#error_email').html("");
@@ -840,6 +871,7 @@
                         }
 
                     }
+
 
                 });
 
@@ -868,9 +900,10 @@
         }
 
         if (days.trim() == '') {
-            $('#error_days').html('Days is required');
+            $('#error_days').html('Day is required');
             temp++;
         }
+
         if (tuitionTime.trim() == '') {
             $('#error_time').html('Time is required');
             temp++;
@@ -889,8 +922,84 @@
                 cache: false,
                 success: function(res) {
                     console.log(res.data);
-                    // toastr.success(res.error_msg);
+                    toastr.success(res.error_msg);
                     $('#submitinquiry').trigger("reset");
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    
+                    var tempVal = 0;
+                    if (jqXHR.responseJSON.message.first_name) {
+                        tempVal++;
+                        $('#error_first_name').text(jqXHR.responseJSON.message.first_name);
+                    } else {
+                        $('#error_first_name').text('');
+                    }
+                    if (jqXHR.responseJSON.message.last_name) {
+                        tempVal++;
+                        $('#error_last_name').text(jqXHR.responseJSON.message.last_name);
+                    } else {
+                        $('#error_last_name').text('');
+                    }
+                    if (jqXHR.responseJSON.message.email) {
+                        tempVal++;
+                        $('#error_email').text(jqXHR.responseJSON.message.email);
+                    } else {
+                        $('#error_email').text('');
+                    }
+                    if (jqXHR.responseJSON.message.phone) {
+                        tempVal++;
+                        $('#error_phone').text(jqXHR.responseJSON.message.phone);
+                    } else {
+                        $('#error_phone').text('');
+                    }
+                    if (jqXHR.responseJSON.message.address) {
+                        tempVal++;
+                        $('#error_address').text(jqXHR.responseJSON.message.address);
+                    } else {
+                        $('#error_address').text('');
+                    }
+                    if (jqXHR.responseJSON.message.username) {
+                        tempVal++;
+                        $('#error_username').text(jqXHR.responseJSON.message.username);
+                    } else {
+                        $('#error_username').text('');
+                    }
+                    if (jqXHR.responseJSON.message.password) {
+                        tempVal++;
+                        $('#error_password').text(jqXHR.responseJSON.message.password);
+                    } else {
+                        $('#error_password').text('');
+                    }
+                    if (jqXHR.responseJSON.message.subjectinquiry) {
+                        tempVal++;
+                        $('#error_subjectinquiry').text(jqXHR.responseJSON.message.subjectinquiry);
+                    } else {
+                        $('#error_subjectinquiry').text('');
+                    }
+                    if (jqXHR.responseJSON.message.level) {
+                        tempVal++;
+                        $('#error_level').text(jqXHR.responseJSON.message.level);
+                    } else {
+                        $('#error_level').text('');
+                    }
+                    if (jqXHR.responseJSON.message.days) {
+                        tempVal++;
+                        $('#error_days').text(jqXHR.responseJSON.message.days);
+                    } else {
+                        $('#error_days').text('');
+                    }
+                    if (jqXHR.responseJSON.message.tuition_time) {
+                        tempVal++;
+                        $('#error_time').text(jqXHR.responseJSON.message.tuition_time);
+                    } else {
+                        $('#error_time').text('');
+                    }
+
+                    if (tempVal == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             })
             return true;
@@ -901,12 +1010,17 @@
     }
 </script>
 <script>
+    $('.numberCls').keypress(function(event) {
+        if (event.keyCode < 48 || event.keyCode > 57) {
+            event.preventDefault();
+        }
+    });
     $(function() {
         $("#datepicker").datepicker();
     });
 </script>
 
-<!-- <script>
+<script>
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -925,5 +1039,6 @@
         "hideMethod": "fadeOut",
         "tapToDismiss": false
     };
-</script> -->
+</script>
+
 @endsection
