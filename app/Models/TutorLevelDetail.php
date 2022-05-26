@@ -44,7 +44,5 @@ class TutorLevelDetail extends Model
     {
         return $this->hasOne(TutorLevel::class, 'id', 'level_id');
     }
-
-
 }
 

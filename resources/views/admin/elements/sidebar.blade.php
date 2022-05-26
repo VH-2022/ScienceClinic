@@ -10,7 +10,7 @@
 
         <a href="{{ url('/admin')}}" class="brand-logo">
 
-            <img alt="Logo" src="{{ asset('assets/media/logos/logo-light.png') }}" />
+            <img alt="Logo" src="{{ asset('front/img/logo2.png') }}" />
 
         </a>
 
@@ -325,7 +325,7 @@
 
                         </span>
 
-                        <span class="menu-text">Tutor Master</span>
+                        <span class="menu-text">Tutor List</span>
 
                     </a>
 

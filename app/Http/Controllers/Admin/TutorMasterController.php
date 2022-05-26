@@ -4,8 +4,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-
+use App\Helpers\TutorDetailHelper;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -147,6 +146,17 @@ class TutorMasterController extends Controller
 
 
         return view('admin.tutor.tutor_level_list', $data);
+    }
+
+    public function getOtherDetails(Request $request)
+    {
+        $data['page'] = $request->page;
+
+        $tutor_id = $request->tutor_id;
+
+        $data['query'] = TutorDetailHelper::getOtherListwithPaginate($tutor_id);
+
+        return view('admin.tutor.tutor_other_list', $data);
     }
 
 

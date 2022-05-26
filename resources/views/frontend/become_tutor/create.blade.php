@@ -120,7 +120,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="name" class="mb-0" autocomplete="off" id="name" placeholder="Name">
+                                            <input type="text" name="name" maxlength="30" class="mb-0" autocomplete="off" id="name" placeholder="Name">
 
                                             <span class="text-danger" id="error_name">{{ $errors->useredit->first('name') }}</span>
 
@@ -136,7 +136,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" class="mb-0 numberCls" class="mb-0" maxlength="12" autocomplete="off" name="mobile" id="mobile" placeholder="Telephone">
+                                            <input type="text" class="mb-0 numberCls" maxlength="12" autocomplete="off" name="mobile" id="mobile" placeholder="Telephone">
 
                                             <span class="text-danger" id="error_mobile">{{ $errors->useredit->first('mobile') }}</span>
 
@@ -144,7 +144,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="address1" class="mb-0" autocomplete="off" id="address1" placeholder="Address 1">
+                                            <input type="text" maxlength="255" name="address1" class="mb-0" autocomplete="off" id="address1" placeholder="Address 1">
 
                                             <span class="text-danger" id="error_address1">{{ $errors->useredit->first('address1') }}</span>
 
@@ -152,7 +152,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="address2" class="mb-0" autocomplete="off" id="address2" placeholder="Address 2">
+                                            <input type="text" maxlength="255" name="address2" class="mb-0" autocomplete="off" id="address2" placeholder="Address 2">
 
                                             <span class="text-danger" id="error_address2">{{ $errors->useredit->first('address2') }}</span>
 
@@ -160,7 +160,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="address3" class="mb-0" autocomplete="off" id="address3" placeholder="Address 3">
+                                            <input type="text" maxlength="255" name="address3" class="mb-0" autocomplete="off" id="address3" placeholder="Address 3">
 
                                             <span class="text-danger" id="error_address3">{{ $errors->useredit->first('address3') }}</span>
 
@@ -168,7 +168,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="city" class="mb-0" autocomplete="off" id="city" placeholder="Town/City">
+                                            <input type="text" maxlength="255" name="city" class="mb-0" autocomplete="off" id="city" placeholder="Town/City">
 
                                             <span class="text-danger" id="error_city">{{ $errors->useredit->first('city') }}</span>
 
@@ -236,7 +236,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="university[]" maxlength="50" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution">
+                                                                <input name="university[]" maxlength="35" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution">
 
                                                                 <span id="customer_name_{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('university') }}</span>
 
@@ -244,7 +244,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="qualification[]" maxlength="50" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="Qualification">
+                                                                <input name="qualification[]" maxlength="35" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="Qualification">
 
                                                                 <span id="qualification{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('qualification') }}</span>
 
@@ -576,7 +576,7 @@
 
                                         <div class="col-md-5">
                                             <h6>User Name</h6>
-                                            <input name="user_name" class="mb-0" autocomplete="off" id="user_name" type="text" placeholder="User Name">
+                                            <input name="user_name" maxlength="30" class="mb-0" autocomplete="off" id="user_name" type="text" placeholder="User Name">
 
                                             <span id="user_name_error" class="text-danger">{{ $errors->useredit->first('user_name') }}</span>
 
@@ -1053,11 +1053,11 @@
 
         htmlRep += '<div class="copy_id customer_records_dynamic remove" id="' + mathRand + '">' +
 
-            '<div class="row">' +
+            '<div class="row form-data">' +
 
             '<div class="col-md-3">' +
 
-            '<input name="university[]" autocomplete="off" maxlength="50" data-id="' + mathRand +
+            '<input name="university[]" class="mb-0" autocomplete="off" maxlength="35" data-id="' + mathRand +
             '" type="text" placeholder="University/Institution">' +
 
             '<span id="customer_name_' + mathRand + '_error" class="text-danger"></span>' +
@@ -1066,7 +1066,7 @@
 
             '<div class="col-md-3">' +
 
-            '<input name="qualification[]" autocomplete="off" maxlength="50" data-id="' + mathRand +
+            '<input name="qualification[]" class="mb-0" autocomplete="off" maxlength="35" data-id="' + mathRand +
             '" type="text" placeholder="Qualification">' +
 
             '<span id="qualification' + mathRand + '_error" class="text-danger"></span>' +
@@ -1077,7 +1077,7 @@
 
             '<div class="downloaded-file position-relative">' +
 
-            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio"> </p> </div> <input type="file"  class="bio-input-fild" name="document_certi[]" id="uploadeviBtn" data-id="' +
+            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio"> </p> </div> <input type="file"  class="bio-input-fild mb-0" name="document_certi[]" id="uploadeviBtn" data-id="' +
             mathRand + '" ><span id="document_certi' + mathRand + '_error" class="text-danger"></span>' +
 
 
@@ -1583,62 +1583,9 @@
         }
 
         if (temp == 0) {
-            // $.ajax({
-            //     async: false,
-            //     url: "{{ route('become-tutor.store') }}",
-            //     type: "POST",
-            //     enctype: 'multipart/form-data',
-            //     data: new FormData($('#formdata')[0]),
-            //     processData: false,
-            //     contentType: false,
-            //     cache: false,
-            //     success: function(result) {
-            //         if (result == 1) {
-            //             toastr.success('<?php echo Session::get('success') ?>', 'Successfully Inserted', {
-            //                 timeOut: 5000,
-            //                 closeButton: false
-            //             });
-            //         }
-            //     },
-            //     error: function(jqXHR, textStatus, errorThrown) {
-            //         var tempVal = 0;
-            //         if (jqXHR.responseJSON.message.full_name) {
-            //             tempVal++;
-            //             $('#nameError').text(jqXHR.responseJSON.message.full_name);
-            //         } else {
-            //             $('#nameError').text('');
-            //         }
-            //         if (jqXHR.responseJSON.message.email) {
-            //             tempVal++;
-            //             $('#emailError').text(jqXHR.responseJSON.message.email);
-            //         } else {
-            //             $('#emailError').text('');
-            //         }
-            //         if (jqXHR.responseJSON.message.role) {
-            //             tempVal++;
-            //             $('#roleError').text(jqXHR.responseJSON.message.role);
-            //         } else {
-            //             $('#roleError').text('');
-            //         }
-            //         if (jqXHR.responseJSON.message.password) {
-            //             tempVal++;
-            //             $('#passwordError').text(jqXHR.responseJSON.message.password);
-            //         } else {
-            //             $('#passwordError').text('');
-            //         }
-            //         if (tempVal == 0) {
-            //             $('#user_modal').modal('hide');
-            //             return true;
-            //         } else {
-            //             $('#user_modal').modal('show');
-            //             return false;
-            //         }
-            //     }
-            // });
             return true;
 
         } else {
-
             return false;
 
         }

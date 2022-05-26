@@ -1,0 +1,126 @@
+.brand {
+    background-color: #ffffff;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-text {
+    color: #0f7dc2;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-text {
+    color: #0f7dc2;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-arrow {
+    color: #0f7dc2;
+}
+.aside-menu {
+    background-color: #ffffff;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link {
+    background-color: #ffffff;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link {
+    background-color: #ffffff;
+}
+.aside {
+    background-color: #ffffff;
+}
+
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item > .menu-link .menu-text {
+    color: #324d5b;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text {
+    color: #324d5b;
+}
+.btn.btn-primary:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-primary:focus:not(.btn-text), .btn.btn-primary.focus:not(.btn-text) {
+    color: #FFFFFF;
+    background-color: #0f7dc2!important;
+    border-color: #187DE4;
+}
+.btn.btn-primary {
+    color: #FFFFFF;
+    background-color: #0f7dc2!important;
+    border-color: #0f7dc2;
+}
+.btn.btn-secondary {
+    color: #ffffff;
+    background-color: #324d5b;
+    border-color: #324d5b;
+}
+.btn.btn-secondary:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-secondary:focus:not(.btn-text), .btn.btn-secondary.focus:not(.btn-text) {
+    color: #ffffff;
+    background-color: #324d5b;
+    border-color: #324d5b;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link {
+    background-color: #0f7dc2;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg g [fill] {
+    transition: fill 0.3s ease;
+    fill: #ffffff;
+}
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+    background-color: #eef0f8;
+}
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text {
+    color: #324d5b;
+}
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon.svg-icon svg g [fill] {
+    transition: fill 0.3s ease;
+    fill: #324d5b;
+}
+.btn.btn-success {
+    color: #ffffff;
+    background-color: #2d3e50;
+    border-color: #2d3e50;
+}
+.btn.btn-success:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-success:focus:not(.btn-text), .btn.btn-success.focus:not(.btn-text) {
+    color: #ffffff;
+    background-color: #2d3e50;
+    border-color: #2d3e50;
+}
+.nav.nav-pills .show > .nav-link, .nav.nav-pills .nav-link.active {
+    background-color: #0f7dc2;
+}
+
+.btn.btn-light-primary:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-light-primary:focus:not(.btn-text), .btn.btn-light-primary.focus:not(.btn-text) {
+    background-color: #0f7dc2;
+}
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow {
+    color: #324d5b;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+    background-color: #eef0f8;
+}
+
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text {
+    color: #324d5b;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-dot > span, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-dot > span {
+    background-color: #324d5b;
+}
+.badge-success {
+    background-color: #0f7dc2;
+}
+.btn.btn-danger, .btn.btn-danger:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-danger:focus:not(.btn-text), .btn.btn-danger.focus:not(.btn-text) {
+    color: #ffffff;
+    background-color: #0f7dc2;
+    border-color: #0f7dc2;
+}
+.btn.btn-danger.btn-shadow, .btn.btn-danger.btn-shadow:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-danger.btn-shadow:focus:not(.btn-text), .btn.btn-danger.btn-shadow.focus:not(.btn-text) {
+    box-shadow: 0px 9px 16px 0px rgb(15 125 194 / 37%) !important;
+}
+.brand-logo {
+    margin-top: 9px;
+}
+.brand .btn .svg-icon svg g [fill] {
+    transition: fill 0.3s ease;
+    fill: #324d5b;
+}
+.brand .btn.active .svg-icon svg g [fill], .brand .btn:hover .svg-icon svg g [fill] {
+    transition: fill 0.3s ease;
+    fill: #0f7dc2;
+}
+.navi .navi-item .navi-link.active .navi-text {
+    color: #0f7dc2;
+}
+.dark-sign-color{
+    color: #324d5b!important;
+}

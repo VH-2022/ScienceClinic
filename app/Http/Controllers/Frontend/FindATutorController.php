@@ -4,7 +4,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Helpers\ParentInquiryHelper;
+use App\Helpers\ParentDetailHelper;
 use App\Helpers\ReviewMasterHelper;
 use App\Helpers\SubjectHelper;
 use Illuminate\Http\Request;
@@ -164,16 +164,21 @@ class FindATutorController extends Controller
                 'password' => Hash::make($request->password),
 
             );
-            $id = UserHelper::save($userArr);
-            $inquiryArr = array(
-                'user_id' => $id,
-                'subject_id' => $request->subjectinquiry,
-                'level_id' => $request->level,
-                'tuition_day' => $request->days,
-                'tuition_time' => $request->tuition_time,
-            );
-            ParentInquiryHelper::save($inquiryArr);
-            return response()->json(['error_msg' => "Successfully instered", 'data' => $userArr], 200);
+            $save = UserHelper::save($userArr);
+            if($save){
+                $inquiryArr = array(
+                    'user_id' => $save,
+                    'subject_id' => $request->subjectinquiry,
+                    'level_id' => $request->level,
+                    'tuition_day' => $request->days,
+                    'tuition_time' => $request->tuition_time,
+                );
+                ParentDetailHelper::save($inquiryArr);
+                return response()->json(['error_msg' => "Successfully instered", 'data' => $userArr], 200);
+            }else{
+
+            }
+            
         }
     }
 }

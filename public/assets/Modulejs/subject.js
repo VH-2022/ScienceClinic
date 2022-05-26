@@ -483,7 +483,7 @@
                             $('.link_more' + dataId + '_error').addClass('is-invalid').removeClass('is-valid');
     
                             $('.link_more' + dataId + '_error').html('Please enter '+dataMSG+' in proper format.');
-    
+                            validation_status = 1;
                         }
                         else {
 
