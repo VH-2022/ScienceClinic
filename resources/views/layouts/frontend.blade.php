@@ -159,7 +159,7 @@
   <link rel="alternate stylesheet" type="text/css" href="{{ asset('front/switcher/background4.css')}}" title="background4" media="screen" />
 
   <link rel="alternate stylesheet" type="text/css" href="{{ asset('front/switcher/background5.css')}}" title="background5" media="screen" />
-  <link rel="alternate stylesheet" type="text/css" href="{{ asset('assets/css/toastr.css')}}"/>
+  <link rel="alternate stylesheet" type="text/css" href="{{ asset('assets/css/toastr.css')}}" />
 
   @yield('page-css')
 
@@ -251,9 +251,7 @@
 
   <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
   <script src="{{asset('assets/js/toastr.min.js')}}"></script>
-
-
-
+  @yield('page-js')
 
   <script>
     $('.numberCls').keypress(function(event) {
@@ -297,37 +295,6 @@
     }
   </script>
 
-  @if(Session::has('success'))
-  <script>
-    Command: toastr["success"]('<?php echo Session::get('success') ?>')
-  </script>
-  @endif
-  @if(Session::has('error'))
-  <script>
-    Command: toastr["error"]('<?php echo Session::get('error') ?>')
-  </script>
-  @endif
-
-
-
-  @yield('page-js')
-  @if(Session::has('success'))
-
-  <script>
-    Command: toastr["success"]("{{Session::get('success')}}")
-  </script>
-  
-  @endif
-
-
-
-  @if(Session::has('error'))
-
-  <script>
-    Command: toastr["error"]("{{Session::get('error')}}")
-  </script>
-
-  @endif
 
 </body>
 

@@ -245,7 +245,7 @@
 
                         <div class="menu-collapse">
 
-                            <button class="btn btn-collapse" id="menu"> <img src="./img/svg/menu.png" alt="menu" class="menu-img"></button>
+                            <button class="btn btn-collapse" id="menu"> <img src="{{asset('front/img/svg/menu.png')}}" alt="menu" class="menu-img"></button>
 
                         </div>
 

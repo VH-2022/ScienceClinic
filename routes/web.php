@@ -94,3 +94,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
+
+Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($frontend) {
+    $frontend->get('tutor-login', 'TutorLoginController@index')->name('tutor-login');
+    $frontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
+    $frontend->middleware(['auth:super_admin', 'verified'])->group(function ($backendVerified) {
+        $backendVerified->get('tutor-dashboard','DashboardController@index')->name('tutor-dashboard');
+    });
+});
