@@ -1057,7 +1057,7 @@
 
             '<div class="col-md-3">' +
 
-            '<input name="university[]" maxlength="50" data-id="' + mathRand +
+            '<input name="university[]" autocomplete="off" maxlength="50" data-id="' + mathRand +
             '" type="text" placeholder="University/Institution">' +
 
             '<span id="customer_name_' + mathRand + '_error" class="text-danger"></span>' +
@@ -1066,7 +1066,7 @@
 
             '<div class="col-md-3">' +
 
-            '<input name="qualification[]" maxlength="50" data-id="' + mathRand +
+            '<input name="qualification[]" autocomplete="off" maxlength="50" data-id="' + mathRand +
             '" type="text" placeholder="Qualification">' +
 
             '<span id="qualification' + mathRand + '_error" class="text-danger"></span>' +
