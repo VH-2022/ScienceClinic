@@ -99,6 +99,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
     $frontend->get('tutor-login', 'TutorLoginController@index')->name('tutor-login');
     $frontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
     $frontend->middleware(['auth:super_admin', 'verified'])->group(function ($backendVerified) {
-        $backendVerified->get('tutor-dashboard','DashboardController@index')->name('tutor-dashboard');
+        $backendVerified->get('tutor-dashboard','TutorDashboardController@index')->name('tutor-dashboard');
     });
 });
