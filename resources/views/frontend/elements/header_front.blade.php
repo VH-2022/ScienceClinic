@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-lg-2 col-md-6 col-6">
                     <div class="logo">
-                        <a href="index.html"><img src="{{asset('front/img/logo2.png')}}" alt="EDUCAT"></a>
+                        <a href="{{ url('/')}}"><img src="{{asset('front/img/logo2.png')}}" alt="EDUCAT"></a>
                     </div>
                 </div>
                 <div class="col-lg-10 col-md-6 col-6">
@@ -37,7 +37,7 @@
                                             <li> <a href="https://suite.smarttech-prod.com/login">Smart Notebook</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="find-tutor.html">Find a Tutor</a></li>
+                                    <li><a href="{{ route('find-tutor') }}">Find a Tutor</a></li>
                                     <li><a href="{{route('become-tutor.index')}}">Become a Tutor</a></li>
                                     <li class="text-none" id="subject-sub"><a href="javascript:void(0)">Subjects</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
@@ -101,7 +101,7 @@
                                     <li><a href="about.html">About</a></li>
                                     <li class="text-none" id="tutor-sub"><a href="contact.html">Contact</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
-                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="{{route('blog')}}">Blog</a></li>
 
                                         </ul>
                                         <i class="fa fa-angle-down mmbtns" aria-hidden="true"></i>

@@ -40,7 +40,7 @@ class User extends Authenticatable
         'deleted_at',
         'address1',
         'address2',
-        'address3 ',
+        'address3',
         'city',
         'postcode',
         'bio',

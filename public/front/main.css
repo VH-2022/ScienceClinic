@@ -5293,8 +5293,8 @@ a.green-atag, a.green-atag:hover {
 
 .testimonial-english .owl-nav .owl-prev img,
 .testimonial-english .owl-nav .owl-next img {
-    height: 25px;
-    width: 25px;
+    height: 40px;
+    width: 40px;
 }
 
 .testimonial-english .owl-nav {
@@ -5304,6 +5304,7 @@ a.green-atag, a.green-atag:hover {
     display: flex;
     justify-content: center;
     bottom: -53px;
+    top: 275px;
     align-items: center;
 }
 
@@ -5480,9 +5481,9 @@ ul.biolody-ul li {
 }
 
 .blogdetail-img img {
-    width: 100%;
-    height: 636px;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .blogdetail-img {
@@ -8419,4 +8420,7 @@ a.header-number:first-child {
 }
 .logo-mb-20{
     margin-bottom: 20px!important;
+}
+.h-auto{
+    height: auto !important;
 }

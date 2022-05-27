@@ -1,5 +1,5 @@
 
-<table class="table table-separate table-head-custom" id="kt_datatable">
+<table class="table table-separate table-head-custom">
     <thead>
         <tr>
             <th nowrap="nowrap"> ID</th>
@@ -45,6 +45,6 @@
         @endif
     </tbody>
 </table>
-<div class="pagination justify-content-center">
-{{ $query->appends(request()->query())->links() }}
-</div>
+
+{!! $query->withQueryString()->links('pagination::bootstrap-5') !!}
+

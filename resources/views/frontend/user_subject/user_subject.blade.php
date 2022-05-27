@@ -31,7 +31,7 @@
                                 </ul>
                             </div>
                             <div class="banner-readmore">
-                                <a class="button-default inline" href="find-tutor.html">Find a Tutor</a>
+                                <a class="button-default inline" href="{{ route('find-tutor')}}">Find a Tutor</a>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                 <h4 class="title">{{ $keys_val->title }}
                 </h4>
                 <p>
-                    {!! $keys_val->description !!}
+                    {{ $keys_val->description }}
                 </p>
 
             </div>
@@ -321,18 +321,7 @@
 </div>
 <div class="gcse-text english-text">
     <div class="container">
-        <!-- <div class="gcseflexcenter">
-                            <div class="gcse-titles text-center">
-                                <h5 class="title1 text-center mb-20">
-                                    <span class="tlt block" data-in-effect="fadeInRight" data-out-effect="fadeOutRight">GCSE (9-1) English</span>
-                                </h5>
-                                <p class="pt-2 pb-2">
-                                    <span style="font-weight: 700;">AQA</span> Explorations in creative reading and writing,
-                                    writers’ viewpoints and perspectives, Shakespeare and the 19th-century novel, modern
-                                    texts and poetry.
-                                </p>
-                            </div>
-                        </div> -->
+        
         <div class="row  mb-lg-4">
             <div class="col-md-6">
                 <div class="chemistry-icon-text">
@@ -344,26 +333,7 @@
                         English Literature (9-1) Specification Summary</a>
                 </div>
             </div>
-            <!-- <div class="col-md-6">
-                                <div class="chemistry-icon-text">
-                                    <a href="./pdf/Edexcel-ENG-lang.pdf" target="_blank" type="button"
-                                        class="btn download-pdfs"><i class="fa fa-book mr-2"></i>Edexcel
-                                        GCSE English Language (9-1) Specification</a>
-                                </div>
-                                <div class="chemistry-icon-text">
-                                    <a href="./pdf/Edexcel-English-Language-Assement-material.pdf" target="_blank"
-                                        type="button" class="btn download-pdfs"><i class="fa fa-book mr-2"></i>Edexcel GCSE English Language (9-1) Assessment</a>
-                                </div>
-                                <div class="chemistry-icon-text">
-                                    <a href="./pdf/Edexcel-English-LIT.pdf" target="_blank" type="button"
-                                        class="btn download-pdfs"><i class="fa fa-book mr-2"></i>Edexcel
-                                        GCSE English Language (9-1) Specification</a>
-                                </div>
-                                <div class="chemistry-icon-text">
-                                    <a a href="./pdf/Edexcel-English-lite-Assessment.pdf" target="_blank" type="button"
-                                        class="btn download-pdfs"><i class="fa fa-book mr-2"></i>Edexcel GCSE English Language (9-1) Assessment</a>
-                                </div>
-                            </div> -->
+            
             <div class="col-md-6">
                 <p>We also teach the following Specifications :</p>
                 <div class="chemistry-icon-text">
@@ -420,7 +390,7 @@
                                 <div class="layer">
                                     <h2>Mathematics</h2>
                                 </div>
-                                <img src="img/banner/mimg4.jpeg" class="img-over" alt="Jenny of Oldstones">
+                                <img src="{{ asset('img/banner/mimg4.jpeg')}}"  onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
@@ -431,7 +401,7 @@
                                 <div class="layer">
                                     <h2>English Language &amp; Literature</h2>
                                 </div>
-                                <img src="img/banner/eimg3.png" class="img-over" alt="Jenny of Oldstones">
+                                <img src="{{ asset('img/banner/eimg3.png')}}"  onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
@@ -442,7 +412,7 @@
                                 <div class="layer">
                                     <h2>Physics</h2>
                                 </div>
-                                <img src="img/banner/pimg5.png" class="img-over" alt="Jenny of Oldstones">
+                                <img src="{{ asset('img/banner/pimg5.png')}}"  onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
@@ -453,7 +423,7 @@
                                 <div class="layer">
                                     <h2>Biology</h2>
                                 </div>
-                                <img src="img/banner/bimg1.jpg" class="img-over" alt="Jenny of Oldstones">
+                                <img src="{{ asset('img/banner/bimg1.jpg')}}"   onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
@@ -464,7 +434,7 @@
                                 <div class="layer">
                                     <h2>chemistry</h2>
                                 </div>
-                                <img src="img/banner/cimg2.png" class="img-over" alt="Jenny of Oldstones">
+                                <img src="{{ asset('img/banner/cimg2.png')}}"  onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
@@ -475,7 +445,7 @@
                                 <div class="layer">
                                     <h2>Computer Science</h2>
                                 </div>
-                                <img src="img/banner/computer.png" class="img-over" alt="Jenny of Oldstones">
+                                <img src="img/banner/computer.png" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
@@ -488,7 +458,7 @@
                                     <h2>Primary
                                     </h2>
                                 </div>
-                                <img src="img/banner/primary.png" class="img-over" alt="Jenny of Oldstones">
+                                <img src="{{ asset('img/banner/primary.png')}}" onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
@@ -515,7 +485,7 @@
 
                                     </h2>
                                 </div>
-                                <img src="img/banner/other.png" class="img-over" alt="Jenny of Oldstones">
+                                <img src="{{ asset('img/banner/other.png')}}"  onerror="imgError(this)" class="img-over" alt="Jenny of Oldstones">
                             </div>
                         </a>
                     </div>
