@@ -96,8 +96,6 @@
         $('#edit_blog').click(function(e) {
 
             var title = $('#title').val();
-            var oldmg = $("#oldmg").val();
-            var image = $('#image').prop('files');
             var description = CKEDITOR.instances['description'].getData();
 
             var temp = 0;
@@ -108,22 +106,25 @@
             } else {
                 $('#title_error').html("");
             }
-            if(oldmg == ''){
-                if (image.length == 0) {
-                $('#image_error').html("Image is required");
-                temp++;
-            } else {
-                $('#image_error').html("");
+
+            var image = $('input[name="image"]').prop('files');
+            if (image.length != 0) {
+                $('.image_error').html("");
+                var FileUploadPath = image[0].name;
+                var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg') {} else {
+                    $('.image_error').html("Image only allows image types of PNG, JPG, JPEG");
+                    temp++;
+                }
             }
-            }
-            
+
             if (description.trim() == '') {
                 $('#description_error').html("Description is required");
                 temp++;
             } else {
                 $('#description_error').html("");
             }
-            
+
             if (temp == 0) {
                 return true;
             } else {

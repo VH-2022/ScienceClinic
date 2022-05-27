@@ -30,20 +30,12 @@ class BlogMasterController extends Controller
         $data['query'] = BlogMasterHelper::getListwithPaginate($title,$created_date);
         return view('admin.blog.blog_ajax',$data);
      }
-
-    /**
+    
+       /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-   
-
-    
-    //    /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
     public function create()
     {
         $auth = auth()->user();
