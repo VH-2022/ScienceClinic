@@ -27,7 +27,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="#" class="show-details"><i class="fa fa-edit"></i></a>
+                        <a href="{{ url('about') }}/{{ $val->id }}/edit"class="edit-details" data-id="{{$val->id}}"><i class="fa fa-edit"></i></a>
 
                     </td>
                 </tr>
@@ -35,7 +35,7 @@
         @endif
         @if (count($query) == 0)
             <tr>
-                <td colspan="6">No record available</td>
+                <td colspan="7">No record available</td>
             </tr>
         @endif
     </tbody>

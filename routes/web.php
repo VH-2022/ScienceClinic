@@ -64,7 +64,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
         $backendVerified->get('about-ajax', "AboutController@ajaxList")->name('about-ajax');
-        $backendVerified->resource('about-list', "AboutController");
+        $backendVerified->resource('about', "AboutController");
     });
 });
 
