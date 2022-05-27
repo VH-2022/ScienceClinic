@@ -171,15 +171,10 @@
                         </ul>
                     </div>
                 </li>
-                @php
-                    $aboutFlag = 0;
-                    if (Request::segment(1) == 'about') {
-                        $aboutFlag = 1;
-                    }
-                @endphp
-                <li class="menu-item menu-item-submenu @if ($aboutFlag == 1) menu-item-open @endif"
+                
+                <li class="menu-item menu-item-submenu {{ Request::segment(1) == 'about' ? 'menu-item-active' : '' }}"
                     aria-haspopup="true" data-menu-toggle="hover">
-                    <a href="javascript:;" class="menu-link menu-toggle">
+                    <a href="{{ route('about.index') }}" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Bucket.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -198,24 +193,10 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-text">About</span>
-                        <i class="menu-arrow"></i>
+                        <span class="menu-text">CMS</span>
+                        
                     </a>
-                    <div class="menu-submenu" kt-hidden-height="80">
-                        <i class="menu-arrow"></i>
-                        <ul class="menu-subnav">
-
-                            <li class="menu-item {{ Request::segment(1) == 'about' ? 'menu-item-active' : '' }}"
-                                aria-haspopup="true">
-                                <a href="{{ route('about.index') }}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">About</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    
                 </li>
             </ul>
             <!--end::Menu Nav-->
