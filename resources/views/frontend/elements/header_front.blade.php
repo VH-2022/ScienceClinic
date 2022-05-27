@@ -201,7 +201,7 @@
                                     <li><a href="about.html">About</a></li>
                                     <li class="text-none" id="tutor-sub"><a href="{{route('contact.index')}}">Contact</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
-                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="{{route('blog')}}">Blog</a></li>
                                             </ul>
                                     </li>
                                    
@@ -211,7 +211,7 @@
 
                                         <ul class="sub-menu mobile-section border-bottom-ul">
 
-                                            <li><a href="login.html">Tutor Login</a></li>
+                                            <li><a href="{{route('tutor-login')}}">Tutor Login</a></li>
 
                                             <li><a href="parent.html"> Parent Login </a></li>
 
