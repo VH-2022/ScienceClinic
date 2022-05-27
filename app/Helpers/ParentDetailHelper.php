@@ -17,4 +17,11 @@ class ParentDetailHelper {
         $insertId = $insert->id;
         return $insertId;
     }
+    public static function getListwithPaginate($id)
+    {
+
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $id)
+        ->groupBy('subject_id')->get();
+        return $query;
+    }
 }

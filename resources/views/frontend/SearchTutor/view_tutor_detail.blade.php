@@ -138,7 +138,7 @@
                                                 @csrf
                                                 <div class="row">
 
-
+                                                    <input type="hidden" name="tutorid" value="{{$data->id}}">
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">First Name</label>
                                                         <input type="text " class="mb-0" id="first_name" name="first_name" placeholder="First Name ">
@@ -181,7 +181,7 @@
                                                             <select class="selectpicker select-sub mb-0" aria-label="Default select example" data-live-search="true" name="subjectinquiry" id="subjectinquiry">
                                                                 <option value="">Select Subject</option>
                                                                 @foreach($subject_list as $subject)
-                                                                <option value="{{$subject->id}}"></option>
+                                                                <option value="{{$subject->id}}">{{$subject->main_title}}</option>
                                                                 @endforeach
 
                                                             </select>
@@ -314,25 +314,26 @@
                                                                 </div>
                                                                 <span class="text-danger" id="error_outcome"></span>
                                                             </div>
-                                                            <div class="stars-review">
-                                                                <div>
-                                                                    <fieldset class="rate">
-                                                                        <input type="radio" id="rating10" name="rating" value="5" class="mb-0" /><label for="rating10" title="5 stars"></label>
-                                                                        <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
-                                                                        <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
-                                                                        <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
-                                                                        <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
-                                                                        <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5 stars"></label>
-                                                                        <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
-                                                                        <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5 stars"></label>
-                                                                        <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
-                                                                        <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5 star"></label>
+                                                            <div class="col-6 mt-4">
+                                                                <div class="stars-review">
+                                                                    <div>
+                                                                        <fieldset class="rate">
+                                                                            <input type="radio" id="rating10" name="rating" value="5" class="mb-0" /><label for="rating10" title="5 stars"></label>
+                                                                            <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
+                                                                            <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
+                                                                            <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
+                                                                            <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
+                                                                            <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5 stars"></label>
+                                                                            <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
+                                                                            <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5 stars"></label>
+                                                                            <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
+                                                                            <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5 star"></label>
 
-                                                                    </fieldset>
+                                                                        </fieldset>
+                                                                    </div>
+                                                                    <span class="text-danger"  id="error_rating"></span>
                                                                 </div>
-                                                                <span class="text-danger" style="margin-left: 20px;" id="error_rating"></span>
                                                             </div>
-
                                                             <div class="col-md-12">
                                                                 <div class="tutor-btn-end mr-0">
                                                                     <div class="banner-readmore">
@@ -839,43 +840,7 @@
 
                 temp++;
 
-            } else {
-
-                $.ajax({
-
-                    async: false,
-
-                    global: false,
-
-                    url: "{{ route('check.email') }}",
-
-                    type: "get",
-
-                    data: {
-
-                        email: email
-
-                    },
-
-                    success: function(response) {
-
-                        if (response.status == 1) {
-
-                            $('#error_email').html("Email is already exist");
-
-                            temp++;
-                        } else {
-
-                            $('#error_email').html("");
-
-                        }
-
-                    }
-
-
-                });
-
-            }
+            } 
 
         }
         if (phone.trim() == '') {
@@ -926,7 +891,7 @@
                     $('#submitinquiry').trigger("reset");
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    
+
                     var tempVal = 0;
                     if (jqXHR.responseJSON.message.first_name) {
                         tempVal++;

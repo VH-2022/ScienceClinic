@@ -250,6 +250,73 @@
 <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <script>
+    function functionDelete(Id) {
+
+        event.preventDefault(); // prevent form submit
+
+        $.confirm({
+
+            title: 'Delete!',
+
+            content: 'you want to delete this parent?',
+
+            buttons: {
+
+                formSubmit: {
+
+                    text: 'Submit',
+
+                    btnClass: 'btn-danger',
+
+                    action: function() {
+
+                        $.ajax({
+
+                            method: "POST",
+
+                            url: "{{ url('parent-delete') }}/" + Id,
+
+                            data: {
+
+                                '_token': '{{ csrf_token() }}',
+
+                                '_method': "DELETE",
+
+                                'id': Id
+
+                            }
+
+
+
+                        }).done(function(r) {
+
+
+
+                            toastr.success(r.message);
+
+                            ajaxList(1);
+
+                        }).fail(function() {
+
+
+
+                            toastr.error('Sorry, something went wrong. Please try again.');
+
+                        });
+
+
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
     var _AJAX_LIST = "{{ route('parent-list-ajax') }}";
 
 
@@ -394,7 +461,7 @@
 
         $('#address').val("");
         $('#status').val("");
-        
+
         ajaxList(1);
 
     })

@@ -118,23 +118,24 @@ class FindATutorController extends Controller
         ]);
         if ($validator->fails()) {
 
-        return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
-        }else{
-        $data = array(
-            'tutor_id' => $request->id,
-            'descriptions' => $request->description,
-            'subject' => $request->subject,
-            'outcome' => $request->outcome,
-            'rating' => $request->rating,
-        );
-        ReviewMasterHelper::save($data);
+            return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
+        } else {
+            $data = array(
+                'tutor_id' => $request->id,
+                'descriptions' => $request->description,
+                'subject' => $request->subject,
+                'outcome' => $request->outcome,
+                'rating' => $request->rating,
+            );
+            ReviewMasterHelper::save($data);
 
-        return response()->json(['error_msg' => "Successfully instered", 'data' => $data], 200);
+            return response()->json(['error_msg' => "Successfully instered", 'data' => $data], 200);
         }
     }
 
     public function saveInquiry(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
 
             'first_name' => 'required| max:30',
@@ -157,38 +158,54 @@ class FindATutorController extends Controller
 
             'username' => 'required| max:30',
 
-            'password' => 'required| max:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'password' => 'required| min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
 
         ]);
         if ($validator->fails()) {
-        return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
-        }else{
-            $userArr = array(
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'type' => 3,
-                'email' => $request->email,
-                'mobile_id' => $request->phone,
-                'address1' => $request->address,
-                'user_name' => $request->username,
-                'password' => Hash::make($request->password),
+            return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
+        } else {
+            $count = UserHelper::checkEmail($request->email);
+          
+            if (empty($count)) {
+                $userArr = array(
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'type' => 3,
+                    'email' => $request->email,
+                    'mobile_id' => $request->phone,
+                    'address1' => $request->address,
+                    'user_name' => $request->username,
+                    'status' => 'Pending',
+                    'password' => Hash::make($request->password),
 
-            );
-            $userData = UserHelper::save($userArr);
-if($userData){
-            $inquiryArr = array(
-                'user_id' => $userData,
-                'subject_id' => $request->subjectinquiry,
-                'level_id' => $request->level,
-                'tuition_day' => $request->days,
-                'tuition_time' => $request->tuition_time,
-            );
-            ParentDetailHelper::save($inquiryArr);
-            return response()->json(['error_msg' => "Successfully instered", 'data' => $userArr], 200);
-            }else{
-                return response()->json(['error_msg' => "Something went wrong", 'data' => ''], 500);
+                );
+                $userData = UserHelper::save($userArr);
+                if ($userData) {
+                    $inquiryArr = array(
+                        'user_id' => $userData,
+                        'subject_id' => $request->subjectinquiry,
+                        'level_id' => $request->level,
+                        'tuition_day' => $request->days,
+                        'tuition_time' => $request->tuition_time,
+                        'tutor_id' => $request->tutorid,
+                    );
+                    ParentDetailHelper::save($inquiryArr);
+                    return response()->json(['error_msg' => "Successfully instered", 'data' => $userArr], 200);
+                } else {
+                    return response()->json(['error_msg' => "Something went wrong", 'data' => ''], 500);
+                }
+            } else {
+                $inquiryArr = array(
+                    'user_id' => $count->id,
+                    'subject_id' => $request->subjectinquiry,
+                    'level_id' => $request->level,
+                    'tuition_day' => $request->days,
+                    'tuition_time' => $request->tuition_time,
+                    'tutor_id' => $request->tutorid,
+                );
+                ParentDetailHelper::save($inquiryArr);
+                return response()->json(['error_msg' => "Successfully instered", 'data' => $inquiryArr], 200);
             }
         }
-        }
-    
+    }
 }

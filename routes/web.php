@@ -74,6 +74,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('contact-list', "ContactListController");
         $backendVerified->get('parent-list', "ParentMasterController@index")->name('parent.index');
         $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
+        $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
+        $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
+        $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
 
     });
 });

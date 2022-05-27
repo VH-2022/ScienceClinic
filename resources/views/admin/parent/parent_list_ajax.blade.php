@@ -12,6 +12,8 @@
             <th style="white-space: nowrap">Address</th>
             <th style="white-space: nowrap">Created Date</th>
             <th style="white-space: nowrap">Status</th>
+            <th style="white-space: nowrap">Action</th>
+
         </tr>
 
     </thead>
@@ -45,14 +47,24 @@
                 @endif
 
             </td>
-            <td>{{$val->status}}</td>
-            <!-- <td>
+            <td> @if($val->status =='Pending')
 
-                <a href="javascript:void(0)" onclick="editDetail('{{$val->id}}')" class="edit-details" data-id="{{$val->id}}}"><i class="fa fa-edit"></i></a>
+                <span class="badge badge-primary">Pending</span>
 
-                <a href="javascript:void(0)" onclick="deleteDetail('{{$val->id }}')" class="delete-details" data-id="{{$val->id}}}"><i class="fa fa-trash"></i></a>
+                @elseif($val->status =='Accepted')
 
-            </td> -->
+                <span class="badge badge-success">Accepted</span>
+
+                @else
+
+                <span class="badge badge-danger">Rejected</span>
+
+                @endif
+            </td>
+            <td><a href="{{ route('parent.details',$val->id) }}" class="show-details"><i class="fa fa-eye"></i></a>
+                <a href="javascript:void(0)" onclick="functionDelete('{{ $val->id }}')" class="delete-details" data-id="{{ $val->id }}}"><i class="fa fa-trash"></i></a>
+            </td>
+
 
         </tr>
 

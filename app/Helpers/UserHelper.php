@@ -77,6 +77,7 @@ class UserHelper
         return $update;
 
     }
+   
 
     public static function getUserDetails($id)
 
@@ -166,5 +167,20 @@ class UserHelper
 
         return $query;
     }
+    public static function getDetailsById($id)
+    {
+
+        $query = User::where('id', $id)->where('type',3)->first();
+
+        return $query;
+    }
+
+    public static function checkEmail($email)
+    {
+        $query = User::select('id')->where('email', $email)->where('type', 3)->first();
+
+        return $query;
+    }
+
 }
 
