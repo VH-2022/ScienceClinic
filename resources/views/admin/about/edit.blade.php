@@ -21,8 +21,8 @@
                                 <h3 class="card-label font-weight-bolder text-dark">Edit About</h3>
                             </div>
                         </div>
-                        <form class="form"  method="POST"
-                            action="{{ route('about.update', $about->id) }}" enctype="multipart/form-data">
+                        <form class="form" method="POST" action="{{ route('about.update', $about->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <input type="hidden" name="id" value="{{ $about->id }}">
@@ -31,9 +31,9 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Content1 <span class="text-danger">*</span></label>
-                                            <textarea placeholder="Content1" class="form-control validate_field"
-                                                autocomplete="off" id="content1" type="text" data-msg="Content1"
-                                                name="content1" value="{{ $about->content1 }}" rows="7">{{ $about->content1 }}</textarea>
+                                            <textarea placeholder="Content1" class="form-control validate_field" id="content1" type="text" data-msg="Content1"
+                                                name="content1" value="{{ $about->content1 }}"
+                                                rows="7">{{ $about->content1 }}</textarea>
                                             <span class="form-text error content1_error"
                                                 id="content1_error ">{{ $errors->first('content1') }}</span>
                                         </div>
@@ -51,7 +51,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-md-2">
                                                 <img src="{{ $about->image }}" style="width:60px;height:60px;">
                                             </div>
@@ -63,17 +63,17 @@
                                         <div class="form-group">
                                             <label>Content2 <span class="text-danger">*</span></label>
                                             <textarea type="text" data-msg="Content2" class="form-control validate_field" placeholder="Content2" name="content2"
-                                                id="content2" data-msg="Description" >{{ $about->content2 }}</textarea>
-                                            @if ($errors->has('content2'))
-                                                <span class="form-text error content2_error"
-                                                    id="content2_error ">{{ $errors->first('content2') }}</span>
-                                            @endif
+                                                id="content2" data-msg="content2">{{ $about->content2 }}</textarea>
+                                            <span class="form-text error content2_error"
+                                                id="content2_error ">{{ $errors->first('content2') }}</span>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light mr-1 edit_about" id="edit_about">Update</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light mr-1 edit_about"
+                                    id="edit_about">Update</button>
                                 <button type="reset" class="btn btn-secondary"
                                     onclick="window.location.href='{{ route('about.index') }}'">Cancel</button>
                             </div>
@@ -92,37 +92,38 @@
     <script>
         CKEDITOR.replace('content2');
         $('#edit_about').click(function(e) {
-       
-      
-            var content1 = $('#content1').val();
-            var content2 = CKEDITOR.instances['content2'].getData();
             var temp = 0;
-            
+            var content1 = $('#content1').val();
+            $('.content1_error').removeClass('is-valid');
+            $('.content1_error').html("");
             if (content1.trim() == '') {
-                $('#content1_error').html("Content1 is required");
+                var dataMSG = $('#content1').attr('data-msg');
+                $('.content1_error').addClass('is-invalid').removeClass('is-valid');
+                $('.content1_error').html(dataMSG + ' is required.');
                 temp++;
-            } else {
-                $('#content1_error').html("");
             }
+
             var image = $('input[name="image"]').prop('files');
-            if (image.length !=0) {
+            if (image.length != 0) {
                 $('.image_error').html("");
                 var FileUploadPath = image[0].name;
                 var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-                if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg') {
-                } else {
+                if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg') {} else {
                     $('.image_error').html("Image only allows image types of PNG, JPG, JPEG");
                     temp++;
                 }
             }
-            
+
+            var content2 = CKEDITOR.instances['content2'].getData();
+            $('.content2_error').removeClass('is-valid');
+            $('.content2_error').html("");
             if (content2.trim() == '') {
-                $('#content2_error').html("Content2 is required");
+                var dataMSG = $('#content2').attr('data-msg');
+                $('.content2_error').addClass('is-invalid').removeClass('is-valid');
+                $('.content2_error').html(dataMSG + ' is required.');
                 temp++;
-            } else {
-                $('#content2_error').html("");
             }
-            
+
             if (temp == 0) {
                 return true;
             } else {
