@@ -71,6 +71,7 @@
 
         <div class="d-flex flex-row flex-column-fluid page">
 
+            @if(Auth::user()->type == 1)
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
                 @include('admin.elements.header')
@@ -79,13 +80,30 @@
 
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
-                @yield('content')
+                    @yield('content')
 
                 </div>
 
                 @include('admin.elements.footer')
 
             </div>
+            @elseif(Auth::user()->type == 2)
+            <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+
+                @include('common.elements.header')
+
+                @include('common.elements.sidebar')
+
+                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+                    @yield('content')
+
+                </div>
+
+                @include('common.elements.footer')
+
+            </div>
+            @endif
 
         </div>
 
@@ -107,7 +125,7 @@
 
     <script src="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
 
-    
+
 
     <!--end::Page Vendors-->
 
@@ -119,16 +137,14 @@
 
     <!--end::Page Scripts-->
 
- 
+
 
     @yield('page-js')
 
     @if(Session::has('success'))
 
     <script>
-
         Command: toastr["success"]("{{Session::get('success')}}")
-
     </script>
 
     @endif
@@ -138,9 +154,7 @@
     @if(Session::has('error'))
 
     <script>
-
         Command: toastr["error"]("{{Session::get('error')}}")
-
     </script>
 
     @endif
@@ -148,9 +162,6 @@
     @include('admin.elements.message-js')
 
     <script>
-
-        
-
         window.addEventListener("pageshow", function(event) {
 
             var historyTraversal = event.persisted ||
@@ -168,13 +179,11 @@
             }
 
         });
-
     </script>
 
     <!--begin::Global Config(global config for global JS scripts)-->
 
     <script>
-
         var KTAppSettings = {
 
             "breakpoints": {
@@ -290,7 +299,6 @@
             "font-family": "Poppins"
 
         };
-
     </script>
 
     <!--end::Global Config-->

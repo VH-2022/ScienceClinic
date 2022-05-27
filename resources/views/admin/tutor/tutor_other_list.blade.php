@@ -68,7 +68,13 @@
             <td style="white-space:nowrap">{{ $val->experience_in_uk }}</td>
 
             @if($expUk == "Yes")
-                <td style="white-space:nowrap">{{$val->total_experience_in_uk}}</td>
+                @if($val->total_experience_in_uk == 1)
+                    <td style="white-space:nowrap">1-2 years</td>
+                @elseif($val->total_experience_in_uk == 2)
+                    <td style="white-space:nowrap">3-5 years</td>
+                @else
+                    <td style="white-space:nowrap">5 plus years</td>
+                @endif
             @else
                 <td style="white-space:nowrap">No</td>
             @endif

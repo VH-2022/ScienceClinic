@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Tutor;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class TutorLoginController extends Controller
@@ -32,7 +33,7 @@ class TutorLoginController extends Controller
         ]);
 
         $remember_me = $request->has('remember') ? 1 : 0;
-        if (auth()->guard('super_admin')->attempt([
+        if (auth()->guard('web')->attempt([
             
             'email' => $request->email,
 
@@ -41,10 +42,19 @@ class TutorLoginController extends Controller
             'type' => 2
 
         ])) {
+           
             Session::flash('success', trans('messages.successLogin'));
             return redirect('tutor-dashboard');
         } else {
             return redirect()->route('tutor-login')->with('error', trans('messages.errorLogin'));
         }
+    }
+    public function logout(Request $request)
+
+    {
+        Auth::guard('web')->logout();
+        Session::flash('success', trans('messages.successLogout'));
+        return redirect('tutor-login');
+
     }
 }

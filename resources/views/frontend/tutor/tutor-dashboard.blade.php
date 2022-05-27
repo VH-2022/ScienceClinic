@@ -36,10 +36,60 @@
 
         <!--begin::Container-->
 
-        <div class="container">
+        <div class="container-fluid">
 
             <!--begin::Dashboard-->
+            <div class="d-flex flex-row">
 
+                <!--begin::Content-->
+
+                <div class="flex-row-fluid" id="personam_id">
+
+                    <div class="card card-custom card-stretch">
+
+                        <!--begin::Header-->
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="apply-main">
+                                        <h3>Apply for an Enhanced DBS</h3>
+                                        <div class="apply-details">
+                                            <div class="apply-details-inner">
+                                                <i class="fa fa-check mr-2"></i>
+                                                <div>
+                                                    We can process your DBS application and verify your documents.
+                                                </div>
+                                            </div>
+                                            <div class="apply-details-inner">
+                                                <i class="fa fa-check mr-2"></i>
+                                                <div>
+                                                    You must have an Enhanced DBS verified to complete our verification process.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center">
+                                    <button class="btn start-dbs btn-primary">
+                                        Start DBS Application
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--end::Content-->
+
+            </div>
             <!--end::Dashboard-->
 
         </div>

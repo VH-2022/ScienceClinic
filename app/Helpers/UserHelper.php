@@ -11,8 +11,7 @@ use URL;
 use App\Models\User;
 
 use DB;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class UserHelper
 
@@ -124,6 +123,24 @@ class UserHelper
         $query = User::whereRaw('sha1(id)="' . $id . '"')->first();
         return $query;
     }
-
+    public static function getTutorData($id)
+    {
+        $query = User::select('*')
+        ->leftjoin('sc_tutor_details as sb',function($join){
+            $join->on('sb.tutor_id','=','users.id');
+        })
+        ->where('users.id', $id)
+        ->whereNull('users.deleted_at')
+        ->get();
+        return $query;
+    }
+    public static function updateProfile($image){
+        $user = Auth::guard('web')->user();
+        $data['updated_at'] = date('Y-m-d H:i:s');        
+        $data['updated_by'] = $user['id'];
+        $data['profile_photo'] = $image;
+        $query = User::where('id',$user['id'])->update($data);
+        return $query;
+    }
 }
 

@@ -124,3 +124,13 @@
 .dark-sign-color{
     color: #324d5b!important;
 }
+.apply-details-inner{
+    display: flex;
+    font-size: 15px;
+    align-items: center;
+    margin-bottom: 5px;
+
+}
+.apply-details-inner i{
+    color: #324d5b;
+}

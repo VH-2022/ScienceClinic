@@ -196,6 +196,7 @@ class BecomeTutorController extends Controller
                 'profile_photo' => $image,
                 'type' => 2,
                 'user_name' => $request->user_name,
+                'status' => 'Pending',
                 'password' => Hash::make($request->password)
 
             );

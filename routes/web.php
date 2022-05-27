@@ -44,6 +44,7 @@ Route::get('/clear-optimize', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
     Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
+    Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
     $admins->middleware(['auth:super_admin', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('logout-super-admin', 'LoginController@logout')->name('super-admin-logout');
         $backendVerified->get('admin','DashboardController@index')->name('admin-dashboard');
@@ -98,7 +99,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($frontend) {
     $frontend->get('tutor-login', 'TutorLoginController@index')->name('tutor-login');
     $frontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
-    $frontend->middleware(['auth:super_admin', 'verified'])->group(function ($backendVerified) {
+    $frontend->middleware(['auth:web', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('tutor-dashboard','TutorDashboardController@index')->name('tutor-dashboard');
+        $backendVerified->get('tutor-logout', 'TutorLoginController@logout')->name('tutor-logout');
+        $backendVerified->get('tutor-verify','TutorVerifyController@index')->name('tutor-verify');
+        $backendVerified->post('tutor-profile', 'TutorVerifyController@updateProfile')->name('tutor-profile');
+        $backendVerified->post('tutor-dbs', 'TutorVerifyController@updateDBS')->name('tutor-dbs');
     });
 });

@@ -78,7 +78,7 @@ class TutorUniversityDetailHelper
 
     public static function getListwithPaginate($id){
 
-        $query = TutorUniversityDetail::whereNull('deleted_at')->where('tutor_id',$id)->paginate(1);
+        $query = TutorUniversityDetail::whereNull('deleted_at')->where('tutor_id',$id)->get();
 
         return $query;
 
