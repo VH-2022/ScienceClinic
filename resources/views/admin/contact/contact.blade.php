@@ -209,8 +209,8 @@
         $('body').on('click','.view-detail',function(e) {
             var dataId = $(this).attr('data-id');
             var htmls = $('#desc'+dataId).html();
-            $.confirm({
-                title: 'Prompt!',
+            $.dialog({
+                title: 'Message',
                 content: htmls,
                 
             });
