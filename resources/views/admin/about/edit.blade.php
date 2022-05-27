@@ -42,7 +42,7 @@
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <div class="form-group">
-                                                    <label>Image <span class="text-danger">*</span></label>
+                                                    <label>Image</label>
                                                     <div>
                                                         <input type="file" name="image" data-msg="Image" id="image"
                                                             accept=".png, .jpg, .jpeg">
