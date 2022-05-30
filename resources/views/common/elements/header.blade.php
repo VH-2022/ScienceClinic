@@ -9,7 +9,6 @@
     </a>
 
     <!--end::Logo-->
-
     <!--begin::Toolbar-->
 
     <div class="d-flex align-items-center">

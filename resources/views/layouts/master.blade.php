@@ -13,6 +13,7 @@
     <meta name="description" content="Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!--begin::Fonts-->
 
@@ -162,6 +163,14 @@
     @include('admin.elements.message-js')
 
     <script>
+        $('.numberCls').keypress(function(event) {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                event.preventDefault();
+            }
+        });
+        $('.numberCls').bind("cut copy paste", function(e) {
+            e.preventDefault();
+        });
         window.addEventListener("pageshow", function(event) {
 
             var historyTraversal = event.persisted ||
