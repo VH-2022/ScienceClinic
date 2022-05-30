@@ -125,7 +125,7 @@ class UserHelper
     }
     public static function getTutorData($id)
     {
-        $query = User::select('*')
+        $query = User::select('*','users.id as userId')
         ->leftjoin('sc_tutor_details as sb',function($join){
             $join->on('sb.tutor_id','=','users.id');
         })

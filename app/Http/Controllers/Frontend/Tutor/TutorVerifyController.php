@@ -5,6 +5,7 @@
 namespace App\Http\Controllers\Frontend\Tutor;
 
 use App\Helpers\TutorDetailHelper;
+use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,11 @@ class TutorVerifyController extends Controller
     use ImageUploadTrait;
     public function index(){
         $user = Auth::guard('web')->user();
-        $data['query'] = UserHelper::getTutorData($user['id']);
-        $data['document'] = UserHelper::getTutorData($user['id']);
+        $data['query'] = $tutorData = UserHelper::getTutorData($user['id']);
+        foreach($tutorData as $val){
+            $id = $val->userId;
+            $val->certificate = TutorUniversityDetailHelper::getUniversityData($id);
+        }
         return view('frontend.tutor.tutor-verify', $data);
     }
     public function updateProfile(Request $request){
@@ -32,7 +36,7 @@ class TutorVerifyController extends Controller
             return response()->json(['success_msg' => "Successfully updated", "data" => $image], 200);
         }
         else{
-            return response()->json(['error_msg' => "Something went wrong"], 400);
+            return response()->json(['error_msg' => "Something went wrong", "data" => ''], 400);
         }
     }
     public function updateDBS(Request $request){
@@ -42,10 +46,24 @@ class TutorVerifyController extends Controller
         }
         $data = TutorDetailHelper::updateDBS($image);
         if($data){
-            return response()->json(['success_msg' => "Successfully updated"], 200);
+            return response()->json(['success_msg' => "Successfully updated", "data" => $image], 200);
         }
         else{
-            return response()->json(['error_msg' => "Something went wrong"], 400);
+            return response()->json(['error_msg' => "Something went wrong", "data" => ''], 400);
+        }
+    }
+    public function updateCertificate(Request $request){
+        $id = $request->certificate_id;
+        $pdf = '';
+        if ($request->file('certificate') != '') {
+            $pdf = $this->uploadImageWithCompress($request->file('certificate'), 'uploads/user/certificate');
+        }
+        $data = TutorUniversityDetailHelper::updateCertificate($pdf, $id);
+        if($data){
+            return response()->json(['success_msg' => "Successfully updated", "data" => $pdf, "id" => $id], 200);
+        }
+        else{
+            return response()->json(['error_msg' => "Something went wrong", "data" => ''], 400);
         }
     }
 
