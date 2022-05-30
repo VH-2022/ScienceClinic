@@ -46,9 +46,10 @@ return [
             'provider' => 'super_admins',
         ],
 
-        'tutor' => [
+      
+        'parent' => [
             'driver' => 'session',
-            'provider' => 'tutors',
+            'provider' => 'parent',
         ],
     ],
 
@@ -78,14 +79,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'tutors' => [
+        'parent' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

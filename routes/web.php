@@ -74,6 +74,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('contact-list', "ContactListController");
         $backendVerified->get('about-ajax', "AboutController@ajaxList")->name('about-ajax');
         $backendVerified->resource('about', "AboutController");
+        $backendVerified->get('parent-list', "ParentMasterController@index")->name('parent.index');
+        $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
+        $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
+        $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
+        $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
+
     });
 });
 
@@ -97,15 +103,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
 
-Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($frontend) {
-    $frontend->get('tutor-login', 'TutorLoginController@index')->name('tutor-login');
-    $frontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
-    $frontend->middleware(['auth:web', 'verified'])->group(function ($backendVerified) {
+Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($tfrontend) {
+    $tfrontend->get('tutor-login', 'TutorLoginController@index')->name('tutor-login');
+    $tfrontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
+    $tfrontend->middleware(['auth:web', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('tutor-dashboard','TutorDashboardController@index')->name('tutor-dashboard');
         $backendVerified->get('tutor-logout', 'TutorLoginController@logout')->name('tutor-logout');
         $backendVerified->get('tutor-verify','TutorVerifyController@index')->name('tutor-verify');
         $backendVerified->post('tutor-profile', 'TutorVerifyController@updateProfile')->name('tutor-profile');
         $backendVerified->post('tutor-dbs', 'TutorVerifyController@updateDBS')->name('tutor-dbs');
         $backendVerified->post('tutor-certificate', 'TutorVerifyController@updateCertificate')->name('tutor-certificate');
+
+    });
+});
+Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
+    $pfrontend->get('parent-login', 'ParentLoginController@index')->name('parent-login');
+    $pfrontend->post('verify-login-parent', 'ParentLoginController@verifyLogin')->name('verify-login-parent');
+    $pfrontend->middleware(['auth:parent', 'verified'])->group(function ($parentVerified) {
+        $parentVerified->get('parent-dashboard', 'ParentDashboardController@index')->name('parent-dashboard');
     });
 });
