@@ -277,7 +277,7 @@
 
                 <form id="testimonialForm" name="testimonialForm" class="form-horizontal">
 
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  
 
                     <div class="modal-body">
 
@@ -300,11 +300,11 @@
                                     class="text-danger">*</span></label>
 
                             <div class="col-md-12">
-                                <textarea placeholder="Description" name="description" id="description-add" class="form-control"
+                                <textarea placeholder="Description"  id="description-add" class="form-control"
                                     data-msg="Description"></textarea>
 
                                 <span class="form-text error description_error"
-                                    id="description_error"></span>
+                                    id="description_error">{{ $errors->first('description') }}</span>
 
                             </div>
                         </div>
@@ -349,8 +349,6 @@
 
                 <form id="formEdit" name="formEdit" class="form-horizontal" Method="GET">
 
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
                     @method('put')
 
                     <div class="modal-body">
@@ -364,8 +362,8 @@
 
                             <div class="col-md-12">
 
-                                <input type="text" name="author_name" class="form-control" data-msg="author_name"value="author_name"
-                                    id="author-edit" placeholder="Author Name">
+                                <input type="text" name="author_name" class="form-control" data-msg="author_name"
+                                    value="author_name" id="author-edit" placeholder="Author Name">
 
                                 <span class="author_name error_msg error"
                                     id="author_error1">{{ $errors->first('author_name') }}</span>
@@ -376,17 +374,18 @@
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label">Description<span
                                         class="text-danger">*</span></label>
-                               
 
-                                    <textarea placeholder="Description" name="description_edit" value = "description_edit" id="description-edit" data-msg="Description"></textarea> 
 
-                                    <span class="form-text error description_error1"
-                                        id="description_error1">{{ $errors->first('description-edit') }}</span>
+                                <textarea placeholder="Description" value="description" id="description-edit"
+                                    data-msg="Description"></textarea>
 
-                                </div>
+                                <span class="form-text error description_error1"
+                                    id="description_error1">{{ $errors->first('description') }}</span>
+
                             </div>
+                        </div>
 
-    
+
                         <div class="modal-footer">
 
                             <button type="button" class="btn btn-primary" id="btn-update" value="update"
@@ -503,7 +502,7 @@
 
             var author_name = $('#author-add').val();
 
-            var description = CKEDITOR.instances['description-add'].getData();
+            // var description = CKEDITOR.instances['description-add'].getData();
 
             var cnt = 0;
 
@@ -516,11 +515,19 @@
                 cnt = 1;
 
             }
-            $('#description_error').html("");
+            var description = CKEDITOR.instances['description-add'].getData();
+
+            $('.description_error').removeClass('is-valid');
+
+            $('.description_error').html("");
 
             if (description.trim() == '') {
 
-                $('#description_error').html("Description is required");
+                var dataMSG = $('#description-add').attr('data-msg');
+
+                $('.description_error').addClass('is-invalid').removeClass('is-valid');
+
+                $('.description_error').html(dataMSG + ' is required.');
 
                 cnt = 1;
 
@@ -533,19 +540,22 @@
                 return false;
 
             } else {
-
+                var forms = $('#testimonialForm')[0];
+                var newForms = new FormData(forms);
+                newForms.append('_token', '{{ csrf_token() }}');
+                newForms.append('description',description);
                 $.ajax({
 
-                    data: $('#testimonialForm').serialize(),
+                    data: newForms,
 
                     url: "{{ route('testimonial.store') }}",
 
                     type: "POST",
+                    contentType: false,
+                    processData: false,
 
                     success: function(data) {
-
-                        $('#testimonialForm').trigger("reset");
-
+                        $('#testimonialForm')[0].reset();
                         $('#testimonial-modal').modal('hide');
 
                         toastr.success(data.error_msg);
@@ -553,12 +563,11 @@
                         ajaxList(1);
 
                     },
-
-                    error: function(data) {
-
-                        toastr.success(data.error_msg);
-
+                    error: (jQxhr, textStatus, errorThrown) => {
+                        toastr.error(jQxhr.responseJSON.error_msg);
+                     
                     }
+                   
 
                 });
 
@@ -584,7 +593,7 @@
 
                         $('#author-edit').val(json.author_name);
 
-                        $('#description-edit').val(json.description_edit);
+                        $('#description-edit').val(json.description);
 
                         $('#testimonial_id_edit').val(json.id);
 
@@ -602,7 +611,7 @@
 
             var author_name = $('#author-edit').val();
             var description = CKEDITOR.instances['description-edit'].getData();
-            
+
             var id = $('#testimonial_id_edit').val();
 
             var cnt = 0;
@@ -640,7 +649,7 @@
 
                 newform.append('_method', "PUT");
 
-
+        
 
                 $.ajax({
 
@@ -796,13 +805,13 @@
 
         })
 
-        $('body').on('click','.view-detail',function(e) {
+        $('body').on('click', '.view-detail', function(e) {
             var dataId = $(this).attr('data-id');
-            var htmls = $('#desc'+dataId).html();
+            var htmls = $('#desc' + dataId).html();
             $.confirm({
                 title: 'Description!',
                 content: htmls,
-                
+
             });
         })
     </script>

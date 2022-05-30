@@ -61,23 +61,23 @@ class TestimonialController extends Controller
     public function store(Request $request)
 
     {
-
+     
         $validator = Validator::make($request->all(), [
-
+         
             'author_name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
          ]);
-
+        //  return $request->all();
          if ($validator->fails()) {
 
-             return response()->json(['error_msg' => $validator->errors()->all(), 'data' => array()], 400);
+             return response()->json(['error_msg' => $validator->errors()->all(), 'data' => array()], 500);
 
          }
-
+ 
          $data_array = array(
 
             'author_name' => $request->author_name,
-            'description' => $request->description
+            'description' => $request->description,
 
          );
 
