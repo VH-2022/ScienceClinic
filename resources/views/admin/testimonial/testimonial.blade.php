@@ -594,7 +594,7 @@
                         $('#author-edit').val(json.author_name);
 
                         $('#description-edit').val(json.description);
-
+                    
                         $('#testimonial_id_edit').val(json.id);
 
                         $('#editTestimonial-modal').modal('show')
@@ -672,7 +672,7 @@
                         var json = res.data[0];
 
                         $('#author_name' + json.id).html(json.author_name);
-                        // $('#description-edit' + json.id).html(json.description);
+                        $('#description-edit' + json.id).html(json.description);
                         ajaxList(1);
 
                     },
@@ -745,6 +745,7 @@
 
             $('#author_error').html("")
             $('#description_error').html("")
+            var description = CKEDITOR.instances['description-add'].setData();
 
             $('#testimonialForm')[0].reset();
 
@@ -754,6 +755,7 @@
 
             $('#author_error1').html("");
             $('#description_error1').html("");
+            var description = CKEDITOR.instances['description-edit'].setData();
 
             $('#formEdit')[0].reset();
 

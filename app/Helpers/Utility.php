@@ -276,7 +276,7 @@ class Utility
     }
 
     public static function getAllTestimonialList(){
-            $query = Testimonial::get();
+            $query = Testimonial::whereNull('deleted_at')->get();
             return $query;
     }
 }
