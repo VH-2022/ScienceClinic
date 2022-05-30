@@ -33,10 +33,10 @@ class TutorVerifyController extends Controller
         }
         $data = UserHelper::updateProfile($image);
         if($data){
-            return response()->json(['success_msg' => "Successfully updated", "data" => $image], 200);
+            return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), "data" => $image], 200);
         }
         else{
-            return response()->json(['error_msg' => "Something went wrong", "data" => ''], 400);
+            return response()->json(['error_msg' => trans('messages.error'), "data" => ''], 400);
         }
     }
     public function updateDBS(Request $request){
@@ -46,10 +46,10 @@ class TutorVerifyController extends Controller
         }
         $data = TutorDetailHelper::updateDBS($image);
         if($data){
-            return response()->json(['success_msg' => "Successfully updated", "data" => $image], 200);
+            return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), "data" => $image], 200);
         }
         else{
-            return response()->json(['error_msg' => "Something went wrong", "data" => ''], 400);
+            return response()->json(['error_msg' => trans('messages.error'), "data" => ''], 400);
         }
     }
     public function updateCertificate(Request $request){
@@ -60,10 +60,10 @@ class TutorVerifyController extends Controller
         }
         $data = TutorUniversityDetailHelper::updateCertificate($pdf, $id);
         if($data){
-            return response()->json(['success_msg' => "Successfully updated", "data" => $pdf, "id" => $id], 200);
+            return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), "data" => $pdf, "id" => $id], 200);
         }
         else{
-            return response()->json(['error_msg' => "Something went wrong", "data" => ''], 400);
+            return response()->json(['error_msg' => trans('messages.error'), "data" => ''], 400);
         }
     }
 
