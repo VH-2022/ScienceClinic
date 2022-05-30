@@ -9,8 +9,7 @@ namespace App\Helpers;
 use URL;
 
 use App\Models\TutorUniversityDetail;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class TutorUniversityDetailHelper
 
@@ -88,7 +87,17 @@ class TutorUniversityDetailHelper
         $query = TutorUniversityDetail::whereRaw('sha1(tutor_id)="' . $id . '"')->get();
         return $query;
     }
-
-
+    public static function getUniversityData($id){
+        $query = TutorUniversityDetail::select('*','id as certificateId')->where('tutor_id',$id)->get();
+        return $query;
+    }
+    public static function updateCertificate($pdf, $id){
+        $user = Auth::guard('web')->user();
+        $data['updated_at'] = date('Y-m-d H:i:s');        
+        $data['updated_by'] = $user['id'];
+        $data['document_image'] = $pdf;
+        $query = TutorUniversityDetail::where('tutor_id',$user['id'])->where('id', $id)->update($data);
+        return $query;
+    }
 }
 

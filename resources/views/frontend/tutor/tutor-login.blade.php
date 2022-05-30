@@ -37,7 +37,7 @@
                                                     <div class="form-floating custom-float">
                                                         <input class="mb-0" type="text" name="email" id="email" placeholder="Email">
                                                         <img src="{{ asset('front/img/email1.svg')}}" alt="email icon" class="login-input">
-                                                        <span style="color: red;" id="emailerror"></span>
+                                                        <span style="color: red;" id="emailerror">{{ $errors->first('email') }}</span>
                                                     </div>
                                                     <div class="form-floating custom-float">
                                                         <input class="mb-0" type="password" id="password" name="password" placeholder="password">
@@ -45,7 +45,7 @@
                                                             <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
                                                             <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
                                                         </button>
-                                                        <span style="color: red;" id="passworderror"></span>
+                                                        <span style="color: red;" id="passworderror">{{ $errors->first('password') }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-between">
