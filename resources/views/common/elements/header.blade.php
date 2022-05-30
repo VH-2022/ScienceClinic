@@ -89,10 +89,9 @@
         <div class="d-flex align-items-center mt-5">
 
             <div class="symbol symbol-100 mr-5">
+                @if(Auth::guard()->user()->profile_photo)
 
-                @if(Auth::guard('web')->user()->profile_photo)
-
-                <div class="symbol-label" id="sidebar_image_header" style="background-image:url({{Auth::guard('web')->user()->profile_photo}})"></div>
+                <div class="symbol-label" id="sidebar_image_header" style="background-image:url({{Auth::guard()->user()->profile_photo}})"></div>
 
                 @else
 
@@ -106,7 +105,7 @@
 
             <div class="d-flex flex-column">
 
-                <a href="javascript:void(0)" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary" id="sidebar_auth_name">{{Auth::guard('web')->user()->first_name}} {{Auth::guard('web')->user()->last_name}}</a>
+                <a href="javascript:void(0)" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary" id="sidebar_auth_name">{{Auth::guard()->user()->first_name}} {{Auth::guard()->user()->last_name}}</a>
 
                 <div class="navi">
 
@@ -140,13 +139,15 @@
 
                             </span>
 
-                            <span class="navi-text text-muted text-hover-primary" id="auth_email_sidebar">{{Auth::guard('web')->user()->email}}</span>
+                            <span class="navi-text text-muted text-hover-primary" id="auth_email_sidebar">{{Auth::guard()->user()->email}}</span>
 
                         </span>
 
                     </a>
-
-                    <a href="{{route('tutor-logout')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
+                    @if(Auth::guard()->user()->type == 2)
+                    <a href="{{route('tutor-logout')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>@endif
+                    @if(Auth::guard()->user()->type == 3)
+                    <a href="{{route('parent-logout')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>@endif
 
                 </div>
 
@@ -399,11 +400,11 @@
 
                     <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
 
-                    <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3" id="header_auth_name">{{Auth::guard('web')->user()->first_name}} {{Auth::guard('web')->user()->last_name}}</span>
+                    <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3" id="header_auth_name">{{Auth::guard()->user()->first_name}} {{Auth::guard()->user()->last_name}}</span>
 
                     <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
 
-                        <span class="symbol-label font-size-h5 font-weight-bold" id="fchar_id">{{substr(Auth::guard('web')->user()->first_name, 0, 1)}}</span>
+                        <span class="symbol-label font-size-h5 font-weight-bold" id="fchar_id">{{substr(Auth::guard()->user()->first_name, 0, 1)}}</span>
 
                     </span>
 

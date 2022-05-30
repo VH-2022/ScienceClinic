@@ -103,6 +103,22 @@
                 @include('common.elements.footer')
 
             </div>
+            @elseif(Auth::user()->type == 3)
+            <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+
+                @include('common.elements.header')
+
+                @include('common.elements.sidebar')
+
+                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+                    @yield('content')
+
+                </div>
+
+                @include('common.elements.footer')
+
+            </div>
             @endif
 
         </div>

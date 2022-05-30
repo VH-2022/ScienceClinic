@@ -134,3 +134,18 @@
 .apply-details-inner i{
     color: #324d5b;
 }
+.personaltab-ul {
+    border-bottom: 2px solid #eef0f8;
+    margin-bottom:30px;
+}
+
+.personaltab-ul li a {
+    color: #b5b5c3 !important;
+}
+
+.personaltab-ul li a.active {
+    background-color: transparent !important;
+    color: #3f427a !important;
+    border-bottom: 2px solid #0f7dc2;
+    border-radius: 0;
+}

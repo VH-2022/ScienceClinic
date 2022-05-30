@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Parent;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class ParentLoginController extends Controller
@@ -13,7 +14,6 @@ class ParentLoginController extends Controller
         return view('Frontend.parent.parent_login');
     }
     public function verifyLogin(Request $request)
-
     {
 
         $input = $request->all();
@@ -41,5 +41,12 @@ class ParentLoginController extends Controller
         } else {
             return redirect()->route('parent-login')->with('error', trans('messages.errorLogin'));
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('parent')->logout();
+        Session::flash('success', trans('messages.successLogout'));
+        return redirect('parent-login');
     }
 }
