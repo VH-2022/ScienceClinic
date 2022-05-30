@@ -202,9 +202,9 @@
                                     <li class="text-none" id="tutor-sub"><a href="{{route('contact.index')}}">Contact</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
                                             <li><a href="blog.html">Blog</a></li>
-                                            </ul>
+                                        </ul>
                                     </li>
-                                   
+
 
 
                                     <li class="text-none" id="tutor-sub"><a href="javascript:void(0)">Login</a>
@@ -213,7 +213,7 @@
 
                                             <li><a href="login.html">Tutor Login</a></li>
 
-                                            <li><a href="parent.html"> Parent Login </a></li>
+                                            <li><a href="{{route('parent-login')}}"> Parent Login </a></li>
 
                                         </ul>
 

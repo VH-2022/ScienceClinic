@@ -100,3 +100,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
+
+Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($frontend) {
+    $frontend->get('parent-login', 'ParentLoginController@index')->name('parent-login');
+    $frontend->post('verify-login-parent', 'ParentLoginController@verifyLogin')->name('verify-login-parent');
+    $frontend->middleware(['auth:parent', 'verified'])->group(function ($parentVerified) {
+        $parentVerified->get('parent-dashboard', 'ParentDashboardController@index')->name('parent-dashboard');
+    });
+});
