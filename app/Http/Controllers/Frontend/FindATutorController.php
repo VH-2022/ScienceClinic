@@ -5,7 +5,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\ParentDetailHelper;
-use App\Helpers\ParentInquiryHelper;
 use App\Helpers\ReviewMasterHelper;
 use App\Helpers\SubjectHelper;
 use Illuminate\Http\Request;
@@ -23,12 +22,13 @@ use App\Helpers\TutorSubjectDetailHelper;
 use App\Helpers\TutorLevelDetailHelper;
 
 use App\Helpers\UserHelper;
-
+use App\Helpers\TutorSearchInquiryHelper;
 use App\Models\User;
 
 use App\Helpers\TutorDetailHelper;
 use App\Helpers\TutorLevelHelper;
 use App\Helpers\TutorUniversityDetailHelper;
+use App\Models\ParentDetail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
@@ -55,7 +55,7 @@ class FindATutorController extends Controller
         $final_array = array();
 
 
-
+        TutorSearchInquiryHelper::save(array('tuition_often' => $request->input('tutor_often'), 'subject' => $request->input('sibject'), 'subject' => $request->input('subject'), 'level' => $request->input('level'), 'pincode' => $request->input('pincode')));
         $subjectUserList = TutorLevelDetailHelper::getSearchUserId($request->subject, $request->level);
 
         foreach ($subjectUserList as $val) {

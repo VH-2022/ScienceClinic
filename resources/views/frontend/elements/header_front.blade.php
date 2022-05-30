@@ -211,7 +211,7 @@
 
                                         <ul class="sub-menu mobile-section border-bottom-ul">
 
-                                            <li><a href="login.html">Tutor Login</a></li>
+                                            <li><a href="{{route('tutor-login')}}">Tutor Login</a></li>
 
                                             <li><a href="parent.html"> Parent Login </a></li>
 
@@ -245,7 +245,7 @@
 
                         <div class="menu-collapse">
 
-                            <button class="btn btn-collapse" id="menu"> <img src="./img/svg/menu.png" alt="menu" class="menu-img"></button>
+                            <button class="btn btn-collapse" id="menu"> <img src="{{asset('front/img/svg/menu.png')}}" alt="menu" class="menu-img"></button>
 
                         </div>
 

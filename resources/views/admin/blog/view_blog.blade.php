@@ -19,17 +19,15 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="d-flex mb-4">
                                         <strong>Title: </strong>
                                         {{ $blog->title }}
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="d-flex mb-4">
-                                        <strong>Image: </strong>
-
-                                        <img src="{{ $blog->image }}" style="width:60px;height:60px;">
+                                        <strong>Image: </strong>&nbsp;<img src="{{ $blog->image }}" style="width:60px;height:60px;">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">

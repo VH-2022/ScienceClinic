@@ -30,19 +30,27 @@ class BlogMasterController extends Controller
         $data['query'] = BlogMasterHelper::getListwithPaginate($title,$created_date);
         return view('admin.blog.blog_ajax',$data);
      }
-       /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+   
+
+    
+    //    /**
+    //  * Show the form for creating a new resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
     public function create()
     {
         $auth = auth()->user();
         if(empty($auth)){
             return redirect('/login');
         }
-        $data['query'] = BlogMasterHelper::getList();
-        return view('admin.blog.add_blog', $data);
+        return view('admin.blog.add_blog');
     }
 
     /**
@@ -54,7 +62,7 @@ class BlogMasterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|unique:sc_blog_master,title',
+            'title' => 'required|max:255',
             'image' => 'required|mimes:jpg,jpeg,png,bmp,tiff',
             'description' => 'required'
          ]);
@@ -103,14 +111,15 @@ class BlogMasterController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|unique:sc_blog_master,title,'.$id,
-            'image' => 'required|mimes:jpg,jpeg,png,bmp,tiff',
+            'title' => 'required',
             'description' => 'required'
         ]);
+        
         $image = '';
         if ($request->file('image') != '') {
             $image = $this->uploadImageWithCompress($request->file('image'), 'uploads/blog');
         }
+        
         $data_array = array(
         'title' => $request->title,
         'description' => $request->description
@@ -120,7 +129,6 @@ class BlogMasterController extends Controller
         }
 
         $update = BlogMasterHelper::update($data_array,array('id'=>$request->id));
-        $query=BlogMasterHelper::getDetailsById($request->id);
         if ($update) {
             Session::flash('success',trans('messages.updatedSuccessfully'));
             return redirect()->route('blog-master.index');

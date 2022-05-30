@@ -44,6 +44,7 @@ Route::get('/clear-optimize', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
     Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
+    Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
     $admins->middleware(['auth:super_admin', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('logout-super-admin', 'LoginController@logout')->name('super-admin-logout');
         $backendVerified->get('admin','DashboardController@index')->name('admin-dashboard');
@@ -62,7 +63,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-university', "TutorMasterController@getUniversityDetails")->name('tutor-university');
         $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
         $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
+        $backendVerified->get('tutor-other-list', "TutorMasterController@getOtherDetails")->name('tutor-other-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
+        $backendVerified->get('subject-inquiry', "SearchInquiryController@index")->name('subject.inquiry');
+        $backendVerified->get('subject-inquiry-ajax', "SearchInquiryController@ajaxList")->name('subject-inquiry-ajax');
+
         $backendVerified->resource('blog-master', "BlogMasterController");
         $backendVerified->get('blog-master-ajax', "BlogMasterController@ajaxList")->name('blog-master-ajax');
         $backendVerified->get('change-status', "TutorMasterController@changeStatus")->name('change-status');
@@ -89,4 +94,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->resource('contact', "ContactController");
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
+});
+
+Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($frontend) {
+    $frontend->get('tutor-login', 'TutorLoginController@index')->name('tutor-login');
+    $frontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
+    $frontend->middleware(['auth:web', 'verified'])->group(function ($backendVerified) {
+        $backendVerified->get('tutor-dashboard','TutorDashboardController@index')->name('tutor-dashboard');
+        $backendVerified->get('tutor-logout', 'TutorLoginController@logout')->name('tutor-logout');
+        $backendVerified->get('tutor-verify','TutorVerifyController@index')->name('tutor-verify');
+        $backendVerified->post('tutor-profile', 'TutorVerifyController@updateProfile')->name('tutor-profile');
+        $backendVerified->post('tutor-dbs', 'TutorVerifyController@updateDBS')->name('tutor-dbs');
+    });
 });

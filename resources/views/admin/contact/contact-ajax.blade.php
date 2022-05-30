@@ -6,6 +6,7 @@
             <th style="white-space: nowrap">Phone No </th>
             <th style="white-space: nowrap">Tutor Type </th>
             <th style="white-space: nowrap">Email </th>
+            <th style="white-space: nowrap">address </th>
             <th style="white-space: nowrap">Message </th>
             <th style="white-space: nowrap">Created Date</th>
             <th>Actions</th>
@@ -25,6 +26,7 @@
                 <td style="white-space: nowrap">{{ $val->phone_no }}</td>
                 <td style="white-space: nowrap">{{ $val->tutor_type }}</td>
                 <td style="white-space: nowrap">{{ $val->email }}</td>
+                <td style="white-space: nowrap">{{ $val->address }}</td>
                 <td style="white-space: nowrap">{{ strlen($val->message) > 50 ? substr($val->message,0,50)."..." :$val->message }}</td>
                 <td style="white-space: nowrap">
                     @if ($val->created_at != '')
@@ -40,7 +42,7 @@
         @endif
         @if (count($query) == 0)
                 <tr>
-                    <td colspan="4">No record available</td>
+                    <td colspan="9">No record available</td>
                 </tr>
             @endif
     </tbody>

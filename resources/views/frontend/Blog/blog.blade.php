@@ -43,31 +43,39 @@
             <div class="shop-grid-area section-padding">
                 <div class="container">
                     <div class="row">
-                        @foreach ($blog as $val)
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <div class="single-product-item">
-                                    <div class="single-product-image custom-imghgt">
-                                        <a href="{{ route('blog-detail', $val->id) }}"><img src="{{ $val->image }}"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="single-product-text texttwoline">
-                                        <a href="{{ route('blog-detail', $val->id) }}">
-                                            <h4 class="mb-2">{{ $val->title }}</h4>
-                                            <a>
-                                                <h5>
-                                                    @if ($val->created_at != '')
-                                                        {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}
-                                                    @endif
-                                                </h5>
-                                                <div class="product-price product-price-ellipsis">
-                                                    <p>
-                                                        {!! $val->description !!}
-                                                    </p>
-                                                </div>
+                        @if (count($blog) > 0)
+                            @foreach ($blog as $val)
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <div class="single-product-item">
+                                        <div class="single-product-image custom-imghgt">
+                                            <a href="{{ route('blog-detail', $val->id) }}"><img src="{{ $val->image }}"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="single-product-text texttwoline">
+                                            <a href="{{ route('blog-detail', $val->id) }}">
+                                                <h4 class="mb-2">{{ $val->title }}</h4>
+                                                <a>
+                                                    <h5>
+                                                        @if ($val->created_at != '')
+                                                            {{ date('F d, Y', strtotime($val->created_at)) }}
+                                                        @endif
+                                                    </h5>
+                                                    <div class="product-price product-price-ellipsis">
+                                                        <p>
+                                                            {!! strlen($val->description) > 100 ? substr($val->description, 0, 100) . '...' : $val->description !!}
+                                                        </p>
+                                                    </div>
+                                        </div>
                                     </div>
                                 </div>
+                            @endforeach
+                        @else
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1>No BlogMaster Data</h1>
+                                </div>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

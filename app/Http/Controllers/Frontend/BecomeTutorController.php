@@ -113,11 +113,8 @@ class BecomeTutorController extends Controller
     public function store(Request $request)
 
     {
-
-
-        $validator = Validator::make($request->all(), [
-
-            'name' => 'required | max:50',
+        $rules = array(
+            'name' => 'required | max:30',
 
             'email' => 'required | email',
 
@@ -149,11 +146,14 @@ class BecomeTutorController extends Controller
 
             'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
 
-            'university' => 'required | max:50',
+            'university' => 'required | max:35',
 
-            'qualification' => 'required | max:50',
-
-        ]);
+            'qualification' => 'required | max:35',
+        );
+        $messsages = array(
+            'password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters'
+        );
+        $validator = Validator::make($request->all(), $rules, $messsages);
 
         if ($validator->fails()) {
             return redirect("/become-tutor")
@@ -162,7 +162,6 @@ class BecomeTutorController extends Controller
 
             ->withInput();
         } else {
-            dd($request->all());
             $image = '';
 
             if ($request->file('profile_image') != '') {
@@ -197,6 +196,7 @@ class BecomeTutorController extends Controller
                 'profile_photo' => $image,
                 'type' => 2,
                 'user_name' => $request->user_name,
+                'status' => 'Pending',
                 'password' => Hash::make($request->password)
 
             );
