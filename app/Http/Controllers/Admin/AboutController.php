@@ -66,7 +66,7 @@ class AboutController extends Controller
         $update = AboutHelper::update($data_array,array('id'=>$request->id));
         if ($update) {
             Session::flash('success',trans('messages.updatedSuccessfully'));
-            return redirect()->route('about.index');
+            return redirect()->route('about-list.index');
         }
         else {
             Session::flash('error', trans('messages.error'));

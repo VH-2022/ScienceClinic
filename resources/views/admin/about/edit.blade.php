@@ -21,7 +21,7 @@
                                 <h3 class="card-label font-weight-bolder text-dark">Edit About</h3>
                             </div>
                         </div>
-                        <form class="form" method="POST" action="{{ route('about.update', $about->id) }}"
+                        <form class="form" method="POST" action="{{ route('about-list.update', $about->id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('put')
@@ -74,8 +74,8 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light mr-1 edit_about"
                                     id="edit_about">Update</button>
-                                <button type="reset" class="btn btn-secondary"
-                                    onclick="window.location.href='{{ route('about.index') }}'">Cancel</button>
+                                    <a href="{{ route('about-list.index') }}">Cancel</a>
+                                
                             </div>
                             <!--end::Body-->
                         </form>

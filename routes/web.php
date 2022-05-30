@@ -80,6 +80,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
         $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
 
+       
     });
 });
 
@@ -99,6 +100,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('blog-detail/{id}', "BlogController@blogDetails")->name('blog-detail');
 
     $frontend->resource('contact', "ContactController");
+    $frontend->get('about', "AboutsController@index")->name('about');
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
@@ -122,4 +124,5 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
     $pfrontend->middleware(['auth:parent', 'verified'])->group(function ($parentVerified) {
         $parentVerified->get('parent-dashboard', 'ParentDashboardController@index')->name('parent-dashboard');
     });
+  
 });
