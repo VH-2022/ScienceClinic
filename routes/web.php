@@ -73,7 +73,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('contact-ajax', "ContactListController@ajaxList")->name('contact-ajax');
         $backendVerified->resource('contact-list', "ContactListController");
         $backendVerified->get('about-ajax', "AboutController@ajaxList")->name('about-ajax');
-        $backendVerified->resource('about', "AboutController");
+        $backendVerified->resource('about-list', "AboutController");
         $backendVerified->get('parent-list', "ParentMasterController@index")->name('parent.index');
         $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
