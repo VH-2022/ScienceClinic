@@ -27,7 +27,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ url('about') }}/{{ $val->id }}/edit"class="edit-details" data-id="{{$val->id}}"><i class="fa fa-edit"></i></a>
+                        <a href="{{ url('about-list') }}/{{ $val->id }}/edit"class="edit-details" data-id="{{$val->id}}"><i class="fa fa-edit"></i></a>
 
                     </td>
                 </tr>

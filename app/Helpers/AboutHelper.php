@@ -42,4 +42,9 @@ class AboutHelper
         $update = About::where($where)->update($data);
         return $update;
     }
+
+    public static function getAboutList(){
+        $query = About::get();
+        return $query;
+    }
 }
