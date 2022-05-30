@@ -81,6 +81,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
 
        
+        $backendVerified->get('testimonial-ajax', "TestimonialController@ajaxList")->name('testimonial-ajax');
+        $backendVerified->resource('testimonial', "TestimonialController");
+        
     });
 });
 
