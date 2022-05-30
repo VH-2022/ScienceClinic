@@ -117,15 +117,6 @@ class TestimonialHelper
 
     }
 
-    public static function getAllTutorList(){
-
-        $query = TutorLevel::whereNull('deleted_at')->orderBy('author_name','asc')->get();
-
-        return $query;
-
-    }
-
-   
-
+ 
 }
 

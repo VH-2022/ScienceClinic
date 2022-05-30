@@ -74,6 +74,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('contact-list', "ContactListController");
         $backendVerified->get('testimonial-ajax', "TestimonialController@ajaxList")->name('testimonial-ajax');
         $backendVerified->resource('testimonial', "TestimonialController");
+        
     });
 });
 
