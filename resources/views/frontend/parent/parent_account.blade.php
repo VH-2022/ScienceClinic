@@ -94,21 +94,21 @@
                                     <form method="post" id="updatepassword">
                                         @csrf
                                         <div class="row row-spacing">
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <div class="form-control-spacing">
-                                                    <label for="example-text-input" class="form-label">Old Password</label> <span style="color:red" class="required-error">*</span>
-                                                    <input class="form-control placeholder2" id="oldpassword" name="oldpassword" type="password" autocomplete="off" placeholder="Old Password">
+                                                    <label for="example-text-input" class="form-label">Current Password</label> <span style="color:red" class="required-error">*</span>
+                                                    <input class="form-control placeholder2" id="oldpassword" name="oldpassword" type="password" autocomplete="off" placeholder="Current Password">
                                                     <span id="oldpassword_error" style="color:red;"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <div class="form-control-spacing">
                                                     <label for="example-text-input" class="form-label">New Password</label> <span style="color:red" class="required-error">*</span>
                                                     <input class="form-control placeholder2" id="newpassword" name="newpassword" type="password" autocomplete="off" placeholder="New Password">
                                                     <span id="newpassword_error" style="color:red;"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <div class="form-control-spacing">
                                                     <label for="example-text-input" class="form-label">Confirm Password</label> <span style="color:red" class="required-error">*</span>
                                                     <input class="form-control placeholder2" id="confirmpassword" name="confirmpassword" type="password" autocomplete="off" placeholder="Confirm Password">
@@ -242,10 +242,11 @@
                 success: function(result) {
                     if (result) {
                         console.log(result);
-                        toastr.success(result.success_msg);
-                        // $("#sidebar_auth_name").html(result.data[0].first_name);
-                        // $("#header_auth_name").html(result.data[0].first_name);
-                        // $("#auth_email_sidebar").html(result.data[0].email);
+                        toastr.success(result.error_msg);
+
+                        $("#sidebar_auth_name").html(result.data.fullname);
+                        $("#header_auth_name").html(result.data.fullname);
+                        $("#auth_email_sidebar").html(result.data.email);
                     } else {
                         toastr.error(result.error_msg);
                     }
@@ -292,6 +293,124 @@
             });
         } else {
             return false;
+        }
+    });
+
+
+    $("#submitpassword").click(function() {
+        var temp = 0;
+        var current_password = $('#oldpassword').val();
+        var new_password = $('#newpassword').val();
+        var confirmation_password = $('#confirmpassword').val();
+        $('#oldpassword_error').html("");
+        $('#newpassword_error').html("");
+        $('#confirmpassword_error').html("");
+        if (current_password.trim() == '') {
+            $('#oldpassword_error').html("Current Password is required.");
+            temp = 1;
+        } else {
+            $.ajax({
+                async: false,
+                global: false,
+                url: "{{ route('check-old-password') }}",
+                type: "get",
+                data: {
+                    pwd: current_password
+                },
+                success: function(response) {
+
+                    if (response.status == 1) {
+
+                        $('#oldpassword_error').html("Enter correct Current Password");
+
+                        temp = 1;
+
+
+
+                    } else {
+
+                        $('#oldpassword_error').html("");
+
+                    }
+
+                }
+
+            });
+
+        }
+
+        if (new_password.trim() == '') {
+            $('#newpassword_error').html("New Password is required.");
+            temp = 1;
+        }
+
+        if (new_password.trim() != '') {
+            if (new_password.length < 6) {
+                $('#newpassword_error').html("New Password atleast six character allowed.");
+                temp = 1;
+            }
+        }
+        if (confirmation_password.trim() == '') {
+            $('#confirmpassword_error').html("Confirm Password is required.");
+            temp = 1;
+        }
+        if (confirmation_password.trim() != '' && new_password.trim() != '') {
+            if (new_password.trim() != confirmation_password.trim()) {
+                $('#confirmpassword_error').html("New password and Confirm password does not match.");
+                temp = 1;
+            }
+
+        }
+
+        if (temp == 1) {
+            return false;
+        }
+
+        if (temp == 0) {
+            var forms = $('#updatepassword')[0];
+            var formData = new FormData(forms);
+            $.ajax({
+                type: 'POST',
+                url: "{{route('update-password')}}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(r) {
+                    if (r.status == 1) {
+                        $('#updatepassword')[0].reset();
+                        toastr.success(r.success_msg);
+                    } else {
+                        toastr.error(r.error_msg);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var tempVal = 0;
+                    if (jqXHR.responseJSON.message.oldpassword) {
+                        tempVal++;
+                        $('#oldpassword_error').text(jqXHR.responseJSON.message.oldpassword);
+                    } else {
+                        $('#oldpassword_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.newpassword) {
+                        tempVal++;
+                        $('#newpassword_error').text(jqXHR.responseJSON.message.newpassword);
+                    } else {
+                        $('#newpassword_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.confirmpassword) {
+                        tempVal++;
+                        $('#confirmpassword_error').text(jqXHR.responseJSON.message.confirmpassword);
+                    } else {
+                        $('#confirmpassword_error').text('');
+                    }
+                    if (tempVal == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
         }
     });
 </script>

@@ -131,9 +131,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->get('check-email-parent', 'ParentAccountController@checkEmail')->name('check-email-parent');
         $parentVerified->get('check-email-parent', 'ParentAccountController@checkEmail')->name('check-email-parent');
         $parentVerified->post('update-parent', 'ParentAccountController@parentUpdate')->name('update-parent');
-      
+        $parentVerified->get('check-old-password', 'ParentAccountController@checkOldPassword')->name('check-old-password');
+        $parentVerified->post('update-password', 'ParentAccountController@updatePassword')->name('update-password');
+       
         $parentVerified->get('parent-logout', 'ParentLoginController@logout')->name('parent-logout');
-
+        
     });
   
 });
