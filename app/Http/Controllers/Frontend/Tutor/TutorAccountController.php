@@ -109,7 +109,6 @@ class TutorAccountController extends Controller
 
     {
         $auth  = auth()->user();
-        dd($request->all());
         $validator = Validator::make($request->all(), [
             'current_password' => 'required',
             'new_password' => 'required',
@@ -117,12 +116,10 @@ class TutorAccountController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
         } else {
             $user_id = $auth['id'];
-            $query = UserHelper::getUserDetails($user_id);
             $user = User::findOrFail($user_id);
-
             if ($request->input('new_password') == $request->input('confirmation_password')) {
 
                 $user->fill([
@@ -131,9 +128,9 @@ class TutorAccountController extends Controller
 
                 ])->save();
 
-                return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'status' => 1, 'data' => array()], $this->successStatus);
+                return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), 'status' => 1, 'data' => array()], $this->successStatus);
             } else {
-                return response()->json(['error_msg' => trans('messages.errormsg'), 'status' => 0, 'data' => array()], $this->successStatus);
+                return response()->json(['error_msg' => trans('messages.errormsg'), 'status' => 0, 'data' => array()], 400);
             }
         }
     }

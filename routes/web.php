@@ -121,7 +121,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-account', 'TutorAccountController@index')->name('tutor-account');
         $backendVerified->get('check-email-tutor', "TutorAccountController@checkEmail")->name('check-email-tutor');
         $backendVerified->put('update-tutor', "TutorAccountController@updateProfile")->name('update-tutor');
-        // $backendVerified->get('check-password-tutor', "TutorAccountController@checkCurrentPassword")->name('check-password-tutor');
+        $backendVerified->get('check-password-tutor', "TutorAccountController@checkCurrentPassword")->name('check-password-tutor');
         $backendVerified->post('update-password-tutor', "TutorAccountController@updatePassword")->name('update-password-tutor');
     });
 });

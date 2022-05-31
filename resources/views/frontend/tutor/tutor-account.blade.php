@@ -352,7 +352,6 @@
                 },
                 success: function(result) {
                     if (result) {
-                        console.log(result);
                         toastr.success(result.success_msg);
                         $("#sidebar_auth_name").html(result.data[0].first_name);
                         $("#header_auth_name").html(result.data[0].first_name);
@@ -440,7 +439,25 @@
         if (current_password.trim() == '') {
             $('#current_password_error').html("Current Password is required.");
             temp++;
-        } 
+        } else {
+            $.ajax({
+                async: false,
+                global: false,
+                url: "{{ route('check-password-tutor') }}",
+                type: "get",
+                data: {
+                    pwd: current_password
+                },
+                success: function(response) {
+                    if (response.status == 1) {
+                        $('#current_password_error').html("Current Password doesnot match");
+                        temp++;
+                    } else {
+                        $('#current_password_error').html("");
+                    }
+                }
+            });
+        }
 
         if (new_password.trim() == '') {
             $('#new_password_error').html("New Password is required.");
@@ -469,11 +486,7 @@
                 async: false,
                 url: "{{route('update-password-tutor')}}",
                 type: "POST",
-                data: {
-                    new_password: new_password,
-                    confirmation_password: confirmation_password,
-                    current_password: current_password
-                },
+                data: new FormData($('#update_password')[0]),
                 processData: false,
                 contentType: false,
                 cache: false,
@@ -482,9 +495,36 @@
                 },
                 success: function(result) {
                     if (result) {
+                        $('#update_password')[0].reset();
                         toastr.success(result.success_msg);
                     } else {
                         toastr.error(result.error_msg);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var tempVal = 0;
+                    if (jqXHR.responseJSON.message.current_password) {
+                        tempVal++;
+                        $('#current_password_error').text(jqXHR.responseJSON.message.current_password);
+                    } else {
+                        $('#current_password_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.new_password) {
+                        tempVal++;
+                        $('#new_password_error').text(jqXHR.responseJSON.message.new_password);
+                    } else {
+                        $('#new_password_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.confirmation_password) {
+                        tempVal++;
+                        $('#confirmation_password_error').text(jqXHR.responseJSON.message.confirmation_password);
+                    } else {
+                        $('#confirmation_password_error').text('');
+                    }
+                    if (tempVal == 0) {
+                        return true;
+                    } else {
+                        return false;
                     }
                 }
             });
