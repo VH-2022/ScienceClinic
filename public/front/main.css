@@ -1603,7 +1603,8 @@ input[type="number"] {
 .banner-content .col-md-12,
 .banner-content .text-content-wrapper,
 .banner-content .text-content {
-    height: 100%;
+    /* height: 100%; */
+    height: 77%;
     margin: auto;
 }
 
@@ -8412,7 +8413,8 @@ a.header-number:first-child {
     position: absolute;
     left: 0px;
     right: 0;
-    top: 155px;
+    /* top: 155px; */
+    top: 93px;
     width: 100%;
 }
 .padding-headsection-small {
