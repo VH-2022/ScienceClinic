@@ -806,7 +806,7 @@
 
         $('body').on('click', '.view-detail', function(e) {
             var dataId = $(this).attr('data-id');
-            var htmls = $('#desc' + dataId).html();
+            var htmls = $('#desc' + dataId).text();
             $.confirm({
                 title: 'Description!',
                 content: htmls,
