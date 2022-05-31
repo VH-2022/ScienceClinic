@@ -19,7 +19,7 @@ class ParentAccountController extends Controller
     public function checkEmail(Request $request)
     {
         $email = $request->email;
-        $data =  UserHelper::checkDuplicateEmailTutor($email);
+        $data =  UserHelper::checkDuplicateEmailParent($email);
         if ($data != 0) {
             return response()->json(['status' => 1]);
         } else {

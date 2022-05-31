@@ -208,5 +208,12 @@ class UserHelper
         return $query;
 
     }
+
+    public static function checkDuplicateEmailParent($email){
+        $user = Auth::guard('parent')->user();
+        $id = $user['id'];
+        $query  = User::whereNull('deleted_at')->where('id', '!=', $id)->where('email', $email)->count();
+        return $query;	
+    }
 }
 
