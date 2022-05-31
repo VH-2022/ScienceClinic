@@ -54,27 +54,3 @@
         </div>
     </div>
 
-@section('page-js')
-    <script>
-        $('.testimonial-english').owlCarousel({
-            loop: false,
-            margin: 10,
-            nav: true,
-            navText: ["<img src='{{ asset('front/img/svg/left-arrow-test.png') }}'>",
-                "<img src='{{ asset('front/img/svg/right-arrow-test.png') }}'>"
-            ],
-            dots: true,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 1
-                },
-                1000: {
-                    items: 1
-                }
-            }
-        })
-    </script>
-@endsection
