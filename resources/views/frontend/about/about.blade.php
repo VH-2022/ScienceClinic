@@ -12,36 +12,31 @@
 
             <!-- <div class="backgrount-area bg-chemistry  full-grayoverlay" style="background-image: linear-gradient(45deg, rgb(45 62 80 / 60%),rgb(45 62 80 / 60%)),url(./img/svg/science-clinic-private-tutors-about-us.png);"> -->
             <div class="banner-content padding-headsection-small">
-                <!-- <div class="container">  -->
-                <div>
-                    <div>
-                        <div class="position-relative">
+                    <!-- <div class="container">  -->
+                        <div>
                             <div>
-                                <div class="text-content-wrapper full-width about-small-text position-absolute">
-                                    <div class="text-content text-center">
-                                        <h1 class="title1 text-center mb-20">
-                                            <span class="tlt block" data-in-effect="rollIn"
-                                                data-out-effect="fadeOutRight">Helping your child fulfil</span>
-                                            <span class="tlt block" data-in-effect="fadeInLeftBig"
-                                                data-out-effect="fadeOutRight"> their potential</span>
-                                        </h1>
-                                        <div class="banner-readmore custom-bannerread wow bounceInUp"
-                                            data-wow-duration="2500ms" data-wow-delay=".1s">
-                                            <a class="button-default" href="contact.html">CONTACT US</a>
-                                        </div>
+                                <div class="position-relative">
+                                    <div>
+                                        <div class="text-content-wrapper full-width about-small-text position-absolute">
+                                            <div class="text-content text-center">
+                                                <h1 class="title1 text-center mb-20 ml-0">
+                                                    <span class="tlt block" data-in-effect="rollIn" data-out-effect="fadeOutRight">Helping your child fulfil</span>
+                                                    <span class="tlt block" data-in-effect="fadeInLeftBig" data-out-effect="fadeOutRight"> their potential</span>
+                                                </h1>
+                                                <div class="banner-readmore custom-bannerread wow bounceInUp" data-wow-duration="2500ms" data-wow-delay=".1s">
+                                                    <a class="button-default" href="{{url('contact')}}">CONTACT US</a>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <!-- <div class="backgrount-area bg-chemistry  full-grayoverlay" style="background-image: linear-gradient(45deg, rgb(45 62 80 / 60%),rgb(45 62 80 / 60%)),url(./img/svg/science-clinic-private-tutors-about-us.png);">
+
+                                    </div> -->
+                                    <div class="about-small-img" style="background-image: linear-gradient(45deg, rgb(45 62 80 / 60%),rgb(45 62 80 / 60%)),url(./img/svg/science-clinic-private-tutors-about-us.png);">
+                                        
                                     </div>
                                 </div>
-                            </div>
-                            <!-- <div class="backgrount-area bg-chemistry  full-grayoverlay"
-                                style="background-image: linear-gradient(45deg, rgb(45 62 80 / 60%),rgb(45 62 80 / 60%)),url(./img/svg/science-clinic-private-tutors-about-us.png);">
-
-                            </div> -->
-                            <div class="about-small-img"
-                                style="background-image: linear-gradient(45deg, rgb(45 62 80 / 60%),rgb(45 62 80 / 60%)),url(./img/svg/science-clinic-private-tutors-about-us.png);">
-
-                            </div>
-                        </div>
-                        <!-- <div class="text-content-wrapper full-width">
+                                <!-- <div class="text-content-wrapper full-width">
                                     <div class="text-content text-center">
                                         <h1 class="title1 text-center mb-20">
                                             <span class="tlt block" data-in-effect="rollIn" data-out-effect="fadeOutRight">Helping your child fulfil</span>
@@ -52,10 +47,10 @@
                                         </div>
                                     </div>
                                 </div> -->
-                    </div>
+                            </div> 
+                        </div>
+                    <!-- </div> -->
                 </div>
-                <!-- </div> -->
-            </div>
             <!-- </div> -->
 
 

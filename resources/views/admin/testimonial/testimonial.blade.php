@@ -586,14 +586,12 @@
                     url: "{{ url('testimonial') }}/" + id + "/edit",
 
                     type: "GET",
-
                     success: function(res) {
 
                         var json = res.data[0];
-
                         $('#author-edit').val(json.author_name);
 
-                        $('#description-edit').val(json.description);
+                        CKEDITOR.instances['description-edit'].setData(json.description);
                     
                         $('#testimonial_id_edit').val(json.id);
 
@@ -670,9 +668,8 @@
                         toastr.success(res.error_msg);
 
                         var json = res.data[0];
-
-                        $('#author_name' + json.id).html(json.author_name);
-                        $('#description-edit' + json.id).html(json.description);
+                        // $('#author_name' + json.id).html(json.author_name);
+                        // $('#description-edit' + json.id).html(json.description);
                         ajaxList(1);
 
                     },
@@ -809,7 +806,7 @@
 
         $('body').on('click', '.view-detail', function(e) {
             var dataId = $(this).attr('data-id');
-            var htmls = $('#desc' + dataId).html();
+            var htmls = $('#desc' + dataId).text();
             $.confirm({
                 title: 'Description!',
                 content: htmls,

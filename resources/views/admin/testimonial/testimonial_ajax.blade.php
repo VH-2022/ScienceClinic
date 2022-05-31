@@ -48,9 +48,9 @@
                 <td>
                     <a href="javascript:void(0)" class="view-detail" data-id="{{ $val->id}}"><i class="fa fa-eye"></i></a>
 
-                    <a href="javascript:void(0)" onclick="editDetail('{{$val->id}}')" class="edit-details" data-id="{{$val->id}}}"><i class="fa fa-edit"></i></a>
+                    <a href="javascript:void(0)" onclick="editDetail('{{$val->id}}')" class="edit-details" data-id="{{$val->id}}"><i class="fa fa-edit"></i></a>
 
-                    <a href="javascript:void(0)" onclick="deleteDetail('{{$val->id }}')" class="delete-details" data-id="{{$val->id}}}"><i class="fa fa-trash"></i></a>
+                    <a href="javascript:void(0)" onclick="deleteDetail('{{$val->id }}')" class="delete-details" data-id="{{$val->id}}"><i class="fa fa-trash"></i></a>
 
                 </td>
 
