@@ -166,7 +166,6 @@
                 cache: false,
                 success: function(result) {
                     if (result) {
-                        console.log(result);
                         toastr.success(result.success_msg);
                         let url = result.data;
                         $(".certificate_"+result.id).empty().append('<a href={{asset("uploads/user/certificate/")}}/'+url+' download><i class="fas fa-photo-video"></i></a>');

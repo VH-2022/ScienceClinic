@@ -202,10 +202,11 @@ class UserHelper
     public static function checkDuplicateEmailTutor($email)
 
     {
-        $user = Auth::guard('parent')->user();
+        $user = Auth::guard('web')->user();
         $id = $user['id'];
-        $query  = User::whereNull('deleted_at')->where('id', '!=', $id)->where('email', $email)->count();
+        $query  = User::whereNull('deleted_at')->where('id','!=',$id)->where('email', $email)->count();
         return $query;
+
     }
 }
 

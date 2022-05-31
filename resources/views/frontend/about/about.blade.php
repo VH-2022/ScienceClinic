@@ -32,10 +32,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="backgrount-area bg-chemistry  full-grayoverlay"
+                            <!-- <div class="backgrount-area bg-chemistry  full-grayoverlay"
                                 style="background-image: linear-gradient(45deg, rgb(45 62 80 / 60%),rgb(45 62 80 / 60%)),url(./img/svg/science-clinic-private-tutors-about-us.png);">
 
-                            </div>
+                            </div> -->
                             <div class="about-small-img"
                                 style="background-image: linear-gradient(45deg, rgb(45 62 80 / 60%),rgb(45 62 80 / 60%)),url(./img/svg/science-clinic-private-tutors-about-us.png);">
 

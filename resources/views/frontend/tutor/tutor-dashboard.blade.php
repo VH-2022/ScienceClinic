@@ -51,10 +51,7 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <div class="apply-main">
                                         <h3>Apply for an Enhanced DBS</h3>
                                         <div class="apply-details">

@@ -400,7 +400,7 @@
                 </li>
                 <li class="menu-item menu-item-submenu {{ Request::segment(1) == 'about-list' ? 'menu-item-active' : '' }}"
                     aria-haspopup="true" data-menu-toggle="hover">
-                    <a href="{{ route('about.index') }}" class="menu-link menu-toggle">
+                    <a href="{{ route('about-list.index') }}" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Bucket.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
