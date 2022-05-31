@@ -55,10 +55,14 @@ class ParentAccountController extends Controller
                 'mobile_id' => $request->telephone,
                 'address1' => $request->address,
             );
-            UserHelper::update($data, array(['id',$userId]));
+          $userData = UserHelper::update($data, array(['id',$userId]));
+          if($userData){
             $data['fullname'] = $request->firstname . $request->lastname;
 
             return response()->json(['error_msg' => "Successfully updated", 'data' => $data], 200);
+            }else{
+                return response()->json(['error_msg' => "Something went wrong", 'data' => ''], 400);
+            }
         }
     }
 
