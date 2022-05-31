@@ -24,7 +24,7 @@
                                                     <span class="tlt block" data-in-effect="fadeInLeftBig" data-out-effect="fadeOutRight"> their potential</span>
                                                 </h1>
                                                 <div class="banner-readmore custom-bannerread wow bounceInUp" data-wow-duration="2500ms" data-wow-delay=".1s">
-                                                    <a class="button-default" href="contact.html">CONTACT US</a>
+                                                    <a class="button-default" href="{{url('contact')}}">CONTACT US</a>
                                                 </div>
                                             </div>
                                         </div>  
