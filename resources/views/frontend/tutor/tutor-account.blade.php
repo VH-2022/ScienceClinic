@@ -450,7 +450,7 @@
                 },
                 success: function(response) {
                     if (response.status == 1) {
-                        $('#current_password_error').html("Current Password doesnot match");
+                        $('#current_password_error').html("Please enter correct Current Password");
                         temp++;
                     } else {
                         $('#current_password_error').html("");

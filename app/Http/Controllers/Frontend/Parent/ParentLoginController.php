@@ -11,7 +11,7 @@ class ParentLoginController extends Controller
 {
     public function index()
     {
-        return view('Frontend.parent.parent_login');
+        return view('frontend.parent.parent_login');
     }
     public function verifyLogin(Request $request)
     {

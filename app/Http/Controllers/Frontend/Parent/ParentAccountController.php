@@ -57,7 +57,7 @@ class ParentAccountController extends Controller
             );
           $userData = UserHelper::update($data, array(['id',$userId]));
           if($userData){
-            $data['fullname'] = $request->firstname . $request->lastname;
+            $data['fullname'] = $request->firstname .' '. $request->lastname;
 
             return response()->json(['error_msg' => "Successfully updated", 'data' => $data], 200);
             }else{
