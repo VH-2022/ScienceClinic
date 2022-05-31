@@ -46,14 +46,14 @@
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-control-spacing">
                                                     <label for="example-text-input" class="form-label">First Name</label> <span style="color:red" class="required-error">*</span>
-                                                    <input class="form-control placeholder2" id="firstname" name="firstname" type="text" autocomplete="off" placeholder="First Name" value="{{Auth::guard()->user()->first_name}}">
+                                                    <input class="form-control placeholder2" maxlength="30" id="firstname" name="firstname" type="text" autocomplete="off" placeholder="First Name" value="{{Auth::guard()->user()->first_name}}">
                                                     <span id="firstname_error" style="color:red;"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-control-spacing">
                                                     <label for="example-text-input" class="form-label">Last Name</label> <span style="color:red" class="required-error">*</span>
-                                                    <input class="form-control placeholder2" id="lastname" name="lastname" type="text" autocomplete="off" placeholder="Last Name" value="{{Auth::guard()->user()->last_name}}">
+                                                    <input class="form-control placeholder2" maxlength="30" id="lastname" name="lastname" type="text" autocomplete="off" placeholder="Last Name" value="{{Auth::guard()->user()->last_name}}">
                                                     <span id="lastname_error" style="color:red;"></span>
                                                 </div>
                                             </div>
@@ -68,14 +68,15 @@
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-control-spacing">
                                                     <label for="example-text-input" class="form-label">Telephone</label> <span style="color:red" class="required-error">*</span>
-                                                    <input class="form-control placeholder2 numberCls" id="telephone" name="telephone" type="text" placeholder="Telephone" autocomplete="off" value="{{Auth::guard()->user()->mobile_id}}">
+                                                    <input class="form-control placeholder2 numberCls" maxlength="12" id="telephone" name="telephone" type="text" placeholder="Telephone" autocomplete="off" value="{{Auth::guard()->user()->mobile_id}}">
                                                     <span id="telephone_error" style="color:red;"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-12 mb-3">
                                                 <div class="form-control-spacing">
                                                     <label for="example-text-input" class="form-label">Address </label> <span style="color:red" class="required-error">*</span>
-                                                    <input class="form-control placeholder2" id="address" name="address" type="text" placeholder="Address" autocomplete="off" value="{{Auth::guard()->user()->address1}}">
+                                                    <textarea class="form-control placeholder2" id="address" name="address" type="text" maxlength="255" placeholder="Address" cols="20" rows="10" autocomplete="off">{{Auth::guard()->user()->address1}}</textarea>
+                                                    
                                                     <span id="address1_error" style="color:red;"></span>
                                                 </div>
                                             </div>
@@ -151,6 +152,12 @@
 @endsection
 @section('page-js')
 <script>
+    $('.numberCls').keypress(function(event) {
+        if (event.keyCode < 48 || event.keyCode > 57) {
+            event.preventDefault();
+        }
+    });
+
     $('#submitBtn').click(function() {
         var firstName = $('#firstname').val();
         var lastName = $('#lastname').val();
