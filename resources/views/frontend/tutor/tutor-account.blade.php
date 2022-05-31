@@ -235,16 +235,16 @@
 
 
         if (name.trim() == '') {
-            $('#error_name').html('Please enter name');
+            $('#error_name').html('Please enter Name');
             temp++;
         }
         if (email == '') {
-            $('#error_email').html('Please enter email');
+            $('#error_email').html('Please enter Email');
             temp++;
 
         } else {
             if (!ValidateEmail(email)) {
-                $('#error_email').html("Invalid email");
+                $('#error_email').html("Invalid Email");
                 temp++;
             } else {
                 $.ajax({
@@ -283,7 +283,7 @@
 
         if (mobile.trim() == '') {
 
-            $('#error_mobile').html('Please enter mobile');
+            $('#error_mobile').html('Please enter Telephone');
 
             temp++;
 
@@ -291,7 +291,7 @@
 
         if (address1.trim() == '') {
 
-            $('#error_address1').html('Please enter address1');
+            $('#error_address1').html('Please enter Address 1');
 
             temp++;
 
@@ -299,7 +299,7 @@
 
         if (address2.trim() == '') {
 
-            $('#error_address2').html('Please enter address2');
+            $('#error_address2').html('Please enter Address 2');
 
             temp++;
 
@@ -307,7 +307,7 @@
 
         if (address3.trim() == '') {
 
-            $('#error_address3').html('Please enter address3');
+            $('#error_address3').html('Please enter Address 3');
 
             temp++;
 
@@ -315,7 +315,7 @@
 
         if (city.trim() == '') {
 
-            $('#error_city').html('Please enter city');
+            $('#error_city').html('Please enter City');
 
             temp++;
 
@@ -323,7 +323,7 @@
 
         if (postcode.trim() == '') {
 
-            $('#error_postcode').html('Please enter postcode');
+            $('#error_postcode').html('Please enter Postcode');
 
             temp++;
 
@@ -331,7 +331,7 @@
 
         if (bio.trim() == '') {
 
-            $('#error_bio').html('Please enter bio');
+            $('#error_bio').html('Please enter Bio');
 
             temp++;
 

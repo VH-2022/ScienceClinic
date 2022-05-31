@@ -109,12 +109,16 @@ class TutorAccountController extends Controller
 
     {
         $auth  = auth()->user();
-        $validator = Validator::make($request->all(), [
+        $rules = array(
             'current_password' => 'required',
-            'new_password' => 'required',
-            'confirmation_password' => 'required | same:new_password',
-        ]);
-
+            'new_password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'confirmation_password' => 'required|same:new_password|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+        );
+        $messsages = array(
+            'new_password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
+            'confirmation_password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters'
+        );
+        $validator = Validator::make($request->all(), $rules, $messsages);
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
         } else {
