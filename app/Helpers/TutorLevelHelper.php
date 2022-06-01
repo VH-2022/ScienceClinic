@@ -52,7 +52,7 @@ class TutorLevelHelper
 
         if ($userId) {
 
-            $data['update_by'] = $userId['id'];
+            $data['updated_by'] = $userId['id'];
 
         }
 
