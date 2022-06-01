@@ -268,7 +268,7 @@
                                                         <div class="form-check custom-check">
                                                             <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
                                                             <label class="form-check-label condition-text" for="defaultCheck1">
-                                                                <a class="condition-text" href="terms-and-conditions.html">Terms & conditions </a>
+                                                                <a class="condition-text" href="#">Terms & conditions </a>
                                                             </label>
                                                         </div>
                                                     </div>
