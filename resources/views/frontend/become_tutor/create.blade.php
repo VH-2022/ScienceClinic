@@ -176,7 +176,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="postcode" class="mb-0" autocomplete="off" id="postcode" placeholder="Postcode">
+                                            <input type="text" name="postcode" maxlength="6" class="mb-0" autocomplete="off" id="postcode" placeholder="Postcode">
 
                                             <span class="text-danger" id="error_postcode">{{ $errors->useredit->first('postcode') }}</span>
 

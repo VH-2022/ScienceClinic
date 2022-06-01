@@ -98,7 +98,7 @@
                                             <div class="col-md-6 mb-3">
                                                 <div class="form-control-spacing">
                                                     <label for="example-text-input" class="form-label">Postcode</label> <span style="color:red" class="required-error">*</span>
-                                                    <input class="form-control placeholder2" id="postcode" name="postcode" type="text" placeholder="Postcode" autocomplete="off" value="{{Auth::guard('web')->user()->postcode}}">
+                                                    <input class="form-control placeholder2" maxlength="6" id="postcode" name="postcode" type="text" placeholder="Postcode" autocomplete="off" value="{{Auth::guard('web')->user()->postcode}}">
                                                     <span id="error_postcode" style="color:red;"></span>
                                                 </div>
                                             </div>
