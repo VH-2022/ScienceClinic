@@ -14,6 +14,7 @@
         margin-bottom: 23px;
     }
 </style>
+<link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
 <div class="as-mainwrapper">
 
     <!--Bg White Start-->
@@ -995,10 +996,7 @@
 
 @section('page-js')
 <script src="{{ asset('front/js/bootstrap-select.min.js') }}"></script>
-
-
-
-<!-- bootstrap-select. -->
+<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 
 <script>
     $('.testimonial-english').owlCarousel({
@@ -1625,5 +1623,22 @@
     function removeSubject(id) {
         $('#' + id).remove();
     }
+</script>
+<script>
+    @if(Session::has('success'))
+    toastr.success("{{ session('success') }}");
+    @endif
+
+    @if(Session::has('error'))
+    toastr.error("{{ session('error') }}");
+    @endif
+
+    @if(Session::has('info'))
+    toastr.info("{{ session('info') }}");
+    @endif
+
+    @if(Session::has('warning'))
+    toastr.warning("{{ session('warning') }}");
+    @endif
 </script>
 @endsection

@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
+<link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
 @endsection
 
 <div class="as-mainwrapper">
@@ -607,6 +608,7 @@
 <script src="{{asset('front/js/bootstrap-select.min.js')}}"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 
 <script>
     function ValidateEmail(email) {
@@ -986,24 +988,21 @@
 </script>
 
 <script>
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "3000",
-        "extendedTimeOut": 0,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
-        "tapToDismiss": false
-    };
+    @if(Session::has('success'))
+    toastr.success("{{ session('success') }}");
+    @endif
+
+    @if(Session::has('error'))
+    toastr.error("{{ session('error') }}");
+    @endif
+
+    @if(Session::has('info'))
+    toastr.info("{{ session('info') }}");
+    @endif
+
+    @if(Session::has('warning'))
+    toastr.warning("{{ session('warning') }}");
+    @endif
 </script>
 
 @endsection

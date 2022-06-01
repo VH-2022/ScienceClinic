@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 
 @section('content')
-
+<link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
 <div class="signinform mb-4" style="background: #616161;">
     <div class="row">
 
@@ -74,7 +74,7 @@
 
 @section('page-js')
 <script type='text/javascript' src='https://d3a1eo0ozlzntn.cloudfront.net/assets/js/frontend-v2/widgets-v2.24a197bed6.v2.js' defer></script>
-
+<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 <script>
     $('.hero_carousel').owlCarousel({
         loop: true,
@@ -144,7 +144,7 @@
         nav: true,
         autoplay: true,
         autoplayTimeout: 16000,
-   
+
         dots: true,
         responsive: {
             0: {
@@ -159,7 +159,7 @@
         }
     })
 
-   
+
     var togglePassword = document.getElementById("toggle-password");
 
     if (togglePassword) {
@@ -208,5 +208,22 @@
             return false;
         }
     });
+</script>
+<script>
+    @if(Session::has('success'))
+    toastr.success("{{ session('success') }}");
+    @endif
+
+    @if(Session::has('error'))
+    toastr.error("{{ session('error') }}");
+    @endif
+
+    @if(Session::has('info'))
+    toastr.info("{{ session('info') }}");
+    @endif
+
+    @if(Session::has('warning'))
+    toastr.warning("{{ session('warning') }}");
+    @endif
 </script>
 @endsection

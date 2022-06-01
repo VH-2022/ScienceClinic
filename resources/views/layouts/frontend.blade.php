@@ -254,6 +254,45 @@
   @yield('page-js')
 
   <script>
+    toastr.options.closeButton = false;
+
+    toastr.options.tapToDismiss = false;
+
+    toastr.options = {
+
+      "closeButton": false,
+
+      "debug": false,
+
+      "newestOnTop": false,
+
+      "progressBar": false,
+
+      "positionClass": "toast-top-right",
+
+      "preventDuplicates": false,
+
+      "onclick": null,
+
+      "showDuration": "300",
+
+      "hideDuration": "1000",
+
+      "timeOut": "3000",
+
+      "extendedTimeOut": 0,
+
+      "showEasing": "swing",
+
+      "hideEasing": "linear",
+
+      "showMethod": "fadeIn",
+
+      "hideMethod": "fadeOut",
+
+      "tapToDismiss": false
+
+    };
     $('.numberCls').keypress(function(event) {
       if (event.keyCode < 48 || event.keyCode > 57) {
         event.preventDefault();
