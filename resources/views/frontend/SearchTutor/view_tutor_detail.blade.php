@@ -175,40 +175,35 @@
                                                     'Saturday' => 'saturday',
                                                     'Sunday' => 'sunday'] @endphp
 
-                                                    <div class="col-md-6 col-lg-6 mb-23">
+                                                    
+
+                                                    <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Subject</label>
-                                                        <div class="subject-custom">
-                                                            <select class="selectpicker select-sub mb-0" aria-label="Default select example" data-live-search="true" name="subjectinquiry" id="subjectinquiry">
-                                                                <option value="">Select Subject</option>
-                                                                @foreach($subject_list as $subject)
-                                                                <option value="{{$subject->id}}">{{$subject->main_title}}</option>
-                                                                @endforeach
+                                                        <select name="subjectinquiry" id="subjectinquiry" class="mb-0">
+                                                            <option value="">Select Subject</option>
+                                                            @foreach($subject_list as $subject)
+                                                            <option value="{{$subject->id}}">{{$subject->main_title}}</option>
+                                                            @endforeach
 
-                                                            </select>
-                                                            <span class="text-danger" id="error_subjectinquiry"></span>
-                                                        </div>
 
+                                                        </select>
+                                                        <span class="text-danger" id="error_subjectinquiry"></span>
 
                                                     </div>
-                                                    <div class="col-md-6 col-lg-6 mb-23">
 
+                                                    <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Level of Tuition</label>
-                                                        <div class="subject-custom">
-                                                            <select class="selectpicker select-sub mb-0" aria-label="Default select example" data-live-search="true" name="level" id="level">
-                                                                <option value="">Select Level</option>
-                                                                @foreach($tutor_level_list as $level)
-                                                                <option value="{{$level->id}}">{{$level->title}}
-                                                                </option>
-                                                                @endforeach
+                                                        <select name="level" id="level" class="mb-0">
+                                                            <option value="">Select Level</option>
+                                                            @foreach($tutor_level_list as $level)
+                                                            <option value="{{$level->id}}">{{$level->title}}
+                                                            </option>
+                                                            @endforeach
 
-                                                            </select>
-                                                            <span class="text-danger" id="error_level"></span>
-
-                                                        </div>
-
+                                                        </select>
+                                                        <span class="text-danger" id="error_level"></span>
 
                                                     </div>
-
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Day of Tuition</label>
                                                         <select name="days" class="mb-0" id="days">
