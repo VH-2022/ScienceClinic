@@ -5237,7 +5237,8 @@ a.green-atag, a.green-atag:hover {
 
 .padding-headsection {
     /* padding: 60px 0px; */
-    padding: 100px 0px;
+    /* padding: 100px 0px; */
+    padding: 10PX 0PX;
 }
 
 .english-abc {
@@ -6375,7 +6376,7 @@ padding: 29px 15px 20px 0;
 
 .literature-text {
     color: #fff;
-    padding: 40px 0px;
+    padding: 10px 0px;
 }
 
 .literature-text ul li {
@@ -8514,3 +8515,4 @@ label:hover~input:checked~label
     {
     color: #ffc107;
 }
+ 
