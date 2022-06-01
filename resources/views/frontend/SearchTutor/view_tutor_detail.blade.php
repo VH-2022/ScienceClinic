@@ -302,7 +302,7 @@
 
                                                                 <div class="from-group">
                                                                     <label for="subject">Subject:</label>
-                                                                    <input type="text" class="form-control mb-0" id="subject" placeholder="" name="subject">
+                                                                    <input type="text" class="form-control mb-0" maxlength="30" id="subject" placeholder="" name="subject">
                                                                 </div>
                                                                 <span class="text-danger" id="error_subject"></span>
                                                             </div>
@@ -310,7 +310,7 @@
                                                             <div class="col-6">
                                                                 <div class="from-group">
                                                                     <label for="outcome">Outcome:</label>
-                                                                    <input type="text" class="form-control mb-0" id="outcome" placeholder="" name="outcome">
+                                                                    <input type="text" class="form-control mb-0" maxlength="30" id="outcome" placeholder="" name="outcome">
                                                                 </div>
                                                                 <span class="text-danger" id="error_outcome"></span>
                                                             </div>
@@ -331,7 +331,7 @@
 
                                                                         </fieldset>
                                                                     </div>
-                                                                    <span class="text-danger"  id="error_rating"></span>
+                                                                    <span class="text-danger" id="error_rating"></span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -840,7 +840,7 @@
 
                 temp++;
 
-            } 
+            }
 
         }
         if (phone.trim() == '') {
