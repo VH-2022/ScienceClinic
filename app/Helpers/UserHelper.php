@@ -153,7 +153,8 @@ class UserHelper
         if ($name != '') {
           
             $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", [$name]);
-         
+            $query->orWhere('first_name', 'LIKE', '%' . $name . '%');
+            $query->orWhere('last_name', 'LIKE', '%' . $name . '%');
             
         }
         if ($email != '') {
