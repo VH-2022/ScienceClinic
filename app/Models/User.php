@@ -92,7 +92,7 @@ class User extends Authenticatable
         'bio',
 
         'user_name',
-
+        'otp'
     ];
 
 

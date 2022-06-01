@@ -26,11 +26,11 @@
 
 
                                 <div class="card login-main-box">
-                                    <form action="{{ route('verify-login-tutor') }}" id="tutor-login" class="card-body" method="post">
+                                    <form action="{{route('forgot-password-verify')}}" id="forgot-password" class="card-body" method="post">
                                         @csrf
                                         <div class="login-box form-data">
                                             <div>
-                                                <h3 class="title">Tutor Login</h3>
+                                                <h3 class="title">Forgot Password</h3>
 
                                             </div>
                                             <div>
@@ -40,29 +40,8 @@
                                                         <img src="{{ asset('front/img/email1.svg')}}" alt="email icon" class="login-input">
                                                         <span style="color: red;" id="emailerror">{{ $errors->first('email') }}</span>
                                                     </div>
-                                                    <div class="form-floating custom-float">
-                                                        <input class="mb-0" type="password" id="password" name="password" placeholder="password">
-                                                        <button id="toggle-password" class="pass-icons" type="button">
-                                                            <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
-                                                            <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
-                                                        </button>
-                                                        <span style="color: red;" id="passworderror">{{ $errors->first('password') }}</span>
-                                                    </div>
                                                 </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="form-check custom-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                        <label class="form-check-label" for="defaultCheck1">
-                                                            Remember me
-                                                        </label>
-                                                    </div>
-                                                    <div class="mb-30">
-                                                        <a href="{{route('forgot-password')}}" class="link-text"> Forgot
-                                                            Password?</a>
-
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn1 btn-primary w-100 login1-btn">Login</button>
+                                                <button type="submit" class="btn btn1 btn-primary w-100 login1-btn">Send</button>
                                             </div>
                                         </div>
 
@@ -85,34 +64,15 @@
     <script src="{{ asset('front/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script>
-        var togglePassword = document.getElementById("toggle-password");
-
-        if (togglePassword) {
-            togglePassword.addEventListener('click', function() {
-                var x = document.getElementById("password");
-                if (x.type === "password") {
-                    x.type = "text";
-                    $(this).addClass("active");
-                } else {
-                    x.type = "password";
-                    $(this).removeClass("active");
-
-                    // $("#toggle-password" <!--Background Area Start-->).removeClass("active");
-
-                }
-            });
-        }
-
         function ValidateEmail(email) {
             var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
             return expr.test(email);
         }
 
-        $("#tutor-login").submit(function() {
+        $("#forgot-password").submit(function() {
 
             var temp = 0;
             var email = $("#email").val();
-            var password = $("#password").val();
             if (email.trim() == "") {
                 $('#emailerror').html("Please enter Email");
                 temp++;
@@ -120,18 +80,26 @@
                 $('#emailerror').html("Invalid Email");
                 temp++;
             } else {
-                $('#emailerror').html("");
+                $.ajax({
+                    async: false,
+                    global: false,
+                    url: "{{ route('check.email') }}",
+                    type: "get",
+                    data: {
+                        email: email
+                    },
+                    success: function(response) {
+                        if (response.status == 1) {
+                            $('#emailerror').html("");
+                        } else {
+                            $('#emailerror').html("There isn’t any account associated with this email");
+                            temp++;
+                        }
 
+                    }
+
+                });
             }
-
-            if (password.trim() == '') {
-                $("#passworderror").html("Please enter Password");
-                temp++;
-            } else {
-                $("#passworderror").html("");
-            }
-
-
             if (temp == 0) {
                 return true;
             } else {

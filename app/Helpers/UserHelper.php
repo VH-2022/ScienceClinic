@@ -216,5 +216,19 @@ class UserHelper
         $query  = User::whereNull('deleted_at')->where('id', '!=', $id)->where('email', $email)->count();
         return $query;	
     }
+
+    public static function getUserByEmail($email){
+        $query  = User::whereNull('deleted_at')->where('email', $email)->first();
+        return $query;
+    }
+    public static function updateOTP($email, $rand){
+        $data['otp'] = $rand;
+        $query  = User::where('email', $email)->update($data);
+        return $query;
+    }
+    public static function getByOTP($otp){
+        $query  = User::where('otp', $otp)->first();
+        return $query;
+    }
 }
 

@@ -104,6 +104,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
 
     $frontend->resource('contact', "ContactController");
     $frontend->get('about', "AboutsController@index")->name('about');
+    $frontend->get('forgot-password', 'ForgotPasswordController@index')->name('forgot-password');
+    $frontend->post('forgot-password-verify', 'ForgotPasswordController@ForgotPasswordVerify')->name('forgot-password-verify');
+    $frontend->get('user-reset-password/{id}', 'ResetPasswordController@ResetPassword')->name('user-reset-password');
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
