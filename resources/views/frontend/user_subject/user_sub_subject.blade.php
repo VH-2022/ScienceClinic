@@ -3,13 +3,11 @@
 @section('content')
 
 <style>
-
     .relevant-and-diverse p {
 
         margin-bottom: 10px;
 
     }
-
 </style>
 
 
@@ -56,11 +54,15 @@
 
                             <div class="literature-text">
 
+                                @if ($query->sub_title_two != '')
+
                                 <p class="mb-2">
 
-                                    {{ $query->sub_title_two }}:
+                                    {{ $query->sub_title_two }}
 
                                 </p>
+
+                                @endif
 
                                 <ul>
 

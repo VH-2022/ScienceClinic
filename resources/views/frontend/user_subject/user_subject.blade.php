@@ -24,7 +24,7 @@
 
                                         <ul class="texts" style="display: none;">
 
-                                            <li class="current">English Language &amp; Literature Tuition</li>
+                                            <li class="current">{{ $query->main_title }}</li>
 
                                         </ul>
 
@@ -41,12 +41,16 @@
                                 <h3 class="mb-2">{{ $query->sub_title_one }}
 
                                 </h3>
+                                @if ($query->sub_title_two != '')
 
                                 <p class="mb-2">
 
-                                    {{ $query->sub_title_two }}:
+                                    {{ $query->sub_title_two }}
 
                                 </p>
+
+                                @endif
+
 
                                 <ul>
 
@@ -644,7 +648,7 @@
 
     <div class="container">
 
-        
+
 
         <div class="row  mb-lg-4">
 
@@ -668,7 +672,7 @@
 
             </div>
 
-            
+
 
             <div class="col-md-6">
 
@@ -747,4 +751,3 @@
 @include('frontend.subject_offer.subject_offer')
 
 @endsection
-
