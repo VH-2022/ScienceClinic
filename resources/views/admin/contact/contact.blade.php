@@ -173,11 +173,12 @@
             ajaxList(1);
         })
         $('.clear').click(function(e) {
-            $('#name').val();
-            $('#phone_no').val();
-            $('#tutor_type').val();
-            $('#email').val();
-            $('#created_date').val();
+            
+            $('#name').val("");
+            $('#phone_no').val("");
+            $('#tutor_type').val("");
+            $('#email').val("");
+            $('#created_date').val("");
 
             ajaxList(1);
         })
