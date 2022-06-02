@@ -105,12 +105,12 @@
                             @csrf
                             <div class="row form-data">
                                 <div class="col-md-6 ">
-                                    <input type="text" class="mb-0" name="name" placeholder="Name" id="name" onkeypress='return isName(event) ' maxlength="255">
+                                    <input type="text" class="mb-0" autocomplete="off" name="name" placeholder="Name" id="name" onkeypress='return isName(event) ' maxlength="255">
                                     <span class="error" id="name_error">{{ $errors->first('name') }}</span>
 
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="mb-0" name="phone_no" placeholder="Phone No" id="phone_no" onkeypress='return isNumber(event)' maxlength="12">
+                                    <input type="text" class="mb-0" autocomplete="off" name="phone_no" placeholder="Phone No" id="phone_no" onkeypress='return isNumber(event)' maxlength="12">
                                     <span class="error" id="phone_error">{{ $errors->first('phone_no') }}</span>
                                 </div>
                             </div>
@@ -131,15 +131,15 @@
                                     <span class="error" id="tutor_type_error"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" class="mb-0" name="email" placeholder="Email" id="email">
+                                    <input type="email" class="mb-0" autocomplete="off" name="email" placeholder="Email" id="email">
                                     <span class="error mt-0" id="email_error">{{ $errors->first('email') }}</span>
                                 </div>
                                 <div class="col-md-12">
-                                    <input type="address" class="mb-0" name="address" placeholder="Address" id="address">
+                                    <input type="address" class="mb-0" autocomplete="off" name="address" placeholder="Address" id="address">
                                     <span class="error mt-0" id="address_error">{{ $errors->first('address') }}</span>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea name="message" class="mb-0" cols="30" rows="10" placeholder="Message" id='message'></textarea>
+                                    <textarea name="message" class="mb-0" autocomplete="off" autocomplete="off" cols="30" rows="10" placeholder="Message" id='message'></textarea>
                                     <span class="error" id="message_error">{{ $errors->first('message') }}</span>
                                 </div>
                                 <div class="col-md-12">
