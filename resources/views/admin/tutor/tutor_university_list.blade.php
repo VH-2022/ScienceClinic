@@ -41,8 +41,10 @@
                     <td>{{ $val->university_name }}</td>
 
                     <td>{{ $val->qualification }}</td>
-
-                    <td><a href="{{asset('uploads/user/certificate/')}}/{{$val->document_image}}" download target="_blank">{{ $val->document_image }}</a></td>
+                    @php 
+                        $file = explode('/', $val->document_image);
+                    @endphp
+                    <td><a href="{{asset('uploads/user/certificate/')}}/{{$val->document_image}}" download target="_blank">{{$file[8]}}</a></td>
 
                     <td>
 

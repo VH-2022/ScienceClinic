@@ -24,7 +24,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="mathematics-tuition.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -46,7 +46,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="english-language-literature-tuition.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -68,7 +68,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="physics-tuition.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -90,7 +90,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="biology-tuition.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -112,7 +112,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="chemistry-tuition.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -134,7 +134,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="computer-science.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -158,7 +158,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="primary-school.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -184,7 +184,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="spanish.html">
+                                <a href="#">
 
                                     <div class="media">
 
@@ -210,7 +210,7 @@
 
                             <div class="col-md-6 col-lg-4">
 
-                                <a href="history-tuition.html">
+                                <a href="#">
 
                                     <div class="media">
 

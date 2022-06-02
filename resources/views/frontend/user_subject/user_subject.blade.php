@@ -125,7 +125,7 @@
                     <div class="qualified-details">
 
                         <p>
-
+                        
                             {!! $query->description !!}
 
 
@@ -156,7 +156,7 @@
 
                 <p>
 
-                    {{ $keys_val->description }}
+                    {!! $keys_val->description !!}
 
                 </p>
 
