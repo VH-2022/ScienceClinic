@@ -45,9 +45,6 @@ class FindATutorController extends Controller
     }
 
 
-
-
-
     public function getTutors(Request $request)
 
     {
@@ -136,8 +133,7 @@ class FindATutorController extends Controller
     public function saveInquiry(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-
+        $rules = array(
             'first_name' => 'required| max:30',
 
             'last_name' => 'required| max:30',
@@ -158,9 +154,15 @@ class FindATutorController extends Controller
 
             'username' => 'required| max:30',
 
-            'password' => 'required| min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'password' => 'required| min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+        );
+        $messsages = array(
+            'password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
+           
+        );
+        $validator = Validator::make($request->all(), $rules, $messsages);
 
-        ]);
+        
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
         } else {
