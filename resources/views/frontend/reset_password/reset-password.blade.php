@@ -23,50 +23,34 @@
                     <div class="col-md-12 col-lg-12 parent-login">
                         <div class="Login-main log reslog">
                             <div class="container-fluid">
-
-
                                 <div class="card login-main-box">
-                                    <form action="{{ route('verify-login-tutor') }}" id="tutor-login" class="card-body" method="post">
+                                    <form action="{{URL::to('update-user-password')}}/{{$otp}}" id="reset-password" class="card-body" method="post">
                                         @csrf
                                         <div class="login-box form-data">
                                             <div>
-                                                <h3 class="title">Tutor Login</h3>
+                                                <h3 class="title">Reset Password</h3>
 
                                             </div>
                                             <div>
                                                 <div class="contact-form-area">
                                                     <div class="form-floating custom-float">
-                                                        <input autocomplete="off" class="mb-0" type="text" name="email" id="email" placeholder="Email">
-                                                        <img src="{{ asset('front/img/email1.svg')}}" alt="email icon" class="login-input">
-                                                        <span style="color: red;" id="emailerror">{{ $errors->first('email') }}</span>
-                                                    </div>
-                                                    <div class="form-floating custom-float">
-                                                        <input autocomplete="off" class="mb-0" type="password" id="password" name="password" placeholder="Password">
+                                                        <input class="mb-0" type="password" id="password" name="password" placeholder="New Password">
                                                         <button id="toggle-password" class="pass-icons" type="button">
                                                             <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
                                                             <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
                                                         </button>
                                                         <span style="color: red;" id="passworderror">{{ $errors->first('password') }}</span>
                                                     </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="form-check custom-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                        <label class="form-check-label" for="defaultCheck1">
-                                                            Remember me
-                                                        </label>
-                                                    </div>
-                                                    <div class="mb-30">
-                                                        <a href="{{route('forgot-password-user')}}" class="link-text"> Forgot
-                                                            Password?</a>
-
+                                                    <div class="form-floating custom-float">
+                                                        <input class="mb-0" type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+                                                        <button id="toggle-confirm-password" class="pass-icons" type="button">
+                                                            <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
+                                                            <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
+                                                        </button>
+                                                        <span style="color: red;" id="confirmpassworderror">{{ $errors->first('confirmpassword') }}</span>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn1 btn-primary w-100 login1-btn">Login</button>
-                                                <div class="text-center mt-20 account-text">
-
-                                                    Don't have an account?<a href="{{URL('become-tutor')}}" class="link-text"> Register</a>
-                                                </div>
+                                                <button type="submit" class="btn btn1 btn-primary w-100 login1-btn">Reset Password</button>
                                             </div>
                                         </div>
 
@@ -106,36 +90,50 @@
                 }
             });
         }
+        var confirmtogglePassword = document.getElementById("toggle-confirm-password");
 
-        function ValidateEmail(email) {
-            var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-            return expr.test(email);
+        if (confirmtogglePassword) {
+            confirmtogglePassword.addEventListener('click', function() {
+                var x = document.getElementById("confirm_password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    $(this).addClass("active");
+                } else {
+                    x.type = "password";
+                    $(this).removeClass("active");
+
+                    // $("#toggle-password" <!--Background Area Start-->).removeClass("active");
+
+                }
+            });
         }
 
-        $("#tutor-login").submit(function() {
-
+        function ValidatePassword(password) {
+            var expr =/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/;
+            return expr.test(password);
+        }
+        $("#reset-password").submit(function() {
             var temp = 0;
-            var email = $("#email").val();
             var password = $("#password").val();
-            if (email.trim() == "") {
-                $('#emailerror').html("Please enter Email");
-                temp++;
-            } else if (!ValidateEmail(email)) {
-                $('#emailerror').html("Invalid Email");
-                temp++;
-            } else {
-                $('#emailerror').html("");
-
-            }
-
+            var confirmPassword = $("#confirm_password").val();
             if (password.trim() == '') {
                 $("#passworderror").html("Please enter Password");
+                temp++;
+            } else if (!ValidatePassword(password)) {
+                $("#passworderror").html("Password should be include 6 charaters, alphabets, numbers and special characters");
                 temp++;
             } else {
                 $("#passworderror").html("");
             }
-
-
+            if (confirmPassword.trim() == '') {
+                $("#confirmpassworderror").html("Please enter Confirm Password");
+                temp++;
+            } else if (password != confirmPassword) {
+                $("#confirmpassworderror").html("New password and Confirm password does not match");
+                temp++;
+            } else {
+                $("#confirmpassworderror").html("");
+            }
             if (temp == 0) {
                 return true;
             } else {

@@ -230,5 +230,9 @@ class UserHelper
         $query  = User::where('otp', $otp)->first();
         return $query;
     }
+    public static function updatePassword($otp, $data){
+        $query  = User::where('otp', $otp)->update($data);
+        return $query;
+    }
 }
 

@@ -1,6 +1,11 @@
 @extends('layouts.frontend')
 
 @section('content')
+<style>
+    .form-data .custom-float {
+        margin-bottom: 23px;
+    }
+</style>
 <link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
 <div class="signinform mb-4" style="background: #616161;">
     <div class="row">
@@ -17,7 +22,7 @@
                     <div class="card login-main-box">
                         <form action="{{route('verify-login-parent')}}" method="POST" id="parent-login" class="card-body">
                             @csrf
-                            <div class="login-box ">
+                            <div class="login-box form-data">
                                 <div>
                                     <h3 class="title">Parent Login</h3>
 
@@ -25,12 +30,12 @@
                                 <div>
                                     <div class="contact-form-area ">
                                         <div class="form-floating custom-float">
-                                            <input type="text" name="email" class="mb-0" id="email" placeholder="Email">
+                                            <input autocomplete="off" type="text" name="email" class="mb-0" id="email" placeholder="Email">
                                             <img src="{{asset('front/img/email1.svg')}}" alt="email icon" class="login-input">
                                             <span class="text-danger" id="error_email">{{ $errors->first('email') }}</span>
                                         </div>
                                         <div class="form-floating custom-float">
-                                            <input type="password" class="mb-0" name="password" id="password" placeholder="password">
+                                            <input autocomplete="off" type="password" class="mb-0" name="password" id="password" placeholder="Password">
                                             <button id="toggle-password" class="pass-icons" type="button">
                                                 <img src="{{asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
                                                 <img src="{{asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">

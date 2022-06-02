@@ -44,13 +44,6 @@ return
 		</head>
 
 		<body>
-			<table style="width: 600px;margin: 20px auto;">
-				<tr>
-					<td>
-						<img src="' . URL::to('/') . '/mail-template/images/logo.svg" style="" alt="">
-					</td>
-				</tr>
-			</table>
 			<table style="    width: 600px;  margin: 20px auto;    background: #F8F8FF;    font-size: 14px;    padding: 8px 20px;    border-radius: 15px;">
 				<tr>
 					<td>

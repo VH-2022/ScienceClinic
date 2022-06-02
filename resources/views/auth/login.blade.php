@@ -12,7 +12,7 @@
 
     <title>Login</title>
 
-    <meta name="description" content="Login page example" />
+    <meta name="description" content="Login" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -133,7 +133,7 @@
 
                                 </div>
 
-                                <a href="javascript:;" id="kt_login_forgot" class="text-muted text-hover-primary dark-sign-color">Forget Password ?</a>
+                                <a href="{{ route('password.request') }}" id="kt_login_forgot" class="text-muted text-hover-primary dark-sign-color">Forgot Password</a>
 
                             </div>
 

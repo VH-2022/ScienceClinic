@@ -4,8 +4,8 @@
 <style>
     .add-subject {
         position: absolute;
-        right: 0;
-        right: -103px;
+        
+        right: 0px;
 
     }
 
@@ -257,7 +257,7 @@
 
                                                                     <div class="chemistry-icon-text">
                                                                         <div class="input-file-bio">
-                                                                            <p type="text" class="mb-0" id="uploadeviFile" class="input-upload-bio"> </p>
+                                                                            <p type="text" class="mb-0 mt-0" id="uploadeviFile" class="input-upload-bio"> </p>
                                                                         </div>
 
                                                                         <input type="file" class="mb-0" name="document_certi[]" data-id="{{ $uniqid }}" class="bio-input-fild" id="uploadeviBtn">
@@ -270,7 +270,7 @@
 
                                                             </div>
 
-                                                            <div class="col-md-2 add"> <a class="extra-fields-customer search-menu" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true" style="margin-top: 4px;"></i></a></div>
+                                                            <div class="col-md-1 add"> <a class="extra-fields-customer search-menu" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true" style="margin-top: 4px;"></i></a></div>
 
                                                         </div>
 
@@ -330,7 +330,8 @@
                                                     <div class="copy_subject_id" id="{{$uniqid}}">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <select id="sub{{$uniqid}}" class="selectpicker" data-id="{{$uniqid }}" name="subject{{$uniqid}}[]" aria-label="Default select example" data-live-search="true">
+                                                                <div class="subject-custom">
+                                                                <select id="sub{{$uniqid}}" class="selectpicker " data-id="{{$uniqid }}" name="subject{{$uniqid}}[]" aria-label="Default select example" data-live-search="true">
 
                                                                     <option value="">Select Subject</option>
 
@@ -341,9 +342,10 @@
                                                                 </select>
 
                                                                 <span class="text-danger" id="subject_{{$uniqid}}_error">{{ $errors->useredit->first('subject') }}</span>
-
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-5">
+                                                            <div class="subject-custom">
                                                                 <select class="selectpicker" data-id="{{$uniqid }}" name="level{{$uniqid}}[]" multiple aria-label="Default select example" data-live-search="true">
 
 
@@ -358,10 +360,10 @@
                                                                 </select>
 
                                                                 <span class="text-danger" id="level_{{$uniqid }}_error">{{ $errors->useredit->first('level') }}</span>
-
+                                                            </div>
 
                                                             </div>
-                                                            <div class="col-md-1" style="padding-left:10px;">
+                                                            <div class="col-md-1 add" style="padding-left:15px;">
                                                                 <a class="extra-fields-customer1 search-menu" onclick="addmoreSubject()" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true" style="margin-top: 4px;"></i></a>
                                                             </div>
                                                         </div>
@@ -372,7 +374,7 @@
                                         </div><br>
 
 
-                                        <div class="col-md-12 row" style="margin-top: 2%;">
+                                        <div class="col-md-12 row" >
                                             <div class="col-md-6 mb-23">
 
                                                 <h6 class="mb-2">Do you have an enhanced DBS disclosure (less than
@@ -408,13 +410,13 @@
 
                                                         <div class="file-flex">
 
-                                                            <input class="mb-0 blank-input file-input-box" id="uploadFile" type="text">
+                                                            <input type="file" name="document_pdf" class="mb-0 blank-input file-input-box" id="uploadFile">
 
                                                         </div>
 
                                                         <div class="main-file-uplode">
 
-                                                            <div class="file-upload-box">
+                                                            <!-- <div class="file-upload-box">
 
                                                                 <input type="file" class="yes-no-radio" id="uploadBtn" name="document_pdf">
 
@@ -424,7 +426,7 @@
 
                                                                 <img src="{{ asset('front/img/upload.png') }}" class="img-fluid upload-img">
 
-                                                            </div>
+                                                            </div> -->
 
                                                         </div>
 
@@ -647,326 +649,7 @@
 
     </div>
 
-
-
-
-
-
-
-    <div class="testimonial-section pt-0">
-
-        <div class="container">
-
-            <div class="row justify-content-center">
-
-                <div class="col-lg-10 offset-lg-0 col-md-12 col-12">
-
-                    <div class="owl-carousel owl-theme testimonial-english">
-
-                        <div class="item">
-
-
-
-                            <div class="card single-product-item">
-
-                                <div class="card-body single-product-text card-pdtestimonial">
-
-                                    <div class="content-slideeng">
-
-                                        <div class="slider-feedsec">
-
-                                            <div class="quotes-testi testi1">
-
-                                                <img src="{{ asset('front/img/svg/left-quotes.png') }}" alt="left-quotes">
-
-                                            </div>
-
-                                            <div class="max-textquote">
-
-                                                <p class="mb-0 we-likep">
-
-                                                    We would like to pass on our feedback and show appreciation for
-
-                                                    Mr Hamalabi from Science Clinic Private Tutoring Ltd who worked
-
-                                                    with our daughter and improved her Chemistry & Physics skills in
-
-                                                    the run up to her GCSE exams He was only with us for a short
-
-                                                    time but the work he did in that short period of time was
-
-                                                    unbelievable. Kayleigh got A* in both subjects.
-
-
-
-                                                </p>
-
-                                                <p class="float-right writer-text">
-
-                                                    - B.K. Thomas
-
-                                                </p>
-
-                                            </div>
-
-                                            <div class="quotes-testi testi2">
-
-                                                <img src="{{ asset('front/img/svg/right-quotes.png') }}" alt="right-quotes">
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="item">
-
-                            <div class="card single-product-item">
-
-                                <div class="card-body single-product-text card-pdtestimonial">
-
-                                    <div class="content-slideeng">
-
-                                        <div class="slider-feedsec">
-
-                                            <div class="quotes-testi testi1">
-
-                                                <img src="{{ asset('front/img/svg/left-quotes.png') }}" alt="left-quotes">
-
-                                            </div>
-
-                                            <div class="max-textquote">
-
-                                                <p class="mb-0 we-likep">
-
-                                                    Thank you Science Clinic Private Tutoring Ltd for your prompt
-
-                                                    and efficient service. It was so simple, I wish we had found you
-
-                                                    sooner.
-
-
-
-                                                </p>
-
-                                                <p class="float-right writer-text">
-
-                                                    - C.H. (Colchester)
-
-                                                </p>
-
-                                            </div>
-
-                                            <div class="quotes-testi testi2">
-
-                                                <img src="{{ asset('front/img/svg/right-quotes.png') }}" alt="right-quotes">
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="item">
-
-                            <div class="card single-product-item">
-
-                                <div class="card-body single-product-text card-pdtestimonial">
-
-                                    <div class="content-slideeng">
-
-                                        <div class="slider-feedsec">
-
-                                            <div class="quotes-testi testi1">
-
-                                                <img src="{{ asset('front/img/svg/left-quotes.png') }}" alt="left-quotes">
-
-                                            </div>
-
-                                            <div class="max-textquote">
-
-                                                <p class="mb-0 we-likep">
-
-                                                    Can't believe how quickly this has worked. I went on the
-
-                                                    Internet on 15th January and Chloe had a lesson today with Mr
-
-                                                    Hamalabi who is only 5 minutes drive away from us. We are so
-
-                                                    pleased and delighted.
-
-
-
-                                                </p>
-
-                                                <p class="float-right writer-text">
-
-                                                    - J.J. Brown
-
-                                                </p>
-
-                                            </div>
-
-                                            <div class="quotes-testi testi2">
-
-                                                <img src="{{ asset('front/img/svg/right-quotes.png') }}" alt="right-quotes">
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="item">
-
-                            <div class="card single-product-item">
-
-                                <div class="card-body single-product-text card-pdtestimonial">
-
-                                    <div class="content-slideeng">
-
-                                        <div class="slider-feedsec">
-
-                                            <div class="quotes-testi testi1">
-
-                                                <img src="{{ asset('front/img/svg/left-quotes.png') }}" alt="left-quotes">
-
-                                            </div>
-
-                                            <div class="max-textquote">
-
-                                                <p class="mb-0 we-likep">
-
-                                                    I would like you to know how delighted we have been with Mr
-
-                                                    Hamalabi who has provided home tuitions in Physics, Mathematics
-
-                                                    & Chemistry to my daughter for 3 years. She went from C grade at
-
-                                                    the end of year 9 to getting A*, A & A respectively in her GCSE.
-
-
-
-                                                </p>
-
-                                                <p class="float-right writer-text">
-
-                                                    - J.C. Paula
-
-                                                </p>
-
-                                            </div>
-
-                                            <div class="quotes-testi testi2">
-
-                                                <img src="{{ asset('front/img/svg/right-quotes.png') }}" alt="right-quotes">
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="item">
-
-                            <div class="card single-product-item">
-
-                                <div class="card-body single-product-text card-pdtestimonial">
-
-                                    <div class="content-slideeng">
-
-                                        <div class="slider-feedsec">
-
-                                            <div class="quotes-testi testi1">
-
-                                                <img src="{{ asset('front/img/svg/left-quotes.png') }}" alt="left-quotes">
-
-                                            </div>
-
-                                            <div class="max-textquote">
-
-                                                <p class="mb-0 we-likep">
-
-                                                    We are grateful to Mr Hamalabi from Science Clinic Private
-
-                                                    Tutoring Ltd for giving Tom confidence and for assisting him
-
-                                                    greatly in improving his performance to the level of getting A &
-
-                                                    A* in Biology, Chemistry & Physics.
-
-
-
-                                                </p>
-
-                                                <p class="float-right writer-text">
-
-                                                    - C.K. Tommy
-
-                                                </p>
-
-                                            </div>
-
-                                            <div class="quotes-testi testi2">
-
-                                                <img src="{{ asset('front/img/svg/right-quotes.png') }}" alt="right-quotes">
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
+    @include('frontend.testimonial.testmonial')
     <!--End of Breadcrumb Banner Area-->
 
 
@@ -1000,41 +683,24 @@
 
 <script>
     $('.testimonial-english').owlCarousel({
-
-        loop: true,
-
+        loop: false,
         margin: 10,
-
         nav: true,
-
         navText: ["<img src='{{ asset('front/img/svg/left-arrow-test.png') }}'>",
             "<img src='{{ asset('front/img/svg/right-arrow-test.png') }}'>"
         ],
-
         dots: true,
-
         responsive: {
-
             0: {
-
                 items: 1
-
             },
-
             600: {
-
                 items: 1
-
             },
-
             1000: {
-
                 items: 1
-
             }
-
         }
-
     })
 </script>
 
@@ -1075,7 +741,7 @@
 
             '<div class="downloaded-file position-relative">' +
 
-            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio"> </p> </div> <input type="file"  class="bio-input-fild mb-0" name="document_certi[]" id="uploadeviBtn" data-id="' +
+            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio mt-0 mb-0"> </p> </div> <input type="file"  class="bio-input-fild mb-0" name="document_certi[]" id="uploadeviBtn" data-id="' +
             mathRand + '" ><span id="document_certi' + mathRand + '_error" class="text-danger"></span>' +
 
 
@@ -1086,7 +752,7 @@
 
             '</div>' +
 
-            '<div class="col-md-2  add"> <a href="javascript:void(0)" class="remove-field btn-remove-customer" onclick="remove(' +
+            '<div class="col-md-1  add"> <a href="javascript:void(0)" class="remove-field btn-remove-customer" onclick="remove(' +
             mathRand + ')"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a></div>' +
 
             '</div>' +
@@ -1466,7 +1132,7 @@
 
             if (value.trim() == '') {
 
-                $('#qualification' + dataId + '_error').html("Please enter university/institution");
+                $('#qualification' + dataId + '_error').html("Please enter qualification");
 
                 temp++;
 
@@ -1610,11 +1276,11 @@
         htmlRep += '<div class="copy_subject_id" id="' + mathRandSubject + '" style="margin-top: 10px;"><input type="hidden" name="main_subject_id[]" value="' + mathRandSubject + '">' +
             '<div class="row">' +
             '<div class="col-md-6">' +
-
+            '<div class="subject-custom">' +
             '<select class="selectpicker" id="sub' + mathRandSubject + '" name="subject' + mathRandSubject + '[]" data-id="' + mathRandSubject + '" aria-label="Default select example" data-live-search="true">' + dropdowns + '</select>' +
-            '<span class="text-danger" id="subject_' + mathRandSubject + '_error"></span></div>' +
-            '<div class="col-md-5"><select class="selectpicker" data-id="' + mathRandSubject + '" name="level' + mathRandSubject + '[]" multiple aria-label="Default select example" data-live-search="true">' + level_id + '</select><span class="text-danger" id="level_' + mathRandSubject + '_error"></span></div>' +
-            '<div class="col-md-1 add-subject"><a href="javascript:void(0)" style="margin-top:-3%;" class="remove-field btn-remove-customer" onclick="removeSubject(' + mathRandSubject + ')"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a></div></div></div>';
+            '<span class="text-danger" id="subject_' + mathRandSubject + '_error"></span></div></div>' +
+            '<div class="col-md-5"> <div class="subject-custom"><select class="selectpicker" data-id="' + mathRandSubject + '" name="level' + mathRandSubject + '[]" multiple aria-label="Default select example" data-live-search="true">' + level_id + '</select><span class="text-danger" id="level_' + mathRandSubject + '_error"></span></div></div>' +
+            '<div class="col-md-1 add-subject"><a href="javascript:void(0)" style="margin-top:-3%;" class="remove-field btn-remove-customer btn-remove-customer2" onclick="removeSubject(' + mathRandSubject + ')"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a></div></div></div>';
 
         $('#subjects_id').append(htmlRep);
         $('.selectpicker').selectpicker();
