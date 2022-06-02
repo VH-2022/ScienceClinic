@@ -1466,7 +1466,7 @@
 
             if (value.trim() == '') {
 
-                $('#qualification' + dataId + '_error').html("Please enter university/institution");
+                $('#qualification' + dataId + '_error').html("Please enter qualification");
 
                 temp++;
 
