@@ -23,6 +23,7 @@ class TutorVerifyController extends Controller
         foreach($tutorData as $val){
             $id = $val->userId;
             $val->certificate = TutorUniversityDetailHelper::getUniversityData($id);
+            $val->dbs = TutorDetailHelper::getDBSDetails($id);
         }
         return view('frontend.tutor.tutor-verify', $data);
     }
