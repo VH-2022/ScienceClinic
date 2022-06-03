@@ -52,7 +52,7 @@
                                             </label>
                                         </div>
                                         <div class="mb-30">
-                                            <a href="javascript:void(0)" class="link-text"> Forgot
+                                            <a href="{{route('forgot-password-user')}}" class="link-text"> Forgot
                                                 Password?</a>
 
                                         </div>
@@ -61,7 +61,7 @@
 
                                     <div class="text-center mt-20 account-text">
 
-                                        Don't have an account?<a href="#" class="link-text"> Register</a>
+                                        Don't have an account?<a href="{{URL::to('find-tutor')}}" class="link-text"> Register</a>
                                     </div>
                                 </div>
                             </div>
