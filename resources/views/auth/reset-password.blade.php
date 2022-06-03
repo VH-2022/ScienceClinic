@@ -84,7 +84,7 @@
 
                             <h3>Reset Password ?</h3>
 
-                            <div class="text-muted font-weight-bold">Enter your password to change your password</div>
+                            <div class="text-muted font-weight-bold">Enter password to change your password</div>
 
                         </div>
 
@@ -92,20 +92,20 @@
 
                             @csrf
 
-                            <div class="form-floating custom-float">
+                            <div class="form-floating custom-float position-relative mb-5">
                                 <input class="form-control mb-0" type="password" id="password" name="password" placeholder="New Password">
-                                <!-- <button id="toggle-password" class="form-control pass-icons" type="button">
+                                <button id="toggle-password" class=" pass-icons" type="button">
                                     <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
                                     <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
-                                </button> -->
+                                </button>
                                 <span style="color: red;" id="passworderror">{{ $errors->first('password') }}</span>
                             </div>
-                            <div class="form-floating custom-float">
+                            <div class="form-floating custom-float position-relative">
                                 <input class="mb-0 form-control" type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
-                                <!-- <button id="toggle-confirm-password" class="form-control pass-icons" type="button">
+                                <button id="toggle-confirm-password" class=" pass-icons" type="button">
                                     <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
                                     <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
-                                </button> -->
+                                </button>
                                 <span style="color: red;" id="confirmpassworderror">{{ $errors->first('confirm_password') }}</span>
                             </div>
 

@@ -220,7 +220,37 @@
 .personaltab-ul li {
     margin-bottom: -1px;
 }
+.login-signin .form-control {
+    border: 1px solid #cacbcf;
+}
+button.pass-icons {
+    position: absolute;
+    top: 7px;
+    right: 12px;
+    outline: none!important;
+    background: none;
+    border: 0;
+    height: 22.94px;
+}
+.pass-icons.active .icon1 {
+    display: none;
+}
 
+.pass-icons .icon2 {display: block;}
+
+.pass-icons .icon2 {
+    display: none;
+}
+
+.pass-icons.active .icon2 {
+    display: block;
+}
+.parent-address{
+    text-overflow: ellipsis;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+}
 @media only screen and (max-width:767px) {
     .personaltab-ul li a {
         padding: 0.75rem 9px !important;

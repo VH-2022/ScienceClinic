@@ -7,7 +7,7 @@
     .banner-content .col-md-12,
     .banner-content .text-content-wrapper,
     .banner-content .text-content {
-        height: 65%;
+        height: max-content;
         margin: auto;
     }
 </style>
