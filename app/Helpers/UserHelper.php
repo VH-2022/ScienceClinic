@@ -234,5 +234,14 @@ class UserHelper
         $query  = User::where('otp', $otp)->update($data);
         return $query;
     }
+    public static function checkEmailAdmin($email)
+    {
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',1)->count();
+        return $query;
+    }
+    public static function getAdminByEmail($email){
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',1)->first();
+        return $query;
+    }
 }
 

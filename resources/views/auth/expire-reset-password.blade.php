@@ -10,7 +10,7 @@
 
     <meta charset="utf-8" />
 
-    <title>Login</title>
+    <title>Forgot Password</title>
 
     <meta name="description" content="Login" />
 
@@ -75,69 +75,31 @@
 
                 <div class="login-form text-center p-7 position-relative overflow-hidden">
 
-                    <!--begin::Login Header-->
-
-                    <div class="d-flex flex-center mb-15">
-
-                        <a href="#">
-
-                            <img src="{{ asset('front/img/logo2.png')}}" class="max-h-75px" alt="" />
-
-                        </a>
-
-                    </div>
-
-                    <!--end::Login Header-->
-
                     <!--begin::Login Sign in form-->
 
                     <div class="login-signin">
 
-                        <div class="mb-20">
+                        <div class="mb-10">
 
-                            <h3>Sign In To Admin</h3>
+                            <h3>Forgot Password ?</h3>
 
-                            <div class="text-muted font-weight-bold">Enter your details to login to your account:</div>
+                            <div class="text-muted font-weight-bold">Enter your email to reset your password</div>
 
                         </div>
 
-                        <form class="form" id="kt_login_signin_form" method="POST" action="{{ route('verify-login') }}" onsubmit="return validate();">
+                        <form class="form" id="kt_login_signin_form" method="POST" action="{{ route('forgot-password-admin-verify') }}" onsubmit="return validate();">
 
                             @csrf
 
                             <div class="form-group mb-5">
 
-                                <input class="form-control h-auto  py-4 px-8" type="text" placeholder="Email" id="email" name="email" autocomplete="off">
+                                <input class="form-control h-auto  py-4 px-8" type="text" placeholder="Email" id="email" name="email" autocomplete="off" />
 
                                 <span style="color: red;" id="emailerror"></span>
 
                             </div>
 
-                            <div class="form-group mb-5">
-
-                                <input class="form-control h-auto  py-4 px-8" type="password" id="password" placeholder="Password" name="password" />
-
-                                <span style="color: red;" id="passworderror"></span>
-
-                            </div>
-
-                            <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
-
-                                <div class="checkbox-inline">
-
-                                    <label class="checkbox m-0 text-muted dark-sign-color">
-
-                                        <input type="checkbox" name="remember" />
-
-                                        <span></span>Remember me</label>
-
-                                </div>
-
-                                <a href="{{ route('password.request') }}" id="kt_login_forgot" class="text-muted text-hover-primary dark-sign-color">Forgot Password?</a>
-
-                            </div>
-
-                            <button id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Sign In</button>
+                            <button id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Send</button>
 
                         </form>
 
@@ -157,6 +119,9 @@
 
     <!--end::Main-->
 
+    <!--begin::Global Config(global config for global JS scripts)-->
+
+    <!--end::Global Config-->
 
     <!--begin::Global Theme Bundle(used by all pages)-->
 
@@ -171,51 +136,39 @@
     <script>
 
         function ValidateEmail(email) {
-
             var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-
             return expr.test(email);
-
         }
 
         function validate() {
-
             var temp = 0;
-
             var email = $("#email").val();
-
-            var password = $("#password").val();
-
             if (email.trim() == "") {
-
                 $('#emailerror').html("Please enter Email");
-
                 temp++;
-
             } else if (!ValidateEmail(email)) {
-
                 $('#emailerror').html("Please enter valid Email");
-
                 temp++;
-
             } else {
+                $.ajax({
+                    async: false,
+                    global: false,
+                    url: "{{ route('check-email-admin') }}",
+                    type: "get",
+                    data: {
+                        email: email
+                    },
+                    success: function(response) {
+                        if (response.status == 1) {
+                            $('#emailerror').html("");
+                        } else {
+                            $('#emailerror').html("There isn’t any account associated with this email");
+                            temp++;
+                        }
 
-                $('#emailerror').html("");
+                    }
 
-
-
-            }
-
-            if (password.trim() == '') {
-
-                $("#passworderror").html("Please enter Password");
-
-                temp++;
-
-            } else {
-
-                $("#passworderror").html("");
-
+                });
             }
 
             if (temp == 0) {
@@ -263,3 +216,5 @@
 
 
 </html>
+
+

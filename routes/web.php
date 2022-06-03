@@ -44,6 +44,10 @@ Route::get('/clear-optimize', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
     Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
+    Route::get('check-email-admin', "LoginController@checkEmail")->name('check-email-admin');
+    Route::post('forgot-password-admin-verify', "ForgotPasswordController@forgotPasswordAdminVerify")->name('forgot-password-admin-verify');
+    Route::get('admin-reset-password/{id}', 'ResetPasswordController@ResetPassword')->name('admin-reset-password');
+    Route::post('update-admin-password/{id}', 'ResetPasswordController@UpdatePasswordAdmin')->name('update-admin-password');
     $admins->middleware(['auth:super_admin', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('logout-super-admin', 'LoginController@logout')->name('super-admin-logout');
         $backendVerified->get('admin','DashboardController@index')->name('admin-dashboard');
@@ -79,11 +83,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
         $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
         $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
-
-       
         $backendVerified->get('testimonial-ajax', "TestimonialController@ajaxList")->name('testimonial-ajax');
         $backendVerified->resource('testimonial', "TestimonialController");
-        
     });
 });
 

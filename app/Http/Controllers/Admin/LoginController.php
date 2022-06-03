@@ -4,8 +4,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-
+use App\Helpers\UserHelper;
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
@@ -75,6 +74,16 @@ class LoginController extends Controller
         Session::flash('success', trans('messages.successLogout'));
         return redirect('login');
 
+    }
+
+    public function checkEmail(Request $request){
+        $email = $request->email;
+        $data =  UserHelper::checkEmailAdmin($email);
+        if ($data != 0) {
+            return response()->json(['status' => 1]);
+        } else {
+            return response()->json(['status' => 0]);
+        }
     }
 
 }

@@ -36,7 +36,7 @@
                                             <div>
                                                 <div class="contact-form-area">
                                                     <div class="form-floating custom-float">
-                                                        <input class="mb-0" type="text" name="email" id="email" placeholder="Email">
+                                                        <input autocomplete="off" class="mb-0" type="text" name="email" id="email" placeholder="Email">
                                                         <img src="{{ asset('front/img/email1.svg')}}" alt="email icon" class="login-input">
                                                         <span style="color: red;" id="emailerror">{{ $errors->first('email') }}</span>
                                                     </div>
