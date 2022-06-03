@@ -139,6 +139,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->post('update-password', 'ParentAccountController@updatePassword')->name('update-password');
         $parentVerified->get('parent-logout', 'ParentLoginController@logout')->name('parent-logout');
         $parentVerified->get('bookings', 'BookingsController@index')->name('booking.index');
+        $parentVerified->post('add-tutor-availability', 'BookingsController@addTutorAvailability')->name('add-tutor-availability');
+        $parentVerified->get('add-tutor-availability-data', 'BookingsController@getTutorAvailabilityDetails')->name('add-tutor-availability-data');
+        
+        
         
     });
   
