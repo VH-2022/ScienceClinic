@@ -95,7 +95,7 @@
 
                                 <input class="form-control h-auto  py-4 px-8" type="text" placeholder="Email" id="email" name="email" autocomplete="off" />
 
-                                <span style="color: red;" id="emailerror"></span>
+                                <span style="color: red;" id="emailerror">{{ $errors->first('email') }}</span>
 
                             </div>
 

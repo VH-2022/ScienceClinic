@@ -106,7 +106,7 @@
                                     <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
                                     <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
                                 </button> -->
-                                <span style="color: red;" id="confirmpassworderror">{{ $errors->first('confirmpassword') }}</span>
+                                <span style="color: red;" id="confirmpassworderror">{{ $errors->first('confirm_password') }}</span>
                             </div>
 
                             <button id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Reset Password</button>
@@ -180,31 +180,31 @@
         }
 
         function ValidatePassword(password) {
-            var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/;
+            var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
             return expr.test(password);
         }
         $("#reset-password").submit(function() {
             var temp = 0;
             var password = $("#password").val();
             var confirmPassword = $("#confirm_password").val();
-            // if (password.trim() == '') {
-            //     $("#passworderror").html("Please enter Password");
-            //     temp++;
-            // } else if (!ValidatePassword(password)) {
-            //     $("#passworderror").html("Password should be include 6 charaters, alphabets, numbers and special characters");
-            //     temp++;
-            // } else {
-            //     $("#passworderror").html("");
-            // }
-            // if (confirmPassword.trim() == '') {
-            //     $("#confirmpassworderror").html("Please enter Confirm Password");
-            //     temp++;
-            // } else if (password != confirmPassword) {
-            //     $("#confirmpassworderror").html("New password and Confirm password does not match");
-            //     temp++;
-            // } else {
-            //     $("#confirmpassworderror").html("");
-            // }
+            if (password.trim() == '') {
+                $("#passworderror").html("Please enter Password");
+                temp++;
+            } else if (!ValidatePassword(password)) {
+                $("#passworderror").html("Password should include 6 charaters, alphabets, numbers and special characters");
+                temp++;
+            } else {
+                $("#passworderror").html("");
+            }
+            if (confirmPassword.trim() == '') {
+                $("#confirmpassworderror").html("Please enter Confirm Password");
+                temp++;
+            } else if (password != confirmPassword) {
+                $("#confirmpassworderror").html("New password and Confirm password does not match");
+                temp++;
+            } else {
+                $("#confirmpassworderror").html("");
+            }
             if (temp == 0) {
                 return true;
             } else {

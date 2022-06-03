@@ -158,7 +158,7 @@ class FindATutorController extends Controller
 
             'username' => 'required| max:30',
 
-            'password' => 'required| min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'password' => 'required| min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
 
         ]);
         if ($validator->fails()) {
