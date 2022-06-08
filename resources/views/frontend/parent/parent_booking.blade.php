@@ -3,30 +3,30 @@
 @section('content')
 @section('page-css')
 <link rel="stylesheet" href="{{asset('front/main.css')}}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" /> -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
+<link rel="stylesheet" href="{{asset('assets/css/fullcalender-css/main.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/css/font-awesome/all.min.css')}}" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 <div class="d-flex flex-column-fluid">
 
-    <!--begin::Container-->
+
 
     <div class="container-fluid">
 
-        <!--begin::Subject List-->
+
 
         <div class="d-flex flex-row">
 
-            <!--begin::Content-->
+
 
             <div class="flex-row-fluid" id="personam_id">
 
                 <div class="card card-custom card-stretch">
 
-                    <!--begin::Header-->
+
 
                     <div class="card-header py-3">
                         <div class="card-title align-items-start flex-column">
@@ -50,6 +50,7 @@
                                     <br></br>
                                     <div class="main-custom-calendar">
                                         <div id='calendar'></div>
+                                        <div id='calendar1'></div>
                                     </div>
                                 </div>
                             </div>
@@ -64,24 +65,24 @@
 
             </div>
 
-            <!--end::Content-->
 
         </div>
 
-        <!--end::Subject List-->
+
 
     </div>
 
-    <!--end::Container-->
+
 
 </div>
 
 
 @endsection
 @section('page-js')
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="{{asset('assets/js/fullcalender-js/main.min.js')}}"></script>
+<script src="{{asset('assets/js/moment/moment.min.js')}}"></script>
+<script src="{{asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js')}}"></script>
+<script src="{{asset('assets/js/font-awesome/all.min.js')}}" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     $(document).ready(function() {
@@ -95,11 +96,13 @@
 
 
     var calendar;
+    var events = [];
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var tutorId = $('#tutor_id').val();
 
         calendar = new FullCalendar.Calendar(calendarEl, {
+
             headerToolbar: {
                 left: 'prev,next',
                 center: 'title',
@@ -108,20 +111,42 @@
             contentHeight: 450,
             selectable: true,
             editable: true,
+            slotMinTime: "00:00:00",
+            slotMaxTime: "24:00:00",
             initialView: 'timeGridWeek',
             slotDuration: '01:00',
             displayEventTime: true,
             allDaySlot: false,
             html: true,
-            dateClick: function(info) {
-                // alert('clicked ' + info.dateStr);
-                // $(this).css('background-color', 'red');
-                // alert('selected ' + info.dateStr);
+            events: [{
+                id: '00:00:00',
+                title: '12:00Am to 01:00Am',
 
-                // alert(info.dateStr);
+            }],
+            resources: [{
+                    id: '00:00:00',
+                    title: '12:00Am to 01:00Am',
+                }
+
+            ],
+            slotLabelFormat: [{
+                 
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    omitZeroMinute: true,
+                    meridiem: 'short'
+                }, 
+                {
+                    weekday: 'short'
+                } 
+            ],
+
+
+            dateClick: function(info, callback) {
+
                 $.confirm({
-                    title: 'Confirm!',
-                    content: 'Are You Sure Want to Book This Slot !',
+                    title: 'Are You Sure',
+                    content: 'Book This Slot !',
                     buttons: {
                         confirm: function() {
                             $.ajax({
@@ -133,17 +158,14 @@
                                 },
                                 success: function(result) {
 
+                                    var allData = result.data.original;
+
                                     toastr.success(result.error_msg);
-                                    getAjaxData();
-                                    // calendar.fullCalendar('renderEvent', {
-                                    //     icon: "<i class='fa fa-click'></i>",
-                                    // }, true);
-                                    // calendar.fullCalendar('unselect');
-                                    // eventRender: function(result, element) {
-                                    //     if (event.icon) {
-                                    //         result.find(".fc-title").prepend("<i class='fa fa-" + result.icon + "'></i>");
-                                    //     }
-                                    // }
+                                    var data = result.data.original;
+
+                                    calendar.refetchEvents();
+
+
                                 }
                             });
                         },
@@ -153,78 +175,74 @@
                     }
                 });
             },
-            
+
+            eventContent: {
+                html: '<a><i class="fa fa-check"></i></a>'
+            },
+
+
+            events: function(fetchInfo, callback) {
+
+                var events = [];
+                $.ajax({
+                    url: "{{route('add-tutor-availability-data')}}",
+                    type: 'get',
+                    success: function(result) {
+
+                        if (!!result) {
+                            $.map(result, function(r) {
+
+                                events.push({
+                                    start: r.available_datetime,
+                                    title: 'Available',
+                                    "textColor": "#ffffff"
+
+
+
+                                })
+
+                            });
+                        }
+                        callback(events);
+                    }
+                })
+
+
+            },
+
+
+
         });
+
+
+
+
         calendar.render();
 
     });
 
-    function getAjaxData() {
-        
-    
-            $.ajax({
-                url: "{{route('add-tutor-availability-data')}}",
-                type: 'get',
-                success: function(result) {
-
-                }
-            });
-        
-        }
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     var calendarEl = document.getElementById('calendar');
-
-        //     var calendar = new FullCalendar.Calendar(calendarEl, {
-        //         headerToolbar: {
-        //             left: 'prev,next',
-        //             center: 'title',
-        //             right: ''
-        //         },
-        //         contentHeight: 450,
-        //         selectable: true,
-        //         editable: true,
-        //         initialView: 'timeGridWeek',
-        //         slotDuration: '01:00',
-        //         displayEventTime: true,
-        //         allDaySlot: false,
-        //         dateClick: function(info) {
-        //             alert('clicked ' + info.dateStr);
-        //             // alert(info.dateStr);
-        //             $(this).css('background-color', 'red');
-        //         },
-        //         // selectOverlap: function(event) {
-        //         //     return event.rendering === $(this).css('background-color', 'red');
-        //         // },
-
-        //         eventContent: {
-        //             html: '<i class="fa-solid fa-check"></i>'
-        //         },
 
 
-        //     });
 
-        //     calendar.render();
-        // });
-
-        toastr.options.closeButton = true;
-        toastr.options.tapToDismiss = false;
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "3000",
-            "extendedTimeOut": 0,
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut",
-            "tapToDismiss": false
-        };
+    toastr.options.closeButton = true;
+    toastr.options.tapToDismiss = false;
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": 0,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    };
 </script>
 @endsection

@@ -34,7 +34,7 @@ class BookingsController extends Controller
             'available_datetime' => $finalDateTime,
         );
         $userData = TutorAvailabilityHelper::save($finalArr);
-        $finalArr['icon'] = "check";
+  
         if ($userData) {
             return response()->json(['error_msg' => "Successfully Updated", 'data' => $userData], 200);
         } else {
