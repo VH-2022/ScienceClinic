@@ -7,17 +7,26 @@
 <link rel="stylesheet" href="{{asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/font-awesome/all.min.css')}}" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
-
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 <div class="d-flex flex-column-fluid">
+
+
+
     <div class="container-fluid">
+
+
+
         <div class="d-flex flex-row">
+
+
+
             <div class="flex-row-fluid" id="personam_id">
 
                 <div class="card card-custom card-stretch">
+
+
 
                     <div class="card-header py-3">
                         <div class="card-title align-items-start flex-column">
@@ -88,12 +97,9 @@
 
     var calendar;
     var events = [];
-    var today = moment();
-    console.log(today);
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var tutorId = $('#tutor_id').val();
-        // console.log(calendarEl);
 
         calendar = new FullCalendar.Calendar(calendarEl, {
 
@@ -102,54 +108,26 @@
                 center: 'title',
                 right: ''
             },
-
-
-           
             contentHeight: 450,
             selectable: true,
             editable: true,
-            slotMinTime: "00:00:00",
-            slotMaxTime: "24:00:00",
             initialView: 'timeGridWeek',
             slotDuration: '01:00',
-
-            displayEventTime: true,
+            displayEventTime: false,
             allDaySlot: false,
             html: true,
-          
+       
 
-
-            // titleFormat: 'MMMM',
-
-
-            // events: [{
-            //     time: 'hh:mm',
-            //     title: '12:00 to 01:00',
-            // }],
-
-            // // slotLabelInterval: {
-            // //     days: 1
-            // // },
-            // resourceAreaHeaderContent: 'Rooms',
-            // resourceTimelineDay: {
-            //     type: 'resourceTimeline'
-            // },
-
-            // duration: {
-            //     weeks: 2
-            // },
-            // slotDuration: {
-            //     days: 1
-            // },
+            
 
             // slotLabelFormat: [{
+                
             //     hour: 'numeric',
-            //     // minute: '2-digit',
-            //     // omitZeroMinute: false,
-            //     hour24: true,
-            //     month: 'long',
-            //     year: 'numeric',
-            //     weekday: 'short'
+            //     minute: '2-digit',
+            //     omitZeroMinute: false,
+            //     // hour24: true,
+               
+                
             // }],
 
 
@@ -164,9 +142,8 @@
 
             //         hour: 'numeric',
             //         minute: '2-digit',
-            //         fread: '',
-            //         month: 'long',
-            //         year: 'numeric',
+            //         // fread: '',
+                 
             //         omitZeroMinute: true,
             //         meridiem: 'short'
             //     },
@@ -184,7 +161,7 @@
                     buttons: {
                         confirm: function() {
                             $.ajax({
-                                url: "{{route('add-tutor-availability')}}",
+                                url: "{{route('add-availability')}}",
                                 type: 'POST',
                                 data: {
                                     date: info.dateStr,
@@ -219,7 +196,7 @@
 
                 var events = [];
                 $.ajax({
-                    url: "{{route('add-tutor-availability-data')}}",
+                    url: "{{route('get-tutor-availability')}}",
                     type: 'get',
                     success: function(result) {
 
