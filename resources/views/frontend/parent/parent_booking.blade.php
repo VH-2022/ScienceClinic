@@ -118,28 +118,58 @@
             displayEventTime: true,
             allDaySlot: false,
             html: true,
-            events: [{
-                id: '00:00:00',
-                title: '12:00Am to 01:00Am',
+            // events: [{
+            //     time: 'hh:mm',
+            //     title: '12:00 to 01:00',
+            // }],
 
-            }],
-            resources: [{
-                    id: '00:00:00',
-                    title: '12:00Am to 01:00Am',
-                }
+            // // slotLabelInterval: {
+            // //     days: 1
+            // // },
+            // resourceAreaHeaderContent: 'Rooms',
+            resourceTimelineDay: {
+                type: 'resourceTimeline'
+            },
 
-            ],
+            // duration: {
+            //     weeks: 2
+            // },
+            // slotDuration: {
+            //     days: 1
+            // },
+
             slotLabelFormat: [{
-                 
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    omitZeroMinute: true,
-                    meridiem: 'short'
-                }, 
-                {
-                    weekday: 'short'
-                } 
-            ],
+                hour: 'numeric',
+                // minute: '2-digit',
+                // omitZeroMinute: false,
+                hour24: true,
+                month: 'long',
+                year: 'numeric',
+                weekday: 'short'
+            }],
+
+
+
+
+            // slotLabelFormat: [{
+            //         // hour: 'numeric',
+            //         // minute: '2-digit',
+            //         // omitZeroMinute: false,
+            //         // hour12: false
+            //         time: events,
+
+            //         hour: 'numeric',
+            //         minute: '2-digit',
+            //         fread: '',
+            //         month: 'long',
+            //         year: 'numeric',
+            //         omitZeroMinute: true,
+            //         meridiem: 'short'
+            //     },
+            //     {
+            //         weekday: 'short'
+            //     }
+            // ],
 
 
             dateClick: function(info, callback) {
