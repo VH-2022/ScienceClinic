@@ -1,9 +1,10 @@
 @extends('layouts.frontend')
 @section('content')
 @section('page-css')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
+<link rel="stylesheet" href="{{asset('front/css/jquery-ui.css')}}">
+
+<link rel="stylesheet" href="{{asset('assets/css/fullcalender-css/main.min.css')}}">
 <link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
 <style>
     .form-data .col-md-6,
@@ -12,7 +13,12 @@
     }
 </style>
 @endsection
-
+<style>
+    .fc-event-main {
+        float: middle;
+        text-align: center;
+    }
+</style>
 <div class="as-mainwrapper">
     <!--Bg White Start-->
     <div class="bg-white">
@@ -40,6 +46,8 @@
                                                     <p>Fully Qualified Science Teacher (all 3 Sciences) with QTS</p>
 
                                                 </div>
+
+                                                <input type="hidden" id="tutorid" value="{{$data->id}}">
                                                 <div class="single-item-content  pt-3">
                                                     <div class="title-education">
                                                         <h5>EDUCATION</h5>
@@ -182,7 +190,7 @@
                                                     'Saturday' => 'saturday',
                                                     'Sunday' => 'sunday'] @endphp
 
-                                                    
+
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Subject</label>
@@ -453,8 +461,10 @@
 
 @section('page-js')
 <script src="{{asset('front/js/bootstrap-select.min.js')}}"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+<script src="{{asset('front/js/vendor/jquery-1.12.4.min.js')}}"></script>
+
+<script src="{{asset('assets/js/fullcalender-js/main.min.js')}}"></script>
+
 <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 <script>
     $('.testimonial-english').owlCarousel({
@@ -577,7 +587,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-
+        var tutorId = $('#tutorid').val();
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
                 left: 'prev,next',
@@ -585,62 +595,48 @@
                 right: ''
             },
             contentHeight: "auto",
-            allDaySlot: false,
-            editable: true,
+
+
             initialView: 'timeGridWeek',
             slotDuration: '01:00',
             displayEventTime: false,
-            events: [
+            allDaySlot: false,
+            html: true,
 
-                {
-                    title: 'Booked',
-                    start: '2022-03-27T24:00:00',
-                    classNames: 'event-book-label',
-                },
-                {
-                    title: 'Booked',
-                    start: '2022-03-28T24:00:00',
-                    classNames: 'event-book-label',
-                },
-                {
-                    title: 'Booked',
-                    start: '2022-03-29T24:00:00',
-                    classNames: 'event-book-label',
-                },
-                {
-                    title: 'Booked',
-                    start: '2022-03-30T24:00:00',
-                    classNames: 'event-book-label',
-                },
-                {
-                    title: 'Booked',
-                    start: '2022-03-30T02:00:00',
-                    classNames: 'event-book-label',
-                },
-                {
-                    title: 'No availability',
-                    start: '2022-03-29T01:00:00',
-                    classNames: 'event-no-book-label',
-                },
-                {
-                    title: 'No availability',
-                    start: '2022-03-29T02:00:00',
-                    classNames: 'event-no-book-label',
-                },
-                {
-                    title: 'No availability',
-                    start: '2022-03-31T03:00:00',
-                    classNames: 'event-no-book-label',
-                },
-                {
-                    title: 'No availability',
-                    start: '2022-04-01T03:00:00',
-                    classNames: 'event-no-book-label',
-                }
+            eventContent: {
+                html: '<a><i class="fa fa-check"></i></a>'
+            },
+            events: function(fetchInfo, callback) {
 
-            ],
-            editable: false,
-            selectable: false
+                var events = [];
+                $.ajax({
+                    url: "{{route('tutor-availability-get')}}",
+                    type: 'get',
+                    data: {
+                        tutotid: tutorId
+                    },
+                    success: function(result) {
+
+                        if (!!result) {
+                            $.map(result, function(r) {
+
+                                events.push({
+                                    start: r.available_datetime,
+                                    title: 'Available',
+                                    "textColor": "#ffffff"
+
+
+
+                                })
+
+                            });
+                        }
+                        callback(events);
+                    }
+                })
+
+
+            },
         });
 
         calendar.render();
