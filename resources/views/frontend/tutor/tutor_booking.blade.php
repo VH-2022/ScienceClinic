@@ -9,7 +9,9 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
-
+<style>
+    
+</style>
 <div class="d-flex flex-column-fluid">
 
 
@@ -116,47 +118,16 @@
             displayEventTime: false,
             allDaySlot: false,
             html: true,
-       
-
-            
-
-            // slotLabelFormat: [{
-                
-            //     hour: 'numeric',
-            //     minute: '2-digit',
-            //     omitZeroMinute: false,
-            //     // hour24: true,
-               
-                
-            // }],
 
 
 
 
-            // slotLabelFormat: [{
-            //         // hour: 'numeric',
-            //         // minute: '2-digit',
-            //         // omitZeroMinute: false,
-            //         // hour12: false
-            //         time: events,
-
-            //         hour: 'numeric',
-            //         minute: '2-digit',
-            //         // fread: '',
-                 
-            //         omitZeroMinute: true,
-            //         meridiem: 'short'
-            //     },
-            //     {
-            //         weekday: 'short'
-            //     }
-            // ],
 
 
             dateClick: function(info, callback) {
 
                 $.confirm({
-                    title: 'Are You Sure',
+                    title: 'Are You Sure ?',
                     content: 'Book This Slot !',
                     buttons: {
                         confirm: function() {

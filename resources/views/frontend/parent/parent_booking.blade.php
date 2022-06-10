@@ -93,8 +93,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var tutorId = $('#tutor_id').val();
-        // console.log(calendarEl);
-
+    
         calendar = new FullCalendar.Calendar(calendarEl, {
 
             headerToolbar: {
@@ -117,63 +116,6 @@
             allDaySlot: false,
             html: true,
           
-
-
-            // titleFormat: 'MMMM',
-
-
-            // events: [{
-            //     time: 'hh:mm',
-            //     title: '12:00 to 01:00',
-            // }],
-
-            // // slotLabelInterval: {
-            // //     days: 1
-            // // },
-            // resourceAreaHeaderContent: 'Rooms',
-            // resourceTimelineDay: {
-            //     type: 'resourceTimeline'
-            // },
-
-            // duration: {
-            //     weeks: 2
-            // },
-            // slotDuration: {
-            //     days: 1
-            // },
-
-            // slotLabelFormat: [{
-            //     hour: 'numeric',
-            //     // minute: '2-digit',
-            //     // omitZeroMinute: false,
-            //     hour24: true,
-            //     month: 'long',
-            //     year: 'numeric',
-            //     weekday: 'short'
-            // }],
-
-
-
-
-            // slotLabelFormat: [{
-            //         // hour: 'numeric',
-            //         // minute: '2-digit',
-            //         // omitZeroMinute: false,
-            //         // hour12: false
-            //         time: events,
-
-            //         hour: 'numeric',
-            //         minute: '2-digit',
-            //         fread: '',
-            //         month: 'long',
-            //         year: 'numeric',
-            //         omitZeroMinute: true,
-            //         meridiem: 'short'
-            //     },
-            //     {
-            //         weekday: 'short'
-            //     }
-            // ],
 
 
             dateClick: function(info, callback) {
