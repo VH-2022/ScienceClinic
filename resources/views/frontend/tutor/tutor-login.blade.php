@@ -36,12 +36,12 @@
                                             <div>
                                                 <div class="contact-form-area">
                                                     <div class="form-floating custom-float">
-                                                        <input class="mb-0" type="text" name="email" id="email" placeholder="Email">
+                                                        <input autocomplete="off" class="mb-0" type="text" name="email" id="email" placeholder="Email">
                                                         <img src="{{ asset('front/img/email1.svg')}}" alt="email icon" class="login-input">
                                                         <span style="color: red;" id="emailerror">{{ $errors->first('email') }}</span>
                                                     </div>
                                                     <div class="form-floating custom-float">
-                                                        <input class="mb-0" type="password" id="password" name="password" placeholder="password">
+                                                        <input autocomplete="off" class="mb-0" type="password" id="password" name="password" placeholder="Password">
                                                         <button id="toggle-password" class="pass-icons" type="button">
                                                             <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
                                                             <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
@@ -57,7 +57,7 @@
                                                         </label>
                                                     </div>
                                                     <div class="mb-30">
-                                                        <a href="javascript:void(0)" class="link-text"> Forgot
+                                                        <a href="{{route('forgot-password-user')}}" class="link-text"> Forgot
                                                             Password?</a>
 
                                                     </div>
@@ -65,7 +65,7 @@
                                                 <button type="submit" class="btn btn1 btn-primary w-100 login1-btn">Login</button>
                                                 <div class="text-center mt-20 account-text">
 
-                                                    Don't have an account?<a href="#" class="link-text"> Register</a>
+                                                    Don't have an account?<a href="{{URL('become-tutor')}}" class="link-text"> Register</a>
                                                 </div>
                                             </div>
                                         </div>

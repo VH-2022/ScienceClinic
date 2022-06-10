@@ -85,12 +85,12 @@ class ParentAccountController extends Controller
         $auth  = auth()->user();
         $rules = array(
             'oldpassword' => 'required',
-            'newpassword' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
-            'confirmpassword' => 'required|same:newpassword|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'newpassword' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
+            'confirmpassword' => 'required|same:newpassword|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
         );
         $messsages = array(
-            'newpassword.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
-            'confirmpassword.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters'
+            'newpassword.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters',
+            'confirmpassword.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters'
         );
         $validator = Validator::make($request->all(), $rules, $messsages);
 

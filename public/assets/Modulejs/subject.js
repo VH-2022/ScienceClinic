@@ -380,7 +380,8 @@
 
                 var validation_status = 0;
 
-                var validation_filed_array = ['title', 'sub_title', 'title_section_one','subject_description'];
+                // var validation_filed_array = ['title', 'sub_title', 'title_section_one','subject_description'];
+                var validation_filed_array = ['title'];
 
                 for (var i = 0; i < validation_filed_array.length; i++) {
 
@@ -410,17 +411,17 @@
 
                 }
 
-                else {
+                /*else {
 
                     $('.subject_image_error').html("Please select Image");
 
                     validation_status = 1;
 
-                }
+                }*/
 
 
 
-                var subject_description = CKEDITOR.instances['subject_description'].getData();
+                /*var subject_description = CKEDITOR.instances['subject_description'].getData();
 
                 $('.subject_description_error').removeClass('is-valid');
 
@@ -436,7 +437,7 @@
 
                         validation_status = 1;
 
-                }
+                }*/
 
                 /*$('input[name="section_one_title_more[]"]').each(function (e) {
 
@@ -497,7 +498,7 @@
 
 
 
-                $('input[name="title_section_two[]"]').each(function (e) {
+                /*$('input[name="title_section_two[]"]').each(function (e) {
 
                     var title = $(this).val();
 
@@ -559,7 +560,7 @@
 
                     
 
-                })
+                })*/
 
                 if (validation_status == 0) {
 
@@ -691,7 +692,8 @@
 
             var validation_status = 0;
 
-            var validation_filed_array = ['title', 'sub_title', 'title_section_one'];
+            // var validation_filed_array = ['title', 'sub_title', 'title_section_one'];
+            var validation_filed_array = ['title'];
 
             for (var i = 0; i < validation_filed_array.length; i++) {
 
@@ -723,23 +725,23 @@
 
             
 
-            var subject_description = CKEDITOR.instances['subject_description'].getData();
+            /*var subject_description = CKEDITOR.instances['subject_description'].getData();
 
-                $('.subject_description_error').removeClass('is-valid');
+            $('.subject_description_error').removeClass('is-valid');
 
-                $('.subject_description_error').html("");
+            $('.subject_description_error').html("");
 
-                if(subject_description.trim() ==''){
+            if(subject_description.trim() ==''){
 
-                   var  dataMSG = $('#subject_description').attr('data-msg');
+                var  dataMSG = $('#subject_description').attr('data-msg');
 
-                    $('.subject_description_error').addClass('is-invalid').removeClass('is-valid');
+                $('.subject_description_error').addClass('is-invalid').removeClass('is-valid');
 
-                        $('.subject_description_error').html(dataMSG + ' is required.');
+                    $('.subject_description_error').html(dataMSG + ' is required.');
 
-                        validation_status = 1;
+                    validation_status = 1;
 
-                }
+            }*/
 
 
 
@@ -808,7 +810,7 @@
 
 
 
-            $('input[name="title_section_two[]"]').each(function (e) {
+            /*$('input[name="title_section_two[]"]').each(function (e) {
 
                 var title = $(this).val();
 
@@ -870,7 +872,7 @@
 
                 
 
-            })
+            })*/
 
 
 

@@ -16,7 +16,7 @@
 
                         <div class="text-content text-center-content">
 
-                            <h1 class="title1 text-center max-englishtext mb-20">
+                            <h1 class="title1 text-center max-englishtext mb-20 mt-0">
 
                                 <span class="tlt block" data-in-effect="fadeInRight" data-out-effect="fadeOutRight"><span aria-label="English Language &amp; Literature Tuition" style="visibility: hidden;"><span class="word1" aria-hidden="true" aria-label="English" style="display: inline-block; transform: translate3d(0px, 0px, 0px);">
 
@@ -125,7 +125,7 @@
                     <div class="qualified-details">
 
                         <p>
-
+                        
                             {!! $query->description !!}
 
 
@@ -156,7 +156,7 @@
 
                 <p>
 
-                    {{ $keys_val->description }}
+                    {!! $keys_val->description !!}
 
                 </p>
 

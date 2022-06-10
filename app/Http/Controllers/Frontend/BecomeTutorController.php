@@ -144,14 +144,14 @@ class BecomeTutorController extends Controller
 
             'user_name' => 'required | max:30',
 
-            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
 
             'university' => 'required | max:35',
 
             'qualification' => 'required | max:35',
         );
         $messsages = array(
-            'password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters'
+            'password.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters'
         );
         $validator = Validator::make($request->all(), $rules, $messsages);
 

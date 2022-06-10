@@ -216,5 +216,36 @@ class UserHelper
         $query  = User::whereNull('deleted_at')->where('id', '!=', $id)->where('email', $email)->count();
         return $query;	
     }
+
+    public static function getUserByEmail($email){
+        $query  = User::whereNull('deleted_at')->where('email', $email)->first();
+        return $query;
+    }
+    public static function updateOTP($email, $rand){
+        $data['otp'] = $rand;
+        $query  = User::where('email', $email)->update($data);
+        return $query;
+    }
+    public static function getByOTP($otp){
+        $query  = User::where('otp', $otp)->first();
+        return $query;
+    }
+    public static function updatePassword($otp, $data){
+        $query  = User::where('otp', $otp)->update($data);
+        return $query;
+    }
+    public static function checkEmailAdmin($email)
+    {
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',1)->count();
+        return $query;
+    }
+    public static function getAdminByEmail($email){
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',1)->first();
+        return $query;
+    }
+    public static function getTutors(){
+        $query  = User::whereNull('deleted_at')->where('type',2)->where('status',"Accepted")->get();
+        return $query;
+    }
 }
 

@@ -41,8 +41,7 @@
                     <td>{{ $val->university_name }}</td>
 
                     <td>{{ $val->qualification }}</td>
-
-                    <td><a href="{{asset('uploads/user/certificate/')}}/{{$val->document_image}}" download target="_blank">{{ $val->document_image }}</a></td>
+                    <td><a href="{{$val->document_image}}" download target="_blank"><i class="far fa-file-pdf"></i></a></td>
 
                     <td>
 

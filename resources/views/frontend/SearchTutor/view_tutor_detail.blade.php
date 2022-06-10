@@ -5,6 +5,12 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
 <link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
+<style>
+    .form-data .col-md-6,
+    .form-data .col-md-12 {
+        margin-bottom: 23px;
+    }
+</style>
 @endsection
 
 <div class="as-mainwrapper">
@@ -137,24 +143,24 @@
                                         <div class="col-lg-10 col-md-12 col-12">
                                             <form id="submitinquiry" method="POST">
                                                 @csrf
-                                                <div class="row">
+                                                <div class="row form-data">
 
                                                     <input type="hidden" name="tutorid" value="{{$data->id}}">
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">First Name</label>
-                                                        <input type="text " class="mb-0" id="first_name" name="first_name" placeholder="First Name ">
+                                                        <input autocomplete="off" type="text" class="mb-0" id="first_name" name="first_name" placeholder="First Name ">
                                                         <span class="text-danger" id="error_first_name"></span>
 
                                                     </div>
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Last Name</label>
-                                                        <input type="text" class="mb-0" id="last_name" name="last_name" placeholder="Last Name ">
+                                                        <input autocomplete="off" type="text" class="mb-0" id="last_name" name="last_name" placeholder="Last Name ">
                                                         <span class="text-danger" id="error_last_name"></span>
 
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 ">
                                                         <label class="tutor-label">Email</label>
-                                                        <input type="text" class="mb-0" id="email" name="email" placeholder="Email ">
+                                                        <input autocomplete="off" type="text" class="mb-0" id="email" name="email" placeholder="Email ">
                                                         <span class="text-danger" id="error_email"></span>
 
                                                     </div>
@@ -164,7 +170,7 @@
                                                     </div> -->
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Phone</label>
-                                                        <input type="text " class="mb-0 numberCls" id="phone" name="phone" placeholder="Phone " maxlength="12">
+                                                        <input autocomplete="off" type="text" class="mb-0 numberCls" id="phone" name="phone" placeholder="Phone " maxlength="12">
                                                         <span class="text-danger" id="error_phone"></span>
 
                                                     </div>
@@ -240,14 +246,14 @@
 
                                                     <div class="col-md-12">
                                                         <label class="tutor-label">Address</label>
-                                                        <textarea name="address" cols="20" rows="10" id="address" placeholder="Address" class="mb-0"></textarea>
+                                                        <textarea autocomplete="off" name="address" cols="20" rows="10" id="address" placeholder="Address" class="mb-0"></textarea>
                                                         <span class="text-danger" id="error_address"></span>
 
                                                     </div>
 
                                                     <div class="col-md-6 col-lg-6">
                                                         <label class="tutor-label">Username</label>
-                                                        <input type="text" class="mb-0" name="username" id="username" placeholder="Username ">
+                                                        <input autocomplete="off" type="text" class="mb-0" name="username" id="username" placeholder="Username ">
                                                         <span class="text-danger" id="error_username"></span>
 
                                                     </div>
@@ -263,7 +269,7 @@
                                                         <div class="form-check custom-check">
                                                             <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
                                                             <label class="form-check-label condition-text" for="defaultCheck1">
-                                                                <a class="condition-text" href="#">Terms & conditions </a>
+                                                                <a class="condition-text" href="terms-and-conditions.html">Terms & conditions </a>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -289,16 +295,16 @@
 
                                                     <div class="mb-3 mt-3">
                                                         <label for="comment">Description</label>
-                                                        <textarea class="form-control mb-0" rows="5" id="description" name="description"></textarea>
+                                                        <textarea autocomplete="off" class="form-control mb-0" rows="5" id="description" name="description"></textarea>
                                                         <span class="text-danger" id="error_description"></span>
                                                     </div>
-                                                    <form action="">
-                                                        <div class="row">
+                                                    <form action="" id="review-form">
+                                                        <div class="row form-data">
                                                             <div class="col-6">
 
                                                                 <div class="from-group">
                                                                     <label for="subject">Subject:</label>
-                                                                    <input type="text" class="form-control mb-0" maxlength="30" id="subject" placeholder="" name="subject">
+                                                                    <input autocomplete="off" type="text" class="form-control mb-0" maxlength="30" id="subject" placeholder="" name="subject">
                                                                 </div>
                                                                 <span class="text-danger" id="error_subject"></span>
                                                             </div>
@@ -306,7 +312,7 @@
                                                             <div class="col-6">
                                                                 <div class="from-group">
                                                                     <label for="outcome">Outcome:</label>
-                                                                    <input type="text" class="form-control mb-0" maxlength="30" id="outcome" placeholder="" name="outcome">
+                                                                    <input autocomplete="off" type="text" class="form-control mb-0" maxlength="30" id="outcome" placeholder="" name="outcome">
                                                                 </div>
                                                                 <span class="text-danger" id="error_outcome"></span>
                                                             </div>
@@ -376,161 +382,7 @@
 </div>
 </section>
 
-<div class="testimonial-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 offset-lg-0 col-md-12 col-12">
-                <div class="owl-carousel owl-theme testimonial-english">
-                    <div class="item">
-                        <div class="card single-product-item">
-                            <div class="card-body single-product-text card-pdtestimonial">
-                                <div class="content-slideeng">
-                                    <div class="slider-feedsec">
-                                        <div class="quotes-testi testi1">
-                                            <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
-                                        </div>
-                                        <div class="max-textquote">
-                                            <p class="mb-0 we-likep">
-                                                We would like to pass on our feedback and show appreciation for Mr
-                                                Hamalabi from Science Clinic Private Tutoring Ltd who worked with
-                                                our daughter and improved her Chemistry & Physics skills in the run
-                                                up to her GCSE exams He was only with us for a short
-                                                time but the work he did in that short period of time was
-                                                unbelievable. Kayleigh got A* in both subjects.
-
-                                            </p>
-                                            <p class="float-right writer-text">
-                                                - B.K. Thomas
-                                            </p>
-                                        </div>
-                                        <div class="quotes-testi testi2">
-                                            <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card single-product-item">
-                            <div class="card-body single-product-text card-pdtestimonial">
-                                <div class="content-slideeng">
-                                    <div class="slider-feedsec">
-                                        <div class="quotes-testi testi1">
-                                            <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
-                                        </div>
-                                        <div class="max-textquote">
-                                            <p class="mb-0 we-likep">
-                                                Thank you Science Clinic Private Tutoring Ltd for your prompt and
-                                                efficient service. It was so simple, I wish we had found you sooner.
-
-                                            </p>
-                                            <p class="float-right writer-text">
-                                                - C.H. (Colchester)
-                                            </p>
-                                        </div>
-                                        <div class="quotes-testi testi2">
-                                            <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card single-product-item">
-                            <div class="card-body single-product-text card-pdtestimonial">
-                                <div class="content-slideeng">
-                                    <div class="slider-feedsec">
-                                        <div class="quotes-testi testi1">
-                                            <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
-                                        </div>
-                                        <div class="max-textquote">
-                                            <p class="mb-0 we-likep">
-                                                Can't believe how quickly this has worked. I went on the Internet on
-                                                15th January and Chloe had a lesson today with Mr Hamalabi who is
-                                                only 5 minutes drive away from us. We are so pleased and delighted.
-
-                                            </p>
-                                            <p class="float-right writer-text">
-                                                - J.J. Brown
-                                            </p>
-                                        </div>
-                                        <div class="quotes-testi testi2">
-                                            <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card single-product-item">
-                            <div class="card-body single-product-text card-pdtestimonial">
-                                <div class="content-slideeng">
-                                    <div class="slider-feedsec">
-                                        <div class="quotes-testi testi1">
-                                            <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
-                                        </div>
-                                        <div class="max-textquote">
-                                            <p class="mb-0 we-likep">
-                                                I would like you to know how delighted we have been with Mr Hamalabi
-                                                who has provided home tuitions in Physics, Mathematics & Chemistry
-                                                to my daughter for 3 years. She went from C grade at the end of year
-                                                9 to getting A*, A & A respectively in her GCSE.
-
-                                            </p>
-                                            <p class="float-right writer-text">
-                                                - J.C. Paula
-                                            </p>
-                                        </div>
-                                        <div class="quotes-testi testi2">
-                                            <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="card single-product-item">
-                            <div class="card-body single-product-text card-pdtestimonial">
-                                <div class="content-slideeng">
-                                    <div class="slider-feedsec">
-                                        <div class="quotes-testi testi1">
-                                            <img src="{{asset('front/img/svg/left-quotes.png')}}" alt="left-quotes">
-                                        </div>
-                                        <div class="max-textquote">
-                                            <p class="mb-0 we-likep">
-                                                We are grateful to Mr Hamalabi from Science Clinic Private Tutoring
-                                                Ltd for giving Tom confidence and for assisting him greatly in
-                                                improving his performance to the level of getting A & A* in Biology,
-                                                Chemistry & Physics.
-
-                                            </p>
-                                            <p class="float-right writer-text">
-                                                - C.K. Tommy
-                                            </p>
-                                        </div>
-                                        <div class="quotes-testi testi2">
-                                            <img src="{{asset('front/img/svg/right-quotes.png')}}" alt="right-quotes">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+@include('frontend.testimonial.testmonial')
 
 <div class="ec-colorswitcher ">
     <a class="ec-handle " href="# "><i class="zmdi zmdi-settings "></i></a>
@@ -604,7 +456,28 @@
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
 <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
-
+<script>
+    $('.testimonial-english').owlCarousel({
+        loop: false,
+        margin: 10,
+        nav: true,
+        navText: ["<img src='{{ asset('front/img/svg/left-arrow-test.png') }}'>",
+            "<img src='{{ asset('front/img/svg/right-arrow-test.png') }}'>"
+        ],
+        dots: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            }
+        }
+    })
+</script>
 <script>
     function ValidateEmail(email) {
 
@@ -653,10 +526,12 @@
                     'rating': rating
                 },
                 success: function(res) {
-                    console.log(res.data);
+                    toastr.success(res.error_msg);
                     var review = '<div class=single-comment><div class=comment-text><div class=author-info><h4><a href=#>MD Tokdir Ali</a></h4><span class=reply><div class=review-score><div class="stars stars2"aria-label="Rating of this product is 2.3 out of 5."style=--rating:' + res.data.rating + '></div></div></span></div><p>' + res.data.descriptions + '<div class=author-subject><div class=subject-divs><p class=subject-details>Subject :<p class=subject-name>' + res.data.subject + '</div><div class=subject-divs><p class=subject-details>Outcome :<p class=subject-name>' + res.data.outcome + '</div></div></div></div>';
                     $('#reviewcomment').html("");
                     $('#reviewcomment').html(review);
+                    $('#description').val("");
+                    $('#review-form').trigger("reset");
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     var tempVal = 0;
@@ -790,7 +665,10 @@
             }
         }
     })
-
+    function ValidatePassword(password) {
+        var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
+        return expr.test(password);
+    }
     function saveinquiry() {
         var firstName = $('#first_name').val();
         var lastName = $('#last_name').val();
@@ -855,6 +733,11 @@
         if (password == '') {
             $('#error_password').html('Password is required');
             temp++;
+        } else {
+            if(!ValidatePassword(password)){
+                $("#error_password").html("Password should include 6 charaters, alphabets, numbers and special characters");
+                temp++;
+            }
         }
         if (subject.trim() == '') {
             $('#error_subjectinquiry').html('Subject is required');
@@ -883,7 +766,6 @@
                 contentType: false,
                 cache: false,
                 success: function(res) {
-                    console.log(res.data);
                     toastr.success(res.error_msg);
                     $('#submitinquiry').trigger("reset");
                 },
@@ -983,6 +865,26 @@
 </script>
 
 <script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": 0,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    };
+</script>
+<script>
     @if(Session::has('success'))
     toastr.success("{{ session('success') }}");
     @endif
@@ -999,5 +901,4 @@
     toastr.warning("{{ session('warning') }}");
     @endif
 </script>
-
 @endsection

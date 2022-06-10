@@ -1194,13 +1194,15 @@ input[type="number"] {
     line-height: 29px!important;
     text-transform: capitalize;
     letter-spacing: 0.3px;
-    padding: 8px 18px 0px;
+    /* padding: 8px 18px 0px; */
+    padding: 8px 16px 0px;
 }
 
 .mainmenu li>.sub-menu i {
     float: right;
     font-size: 17px;
-    top: 10px;
+    /* top: 10px; */
+    top: 6px;
 }
 
 .mainmenu ul#nav li:last-child,
@@ -5237,8 +5239,8 @@ a.green-atag, a.green-atag:hover {
 
 .padding-headsection {
     /* padding: 60px 0px; */
-    /* padding: 100px 0px; */
-    padding: 10PX 0PX;
+    padding: 100px 0px;
+    /* padding: 10PX 0PX; */
 }
 
 .english-abc {
@@ -5310,19 +5312,19 @@ a.green-atag, a.green-atag:hover {
     align-items: center;
 }
 
-.testimonial-english .owl-nav .owl-prev {
-    border: 2px solid #435a71;
-    padding: 5px 5px 5px 10px;
-    box-shadow: 0 0 8px rgb(34 30 31 / 30%);
-    background: #f6f6f6;
+.owl-carousel.testimonial-english .owl-nav .owl-prev {
+    border: 2px solid #435a71 !important;
+    padding: 5px 5px 5px 10px !important;
+    box-shadow: 0 0 8px rgb(34 30 31 / 30%)  !important;
+    background: #f6f6f6 !important;
 }
 
-.testimonial-english .owl-nav .owl-next {
-    border: 2px solid #435a71;
-    padding: 5px 10px 5px 5px;
-    margin-left: 10px;
-    box-shadow: 0 0 8px rgb(34 30 31 / 30%);
-    background: #f6f6f6;
+.owl-carousel.testimonial-english .owl-nav .owl-next {
+    border: 2px solid #435a71 !important;
+    padding: 5px 10px 5px 5px !important;
+    margin-left: 10px !important;
+    box-shadow: 0 0 8px rgb(34 30 31 / 30%) !important;
+    background: #f6f6f6 !important;
 }
 
 .testimonial-english .single-product-item {
@@ -6100,10 +6102,14 @@ p.title-contact {
 
 .btn-remove-customer {
    position: absolute;
-   top: 9px;
-   right: 150px;
+   top: -2px;
+   right: 51px;
 }
-
+.btn-remove-customer2 {
+    position: absolute;
+    top: 11px;
+    right: 51px;
+ }
 .remove {
     margin-top: 20px;
    position: relative;
@@ -6111,7 +6117,7 @@ p.title-contact {
 .add{
 position: absolute;
 right: 0;
-top: 11px;
+top: 9px;
 }
 .fa-icon{
    color: #FFF;
@@ -6647,7 +6653,7 @@ p.section-read{
 }
 .file-upload-box{
     width: 50px;
-    height: 71px;
+    height: 48px;
     opacity: 0;
     position: relative;
     z-index: 9999;
@@ -8515,4 +8521,9 @@ label:hover~input:checked~label
     {
     color: #ffc107;
 }
- 
+#scrollUp i{
+    line-height: 37px;
+}
+.social-icons a i {
+    line-height: 31px;
+}

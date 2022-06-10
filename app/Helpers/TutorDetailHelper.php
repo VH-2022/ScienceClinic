@@ -83,7 +83,11 @@ class TutorDetailHelper
         $query = TutorDetail::whereRaw('sha1(tutor_id)="' . $id . '"')->first();
         return $query;
     }
-   
+    public static function getDBSDetails($id)
+    {
+        $query = TutorDetail::where('tutor_id', $id)->first();
+        return $query;
+    }
     public static function getOtherListwithPaginate($id){
 
         $query = TutorDetail::where('tutor_id',$id)->paginate(10);

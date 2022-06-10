@@ -192,6 +192,10 @@
             /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         return expr.test(email);
     }
+    function ValidatePassword(password) {
+        var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
+        return expr.test(password);
+    }
     toastr.options.closeButton = true;
     toastr.options.tapToDismiss = false;
     toastr.options = {
@@ -465,8 +469,8 @@
         }
 
         if (new_password.trim() != '') {
-            if (new_password.length < 6) {
-                $('#new_password_error').html("New Password atleast six character allowed.");
+            if (!ValidatePassword(new_password)) {
+                $('#new_password_error').html("Password should include 6 charaters, alphabets, numbers and special characters");
                 temp++;
             }
         }

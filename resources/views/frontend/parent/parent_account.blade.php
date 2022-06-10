@@ -152,6 +152,10 @@
 @endsection
 @section('page-js')
 <script>
+    function ValidatePassword(password) {
+        var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
+        return expr.test(password);
+    }
     $('.numberCls').keypress(function(event) {
         if (event.keyCode < 48 || event.keyCode > 57) {
             event.preventDefault();
@@ -352,8 +356,8 @@
         }
 
         if (new_password.trim() != '') {
-            if (new_password.length < 6) {
-                $('#newpassword_error').html("New Password atleast six character allowed.");
+            if (!ValidatePassword(new_password)) {
+                $('#newpassword_error').html("Password should include 6 charaters, alphabets, numbers and special characters");
                 temp = 1;
             }
         }

@@ -186,7 +186,7 @@
 
                                         <ul class="sub-menu mobile-section border-bottom-ul">
 
-                                            <li><a href="tutors.html">Tutors</a></li>
+                                            <li><a href="{{route('tutors')}}">Tutors</a></li>
 
 
 

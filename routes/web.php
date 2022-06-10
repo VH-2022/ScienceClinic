@@ -44,6 +44,10 @@ Route::get('/clear-optimize', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
     Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
+    Route::get('check-email-admin', "LoginController@checkEmail")->name('check-email-admin');
+    Route::post('forgot-password-admin-verify', "ForgotPasswordController@forgotPasswordAdminVerify")->name('forgot-password-admin-verify');
+    Route::get('admin-reset-password/{id}', 'ResetPasswordController@ResetPassword')->name('admin-reset-password');
+    Route::post('update-admin-password/{id}', 'ResetPasswordController@UpdatePasswordAdmin')->name('update-admin-password');
     $admins->middleware(['auth:super_admin', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('logout-super-admin', 'LoginController@logout')->name('super-admin-logout');
         $backendVerified->get('admin','DashboardController@index')->name('admin-dashboard');
@@ -79,11 +83,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
         $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
         $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
-
-       
         $backendVerified->get('testimonial-ajax', "TestimonialController@ajaxList")->name('testimonial-ajax');
         $backendVerified->resource('testimonial', "TestimonialController");
-        
     });
 });
 
@@ -96,7 +97,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('check-email', "BecomeTutorController@checkEmail")->name('check.email');
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
-    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
+    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
     $frontend->get('blog', "BlogController@index")->name('blog');
@@ -104,6 +105,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
 
     $frontend->resource('contact', "ContactController");
     $frontend->get('about', "AboutsController@index")->name('about');
+    $frontend->get('forgot-password-user', 'ForgotPasswordController@index')->name('forgot-password-user');
+    $frontend->post('forgot-password-verify', 'ForgotPasswordController@ForgotPasswordVerify')->name('forgot-password-verify');
+    $frontend->get('user-reset-password/{id}', 'ResetPasswordController@ResetPassword')->name('user-reset-password');
+    $frontend->post('update-user-password/{id}', 'ResetPasswordController@UpdatePassword')->name('update-user-password');
+    $frontend->get('tutors', 'TutorListController@index')->name('tutors');
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
