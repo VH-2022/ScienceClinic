@@ -44,9 +44,10 @@
                         <div class="col-md-12 col-lg-9">
                             <div class="row">
                                 @foreach($tutorData as $val)
-                                
+                          
                                     <div class="col-md-6 col-lg-4 tutor-card">
-                                        <a class="tutor-content" href="tutors-details.html">
+                                        
+                                        <a class="tutor-content" href="{{route('tutors-details',sha1($val->id))}}">
                                             <div class="single-product-item">
                                                 <div class="single-product-image">
                                                     <img src="{{$val->profile_photo}}">
@@ -67,6 +68,7 @@
                                     <div class="subject-details">
                                         <h3 class="compares-papers">Subject
                                         </h3>
+                                        @foreach($allSubjectsData as $subject)
                                         <div class="max-hgt-subject">
                                             <ul class="subject-uls">
                                                 <li class="position-relative">
@@ -74,12 +76,13 @@
                                                         <div class="custom-control custom-radio">
                                                             <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
 
-                                                            <label class="custom-control-label" for="customRadio1">Maths </label>
+                                                            <label class="custom-control-label" for="customRadio1">{{$subject->main_title}} </label>
                                                         </div>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -87,6 +90,7 @@
                                     <div class="subject-details res-pt-30">
                                         <h3 class="compares-papers">Education Level
                                         </h3>
+                                        @foreach($allLevelData as $level)
                                         <div class="max-hgt-subject">
                                             <ul class="subject-uls">
                                                 <li class="position-relative">
@@ -94,13 +98,15 @@
                                                         <div class="custom-control custom-radio">
                                                             <input type="checkbox" id="level1" name="level" class="custom-control-input">
 
-                                                            <label class="custom-control-label" for="level1">11
-                                                                Plus</label>
+                                                            <label class="custom-control-label" for="level1">{{$level->title}}</label>
+
+                                                            
                                                         </div>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
+                                        @endforeach
                                     </div>
                                     <div class="banner-readmore mt-4">
                                         <a class="button-default inline" href="javascript:void(0)">Filter</a>

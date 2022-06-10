@@ -100,7 +100,7 @@ class FindATutorController extends Controller
         $data['subject_list'] = SubjectHelper::getAllSubjectList();
 
         $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
-
+            
         return view('frontend.SearchTutor.view_tutor_detail', $data);
     }
     public function saveReview(Request $request)
