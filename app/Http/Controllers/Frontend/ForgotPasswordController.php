@@ -39,8 +39,14 @@ class ForgotPasswordController extends Controller
             $body_email = __('emails.template', ['BODYCONTENT' => $BODY]);
             $mail = MailHelper::mail_send($body_email, $email, $subject);
             $update = UserHelper::updateOTP($email, $rand);
+            $checkdata = UserHelper::getUserByEmail($email);
             Session::flash('success', trans('messages.successMail'));
-            return redirect()->route('tutor-login');
+            if($checkdata->type == "2"){
+                return redirect('tutor-login');
+            }
+            else{
+                return redirect('parent-login');
+            }
         } else {
             Session::flash('error', trans('messages.errorWrongMail'));
             return redirect()->route('forgot-password');
