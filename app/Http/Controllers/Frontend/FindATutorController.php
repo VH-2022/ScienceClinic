@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Helpers\ParentDetailHelper;
 use App\Helpers\ReviewMasterHelper;
 use App\Helpers\SubjectHelper;
+use App\Helpers\TutorAvailabilityHelper;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -29,6 +30,7 @@ use App\Helpers\TutorDetailHelper;
 use App\Helpers\TutorLevelHelper;
 use App\Helpers\TutorUniversityDetailHelper;
 use App\Models\ParentDetail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
@@ -43,9 +45,6 @@ class FindATutorController extends Controller
 
         return view('frontend.SearchTutor.index');
     }
-
-
-
 
 
     public function getTutors(Request $request)
@@ -136,8 +135,7 @@ class FindATutorController extends Controller
     public function saveInquiry(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-
+        $rules = array(
             'first_name' => 'required| max:30',
 
             'last_name' => 'required| max:30',
@@ -158,9 +156,17 @@ class FindATutorController extends Controller
 
             'username' => 'required| max:30',
 
-            'password' => 'required| min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
+            'password' => ['required','min:6','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/'],
+            
+        );
+        $messsages = array(
+            'password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
+           
+        );
+        $validator = Validator::make($request->all(), $rules, $messsages);
+          
 
-        ]);
+        
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
         } else {
@@ -207,5 +213,11 @@ class FindATutorController extends Controller
                 return response()->json(['error_msg' => "Successfully instered", 'data' => $inquiryArr], 200);
             }
         }
+    }
+    public function tutorAvailabilityDetails(Request $request)
+    {
+        
+        $data = TutorAvailabilityHelper::getData($request->tutotid);
+        return response()->json($data);
     }
 }

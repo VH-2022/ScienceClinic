@@ -97,7 +97,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('check-email', "BecomeTutorController@checkEmail")->name('check.email');
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
-    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');
+    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
+    $frontend->get('tutor-availability-get', "FindATutorController@tutorAvailabilityDetails")->name('tutor-availability-get');
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
     $frontend->get('blog', "BlogController@index")->name('blog');
@@ -129,6 +130,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->put('update-tutor', "TutorAccountController@updateProfile")->name('update-tutor');
         $backendVerified->get('check-password-tutor', "TutorAccountController@checkCurrentPassword")->name('check-password-tutor');
         $backendVerified->post('update-password-tutor', "TutorAccountController@updatePassword")->name('update-password-tutor');
+        $backendVerified->get('tutor-availability', 'TutorAvailabilityController@index')->name('tutor-availability');
+        $backendVerified->post('add-availability', 'TutorAvailabilityController@addTutorAvailability')->name('add-availability');
+        $backendVerified->get('get-tutor-availability', 'TutorAvailabilityController@getTutorAvailabilityDetails')->name('get-tutor-availability');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
@@ -143,8 +147,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->post('update-parent', 'ParentAccountController@parentUpdate')->name('update-parent');
         $parentVerified->get('check-old-password', 'ParentAccountController@checkOldPassword')->name('check-old-password');
         $parentVerified->post('update-password', 'ParentAccountController@updatePassword')->name('update-password');
-       
         $parentVerified->get('parent-logout', 'ParentLoginController@logout')->name('parent-logout');
+        $parentVerified->get('bookings', 'BookingsController@index')->name('booking.index');
+        $parentVerified->post('add-tutor-availability', 'BookingsController@addTutorAvailability')->name('add-tutor-availability');
+        $parentVerified->get('add-tutor-availability-data', 'BookingsController@getTutorAvailabilityDetails')->name('add-tutor-availability-data');
+
         
     });
   
