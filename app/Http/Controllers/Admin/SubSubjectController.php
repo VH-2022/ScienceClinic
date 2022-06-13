@@ -53,21 +53,22 @@ class SubSubjectController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'main_subject' => 'required',
-            'title' => 'required',
-            'sub_title' => 'required',
+            'title' => 'required | max:255',
+            /*'sub_title' => 'required',
             'sub_title_two' => 'required',
-            'section_one_title_more' => 'required',
             'link_more' => 'required',
-            'title_section_one' => 'required',
+            'section_one_title_more' => 'max:255',
+            'title_section_one' => 'required | max:255',
             'subject_description' => 'required',
             'title_section_two' => 'required',
             'description_section_two' => 'required',
-            'subject_image' => 'required'
+            'subject_image' => 'required'*/
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/sub-subject-master/create")
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
-            
             $simagesEnglish = '';
             if ($request->file('subject_image') != '') {
                 $simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
@@ -168,21 +169,22 @@ class SubSubjectController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'main_subject' => 'required',
-            'title' => 'required',
-            'sub_title' => 'required',
+            'title' => 'required | max:255',
+            /*'sub_title' => 'required',
             'sub_title_two' => 'required',
-            'section_one_title_more' => 'required',
             'link_more' => 'required',
-            'title_section_one' => 'required',
+            'section_one_title_more' => 'max:255',
+            'title_section_one' => 'required | max:255',
             'subject_description' => 'required',
             'title_section_two' => 'required',
-            'description_section_two' => 'required',
+            'description_section_two' => 'required',*/
         
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/sub-subject-master/".$request->input('id').'/edit')
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
-            
             $simagesEnglish = '';
             if ($request->file('subject_image') != '') {
                 $simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
@@ -242,7 +244,15 @@ class SubSubjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+      
+
+        $update = SubjectHelper::SoftDelete(array(), array('id' => $id));
+
+        if ($update) {
+            return response()->json(['error_msg' => trans('messages.deletedSuccessfully'), 'data' => array()], 200);
+        } else {
+            return response()->json(['error_msg' => trans('messages.error_msg'),'data' => array()], 500);
+        }
     }
 
     

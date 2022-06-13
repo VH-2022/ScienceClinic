@@ -26,7 +26,9 @@ class SubjectController extends Controller
     }
     public function ajaxList(Request $request){
         $data['page'] = $request->input('page');
-        $data['query'] = SubjectHelper::getListwithPaginate();
+        $created_date = $request->input('created_date');
+        $title = $request->input('title');
+        $data['query'] = SubjectHelper::getListwithPaginate($title,$created_date);
         return view('admin.subject.subject_ajax_list',$data);
      }
     /**
@@ -53,24 +55,25 @@ class SubjectController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'sub_title' => 'required',
+            'title' => 'required | max:255',
+            /*'sub_title' => 'required',
             'sub_title_two' => 'required',
-            'section_one_title_more' => 'required',
             'link_more' => 'required',
-            'title_section_one' => 'required',
+            'section_one_title_more' => 'max:255',
+            'title_section_one' => 'required | max:255',
             'subject_description' => 'required',
             'title_section_two' => 'required',
             'description_section_two' => 'required',
-            'subject_image' => 'required'
+            'subject_image' => 'required'*/
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/subject-master/create")
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
-            
             $simagesEnglish = '';
             if ($request->file('subject_image') != '') {
-                //$simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
+                $simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');
             }
             $data_array = array(
                 'main_title' => $request->input('title'),
@@ -159,21 +162,21 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'sub_title' => 'required',
+            'title' => 'required | max:255',
+            /*'sub_title' => 'required',
             'sub_title_two' => 'required',
-            'section_one_title_more' => 'required',
             'link_more' => 'required',
-            'title_section_one' => 'required',
+            'section_one_title_more' => 'max:255',
+            'title_section_one' => 'required | max:255',
             'subject_description' => 'required',
             'title_section_two' => 'required',
-            'description_section_two' => 'required',
-        
+            'description_section_two' => 'required',*/
         ]);
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/subject-master/".$request->input('id').'/edit')
+            ->withErrors($validator, 'useredit')
+            ->withInput();
         } else {
-            
             $simagesEnglish = '';
             if ($request->file('subject_image') != '') {
                 $simagesEnglish = $this->uploadImageWithCompress($request->file('subject_image'), 'uploads/subject');

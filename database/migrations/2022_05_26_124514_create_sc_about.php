@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tutor_details', function (Blueprint $table) {
-            $table->string('pay_tex')->nullable();
-            $table->date('updated_by')->nullable();
+        Schema::create('sc_about', function (Blueprint $table) {
+            $table->id();
+            $table->string('type')->nullable();
+            $table->text('image')->nullable();
+            $table->Text('content1')->nullable();
+            $table->longText('content2')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tutor_details', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('sc_about');
     }
 };

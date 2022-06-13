@@ -1,175 +1,414 @@
 <?php
 
+
+
 namespace App\Http\Controllers\Frontend;
 
+
+
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
+
 use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\URL;
+
 use Illuminate\Support\Facades\Validator;
+
 use App\Http\Traits\ImageUploadTrait;
+
 use App\Helpers\TutorDetailHelper;
+
 use App\Helpers\UserHelper;
+
+use App\Helpers\SubjectHelper;
+
+use App\Helpers\TutorLevelHelper;
+
+use App\Helpers\TutorUniversityDetailHelper;
+
+use App\Helpers\TutorSubjectDetailHelper;
+
+use App\Helpers\TutorLevelDetailHelper;
+use Illuminate\Support\Facades\Hash;
+
+use function GuzzleHttp\Promise\all;
+
 class BecomeTutorController extends Controller
+
 {
+
     public $successStatus = 200;
+
     public $validationStatus = 400;
+
     public $errorStatus = 500;
+
     public $unauthorizedStatus = 401;
+
     public $notFoundStatus = 404;
+
     public $alreadyExistStatus = 409;
+
     use ImageUploadTrait;
+
     /**
+
      * Display a listing of the resource.
+
      *
+
      * @return \Illuminate\Http\Response
+
      */
+
     public function index()
+
     {
-        return view('frontend.become_tutor.create');
+
+        $data['subject_list'] = SubjectHelper::getAllSubjectList();
+
+        $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
+
+        return view('frontend.become_tutor.create', $data);
     }
 
+
+
     /**
+
      * Show the form for creating a new resource.
+
      *
+
      * @return \Illuminate\Http\Response
+
      */
+
     public function create()
+
     {
+
         //
+
     }
 
+
+
     /**
+
      * Store a newly created resource in storage.
+
      *
+
      * @param  \Illuminate\Http\Request  $request
+
      * @return \Illuminate\Http\Response
+
      */
+
     public function store(Request $request)
+
     {
-       
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required',
-            'mobile' => 'required',
-            'address1' => 'required',
-            'address2' => 'required',
-            'address3' => 'required',
-            'city' => 'required',
-            'postcode' => 'required',
+        $rules = array(
+            'name' => 'required | max:30',
+
+            'email' => 'required | email',
+
+            'mobile' => 'required | numeric',
+
+            'address1' => 'required | max:255',
+
+            'address2' => 'required | max:255',
+
+            'address3' => 'required | max:255',
+
+            'city' => 'required | max:255',
+
+            'postcode' => 'required | max:6',
+
             'bio' => 'required',
+
             'profile_image' => 'required',
+
             'dbsdisclosure' => 'required',
+
             'exprienceinuk' => 'required',
+
             'tutorexperienceinuk' => 'required',
+
             'paytax' => 'required',
 
-        ]);
+            'user_name' => 'required | max:30',
+
+            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
+
+            'university' => 'required | max:35',
+
+            'qualification' => 'required | max:35',
+        );
+        $messsages = array(
+            'password.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters'
+        );
+        $validator = Validator::make($request->all(), $rules, $messsages);
+
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 0, 'data' => array()], $this->successStatus);
+            return redirect("/become-tutor")
+
+            ->withErrors($validator, 'useredit')
+
+            ->withInput();
         } else {
             $image = '';
+
             if ($request->file('profile_image') != '') {
+
                 $image = $this->uploadImageWithCompress($request->file('profile_image'), 'uploads/user');
             }
-               
-            
+
+
+
+
+
             $data_array = array(
+
                 'first_name' => $request->name,
+
                 'email' => $request->email,
+
                 'mobile_id' => $request->mobile,
+
                 'address1' => $request->address1,
+
                 'address2' => $request->address2,
+
                 'address3' => $request->address3,
+
                 'city' => $request->city,
+
                 'postcode' => $request->postcode,
+
                 'bio' => $request->bio,
+
                 'profile_photo' => $image,
+                'type' => 2,
+                'user_name' => $request->user_name,
+                'status' => 'Pending',
+                'password' => Hash::make($request->password)
+
             );
-            
-            $data = UserHelper::save($data_array);
-            
-        
-            if ($data) {
+           $data = UserHelper::save($data_array);
+           
+          if ($data) {
+
                 $document = '';
-                if($request->dbsdisclosure =='Yes'){
-                    
+
+                if ($request->dbsdisclosure == 'Yes') {
+
+
+
                     if ($request->file('document_pdf') != '') {
+
                         $document = $this->uploadImageWithCompress($request->file('document_pdf'), 'uploads/user');
                     }
                 }
+
                 $tutorDetails = array(
-                    'tutor_id' => $id,
+
+                    'tutor_id' => $data,
+
                     'dbs_disclosure' => $request->dbsdisclosure,
+
                     'experience_in_uk' => $request->exprienceinuk,
+
                     'total_experience_in_uk' => $request->tutorexperienceinuk,
+
                     'pay_tex' => $request->paytax,
-                    'document'=> $document
+
+                    'document' => $document
+
                 );
+
                 TutorDetailHelper::save($tutorDetails);
+
+
+
+                $university = $request->input('university');
+
+                if (!empty($university)) {
+
+                    foreach ($university as $key => $val) {
+
+                        $document_image = '';
+
+                        if ($request->file('document_certi') != '') {
+
+                            $document_image = $this->uploadImageWithCompress($request->file('document_certi')[$key], 'uploads/user/certificate');
+                        }
+
+                        $tutorUniversityDetails = array(
+
+                            'tutor_id' => $data,
+
+                            'university_name' => $val,
+
+                            'qualification' => $request->input('qualification')[$key],
+
+                            'document_image' => $document_image
+
+                        );
+
+
+
+                        TutorUniversityDetailHelper::save($tutorUniversityDetails);
+                    }
+                }
+                $subject = $request->input('main_subject_id');
+
+                if (!empty($subject)) {
+
+                    foreach ($subject as $vals) {
+                        
+                        $levelArray = $request->input('level' . $vals);
+                        foreach($levelArray as $val){
+                            $subject = $request->input('subject' . $vals);
+                            $tutorLevelDetails = array(
+
+                                'tutor_id' => $data,
+
+                                'level_id' => $val,
+                                'subject_id' => $request->input('subject' . $vals)[0],
+
+                            );
+                            TutorLevelDetailHelper::save($tutorLevelDetails);
+                        }
+                       
+                    }
+                }
                 Session::flash('success', trans('messages.addedSuccessfully'));
+
                 return redirect('/become-tutor');
             } else {
+
                 Session::flash('error', trans('messages.error'));
+
                 return redirect('/become-tutor');
             }
         }
     }
 
+
+
     /**
+
      * Display the specified resource.
+
      *
+
      * @param  int  $id
+
      * @return \Illuminate\Http\Response
+
      */
+
     public function show($id)
+
     {
+
         //
+
     }
 
+
+
     /**
+
      * Show the form for editing the specified resource.
+
      *
+
      * @param  int  $id
+
      * @return \Illuminate\Http\Response
+
      */
+
     public function edit($id)
+
     {
+
         //
+
     }
 
+
+
     /**
+
      * Update the specified resource in storage.
+
      *
+
      * @param  \Illuminate\Http\Request  $request
+
      * @param  int  $id
+
      * @return \Illuminate\Http\Response
+
      */
+
     public function update(Request $request, $id)
+
     {
+
         //
+
     }
 
+
+
     /**
+
      * Remove the specified resource from storage.
+
      *
+
      * @param  int  $id
+
      * @return \Illuminate\Http\Response
+
      */
+
     public function destroy($id)
+
     {
+
         //
+
     }
+
+
 
     public static function checkEmail(Request $request)
+
     {
+
         // dd($request->all());
+
         $email = $request->email;
-        $data =  User::where('email', $email)->where('deleted_at', NULL)->first();
-        if (isset($data)) {
+
+        $data =  UserHelper::checkDuplicateEmail($email);
+
+
+
+        if ($data != 0) {
+
             return response()->json(['status' => 1]);
         } else {
+
             return response()->json(['status' => 0]);
         }
     }

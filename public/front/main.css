@@ -1194,13 +1194,15 @@ input[type="number"] {
     line-height: 29px!important;
     text-transform: capitalize;
     letter-spacing: 0.3px;
-    padding: 8px 18px 0px;
+    /* padding: 8px 18px 0px; */
+    padding: 8px 16px 0px;
 }
 
 .mainmenu li>.sub-menu i {
     float: right;
     font-size: 17px;
-    top: 10px;
+    /* top: 10px; */
+    top: 6px;
 }
 
 .mainmenu ul#nav li:last-child,
@@ -1603,7 +1605,8 @@ input[type="number"] {
 .banner-content .col-md-12,
 .banner-content .text-content-wrapper,
 .banner-content .text-content {
-    height: 100%;
+    /* height: 100%; */
+    height: 77%;
     margin: auto;
 }
 
@@ -2165,7 +2168,8 @@ input[type="number"] {
 }
 
 .single-product-image img {
-    width: 100%;
+    /* width: 270px; */
+    height: 294px;
 }
 
 .single-product-text>h4 a {
@@ -5236,6 +5240,7 @@ a.green-atag, a.green-atag:hover {
 .padding-headsection {
     /* padding: 60px 0px; */
     padding: 100px 0px;
+    /* padding: 10PX 0PX; */
 }
 
 .english-abc {
@@ -5307,19 +5312,19 @@ a.green-atag, a.green-atag:hover {
     align-items: center;
 }
 
-.testimonial-english .owl-nav .owl-prev {
-    border: 2px solid #435a71;
-    padding: 5px 5px 5px 10px;
-    box-shadow: 0 0 8px rgb(34 30 31 / 30%);
-    background: #f6f6f6;
+.owl-carousel.testimonial-english .owl-nav .owl-prev {
+    border: 2px solid #435a71 !important;
+    padding: 5px 5px 5px 10px !important;
+    box-shadow: 0 0 8px rgb(34 30 31 / 30%)  !important;
+    background: #f6f6f6 !important;
 }
 
-.testimonial-english .owl-nav .owl-next {
-    border: 2px solid #435a71;
-    padding: 5px 10px 5px 5px;
-    margin-left: 10px;
-    box-shadow: 0 0 8px rgb(34 30 31 / 30%);
-    background: #f6f6f6;
+.owl-carousel.testimonial-english .owl-nav .owl-next {
+    border: 2px solid #435a71 !important;
+    padding: 5px 10px 5px 5px !important;
+    margin-left: 10px !important;
+    box-shadow: 0 0 8px rgb(34 30 31 / 30%) !important;
+    background: #f6f6f6 !important;
 }
 
 .testimonial-english .single-product-item {
@@ -5473,7 +5478,7 @@ ul.biolody-ul li {
 
 .product-price-ellipsis p {
     display: -webkit-box;
-    -webkit-line-clamp: 6;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -6097,10 +6102,14 @@ p.title-contact {
 
 .btn-remove-customer {
    position: absolute;
-   top: 9px;
-   right: 150px;
+   top: -2px;
+   right: 51px;
 }
-
+.btn-remove-customer2 {
+    position: absolute;
+    top: 11px;
+    right: 51px;
+ }
 .remove {
     margin-top: 20px;
    position: relative;
@@ -6108,7 +6117,7 @@ p.title-contact {
 .add{
 position: absolute;
 right: 0;
-top: 11px;
+top: 9px;
 }
 .fa-icon{
    color: #FFF;
@@ -6373,7 +6382,7 @@ padding: 29px 15px 20px 0;
 
 .literature-text {
     color: #fff;
-    padding: 40px 0px;
+    padding: 10px 0px;
 }
 
 .literature-text ul li {
@@ -6644,7 +6653,7 @@ p.section-read{
 }
 .file-upload-box{
     width: 50px;
-    height: 71px;
+    height: 48px;
     opacity: 0;
     position: relative;
     z-index: 9999;
@@ -8411,7 +8420,8 @@ a.header-number:first-child {
     position: absolute;
     left: 0px;
     right: 0;
-    top: 155px;
+    /* top: 155px; */
+    top: 93px;
     width: 100%;
 }
 .padding-headsection-small {
@@ -8419,4 +8429,101 @@ a.header-number:first-child {
 }
 .logo-mb-20{
     margin-bottom: 20px!important;
+}
+.h-auto{
+    height: auto !important;
+}
+
+
+
+
+h1 {
+    margin: 60px 0 0 60px;
+}
+
+.counterW {
+    margin: 0 0 0 60px;
+}
+
+.ratingW {
+    position: relative;
+    margin: 10px 0 0;
+}
+
+.ratingW li {
+    display: inline-block;
+    margin: 0px;
+}
+
+.ratingW li a {
+    display: block;
+    position: relative;
+    /*margin:0 3px;  width:28px; height:27px;color:#ccc; background:url('../img/ico/icoStarOff.png') no-repeat; background-size:100%;*/
+}
+
+/*.ratingW li.on a {background:url('../img/ico/icoStarOn.png') no-repeat; background-size:100%;}*/
+
+/* Ratings widget */
+.rate {
+    display: inline-block;
+    border: 0;
+}
+
+/* Hide radio */
+.rate>input {
+    display: none;
+}
+
+/* Order correctly by floating highest to the right */
+.rate>label {
+    float: right;
+}
+
+/* The star of the show */
+.rate>label:before {
+    display: inline-block;
+    font-size: 2rem;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 ";
+    /* full star */
+}
+
+/* Half star trick */
+.rate .half:before {
+    content: "\f089 ";
+    /* half star no outline */
+    position: absolute;
+    padding-right: 0;
+}
+
+/* Click + hover color */
+input:checked~label,
+/* color current and previous stars on checked */
+label:hover,
+label:hover~label {
+    color: #ffc107;
+}
+
+/* color previous stars on hover */
+
+/* Hover highlights */
+input:checked+label:hover,
+input:checked~label:hover,
+/* highlight current and previous stars */
+input:checked~label:hover~label,
+/* highlight previous selected stars for new rating */
+label:hover~input:checked~label
+
+/* highlight previous selected stars */
+    {
+    color: #ffc107;
+}
+#scrollUp i{
+    line-height: 37px;
+}
+.social-icons a i {
+    line-height: 31px;
 }
