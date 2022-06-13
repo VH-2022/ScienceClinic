@@ -1,4 +1,4 @@
-<table class="table table-separate table-head-custom">
+<table class="table table-separate table-head-custom ">
 
     <thead>
 
@@ -37,7 +37,7 @@
             <td>{{$val->first_name}} {{$val->last_name}}</td>
             <td>{{$val->email}}</td>
             <td>{{$val->mobile_id}}</td>
-            <td>{{$val->address1}}</td>
+            <td class="parent-address">{{$val->address1}}</td>
             <td>
 
                 @if ($val->created_at != '')

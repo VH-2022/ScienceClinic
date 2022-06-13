@@ -54,15 +54,15 @@ class SubSubjectController extends Controller
         $validator = Validator::make($request->all(), [
             'main_subject' => 'required',
             'title' => 'required | max:255',
-            'sub_title' => 'required',
-            /*'sub_title_two' => 'required',*/
-            /*'link_more' => 'required',*/
-            /*'section_one_title_more' => 'max:255',*/
+            /*'sub_title' => 'required',
+            'sub_title_two' => 'required',
+            'link_more' => 'required',
+            'section_one_title_more' => 'max:255',
             'title_section_one' => 'required | max:255',
             'subject_description' => 'required',
             'title_section_two' => 'required',
             'description_section_two' => 'required',
-            'subject_image' => 'required'
+            'subject_image' => 'required'*/
         ]);
         if ($validator->fails()) {
             return redirect("/sub-subject-master/create")
@@ -170,14 +170,14 @@ class SubSubjectController extends Controller
         $validator = Validator::make($request->all(), [
             'main_subject' => 'required',
             'title' => 'required | max:255',
-            'sub_title' => 'required',
-            /*'sub_title_two' => 'required',*/
-            /*'link_more' => 'required',*/
-            /*'section_one_title_more' => 'max:255',*/
+            /*'sub_title' => 'required',
+            'sub_title_two' => 'required',
+            'link_more' => 'required',
+            'section_one_title_more' => 'max:255',
             'title_section_one' => 'required | max:255',
             'subject_description' => 'required',
             'title_section_two' => 'required',
-            'description_section_two' => 'required',
+            'description_section_two' => 'required',*/
         
         ]);
         if ($validator->fails()) {

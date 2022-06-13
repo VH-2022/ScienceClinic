@@ -84,7 +84,7 @@
 
                                         <div class="form-group">
 
-                                            <label>Sub Title <span class="text-danger">*</span></label>
+                                            <label>Sub Title</label>
 
                                             <input class="form-control validate_field" placeholder="Sub Title" autocomplete="off" id="sub_title" type="text" data-msg="Sub Title" name="sub_title"  value="{{ $basic_details->sub_title_one}}">
 
@@ -266,7 +266,7 @@
 
                                         <div class="form-group">
 
-                                            <label>Title <span class="text-danger">*</span></label>
+                                            <label>Title</label>
 
                                             <input placeholder="Title" class="form-control validate_field" autocomplete="off" id="title_section_one" type="text" data-msg="Title" name="title_section_one" value="{{ $basic_details->title}}">
 
@@ -284,7 +284,7 @@
 
                                                 <div class="form-group">
 
-                                                    <label>Image <span class="text-danger">*</span></label>
+                                                    <label>Image</label>
 
                                                     <div>
 
@@ -299,8 +299,9 @@
                                             </div>
 
                                             <div class="col-md-2">
-
-                                                <img src="{{ $basic_details->image}}" style="width:60px;height:60px;">
+                                                @if($basic_details->image)
+                                                    <img src="{{ $basic_details->image}}" style="width:60px;height:60px;">
+                                                @endif
 
                                             </div>
 
@@ -318,7 +319,7 @@
 
                                         <div class="form-group">
 
-                                            <label>Description <span class="text-danger">*</span></label>
+                                            <label>Description</label>
 
                                             <textarea placeholder="Description" name="subject_description" id="subject_description" data-msg="Description" value="{{ $basic_details->description}}">{{ $basic_details->description}}</textarea>
 
@@ -364,7 +365,7 @@
 
                                                                 <div class="form-group">
 
-                                                                    <label>Title <span class="text-danger">*</span></label>
+                                                                    <label>Title</label>
 
                                                                     <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" maxlength="255" data-msg="Title Section Two" name="title_section_two[]" value="{{ $vals->title}}">
 
@@ -378,7 +379,7 @@
 
                                                                 <div class="form-group">
 
-                                                                    <label>Description <span class="text-danger">*</span></label>
+                                                                    <label>Description</label>
 
                                                                     <textarea placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two{{ $uniqid }}" value="{{ $vals->description}}" data-msg="Description">{{ $vals->description}}</textarea>
 
@@ -430,7 +431,7 @@
 
                                                         <div class="form-group">
 
-                                                            <label>Title <span class="text-danger">*</span></label>
+                                                            <label>Title</label>
 
                                                             <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" data-msg="Title Section Two" name="title_section_two[]">
 
@@ -444,7 +445,7 @@
 
                                                         <div class="form-group">
 
-                                                            <label>Description <span class="text-danger">*</span></label>
+                                                            <label>Description</label>
 
                                                             <textarea type="text" placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two"  data-msg="Description"></textarea>
 

@@ -243,5 +243,9 @@ class UserHelper
         $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',1)->first();
         return $query;
     }
+    public static function getTutors(){
+        $query  = User::whereNull('deleted_at')->where('type',2)->where('status',"Accepted")->get();
+        return $query;
+    }
 }
 

@@ -30,17 +30,17 @@ class ResetPasswordController extends Controller
         $otp = Crypt::decrypt($otpen);
         $password = request('password');
         $rules = array(
-            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
-            'confirm_password' => 'required|same:password|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
+            'confirm_password' => 'required|same:password|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
         );
         $messsages = array(
-            'password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
-            'confirm_password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters'
+            'password.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters',
+            'confirm_password.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters'
         );
         $validator = Validator::make($request->all(), $rules, $messsages);
         if ($validator->fails()) {
-            return redirect("user-reset-password" . $otpen)
-                ->withErrors($validator, 'reset')
+            return redirect("admin-reset-password/" . $otpen)
+                ->withErrors($validator)
                 ->withInput();
         } else {
             $checkdata = UserHelper::getByOTP($otp);

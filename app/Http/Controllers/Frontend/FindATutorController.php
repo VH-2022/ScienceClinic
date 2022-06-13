@@ -100,7 +100,7 @@ class FindATutorController extends Controller
         $data['subject_list'] = SubjectHelper::getAllSubjectList();
 
         $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
-
+            
         return view('frontend.SearchTutor.view_tutor_detail', $data);
     }
     public function saveReview(Request $request)
@@ -158,7 +158,7 @@ class FindATutorController extends Controller
 
             'username' => 'required| max:30',
 
-            'password' => 'required| min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'password' => 'required| min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
 
         ]);
         if ($validator->fails()) {

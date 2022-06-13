@@ -111,12 +111,12 @@ class TutorAccountController extends Controller
         $auth  = auth()->user();
         $rules = array(
             'current_password' => 'required',
-            'new_password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
-            'confirmation_password' => 'required|same:new_password|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/',
+            'new_password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
+            'confirmation_password' => 'required|same:new_password|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/',
         );
         $messsages = array(
-            'new_password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
-            'confirmation_password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters'
+            'new_password.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters',
+            'confirmation_password.regex' => 'Password should include 6 charaters, alphabets, numbers and special characters'
         );
         $validator = Validator::make($request->all(), $rules, $messsages);
         if ($validator->fails()) {

@@ -4,7 +4,7 @@
 <style>
     .add-subject {
         position: absolute;
-        
+
         right: 0px;
 
     }
@@ -331,36 +331,36 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="subject-custom">
-                                                                <select id="sub{{$uniqid}}" class="selectpicker " data-id="{{$uniqid }}" name="subject{{$uniqid}}[]" aria-label="Default select example" data-live-search="true">
+                                                                    <select id="sub{{$uniqid}}" class="selectpicker " data-id="{{$uniqid }}" name="subject{{$uniqid}}[]" aria-label="Default select example" data-live-search="true">
 
-                                                                    <option value="">Select Subject</option>
+                                                                        <option value="">Select Subject</option>
 
-                                                                    @foreach ($subject_list as $val)
-                                                                    <option value="{{ $val->id }}">{{ $val->main_title }}
-                                                                    </option>
-                                                                    @endforeach
-                                                                </select>
+                                                                        @foreach ($subject_list as $val)
+                                                                        <option value="{{ $val->id }}">{{ $val->main_title }}
+                                                                        </option>
+                                                                        @endforeach
+                                                                    </select>
 
-                                                                <span class="text-danger" id="subject_{{$uniqid}}_error">{{ $errors->useredit->first('subject') }}</span>
+                                                                    <span class="text-danger" id="subject_{{$uniqid}}_error">{{ $errors->useredit->first('subject') }}</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-5">
-                                                            <div class="subject-custom">
-                                                                <select class="selectpicker" data-id="{{$uniqid }}" name="level{{$uniqid}}[]" multiple aria-label="Default select example" data-live-search="true">
+                                                                <div class="subject-custom">
+                                                                    <select class="selectpicker" data-id="{{$uniqid }}" name="level{{$uniqid}}[]" multiple aria-label="Default select example" data-live-search="true">
 
 
 
-                                                                    @foreach ($tutor_level_list as $val)
-                                                                    <option value="{{ $val->id }}">{{ $val->title }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                        @foreach ($tutor_level_list as $val)
+                                                                        <option value="{{ $val->id }}">{{ $val->title }}
+                                                                        </option>
+                                                                        @endforeach
 
 
 
-                                                                </select>
+                                                                    </select>
 
-                                                                <span class="text-danger" id="level_{{$uniqid }}_error">{{ $errors->useredit->first('level') }}</span>
-                                                            </div>
+                                                                    <span class="text-danger" id="level_{{$uniqid }}_error">{{ $errors->useredit->first('level') }}</span>
+                                                                </div>
 
                                                             </div>
                                                             <div class="col-md-1 add" style="padding-left:15px;">
@@ -374,7 +374,7 @@
                                         </div><br>
 
 
-                                        <div class="col-md-12 row" >
+                                        <div class="col-md-12 row">
                                             <div class="col-md-6 mb-23">
 
                                                 <h6 class="mb-2">Do you have an enhanced DBS disclosure (less than
@@ -847,18 +847,19 @@
 
 <script>
     function ValidateEmail(email) {
-
         var expr =
             /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-
         return expr.test(email);
-
-
-
     }
 
-
-
+    function ValidatePassword(password) {
+        var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
+        return expr.test(password);
+    }
+    $("#email").keyup(function() { 
+        var emailVal = $("#email").val();
+        $("#user_name").val(emailVal);
+    });
     $("#formdata").submit(function() {
 
         var name = $("#name").val();
@@ -939,11 +940,13 @@
 
         }
         if (password.trim() == '') {
-
             $('#password_error').html('Please enter password');
-
             temp++;
-
+        } else {
+            if(!ValidatePassword(password)){
+                $("#password_error").html("Password should include 6 charaters, alphabets, numbers and special characters");
+                temp++;
+            }
         }
         if (name.trim() == '') {
 

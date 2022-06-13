@@ -665,7 +665,10 @@
             }
         }
     })
-
+    function ValidatePassword(password) {
+        var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
+        return expr.test(password);
+    }
     function saveinquiry() {
         var firstName = $('#first_name').val();
         var lastName = $('#last_name').val();
@@ -730,6 +733,11 @@
         if (password == '') {
             $('#error_password').html('Password is required');
             temp++;
+        } else {
+            if(!ValidatePassword(password)){
+                $("#error_password").html("Password should include 6 charaters, alphabets, numbers and special characters");
+                temp++;
+            }
         }
         if (subject.trim() == '') {
             $('#error_subjectinquiry').html('Subject is required');
