@@ -168,7 +168,7 @@
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 ">
                                                         <label class="tutor-label">Email</label>
-                                                        <input autocomplete="off" type="text" class="mb-0" id="email" name="email" placeholder="Email ">
+                                                        <input autocomplete="off" type="text" class="mb-0" id="email" name="email" placeholder="Email">
                                                         <span class="text-danger" id="error_email"></span>
 
                                                     </div>
@@ -266,7 +266,7 @@
 
                                                     </div>
 
-                                                    <div class="col-md-6 col-lg-6">
+                                                    <div class="col-md-6 col-lg-6" id="passwordHide">
                                                         <label class="tutor-label">Password</label>
                                                         <input type="password" id="password" class="mb-0" name="password" placeholder="Password">
                                                         <span class="text-danger" id="error_password"></span>
@@ -858,6 +858,32 @@
     $(function() {
         $("#datepicker").datepicker();
     });
+
+    var timeout = null;
+
+$('#email').keyup(function() {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(function() {
+        var email = $("#email").val();
+        if(email !=''){
+            $.ajax({
+                type: 'POST', //THIS NEEDS TO BE GET
+                url: '{{route("check-email-parent")}}',
+                data: {email : email,_token: '{{csrf_token()}}'},
+                success: function (response) {
+                    if(response == '1'){
+                        $("#passwordHide").css('display','none');
+                    }else{
+                        $("#passwordHide").css('display','block');
+                    }
+                },error:function(){ 
+                    
+                }
+            });
+        }
+    }, 500);
+});
 </script>
 
 <script>

@@ -22,7 +22,7 @@ class SubjectController extends Controller
     public function index()
     {
       
-        return view('admin.subject.subject');
+        return view('admin.subjectsub.sub_subject_ajax_list');
     }
     public function ajaxList(Request $request){
         $data['page'] = $request->input('page');

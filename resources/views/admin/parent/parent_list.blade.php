@@ -467,10 +467,40 @@
     })
 
     $('.search_id').click(function(e) {
-
         ajaxList(1);
+    });
 
-    })
+    function sendPaymentmail(id) {
+        $.confirm({
+            title: 'Are you sure?',
+            columnClass: "col-md-6",
+            content: "you want to book lesson?",
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-primary',
+                    action: function() {
+                        $.ajax({
+                            method: "GET",
+                            url: "{{ route('send-payment-link-parent') }}",
+                            data: {
+                                'id': id,
+                            }
+                        }).done(function(r) {
+                            toastr.success('Payment mail are sending successfully. Please also check spam.');
+
+                        }).fail(function() {
+                            toastr.error('Sorry, something went wrong. Please try again.');
+                        });
+                    }
+                },
+                cancel: function() {
+                },
+            },
+            onContentReady: function() {
+            }
+        });
+    }
 </script>
 
 @endsection

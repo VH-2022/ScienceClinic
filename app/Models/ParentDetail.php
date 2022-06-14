@@ -11,8 +11,12 @@ class ParentDetail extends Model
 
     protected $guarded = ["id"];
     protected $table = 'sc_parent_inquiry_details';
-    protected $fillable = ['id', 'user_id', 'subject_id', 'level_id', 'tuition_day', 'tuition_time',  'created_by', 'updated_by', 'deleted_by', 'deleted_at','created_at', 'updated_at', 'tutor_id'];
+    protected $fillable = ['id', 'user_id', 'subject_id', 'level_id', 'tuition_day', 'tuition_time',  'created_by', 'updated_by', 'deleted_by', 'deleted_at','created_at', 'updated_at', 'tutor_id','payment_link_flag','payment_token','payment_status'];
 
+    public function userDetails()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
     public function tutorDetails()
     {
         return $this->hasOne(User::class, 'id', 'tutor_id');

@@ -28,12 +28,11 @@
 
 
 
+                            @if($parents->status == '')
+                                <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$parents->id}})" @if($parents->status=="Accepted") style="display:none" @endif>Accept</a>
 
-
-                            <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$parents->id}})" @if($parents->status=="Accepted") style="display:none" @endif>Accept</a>
-
-                            <a href="javascript:void(0);" class="btn btn-danger mr-2 rejected_id" onclick="changeStatus('Rejected',{{$parents->id}})" @if($parents->status=="Rejected") style="display:none" @endif>Reject</a>
-
+                                <a href="javascript:void(0);" class="btn btn-danger mr-2 rejected_id" onclick="changeStatus('Rejected',{{$parents->id}})" @if($parents->status=="Rejected") style="display:none" @endif>Reject</a>
+                            @endif
                         </div>
 
                     </div>
@@ -399,11 +398,12 @@
                                 var html_res = '<span class="badge badge-success">Accepted</span>';
 
                                 $('.accepted_id').attr('style', 'display:none');
+                                $('.rejected_id').attr('style', 'display:none');
 
                             } else {
 
                                 var html_res = '<span class="badge badge-danger">Rejected</span>';
-
+                                $('.accepted_id').attr('style', 'display:none');
                                 $('.rejected_id').attr('style', 'display:none');
 
                             }
@@ -448,6 +448,37 @@
 
 
 
+    }
+    function sendPaymentmail(id) {
+        $.confirm({
+            title: 'Are you sure?',
+            columnClass: "col-md-6",
+            content: "you want to book lesson?",
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-primary',
+                    action: function() {
+                        $.ajax({
+                            method: "GET",
+                            url: "{{ route('send-payment-link-parent') }}",
+                            data: {
+                                'id': id,
+                            }
+                        }).done(function(r) {
+                            toastr.success('Payment mail are sending successfully. Please also check spam.');
+                            inquiryDetails(1);
+                        }).fail(function() {
+                            toastr.error('Sorry, something went wrong. Please try again.');
+                        });
+                    }
+                },
+                cancel: function() {
+                },
+            },
+            onContentReady: function() {
+            }
+        });
     }
 </script>
 
