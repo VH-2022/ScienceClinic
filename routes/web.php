@@ -134,6 +134,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->post('add-availability', 'TutorAvailabilityController@addTutorAvailability')->name('add-availability');
         $backendVerified->get('get-tutor-availability', 'TutorAvailabilityController@getTutorAvailabilityDetails')->name('get-tutor-availability');
         $backendVerified->get('tutor-profile', 'TutorProfileController@index')->name('tutor-profile');
+        $backendVerified->get('tutor-subject', 'TutorSubjectController@index')->name('tutor-subject');
+        $backendVerified->post('tutor-subject-store', 'TutorSubjectController@store')->name('tutor-subject-store');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {

@@ -119,7 +119,6 @@ class TutorLevelHelper
         return $query;
 
     }
-
    
 
 }

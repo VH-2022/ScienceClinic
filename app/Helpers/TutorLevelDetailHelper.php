@@ -134,6 +134,11 @@ class TutorLevelDetailHelper
         return $query;
     }
 
-   
+    public static function getListTutor($id){
+
+        $query = TutorLevelDetail::selectRaw('sc_tutor_level_details.*,GROUP_CONCAT(sc_tutor_level_details.level_id) as level_id')->where('sc_tutor_level_details.tutor_id',$id)->first();
+        return $query;
+
+    }
 }
 
