@@ -133,13 +133,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-availability', 'TutorAvailabilityController@index')->name('tutor-availability');
         $backendVerified->post('add-availability', 'TutorAvailabilityController@addTutorAvailability')->name('add-availability');
         $backendVerified->get('get-tutor-availability', 'TutorAvailabilityController@getTutorAvailabilityDetails')->name('get-tutor-availability');
+        $backendVerified->get('tutor-profile', 'TutorProfileController@index')->name('tutor-profile');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
     $pfrontend->get('parent-login', 'ParentLoginController@index')->name('parent-login');
     $pfrontend->post('verify-login-parent', 'ParentLoginController@verifyLogin')->name('verify-login-parent');
     $pfrontend->middleware(['auth:parent', 'verified'])->group(function ($parentVerified) {
-       
         $parentVerified->get('parent-dashboard', 'ParentDashboardController@index')->name('parent-dashboard');
         $parentVerified->get('parent-account', 'ParentAccountController@index')->name('parent-account');
         $parentVerified->get('check-email-parent', 'ParentAccountController@checkEmail')->name('check-email-parent');
