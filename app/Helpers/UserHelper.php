@@ -78,6 +78,7 @@ class UserHelper
     }
    
 
+    
     public static function getUserDetails($id)
 
     {

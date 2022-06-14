@@ -61,8 +61,10 @@
 
                 @endif
             </td>
-            <td><a href="{{ route('parent.details',$val->id) }}" class="show-details"><i class="fa fa-eye"></i></a>
+            <td>
+                <a href="{{ route('parent.details',$val->id) }}" class="show-details"><i class="fa fa-eye"></i></a>
                 <a href="javascript:void(0)" onclick="functionDelete('{{ $val->id }}')" class="delete-details" data-id="{{ $val->id }}}"><i class="fa fa-trash"></i></a>
+               
             </td>
 
 

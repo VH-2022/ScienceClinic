@@ -42,6 +42,12 @@ Route::get('/clear-optimize', function () {
     echo '<script>alert("Clear Success")</script>';
 });
 
+Route::get('stripe-payment/{id}','App\Http\Controllers\PaymentController@stripePayment')->name('stripe-payment');
+Route::post('redirectPayment','App\Http\Controllers\PaymentController@redirectPayment')->name('redirectPayment');
+Route::get('paypal-payment/{id}','App\Http\Controllers\PaymentController@paypalPayment')->name('paypal-payment');
+Route::post('/ipn','App\Http\Controllers\PaymentController@ipn')->name('ipn');
+Route::post('/payment_script_status', 'App\Http\Controllers\PaymentController@payment_script_status')->name('payment_script_status');
+
 Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
     Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
     Route::get('check-email-admin', "LoginController@checkEmail")->name('check-email-admin');
@@ -85,6 +91,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
         $backendVerified->get('testimonial-ajax', "TestimonialController@ajaxList")->name('testimonial-ajax');
         $backendVerified->resource('testimonial', "TestimonialController");
+
+        $backendVerified->get('send-payment-link-parent', "ParentMasterController@sendPaymentLinkMail")->name('send-payment-link-parent');
+
+
     });
 });
 
