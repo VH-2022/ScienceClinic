@@ -110,6 +110,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
     $frontend->get('tutor-availability-get', "FindATutorController@tutorAvailabilityDetails")->name('tutor-availability-get');
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
+    $frontend->post('check-email-parent', "FindATutorController@checkEmailParent")->name('check-email-parent');
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
     $frontend->get('blog', "BlogController@index")->name('blog');
     $frontend->get('blog-detail/{id}', "BlogController@blogDetails")->name('blog-detail');
