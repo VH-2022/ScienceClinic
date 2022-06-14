@@ -66,8 +66,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-university', "TutorMasterController@getUniversityDetails")->name('tutor-university');
         $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
         $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
+        $backendVerified->get('get-count', "TutorMasterController@getCount")->name('get-count');
+        
         $backendVerified->get('tutor-other-list', "TutorMasterController@getOtherDetails")->name('tutor-other-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
+        $backendVerified->post('add-hourly-rate', "TutorMasterController@addHourlyRate")->name('add-hourly-rate');
+
         $backendVerified->get('subject-inquiry', "SearchInquiryController@index")->name('subject.inquiry');
         $backendVerified->get('subject-inquiry-ajax', "SearchInquiryController@ajaxList")->name('subject-inquiry-ajax');
 
@@ -97,7 +101,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('check-email', "BecomeTutorController@checkEmail")->name('check.email');
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
-    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
+    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');;
     $frontend->get('tutor-availability-get', "FindATutorController@tutorAvailabilityDetails")->name('tutor-availability-get');
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
