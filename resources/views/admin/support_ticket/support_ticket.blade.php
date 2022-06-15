@@ -20,7 +20,7 @@
                         <!--begin::Header-->
                         <div class="card-header py-3">
                             <div class="card-title align-items-start flex-column">
-                                <h3 class="card-label font-weight-bolder text-dark">Contact List</h3>
+                                <h3 class="card-label font-weight-bolder text-dark">Support Ticket List</h3>
                             </div>
                             <div class="card-toolbar">
                                 <!--begin::Dropdown-->
@@ -73,33 +73,19 @@
         <!--begin::Content-->
         <div class="offcanvas-content">
             <!--begin::Wrapper-->
+            
             <div class="form-group row">
-                <label class="col-4 col-form-label">Name</label>
+                <label class="col-4 col-form-label">User Type</label>
                 <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="name">
+                    <select class="form-control" name="tutor_type" id="tutor_type">
+                        <option value="">Select User Type</option>
+                        <option value="2">Tutor</option>
+                        <option value="3">Parent</option>
+                    </select>
+                    
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Phone No</label>
-                <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Phone No" type="text" name="phone_no"
-                        id="phone_no">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Tutor Type</label>
-                <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Type" type="text" name="tutor_type"
-                        id="tutor_type">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Email</label>
-                <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Email" type="text" name="email" id="email">
-                </div>
-            </div>
-
+       
 
             <div class="form-group row">
                 <label class="col-4 col-form-label">Created Date</label>
@@ -133,23 +119,19 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
     <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
-        var _AJAX_LIST = "{{ route('contact-ajax') }}";
+        var _AJAX_LIST = "{{ route('support-ajax') }}";
 
         function ajaxList(page) {
-            var name = $('#name').val();
-            var phone_no = $('#phone_no').val();
+           
             var tutor_type = $('#tutor_type').val();
-            var email = $('#email').val();
+           
             var created_date = $('#created_date').val();
             $('.ki-close').click();
             $.ajax({
                 type: "GET",
                 url: _AJAX_LIST,
                 data: {
-                    'name': name,
-                    'phone_no': phone_no,
                     'tutor_type': tutor_type,
-                    'email': email,
                     'page': page,
                     'created_date': created_date
                 },
