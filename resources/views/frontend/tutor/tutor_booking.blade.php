@@ -10,7 +10,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 <style>
-    
+
 </style>
 <div class="d-flex flex-column-fluid">
 
@@ -41,7 +41,9 @@
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="pills-home" aria-selected="true">My Bookings</a>
                             </li>
-
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="payment-tab" data-toggle="pill" href="#payment" role="tab" aria-controls="pills-home" aria-selected="true">Payment</a>
+                            </li>
                             <input type="hidden" value="{{Auth::user()->id}}" id="tutor_id">
                         </ul>
 
@@ -56,7 +58,11 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+                                <div>
+                                    <p style="font-size: 18px;">For all lessons that take place this week, tutors will be paid on the following week friday as illustrated in the diagram below: </p>
+                                </div>
+                            </div>
 
                         </div>
 
