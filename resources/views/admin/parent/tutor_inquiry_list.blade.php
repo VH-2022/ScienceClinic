@@ -53,7 +53,12 @@
                     }
                 @endphp
                 @if($val->payment_link_flag == '0')
+                    
+                <a href="javascript:void(0);" onclick="editDetail('{{$val->id}}')" class="btn btn-success btn-sm">Edit Lesson</a>
+
                     <a href="javascript:void(0);" onclick="sendPaymentmail({{$val->id}})" class="btn btn-info btn-sm">Book Lesson</a>
+
+                    
                 @else
                 
                     @php echo $payment_status; @endphp

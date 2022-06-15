@@ -178,7 +178,110 @@
 
 <!--end::Container-->
 
+<div class="modal fade title-edit" id="editajax-crud-modal" aria-hidden="true">
 
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Book Lesson</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                        <i aria-hidden="true" class="ki ki-close"></i>
+
+                    </button>
+
+                </div>
+                @php $daysArr = [ 'Monday' =>'monday',
+                                                    'Tuesday' => 'tuesday',
+                                                    'Wednesday' => 'wednesday',
+                                                    'Thursday' => 'thursday',
+                                                    'Friday' => 'friday',
+                                                    'Saturday' => 'saturday',
+                                                    'Sunday' => 'sunday'] @endphp
+
+                <form id="editLesson" name="editLesson" class="form-horizontal" Method="POST">
+
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="lesson_id" id="lesson_edit">
+
+                        <div class="form-group row">
+
+                            <label for="name" class="col-md-4 col-form-label">Day of Tuition<span
+
+                                    class="text-danger">*</span></label>
+
+                            <div class="col-md-12">
+                            <select name="days"  class="form-control" id="days">
+                                <option value="">Select Days</option>
+                                @foreach($daysArr as $key=>$val)
+                                <option value="{{$val}}">
+                                    {{$key}}
+                                </option>
+                                @endforeach
+                            </select>
+                                
+
+                                <span class="title error_msg error" id="title_error"></span>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+
+                            <label for="name" class="col-md-4 col-form-label">Ideal Tuition Time<span
+
+                                    class="text-danger">*</span></label>
+
+                            <div class="col-md-12">
+                            <select name="tuition_time"  class="form-control" id="time">
+                                <option value="">Select Time</option>
+                                <option value="08:00:00-09:00:00">
+                                    8am- 9am
+                                </option>
+                                <option value="09:00:00-10:00:00">
+                                    9am - 10am
+                                </option>
+                                <option value="10:00:00-11:00:00">
+                                    10am - 11am
+                                </option>
+                            </select>
+                                
+
+                                <span class="title error_msg error" id="error_time"></span>
+
+                            </div>
+
+                        </div>
+                        
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-primary" id="btn-update" value="update" title="Update">Update
+
+                        </button>
+
+                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" aria-hidden="true"
+
+                            title="Cancel">Cancel</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
 
 @endsection
 
@@ -358,6 +461,105 @@
             onContentReady: function() {}
         });
     }
+
+    function editDetail(id) {
+
+        if (id != "") {
+
+            $.ajax({
+
+                url: "{{url('getBooklesson?id=')}}"+id,
+
+                type: "GET",
+
+                success: function(res) {
+                    var json = res.data[0];
+                    $("#lesson_edit").val(json.id);
+
+                    $('#days option[value='+json.tuition_day+']').attr('selected','selected');
+                    $('#time option[value="'+json.tuition_time+'"]').attr('selected','selected');
+                    $('#editajax-crud-modal').modal('show');
+                }
+            });
+        }
+    }
+
+    $('#editLesson').submit(function (event) {
+        event.preventDefault();
+
+        var tuition_day = $('#days').val();
+        var tuition_time = $('#time').val();
+
+        var id = $('#level_id_edit').val();
+
+        var cnt = 0;
+
+        $('#title_error').html("");
+        $('#error_time').html("");
+
+        if (tuition_day.trim() == '') {
+
+            $('#title_error').html("Day of Tuition is required");
+
+            cnt = 1;
+
+        }
+    
+        if (tuition_time.trim() == '') {
+
+            $('#error_time').html("Ideal Tuition Time is required");
+
+            cnt = 1;
+
+        }
+
+        if (cnt == 1) {
+
+            return false;
+
+        } else {
+
+            var fornData = $('#editLesson')[0];
+
+            var newform = new FormData(fornData);
+
+            newform.append('_token', '{{ csrf_token() }}');
+
+
+
+
+
+            $.ajax({
+
+                type: "POST",
+
+                url: '{{ url("update-book-lesson") }}',
+
+                data: newform,
+
+                processData: false,
+
+                contentType: false,
+
+                success: function(res) {
+
+                    $('#editajax-crud-modal').modal('hide');
+                    toastr.success(res.error_msg);
+                    inquiryDetails(1);
+
+                },
+
+                error: function(data) {
+
+                    toastr.error(data.error_msg);
+
+                }
+
+            });
+
+        }
+
+        });
 </script>
 
 @endsection

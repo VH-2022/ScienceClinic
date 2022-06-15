@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 use Session;
 
 class ParentMasterController extends Controller
@@ -81,6 +82,30 @@ class ParentMasterController extends Controller
     public function getCalanderBooking(Request $request){
         $data['parent_id'] = $request->id;
         return view('admin.parent.parent_calander_list', $data);
+    }
+    public function getBooklesson(Request $request){
+        $data = ParentDetailHelper::getUserDetails($request->id);
+        return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array($data)], 200);
+    }
+    public function updateBooklesson(Request $request){
+        $validator = Validator::make($request->all(), [
+            'days' => 'required',
+            'tuition_time' => 'required',
+         ]);
+
+         if ($validator->fails()) {
+             return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 'inactive', 'data' => array()], 400);
+         }
+
+         $data_array = array(
+
+            'tuition_day' => $request->days,
+            'tuition_time' => $request->tuition_time,
+
+         );
+
+         $update = ParentDetailHelper::update($data_array,array('id'=>$request->input('lesson_id')));
+         return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array()], 200);
     }
     public function getParentBookLesson(Request $request){
         $data = ParentDetailHelper::getBooklessondata($request->parentID);
