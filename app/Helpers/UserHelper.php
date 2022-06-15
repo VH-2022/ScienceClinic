@@ -28,7 +28,6 @@ class UserHelper
         if ($userId) {
 
             $data['created_by'] = $userId['id'];
-
         }
 
         $insert = new User($data);
@@ -38,7 +37,6 @@ class UserHelper
         $insertId = $insert->id;
 
         return $insertId;
-
     }
 
     public static function update($data, $where)
@@ -52,13 +50,11 @@ class UserHelper
         if ($userId) {
 
             $data['updated_by'] = $userId['id'];
-
         }
 
         $update = User::where($where)->update($data);
 
         return $update;
-
     }
 
     public static function SoftDelete($data, $where)
@@ -74,9 +70,8 @@ class UserHelper
         $update = User::where($where)->update($data);
 
         return $update;
-
     }
-   
+
 
     
     public static function getUserDetails($id)
@@ -86,7 +81,6 @@ class UserHelper
         $query  = User::where('id', $id)->first();
 
         return $query;
-
     }
 
     public static function checkDuplicateEmail($email)
@@ -96,29 +90,27 @@ class UserHelper
         $query  = User::whereNull('deleted_at')->where('email', $email)->count();
 
         return $query;
-
     }
 
-    public static function updateStatus($id,$status)
+    public static function updateStatus($id, $status)
 
     {
 
-        $data['status']= $status;
+        $data['status'] = $status;
 
         $query  = User::where('id', $id)->update($data);
 
         return $query;
-
     }
 
 
 
-    public static function getTutorListLimitFive($userId){
+    public static function getTutorListLimitFive($userId)
+    {
 
-        $query =User::where('status', 'Accepted')->where('type', 2)->whereNull('deleted_at')->whereIn('id', $userId)->orderBy('id','desc')->limit(5)->get();
+        $query = User::where('status', 'Accepted')->where('type', 2)->whereNull('deleted_at')->whereIn('id', $userId)->orderBy('id', 'desc')->limit(5)->get();
 
         return $query;
-
     }
     public static function getTutorDetails($id)
     {
@@ -127,21 +119,22 @@ class UserHelper
     }
     public static function getTutorData($id)
     {
-        $query = User::select('*','users.id as userId')
-        ->leftjoin('sc_tutor_details as sb',function($join){
-            $join->on('sb.tutor_id','=','users.id');
-        })
-        ->where('users.id', $id)
-        ->whereNull('users.deleted_at')
-        ->get();
+        $query = User::select('*', 'users.id as userId')
+            ->leftjoin('sc_tutor_details as sb', function ($join) {
+                $join->on('sb.tutor_id', '=', 'users.id');
+            })
+            ->where('users.id', $id)
+            ->whereNull('users.deleted_at')
+            ->get();
         return $query;
     }
-    public static function updateProfile($image){
+    public static function updateProfile($image)
+    {
         $user = Auth::guard('web')->user();
-        $data['updated_at'] = date('Y-m-d H:i:s');        
+        $data['updated_at'] = date('Y-m-d H:i:s');
         $data['updated_by'] = $user['id'];
         $data['profile_photo'] = $image;
-        $query = User::where('id',$user['id'])->update($data);
+        $query = User::where('id', $user['id'])->update($data);
         return $query;
     }
 
@@ -152,11 +145,10 @@ class UserHelper
         $query = User::orderBy('id', 'desc')->where('type', 3)->whereNull('deleted_at');
 
         if ($name != '') {
-          
+
             $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", [$name]);
             $query->orWhere('first_name', 'LIKE', '%' . $name . '%');
             $query->orWhere('last_name', 'LIKE', '%' . $name . '%');
-            
         }
         if ($email != '') {
 
@@ -190,7 +182,7 @@ class UserHelper
     public static function getDetailsById($id)
     {
 
-        $query = User::where('id', $id)->where('type',3)->first();
+        $query = User::where('id', $id)->where('type', 3)->first();
 
         return $query;
     }
@@ -206,47 +198,52 @@ class UserHelper
     {
         $user = Auth::guard('web')->user();
         $id = $user['id'];
-        $query  = User::whereNull('deleted_at')->where('id','!=',$id)->where('email', $email)->count();
+        $query  = User::whereNull('deleted_at')->where('id', '!=', $id)->where('email', $email)->count();
         return $query;
-
     }
 
-    public static function checkDuplicateEmailParent($email){
+    public static function checkDuplicateEmailParent($email)
+    {
         $user = Auth::guard('parent')->user();
         $id = $user['id'];
         $query  = User::whereNull('deleted_at')->where('id', '!=', $id)->where('email', $email)->count();
-        return $query;	
+        return $query;
     }
 
-    public static function getUserByEmail($email){
+    public static function getUserByEmail($email)
+    {
         $query  = User::whereNull('deleted_at')->where('email', $email)->first();
         return $query;
     }
-    public static function updateOTP($email, $rand){
+    public static function updateOTP($email, $rand)
+    {
         $data['otp'] = $rand;
         $query  = User::where('email', $email)->update($data);
         return $query;
     }
-    public static function getByOTP($otp){
+    public static function getByOTP($otp)
+    {
         $query  = User::where('otp', $otp)->first();
         return $query;
     }
-    public static function updatePassword($otp, $data){
+    public static function updatePassword($otp, $data)
+    {
         $query  = User::where('otp', $otp)->update($data);
         return $query;
     }
     public static function checkEmailAdmin($email)
     {
-        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',1)->count();
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type', 1)->count();
         return $query;
     }
-    public static function getAdminByEmail($email){
-        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type',1)->first();
+    public static function getAdminByEmail($email)
+    {
+        $query  = User::whereNull('deleted_at')->where('email', $email)->where('type', 1)->first();
         return $query;
     }
-    public static function getTutors(){
-        $query  = User::whereNull('deleted_at')->where('type',2)->where('status',"Accepted")->get();
+    public static function getTutors()
+    {
+        $query  = User::whereNull('deleted_at')->where('type', 2)->where('status', "Accepted")->get();
         return $query;
     }
 }
-
