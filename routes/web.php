@@ -88,6 +88,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
         $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
+        $backendVerified->get('calander-booking', "ParentMasterController@getCalanderBooking")->name('calander-booking');
+        $backendVerified->get('parent-book-lesson-data', "ParentMasterController@getParentBookLesson")->name('parent-book-lesson-data');
         $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
         $backendVerified->get('testimonial-ajax', "TestimonialController@ajaxList")->name('testimonial-ajax');
         $backendVerified->resource('testimonial', "TestimonialController");

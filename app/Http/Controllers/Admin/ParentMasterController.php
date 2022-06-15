@@ -78,6 +78,14 @@ class ParentMasterController extends Controller
             return 0;
         }
     }
+    public function getCalanderBooking(Request $request){
+        $data['parent_id'] = $request->id;
+        return view('admin.parent.parent_calander_list', $data);
+    }
+    public function getParentBookLesson(Request $request){
+        $data = ParentDetailHelper::getBooklessondata($request->parentID);
+        return response()->json($data);
+    }
     public function getInquiryDetails(Request $request)
     {
 

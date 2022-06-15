@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
 
 <div class="d-flex flex-column-fluid">
@@ -29,9 +28,9 @@
 
 
                             @if($parents->status == '')
-                                <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$parents->id}})" @if($parents->status=="Accepted") style="display:none" @endif>Accept</a>
+                            <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$parents->id}})" @if($parents->status=="Accepted") style="display:none" @endif>Accept</a>
 
-                                <a href="javascript:void(0);" class="btn btn-danger mr-2 rejected_id" onclick="changeStatus('Rejected',{{$parents->id}})" @if($parents->status=="Rejected") style="display:none" @endif>Reject</a>
+                            <a href="javascript:void(0);" class="btn btn-danger mr-2 rejected_id" onclick="changeStatus('Rejected',{{$parents->id}})" @if($parents->status=="Rejected") style="display:none" @endif>Reject</a>
                             @endif
                         </div>
 
@@ -131,60 +130,36 @@
                                     </a>
 
                                 </li>
+                                <li class="nav-item">
+
+                                    <a class="nav-link"  href="{{url('calander-booking?id=')}}{{$parents->id}}" >
+
+                                        <span class="nav-text">Booking</span>
+
+                                    </a>
+
+                                </li>
+
 
 
 
 
                             </ul>
-
                         </div>
-
                     </div>
-
                     <div class="tab-content" id="tabs">
-
                         <div class="tab-pane active" id="parentinquiry">
-
                             <span id="responsive_id"></span>
-
                         </div>
+                        
 
-
-
-                        <div class="tab-pane" id="subject">
-                            <div class="table-responsive">
-                                <span id="responsive_Id"></span>
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="tab-pane" id="level">
-                            <div class="table-responsive">
-                                <span id="responsived_id"></span>
-                            </div>
-
-                        </div>
-
-
-
-
-
-                        <div class="tab-pane" id="other">
-                            <div class="table-responsive">
-                                <span id="responsived1_id"></span>
-                            </div>
-
-
-                        </div>
 
                     </div>
 
                 </div>
 
 
-
+                
 
 
             </div>
@@ -212,8 +187,7 @@
 <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
 
 <script>
-    
-
+   
     function inquiryDetails(page) {
 
         $.ajax({
@@ -235,7 +209,7 @@
                 $('#responsive_id').html("");
 
                 $('#responsive_id').html(res);
-
+                $("#calendar").css('display','none');
             }
 
         })
@@ -243,101 +217,6 @@
     }
 
     inquiryDetails(1);
-
-
-
-    function getSubjectDetails(page) {
-
-        $.ajax({
-
-            type: "GET",
-
-            url: "{{ route('tutor-subject') }}",
-
-            data: {
-
-                'tutor_id': '{{ $parents->id }}',
-
-                'page': page,
-
-            },
-
-            success: function(res) {
-
-                $('#responsive_Id').html("");
-
-                $('#responsive_Id').html(res);
-
-            }
-
-        })
-
-    }
-
-    getSubjectDetails(1);
-
-
-
-    function getLevelDetails(page) {
-
-        $.ajax({
-
-            type: "GET",
-
-            url: "{{ route('tutor-level-list') }}",
-
-            data: {
-
-                'tutor_id': '{{ $parents->id }}',
-
-                'page': page,
-
-            },
-
-            success: function(res) {
-
-                $('#responsived_id').html("");
-
-                $('#responsived_id').html(res);
-
-            }
-
-        })
-
-    }
-
-    getLevelDetails(1);
-
-
-    function getOtherDetails(page) {
-
-        $.ajax({
-
-            type: "GET",
-
-            url: "{{ route('tutor-other-list') }}",
-
-            data: {
-
-                'tutor_id': '{{ $parents->id }}',
-
-                'page': page,
-
-            },
-
-            success: function(res) {
-
-                $('#responsived1_id').html("");
-
-                $('#responsived1_id').html(res);
-
-            }
-
-        })
-
-    }
-
-    getOtherDetails(1);
 </script>
 
 <script>
@@ -449,6 +328,7 @@
 
 
     }
+
     function sendPaymentmail(id) {
         $.confirm({
             title: 'Are you sure?',
@@ -473,11 +353,9 @@
                         });
                     }
                 },
-                cancel: function() {
-                },
+                cancel: function() {},
             },
-            onContentReady: function() {
-            }
+            onContentReady: function() {}
         });
     }
 </script>

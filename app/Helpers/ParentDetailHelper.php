@@ -30,6 +30,9 @@ class ParentDetailHelper {
         return $update;
 
     }
+    public static function getBooklessondata($id){
+        return ParentDetail::with('tutorDetails','subjectDetails','levelDetails')->where('user_id',$id)->where('payment_status','Success')->get();
+    }
     public static function getUserDetails($id){
         return ParentDetail::with('userDetails','subjectDetails','levelDetails')->find($id);
     }

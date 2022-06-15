@@ -237,13 +237,13 @@
                                                         <label class="tutor-label">Ideal Tuition Time</label>
                                                         <select id="time" class="mb-0" name="tuition_time">
                                                             <option value="">Select Time</option>
-                                                            <option value="8:00-9:00">
+                                                            <option value="08:00:00-09:00:00">
                                                                 8am- 9am
                                                             </option>
-                                                            <option value="9:00-10:00">
+                                                            <option value="09:00:00-10:00:00">
                                                                 9am - 10am
                                                             </option>
-                                                            <option value="10:00-11:00">
+                                                            <option value="10:00:00-11:00:00">
                                                                 10am - 11am
                                                             </option>
                                                         </select>

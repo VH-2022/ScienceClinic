@@ -47,9 +47,9 @@
             <td>
                 @php 
                     if($val->payment_status == 'Pending'){
-                        $payment_status = '<span class="badge badge-warning">Pending</span>';
+                        $payment_status = '<span class="badge badge-warning">Payment Pending</span>';
                     }else{
-                        $payment_status = '<span class="badge badge-success">Success</span>';
+                        $payment_status = '<span class="badge badge-success">Payment Success</span>';
                     }
                 @endphp
                 @if($val->payment_link_flag == '0')
