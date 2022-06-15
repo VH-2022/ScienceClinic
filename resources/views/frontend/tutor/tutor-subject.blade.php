@@ -103,7 +103,7 @@
 
             </div>
 
-            <form id="subjectForm" name="userForm" class="form-horizontal">
+            <form action="{{ route('tutor-subject-store') }}" method="post" id="subjectForm" name="userForm" class="form-horizontal">
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -120,14 +120,14 @@
                                 <option value="">Select Subject</option>
 
                                 @foreach($subject as $val)
-                                @if(!in_array($val->id, $tutorSubject))
+                                @if(!in_array($val->id, $selectedSubject))
                                 <option value="{{$val->id}}">{{$val->main_title}}</option>
                                 @endif
                                 @endforeach
 
                             </select>
 
-                            <span class="title error_msg error" style="color: red;" id="subject_error"></span>
+                            <span class="title error_msg error" style="color: red;" id="subject_error">{{ $errors->subject->first('main_subject')}}</span>
 
                         </div>
 
@@ -144,7 +144,7 @@
                                 <option value="">Select Level</option>
 
                                 @foreach($level as $val)
-                                @if(!in_array($val->id, $tutorLevel))
+                                @if(!in_array($val->id, $selectedLevel))
                                 <option value="{{$val->id}}">{{$val->title}}</option>
                                 @endif
 
@@ -152,7 +152,7 @@
 
                             </select>
 
-                            <span class="title error_msg error" style="color: red;" id="level_error"></span>
+                            <span class="title error_msg error" style="color: red;" id="level_error">{{ $errors->subject->first('level')}}</span>
 
                         </div>
 
@@ -162,7 +162,101 @@
 
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-primary" id="btn-save" title="Submit">Submit
+                    <button type="submit" class="btn btn-primary" id="btn-save" title="Submit">Submit
+
+                    </button>
+
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" aria-hidden="true" title="Cancel">Cancel</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade title-edit" id="editajax-crud-modal" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">Edit Subject</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <i aria-hidden="true" class="ki ki-close"></i>
+
+                </button>
+
+            </div>
+
+            <form id="formEdit" name="formEdit" class="form-horizontal" Method="post">
+
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                @method('put')
+
+                <div class="modal-body">
+
+                    <input type="hidden" name="level_id" id="level_id_edit">
+
+
+                        <div class="form-group row">
+
+                            <div class="col-md-12">
+
+                                <label for="exampleSelectd">Subject <span class="text-danger">*</span></label>
+
+                                <select class="form-control validate_field main_subject" name="main_subject_edit" id="main_subject_edit">
+
+                                    <option value="">Select Subject</option>
+
+                                    @foreach($subject as $val)
+                                    <option value="{{$val->id}}">{{$val->main_title}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                <span class="title error_msg error" style="color: red;" id="subject_error_edit">{{ $errors->subject->first('main_subject')}}</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+
+                            <div class="col-md-12">
+
+                                <label for="exampleSelectd">Level <span class="text-danger">*</span></label>
+
+                                <select class="form-control validate_field main_subject" name="level_edit" id="level_edit">
+
+                                    <option value="">Select Level</option>
+
+                                    @foreach($level as $val)
+                                    <option value="{{$val->id}}">{{$val->title}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                <span class="title error_msg error" style="color: red;" id="level_error_edit">{{ $errors->subject->first('level')}}</span>
+
+                            </div>
+
+                        </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary" id="btn-update" value="update" title="Update">Update
 
                     </button>
 
@@ -185,39 +279,23 @@
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
 <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script>
-    var _AJAX_LIST = "{{ route('tutor-level-ajax') }}";
+    var _AJAX_LIST = "{{ route('tutor-subject-ajax') }}";
+
     function ajaxList(page) {
-        var title = $('#title').val();
-        var created_date = $('#created_date').val();
         $('.ki-close').click();
         $.ajax({
-
             type: "GET",
-
             url: _AJAX_LIST,
-
             data: {
-
-                'title': title,
-
                 'page': page,
-
-                'created_date': created_date
-
             },
-
             success: function(res) {
-
                 $('#response_id').html("");
-
                 $('#response_id').html(res);
-
             }
 
         })
-
     }
-
     ajaxList(1);
     $('#btn-save').click(function(e) {
         var name = $('#main_subject').val();
@@ -236,47 +314,29 @@
         if (cnt == 1) {
             return false;
         } else {
+            return true;
+        }
+    })
+
+    function editDetail(id) {
+        if (id != "") {
+            $('#editajax-crud-modal').modal('show');
             $.ajax({
-
-                data: $('#subjectForm').serialize(),
-
-                url: "{{ route('tutor-subject-store') }}",
-
-                type: "POST",
-
-                success: function(data) {
-                    $('#subjectForm').trigger("reset");
-                    $('#ajax-crud-modal').modal('hide');
-                    toastr.success(data.error_msg);
-                    ajaxList(1);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    var tempVal = 0;
-                    if (jqXHR.responseJSON.message.main_subject) {
-                        tempVal++;
-                        $('#subject_error').text(jqXHR.responseJSON.message.main_subject);
-                    } else {
-                        $('#subject_error').text('');
-                    }
-                    if (jqXHR.responseJSON.message.level) {
-                        tempVal++;
-                        $('#level_error').text(jqXHR.responseJSON.message.level);
-                    } else {
-                        $('#level_error').text('');
-                    }
-                    if (tempVal == 0) {
-                        $('#ajax-crud-modal').modal('hide');
-                        return true;
-                    } else {
-                        $('#ajax-crud-modal').modal('show');
-                        return false;
-                    }
+                url: "{{ url('tutor-subject-edit') }}/" + id,
+                type: "GET",
+                success: function(res) {
+                    var val = JSON.parse(res);
+                    $("#main_subject_edit").find("option[value=" + val.subject_id + "]").attr('selected', true);
+                    $("#level_edit").find("option[value=" + val.level_id + "]").attr('selected', true);
                 }
-
             });
 
         }
-
-    })
+    }
+    $(document).ready(function() {
+        <?php if (Request::get('addpopup') == '1') { ?>
+            $("#ajax-crud-modal").modal('show');
+        <?php } ?>
+    });
 </script>
 @endsection

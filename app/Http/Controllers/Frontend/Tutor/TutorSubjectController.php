@@ -11,8 +11,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class TutorSubjectController extends Controller
 
@@ -22,12 +24,14 @@ class TutorSubjectController extends Controller
     {
         $auth = Auth::guard('web')->user();
         $id = $auth['id'];
-        $data['subject'] = SubjectHelper::getList();
-        $data['level'] = TutorLevelHelper::getAllTutorList();
-        $data['tutorData'] = $tutorData = TutorLevelDetailHelper::getListTutor($id);
-        $data['tutorLevel'] = explode(',', $tutorData->level_id);
-        $data['tutorSubject'] = array($tutorData->subject_id);
-        return view('frontend.tutor.tutor-subject', $data);
+        $this->data['subject'] = SubjectHelper::getList();
+        $this->data['level'] = TutorLevelHelper::getAllTutorList();
+        $this->data['tutorData'] = $tutorData = TutorLevelDetailHelper::getListTutor($id);
+        foreach ($tutorData as $val) {
+            $this->data['selectedSubject'][] = $val->subject_id;
+            $this->data['selectedLevel'][] = $val->level_id;
+        }
+        return view('frontend.tutor.tutor-subject', $this->data);
     }
     public function store(Request $request)
     {
@@ -41,7 +45,9 @@ class TutorSubjectController extends Controller
         );
         $validator = Validator::make($request->all(), $rules, $messsages);
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
+            return redirect("/tutor-subject?addpopup=1")
+            ->withErrors($validator, 'subject')
+            ->withInput();
         } else {
             $auth = Auth::guard('web')->user();
             $id = $auth['id'];
@@ -55,12 +61,27 @@ class TutorSubjectController extends Controller
                 'created_by' => $id
             );
             $insert = TutorLevelDetailHelper::save($tutorLevelDetails);
-            if($insert){
-                return response()->json(['error_msg' =>trans('messages.addedSuccessfully'), 'data' => array()], 200);
-            }
-            else{
-                return response()->json(['error_msg' =>trans('messages.error'), 'data' => array()], 500);
+            if ($insert) {
+                Session::flash('success', trans('messages.addedSuccessfully'));
+                return redirect('tutor-subject');
+            } else {
+                Session::flash('error', trans('messages.error'));
+                return redirect('tutor-subject');
             }
         }
+    }
+    public function ajaxList(Request $request)
+    {
+        $auth = Auth::guard('web')->user();
+        $id = $auth['id'];
+        $data['page'] = $request->page;
+        $data['query'] = TutorLevelDetailHelper::getListTutorWithPaginate($id);
+        return view('frontend.tutor.tutor-subject-ajax', $data);
+    }
+    public function edit(Request $request)
+    {
+        $id = $request->id;
+        $data = TutorLevelDetailHelper::getData($id);
+        return json_encode($data);
     }
 }

@@ -135,10 +135,29 @@ class TutorLevelDetailHelper
     }
 
     public static function getListTutor($id){
-
-        $query = TutorLevelDetail::selectRaw('sc_tutor_level_details.*,GROUP_CONCAT(sc_tutor_level_details.level_id) as level_id')->where('sc_tutor_level_details.tutor_id',$id)->first();
+        $query = TutorLevelDetail::where('tutor_id',$id)->get();
         return $query;
+    }
 
+    public static function getListTutorWithPaginate($id){
+        $query = TutorLevelDetail::select('sc_tutor_level_details.*','sb.id as subject_id','level.id as level_id','sb.main_title','level.title')->leftjoin('sc_subject_master as sb', function ($join) {
+            $join->on('sb.id', '=', 'sc_tutor_level_details.subject_id');
+        })->leftjoin('sc_tutor_level as level', function ($join) {
+            $join->on('level.id', '=', 'sc_tutor_level_details.level_id');
+        })
+        ->where('sc_tutor_level_details.tutor_id',$id);
+        $query = $query->paginate(10);
+        return $query;
+    }
+    public static function getData($id){
+        $query = TutorLevelDetail::select('sc_tutor_level_details.*','sb.id as subject_id','level.id as level_id','sb.main_title','level.title')->leftjoin('sc_subject_master as sb', function ($join) {
+            $join->on('sb.id', '=', 'sc_tutor_level_details.subject_id');
+        })->leftjoin('sc_tutor_level as level', function ($join) {
+            $join->on('level.id', '=', 'sc_tutor_level_details.level_id');
+        })
+        ->where('sc_tutor_level_details.id',$id)
+        ->first();
+        return $query;
     }
 }
 

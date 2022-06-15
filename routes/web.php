@@ -136,6 +136,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-profile', 'TutorProfileController@index')->name('tutor-profile');
         $backendVerified->get('tutor-subject', 'TutorSubjectController@index')->name('tutor-subject');
         $backendVerified->post('tutor-subject-store', 'TutorSubjectController@store')->name('tutor-subject-store');
+        $backendVerified->get('tutor-subject-ajax', "TutorSubjectController@ajaxList")->name('tutor-subject-ajax');
+        $backendVerified->get('tutor-subject-edit/{id}', "TutorSubjectController@edit")->name('tutor-subject-edit');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
