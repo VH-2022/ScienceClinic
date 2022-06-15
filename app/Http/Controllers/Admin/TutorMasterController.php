@@ -4,6 +4,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\MailHelper;
+use App\Helpers\ParentDetailHelper;
 use App\Helpers\TutorDetailHelper;
 use App\Http\Controllers\Controller;
 
@@ -21,6 +23,7 @@ use App\Helpers\TutorSubjectDetailHelper;
 
 use App\Helpers\TutorLevelDetailHelper;
 use App\Helpers\TutorLevelHelper;
+use App\Models\ParentDetail;
 use App\Models\TutorLevelDetail;
 use Validator;
 
@@ -168,6 +171,15 @@ class TutorMasterController extends Controller
         $query = UserHelper::updateStatus($request->id, $request->status);
 
         if ($query) {
+
+            $getUserData = UserHelper::getUserDetails($request->id);
+            if($request->status == 'Accepted'){
+                $html = '<p>Your account has been approved by admin now you can login.</p>';
+                $subject = __('emails.tutor_account_email');
+                $BODY = __('emails.tutor_account_body', ['USERNAME' => $getUserData->first_name, 'HTMLTABLE' => $html]);
+                $body_email = __('emails.template', ['BODYCONTENT' => $BODY]);
+                $mail = MailHelper::mail_send($body_email, $getUserData->email, $subject);
+            }
 
             return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => array('status' => $request->status)], 200);
         } else {
