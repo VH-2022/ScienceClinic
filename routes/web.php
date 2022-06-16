@@ -138,6 +138,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->post('tutor-subject-store', 'TutorSubjectController@store')->name('tutor-subject-store');
         $backendVerified->get('tutor-subject-ajax', "TutorSubjectController@ajaxList")->name('tutor-subject-ajax');
         $backendVerified->get('tutor-subject-edit/{id}', "TutorSubjectController@edit")->name('tutor-subject-edit');
+        $backendVerified->post('check-level-subject', "TutorSubjectController@checkData")->name('check-level-subject');
+        $backendVerified->put('tutor-subject-update', "TutorSubjectController@update")->name('tutor-subject-update');
+        $backendVerified->delete('remove-subject/{id}', "TutorSubjectController@delete")->name('remove-subject');
+        $backendVerified->get('tutor-online-subject-ajax', "TutorSubjectController@onlineAjaxList")->name('tutor-online-subject-ajax');
+        $backendVerified->get('tutor-online-subject-edit/{id}', "TutorSubjectController@editOnlineSubject")->name('tutor-online-subject-edit');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {

@@ -276,12 +276,10 @@ class BecomeTutorController extends Controller
                         foreach($levelArray as $val){
                             $subject = $request->input('subject' . $vals);
                             $tutorLevelDetails = array(
-
                                 'tutor_id' => $data,
-
                                 'level_id' => $val,
                                 'subject_id' => $request->input('subject' . $vals)[0],
-
+                                'website_flag' => 1
                             );
                             TutorLevelDetailHelper::save($tutorLevelDetails);
                         }
