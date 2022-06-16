@@ -33,6 +33,10 @@ class ParentDetailHelper {
     public static function getBooklessondata($id){
         return ParentDetail::with('tutorDetails','subjectDetails','levelDetails')->where('user_id',$id)->where('payment_status','Success')->get();
     }
+    public static function getBooklessondataTutor($id)
+    {
+        return ParentDetail::with('userDetails', 'subjectDetails', 'levelDetails')->where('tutor_id', $id)->where('payment_status', 'Success')->where('booking_status', 'Success')->get();
+    }
     public static function getUserDetails($id){
         return ParentDetail::with('userDetails','subjectDetails','levelDetails')->find($id);
     }
@@ -45,5 +49,15 @@ class ParentDetailHelper {
         $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $id)
         ->groupBy('subject_id')->get();
         return $query;
+    }
+    public static function getBookSlotData($time)
+    {
+        return ParentDetail::with('userDetails', 'subjectDetails')->where('tuition_time', $time)->where('booking_status', 'Success')->get();
+    }
+
+    public static function getBookSlotDataById($userId,$time)
+    {
+        return ParentDetail::where('tuition_time', $time)->where('id',$userId)->first();
+
     }
 }
