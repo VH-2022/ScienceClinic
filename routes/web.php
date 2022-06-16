@@ -103,6 +103,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('testimonial', "TestimonialController");
 
         $backendVerified->get('send-payment-link-parent', "ParentMasterController@sendPaymentLinkMail")->name('send-payment-link-parent');
+        $backendVerified->resource('parent-payment-history', "ParentPaymentController");
+        $backendVerified->get('parent-payment-list-ajax', "ParentPaymentController@ajaxList")->name('parent-payment-list-ajax');
+        
+        $backendVerified->resource('tutor-payment-history', "TutorPaymentController");
+        
 
 
     });
