@@ -109,6 +109,7 @@ class ParentMasterController extends Controller
     }
     public function getParentBookLesson(Request $request){
         $data = ParentDetailHelper::getBooklessondata($request->parentID);
+       
         return response()->json($data);
     }
     public function getInquiryDetails(Request $request)

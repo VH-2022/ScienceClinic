@@ -54,7 +54,7 @@
                                     <br></br>
                                     <div class="main-custom-calendar">
                                         <div id='calendar'></div>
-                                        <div id='calendar1'></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
 
 
 
-
+/*
 
 
             dateClick: function(info, callback) {
@@ -163,10 +163,8 @@
                     }
                 });
             },
+*/
 
-            eventContent: {
-                html: '<a><i class="fa fa-check"></i></a>'
-            },
 
 
             events: function(fetchInfo, callback) {
@@ -179,13 +177,22 @@
 
                         if (!!result) {
                             $.map(result, function(r) {
+                                var d = new Date();
+                                var month = d.getMonth() + 1;
+                                var day = d.getDate();
+                                var output = d.getFullYear() + '-' +
+                                    (('' + month).length < 2 ? '0' : '') + month + '-' +
+                                    (('' + day).length < 2 ? '0' : '') + day;
+                                var timeslot = r.tuition_time.split('-');
+
+                                var eventTitle = r.user_details.first_name + "\r" + r.subject_details.main_title;
 
                                 events.push({
-                                    start: r.available_datetime,
-                                    title: 'Available',
-                                    "textColor": "#ffffff"
-
-
+                                    id: r.id,
+                                    title: eventTitle,
+                                    start: output + ' ' + timeslot[0],
+                                    end: output + ' ' + timeslot[1],
+                                    time: r.tuition_time,
 
                                 })
 
@@ -197,7 +204,12 @@
 
 
             },
-
+            eventClick: function(info) {
+                var setTime = info.event.extendedProps.time;
+                var userId = info.event.id;
+                // alert(userId);
+                window.location.href = '{{url("/show-bookslot-data/")}}' + '/' + userId + '/' + setTime;
+            },
 
 
         });
