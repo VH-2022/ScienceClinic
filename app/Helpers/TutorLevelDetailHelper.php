@@ -134,7 +134,6 @@ class TutorLevelDetailHelper
         return $query;
     }
 
-<<<<<<< HEAD
     public static function getListTutor($id){
         $query = TutorLevelDetail::where('tutor_id',$id)->get();
         return $query;
@@ -194,21 +193,5 @@ class TutorLevelDetailHelper
         $update = TutorLevelDetail::where('id', $mainId)->update($data);
         return $update;
     }
-=======
-    public static function getDetailsById($id)
-    {
-        $query = TutorLevelDetail::where('tutor_id',$id)->whereNull('hourly_rate')->count();
-        return $query;
-    }
-
-   public static function saveHourlyRate($id,$rate,$subjectId)
-   {
-        $arrData = array(
-            'hourly_rate' => $rate
-        );
-       $query = TutorLevelDetail::where('tutor_id',$id)->where('subject_id',$subjectId)->update($arrData);
-       return $query;
-   }
->>>>>>> fd48de97833c1d5bd4a25b5944c19d32ebae7d8c
 }
 
