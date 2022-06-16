@@ -147,6 +147,7 @@ class TutorLevelDetailHelper
         })
         ->where('sc_tutor_level_details.tutor_id',$id)
         ->where('sc_tutor_level_details.website_flag',0)
+        ->whereNull('sb.deleted_at')
         ->orderBy('sc_tutor_level_details.id','DESC');
         $query = $query->paginate(10);
         return $query;
@@ -159,6 +160,7 @@ class TutorLevelDetailHelper
         })
         ->where('sc_tutor_level_details.tutor_id',$id)
         ->where('sc_tutor_level_details.website_flag',1)
+        ->whereNull('sb.deleted_at')
         ->orderBy('sc_tutor_level_details.id','DESC');
         $query = $query->paginate(10);
         return $query;
@@ -170,6 +172,7 @@ class TutorLevelDetailHelper
             $join->on('level.id', '=', 'sc_tutor_level_details.level_id');
         })
         ->where('sc_tutor_level_details.id',$id)
+        ->whereNull('sb.deleted_at')
         ->where('sc_tutor_level_details.website_flag',0)
         ->first();
         return $query;
@@ -181,6 +184,7 @@ class TutorLevelDetailHelper
             $join->on('level.id', '=', 'sc_tutor_level_details.level_id');
         })
         ->where('sc_tutor_level_details.id',$id)
+        ->whereNull('sb.deleted_at')
         ->where('sc_tutor_level_details.website_flag',1)
         ->first();
         return $query;
@@ -196,6 +200,14 @@ class TutorLevelDetailHelper
     public static function getDetailsById($id)
     {
         $query = TutorLevelDetail::where('tutor_id',$id)->whereNull('hourly_rate')->count();
+        return $query;
+    }
+    public static function saveHourlyRate($id, $rate, $subjectId)
+    {
+        $arrData = array(
+            'hourly_rate' => $rate
+        );
+        $query = TutorLevelDetail::where('tutor_id', $id)->where('subject_id', $subjectId)->update($arrData);
         return $query;
     }
 }
