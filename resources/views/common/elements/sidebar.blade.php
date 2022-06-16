@@ -220,6 +220,10 @@
                     </a>
 
                 </li>
+                
+                <li class="menu-item {{ Request::segment(1) == 'tutor-subject' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+
+                    <a href="{{ route('tutor-subject') }}" class="menu-link">
                 <li class="menu-item {{ Request::segment(1) == 'tutor-profile-photo' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
                     <a href="{{ route('tutor-profile-photo') }}" class="menu-link">
@@ -246,7 +250,7 @@
 
                         </span>
 
-                        <span class="menu-text">Profile Photo</span>
+                        <span class="menu-text">My Subjects</span>
 
                     </a>
 
