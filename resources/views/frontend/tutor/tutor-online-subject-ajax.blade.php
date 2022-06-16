@@ -8,7 +8,7 @@
 
             <th style="white-space: nowrap">Name </th>
 
-            <th style="white-space: nowrap">Created Date</th>
+            <th style="white-space: nowrap">Level</th>
 
             <th>Actions</th>
 
@@ -32,24 +32,16 @@
 
                 <td>{{ $i++ }}</td>
 
-                <td id="title{{$val->id}}">{{ $val->title }}</td>
+                <td id="title{{$val->subject_id}}">{{ $val->main_title }}</td>
+
+                <td id="level{{$val->level_id}}">{{ $val->title }}</td>
 
                 <td>
 
-                    @if ($val->created_at != '')
+                    <a href="javascript:void(0)" onclick="editOnlineDetail('{{$val->id}}')" class="edit-details" data-id="{{$val->id}}}"><i class="fa fa-edit"></i></a>
 
-                        {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}
+                    <a href="javascript:void(0)" onclick="deleteOnlineDetail('{{$val->id }}')" class="delete-details" data-id="{{$val->id}}}"><i class="fa fa-trash"></i></a>
 
-                    @endif
-
-                </td>
-
-                <td>
-
-                    <a href="javascript:void(0)" onclick="editDetail('{{$val->id}}')" class="edit-details" data-id="{{$val->id}}}"><i class="fa fa-edit"></i></a>
-<!--
-                    <a href="javascript:void(0)" onclick="deleteDetail('{{$val->id }}')" class="delete-details" data-id="{{$val->id}}}"><i class="fa fa-trash"></i></a>
--->
                 </td>
 
             </tr>

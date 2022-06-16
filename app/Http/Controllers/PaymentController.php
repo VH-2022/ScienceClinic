@@ -65,6 +65,7 @@ class PaymentController extends Controller
         $paymentData = array(
             "user_id" => $request->input('id'),
             "user_inquiry_id" => $item_number,
+            'pay_amount' => $payment_gross,
             "payment_type" => 'paypal',
             "payment_status" => 'success',
             "payment_json" => $paymentDetail,
@@ -86,14 +87,14 @@ class PaymentController extends Controller
             'name' => $request->name,
             'source' => $request->stripeToken
         ));
-
+        $price = 100;
         $stripe_customer_id = $customer->id;
         $randomNo = substr(str_shuffle("0123456789"), 0, 4);
         $order_number = date('Ymdhis'). $randomNo;
         $currency = "eur";
         $itemName = "Order Payment";
         $itemNumber = $order_number;
-        $itemPrice = 100 * 100;
+        $itemPrice = $price * 100;
         $charge = \Stripe\Charge::create(array(
             'customer' => $stripe_customer_id,
             'amount' => $itemPrice,
@@ -111,6 +112,7 @@ class PaymentController extends Controller
                 $insertArray = array(
                     'user_id' => $getParentPymenttoken->user_id,
                     'user_inquiry_id' => $getParentPymenttoken->id,
+                    'pay_amount' => $price,
                     'payment_type' => 'stripe',
                     'payment_status' => 'success',
                     'payment_json' => json_encode($chargeJson),
