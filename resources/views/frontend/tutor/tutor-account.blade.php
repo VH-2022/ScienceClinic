@@ -37,6 +37,9 @@
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="account-status-tab" data-toggle="pill" href="#account-status" role="tab" aria-controls="pills-contact" aria-selected="false">Account Status</a>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="my-bank-account-tab" data-toggle="pill" href="#my-bank-account" role="tab" aria-controls="pills-account" aria-selected="false">My Bank Account</a>
+                            </li>
                         </ul>
 
                         <div class="tab-content" id="pills-tabContent">
@@ -162,6 +165,49 @@
                                 <td><span class="badge badge-danger">Not Approved</span></td>
                                 @endif
                             </div>
+                            <div class="tab-pane fade" id="my-bank-account" role="tabpanel" aria-labelledby="my-bank-account-tab">
+                                <div class="prime-container">
+                                    <form method="post" id="account-details">
+                                        @csrf
+                                        <div class="row row-spacing">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-control-spacing">
+                                                    <label for="example-text-input" class="form-label">Account Holder Name</label> <span style="color:red" class="required-error">*</span>
+                                                    <input class="form-control placeholder2" id="account_holder_name" name="account_holder_name" type="text" autocomplete="off" placeholder="Enter Account Holder Name">
+                                                    <span id="account_holder_name_error" style="color:red;"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-control-spacing">
+                                                    <label for="example-text-input" class="form-label">Bank Name</label> <span style="color:red" class="required-error">*</span>
+                                                    <input class="form-control placeholder2" id="bank_name" name="bank_name" type="text" autocomplete="off" placeholder="Enter Bank Name">
+                                                    <span id="bank_name_error" style="color:red;"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-control-spacing">
+                                                    <label for="example-text-input" class="form-label">Bank Account Number</label> <span style="color:red" class="required-error">*</span>
+                                                    <input class="form-control placeholder2" id="account_number" maxlength="12" name="account_number" type="text" autocomplete="off" placeholder="Enter Bank Account Number" onkeypress="return isNumber(event)">
+                                                    <span id="account_number_error" style="color:red;"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-control-spacing">
+                                                    <label for="example-text-input" class="form-label">Bank Sort Code</label> <span style="color:red" class="required-error">*</span>
+                                                    <input class="form-control placeholder2" id="sort_code" name="sort_code" type="text" autocomplete="off" placeholder="Enter Bank Sort Code">
+                                                    <span id="sort_code_error" style="color:red;"></span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-3 offset-md-9 mt-3">
+                                                <input id="submitbankdetails" class="btn btn-primary w-100" type="button" value="Update">
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -192,6 +238,7 @@
             /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         return expr.test(email);
     }
+
     function ValidatePassword(password) {
         var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
         return expr.test(password);
@@ -532,8 +579,125 @@
                     }
                 }
             });
+        } else {
+            return false;
         }
-        else{
+    });
+
+    function tutorBankDetailsAjax() {
+        $.ajax({
+            async: false,
+            global: false,
+            url: "{{ route('get-tutor-bank-details') }}",
+            type: "get",
+
+            success: function(response) {
+            
+                $('#account_holder_name').val(response.account_holder_name);
+                $('#bank_name').val(response.bank_name);
+                $('#account_number').val(response.bank_account_number);
+                $('#sort_code').val(response.bank_sort_code);
+
+            }
+        });
+    }
+    $(document).ready(function() {
+        tutorBankDetailsAjax();
+    });
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode >
+            31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+    $("#submitbankdetails").click(function() {
+        var temp = 0;
+        var accountHolderName = $('#account_holder_name').val();
+        var bankName = $('#bank_name').val();
+        var accountNumber = $('#account_number').val();
+        var sortCode = $('#sort_code').val();
+
+        $('#account_holder_name_error').html("");
+        $('#bank_name_error').html("");
+        $('#account_number_error').html("");
+        $('#sort_code_error').html("");
+
+        if (accountHolderName.trim() == '') {
+            $('#account_holder_name_error').html("Account holder name is required.");
+            temp++;
+        }
+        if (bankName.trim() == '') {
+            $('#bank_name_error').html("Bank name is required.");
+            temp++;
+        }
+        if (accountNumber.trim() == '') {
+            $('#account_number_error').html("Account number Bank is required.");
+            temp++;
+        }
+        if (sortCode.trim() == '') {
+            $('#sort_code_error').html("Bank sort code is required.");
+            temp++;
+        }
+
+        if (temp == 0) {
+            $.ajax({
+                async: false,
+                url: "{{route('store-account-details')}}",
+                type: "POST",
+                data: new FormData($('#account-details')[0]),
+                processData: false,
+                contentType: false,
+                cache: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(result) {
+                    if (result) {
+                        $('#account-details')[0].reset();
+                        toastr.success(result.success_msg);
+                        tutorBankDetailsAjax();
+                    } else {
+                        toastr.error(result.error_msg);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var tempVal = 0;
+                    if (jqXHR.responseJSON.message.current_password) {
+                        tempVal++;
+                        $('#account_holder_name_error').text(jqXHR.responseJSON.message.account_holder_name);
+                    } else {
+                        $('#account_holder_name_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.new_password) {
+                        tempVal++;
+                        $('#bank_name_error').text(jqXHR.responseJSON.message.bank_name);
+                    } else {
+                        $('#bank_name_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.account_number) {
+                        tempVal++;
+                        $('#account_number_error').text(jqXHR.responseJSON.message.confirmation_password);
+                    } else {
+                        $('#account_number_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.sort_code) {
+                        tempVal++;
+                        $('#sort_code_error').text(jqXHR.responseJSON.message.confirmation_password);
+                    } else {
+                        $('#sort_code_error').text('');
+                    }
+                    if (tempVal == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+        } else {
             return false;
         }
     });
