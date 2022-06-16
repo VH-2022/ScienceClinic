@@ -78,9 +78,9 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Address : </strong>&nbsp;
+                                <strong class="address-title">Address : </strong>&nbsp;
 
-                                    {{ $parents->address1 }}
+                                <span class="address-text">{{ $parents->address1 }}</span>
 
                                 </div>
 

@@ -38,9 +38,11 @@
 
                             <input type="hidden" id="tutor_id" value="{{$tutor->id}}">
 
+                            @if($tutor->status == '' || $tutor->status == 'Pending')
                             <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$tutor->id}})" @if($tutor->status=="Accepted") style="display:none" @endif>Accept</a>
 
                             <a href="javascript:void(0);" class="btn btn-danger mr-2 rejected_id" onclick="changeStatus('Rejected',{{$tutor->id}})" @if($tutor->status=="Rejected") style="display:none" @endif>Reject</a>
+                            @endif
 
                         </div>
 

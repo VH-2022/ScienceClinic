@@ -279,8 +279,21 @@ button.pass-icons {
     z-index: 9999;
     max-width: 114px;
 }
+.address-title{
+    width:135px !important;
+}
 @media only screen and (max-width:767px) {
     .personaltab-ul li a {
         padding: 0.75rem 9px !important;
+    }
+}
+@media only screen and (min-width:768px) and (max-width:1024px){
+    .address-title{
+        width: max-content!important;
+    }
+}
+@media only screen and (min-width:1025px) {
+    .address-title{
+        width:135px !important;
     }
 }
