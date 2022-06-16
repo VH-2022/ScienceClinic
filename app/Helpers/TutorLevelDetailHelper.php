@@ -193,5 +193,10 @@ class TutorLevelDetailHelper
         $update = TutorLevelDetail::where('id', $mainId)->update($data);
         return $update;
     }
+    public static function getDetailsById($id)
+    {
+        $query = TutorLevelDetail::where('tutor_id',$id)->whereNull('hourly_rate')->count();
+        return $query;
+    }
 }
 
