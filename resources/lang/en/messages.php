@@ -17,6 +17,7 @@ return [
     'deletedSuccessfully' => 'Successfully Deleted',
 
     'errorWrongMail' => 'There isn’t any account associated with this email',
-    'successMail' => 'Mail Send Sucessfully'
+    'successMail' => 'Mail Send Sucessfully',
+    'paymentaddedSuccessfully' => 'Payment done successfully'
 
 ];

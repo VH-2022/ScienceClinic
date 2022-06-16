@@ -1,15 +1,9 @@
 @extends('layouts.master')
-
 @section('content')
 @section('page-css')
-<link rel="stylesheet" href="{{asset('front/main.css')}}">
+
 <link rel="stylesheet" href="{{asset('assets/css/fullcalender-css/main.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/font-awesome/all.min.css')}}" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
-
-<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 <div class="d-flex flex-column-fluid">
@@ -72,8 +66,6 @@
 @section('page-js')
 <script src="{{asset('assets/js/fullcalender-js/main.min.js')}}"></script>
 <script src="{{asset('assets/js/moment/moment.min.js')}}"></script>
-<script src="{{asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js')}}"></script>
-<script src="{{asset('assets/js/font-awesome/all.min.js')}}" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     $(document).ready(function() {
@@ -89,7 +81,7 @@
     var calendar;
     var events = [];
     var today = moment();
-    console.log(today);
+    
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var tutorId = $('#tutor_id').val();
@@ -105,58 +97,18 @@
 
            
             contentHeight: 450,
-            selectable: true,
-            editable: true,
+            selectable: false,
+            editable: false,
             slotMinTime: "00:00:00",
             slotMaxTime: "24:00:00",
             initialView: 'timeGridWeek',
             slotDuration: '01:00',
 
-            displayEventTime: true,
+            displayEventTime: false,
             allDaySlot: false,
             html: true,
           
-
-
-            dateClick: function(info, callback) {
-
-                $.confirm({
-                    title: 'Are You Sure',
-                    content: 'Book This Slot !',
-                    buttons: {
-                        confirm: function() {
-                            $.ajax({
-                                url: "{{route('add-tutor-availability')}}",
-                                type: 'POST',
-                                data: {
-                                    date: info.dateStr,
-                                    tutor_id: tutorId,
-                                },
-                                success: function(result) {
-
-                                    var allData = result.data.original;
-
-                                    toastr.success(result.error_msg);
-                                    var data = result.data.original;
-
-                                    calendar.refetchEvents();
-
-
-                                }
-                            });
-                        },
-                        cancel: function() {
-
-                        },
-                    }
-                });
-            },
-
-            eventContent: {
-                html: '<a><i class="fa fa-check"></i></a>'
-            },
-
-
+        
             events: function(fetchInfo, callback) {
 
                 var events = [];
@@ -168,14 +120,20 @@
                         if (!!result) {
                             $.map(result, function(r) {
 
+                                var d = new Date();
+                                var month = d.getMonth()+1;
+                                var day = d.getDate();
+                                var output = d.getFullYear() + '-' +
+                                    ((''+month).length<2 ? '0' : '') + month + '-' +
+                                    ((''+day).length<2 ? '0' : '') + day;
+                                var timeslot = r.tuition_time.split('-');
+                                var eventTitle = r.subject_details.main_title+"\r"+r.tutor_details.first_name;
                                 events.push({
-                                    start: r.available_datetime,
-                                    title: 'Available',
-                                    "textColor": "#ffffff"
-
-
-
+                                    title: eventTitle,
+                                    start: output+' '+timeslot[0],
+                                    end: output+' '+timeslot[1],
                                 })
+
 
                             });
                         }

@@ -21,7 +21,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-      
+
         return view('admin.subject.subject');
     }
     public function ajaxList(Request $request){

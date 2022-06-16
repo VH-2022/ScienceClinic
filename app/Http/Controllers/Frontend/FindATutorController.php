@@ -132,33 +132,68 @@ class FindATutorController extends Controller
         }
     }
 
+    public function checkEmailParent(Request $request){
+        
+        $checkParentEmail = UserHelper::checkEmail($request->email);
+        if($checkParentEmail){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
     public function saveInquiry(Request $request)
     {
-
-        $rules = array(
-            'first_name' => 'required| max:30',
-
-            'last_name' => 'required| max:30',
-
-            'email' => 'required| max:30',
-
-            'phone' => 'required|max:12',
-
-            'subjectinquiry' => 'required',
-
-            'level' => 'required',
-
-            'days' => 'required',
-
-            'tuition_time' => 'required',
-
-            'address' => 'required| max:255',
-
-            'username' => 'required| max:30',
-
-            'password' => ['required','min:6','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/'],
-            
-        );
+        $count = UserHelper::checkEmail($request->email);
+        if (empty($count)) {
+            $rules = array(
+                'first_name' => 'required| max:30',
+    
+                'last_name' => 'required| max:30',
+    
+                'email' => 'required| max:30',
+    
+                'phone' => 'required|max:12',
+    
+                'subjectinquiry' => 'required',
+    
+                'level' => 'required',
+    
+                'days' => 'required',
+    
+                'tuition_time' => 'required',
+    
+                'address' => 'required| max:255',
+    
+                'username' => 'required| max:30',
+    
+                'password' => ['required','min:6','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/'],
+                
+            );
+        }else{
+            $rules = array(
+                'first_name' => 'required| max:30',
+    
+                'last_name' => 'required| max:30',
+    
+                'email' => 'required| max:30',
+    
+                'phone' => 'required|max:12',
+    
+                'subjectinquiry' => 'required',
+    
+                'level' => 'required',
+    
+                'days' => 'required',
+    
+                'tuition_time' => 'required',
+    
+                'address' => 'required| max:255',
+    
+                'username' => 'required| max:30',
+                
+            );
+        }
+        
         $messsages = array(
             'password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
            

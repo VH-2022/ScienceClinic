@@ -42,6 +42,12 @@ Route::get('/clear-optimize', function () {
     echo '<script>alert("Clear Success")</script>';
 });
 
+Route::get('stripe-payment/{id}','App\Http\Controllers\PaymentController@stripePayment')->name('stripe-payment');
+Route::post('redirectPayment','App\Http\Controllers\PaymentController@redirectPayment')->name('redirectPayment');
+Route::get('paypal-payment/{id}','App\Http\Controllers\PaymentController@paypalPayment')->name('paypal-payment');
+Route::post('/ipn','App\Http\Controllers\PaymentController@ipn')->name('ipn');
+Route::post('/payment_script_status', 'App\Http\Controllers\PaymentController@payment_script_status')->name('payment_script_status');
+
 Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
     Route::post('verify-login', 'LoginController@verifyLogin')->name('verify-login');
     Route::get('check-email-admin', "LoginController@checkEmail")->name('check-email-admin');
@@ -66,8 +72,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-university', "TutorMasterController@getUniversityDetails")->name('tutor-university');
         $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
         $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
+        $backendVerified->get('get-count', "TutorMasterController@getCount")->name('get-count');
+        
         $backendVerified->get('tutor-other-list', "TutorMasterController@getOtherDetails")->name('tutor-other-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
+        $backendVerified->post('add-hourly-rate', "TutorMasterController@addHourlyRate")->name('add-hourly-rate');
+
         $backendVerified->get('subject-inquiry', "SearchInquiryController@index")->name('subject.inquiry');
         $backendVerified->get('subject-inquiry-ajax', "SearchInquiryController@ajaxList")->name('subject-inquiry-ajax');
 
@@ -76,15 +86,30 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('change-status', "TutorMasterController@changeStatus")->name('change-status');
         $backendVerified->get('contact-ajax', "ContactListController@ajaxList")->name('contact-ajax');
         $backendVerified->resource('contact-list', "ContactListController");
+        $backendVerified->resource('support-ticket', "SupportTicketController");
+        $backendVerified->get('support-ajax', "SupportTicketController@ajaxList")->name('support-ajax');
         $backendVerified->get('about-ajax', "AboutController@ajaxList")->name('about-ajax');
         $backendVerified->resource('about-list', "AboutController");
         $backendVerified->get('parent-list', "ParentMasterController@index")->name('parent.index');
         $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
         $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
+        $backendVerified->get('calander-booking', "ParentMasterController@getCalanderBooking")->name('calander-booking');
+        $backendVerified->get('getBooklesson', "ParentMasterController@getBooklesson")->name('getBooklesson');
+        $backendVerified->post('update-book-lesson', "ParentMasterController@updateBooklesson")->name('update-book-lesson');
+        $backendVerified->get('parent-book-lesson-data', "ParentMasterController@getParentBookLesson")->name('parent-book-lesson-data');
         $backendVerified->delete('parent-delete/{id}', "ParentMasterController@destroy");
         $backendVerified->get('testimonial-ajax', "TestimonialController@ajaxList")->name('testimonial-ajax');
         $backendVerified->resource('testimonial', "TestimonialController");
+
+        $backendVerified->get('send-payment-link-parent', "ParentMasterController@sendPaymentLinkMail")->name('send-payment-link-parent');
+        $backendVerified->resource('parent-payment-history', "ParentPaymentController");
+        $backendVerified->get('parent-payment-list-ajax', "ParentPaymentController@ajaxList")->name('parent-payment-list-ajax');
+        
+        $backendVerified->resource('tutor-payment-history', "TutorPaymentController");
+        
+
+
     });
 });
 
@@ -97,9 +122,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('check-email', "BecomeTutorController@checkEmail")->name('check.email');
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
-    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails");
+    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');;
     $frontend->get('tutor-availability-get', "FindATutorController@tutorAvailabilityDetails")->name('tutor-availability-get');
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
+    $frontend->post('check-email-parent', "FindATutorController@checkEmailParent")->name('check-email-parent');
     $frontend->post('submit-inquiry', "FindATutorController@saveInquiry")->name('submit.inquiry');
     $frontend->get('blog', "BlogController@index")->name('blog');
     $frontend->get('blog-detail/{id}', "BlogController@blogDetails")->name('blog-detail');
@@ -143,6 +169,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->delete('remove-subject/{id}', "TutorSubjectController@delete")->name('remove-subject');
         $backendVerified->get('tutor-online-subject-ajax', "TutorSubjectController@onlineAjaxList")->name('tutor-online-subject-ajax');
         $backendVerified->get('tutor-online-subject-edit/{id}', "TutorSubjectController@editOnlineSubject")->name('tutor-online-subject-edit');
+        $backendVerified->get('tutor-profile-photo', 'TutorProfilePhotoController@index')->name('tutor-profile-photo');
+        $backendVerified->post('update-tutor-image', 'TutorProfilePhotoController@updateTutorImage')->name('update-tutor-image');
+
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {

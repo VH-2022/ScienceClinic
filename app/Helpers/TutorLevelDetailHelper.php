@@ -80,7 +80,7 @@ class TutorLevelDetailHelper
 
     public static function getListwithPaginate($id){
 
-        //$query = TutorLevelDetail::with('tutorLevelRelation')->where('tutor_id',$id)->paginate(10);
+     
         $qeury = $query = TutorLevelDetail::selectRaw('sc_tutor_level_details.*,sb.main_title,GROUP_CONCAT(level.title) as level_name')->leftjoin('sc_subject_master as sb', function ($join) {
             $join->on('sb.id', '=', 'sc_tutor_level_details.subject_id');
         })->leftjoin('sc_tutor_level as level', function ($join) {
@@ -134,6 +134,7 @@ class TutorLevelDetailHelper
         return $query;
     }
 
+<<<<<<< HEAD
     public static function getListTutor($id){
         $query = TutorLevelDetail::where('tutor_id',$id)->get();
         return $query;
@@ -193,5 +194,21 @@ class TutorLevelDetailHelper
         $update = TutorLevelDetail::where('id', $mainId)->update($data);
         return $update;
     }
+=======
+    public static function getDetailsById($id)
+    {
+        $query = TutorLevelDetail::where('tutor_id',$id)->whereNull('hourly_rate')->count();
+        return $query;
+    }
+
+   public static function saveHourlyRate($id,$rate,$subjectId)
+   {
+        $arrData = array(
+            'hourly_rate' => $rate
+        );
+       $query = TutorLevelDetail::where('tutor_id',$id)->where('subject_id',$subjectId)->update($arrData);
+       return $query;
+   }
+>>>>>>> fd48de97833c1d5bd4a25b5944c19d32ebae7d8c
 }
 

@@ -36,9 +36,7 @@
 
                         <div class="card-toolbar">
 
-
-
-
+                            <input type="hidden" id="tutor_id" value="{{$tutor->id}}">
 
                             <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$tutor->id}})" @if($tutor->status=="Accepted") style="display:none" @endif>Accept</a>
 
@@ -188,10 +186,10 @@
 
                                 </li>
 
-                              
+
                                 <li class="nav-item">
 
-                                    <a class="nav-link" href="#level" data-toggle="tab" onclick="getLevelDetails(1)" aria-controls="Level">
+                                    <a class="nav-link" href="#level" data-toggle="tab" onclick="getLevelDetails(1)" aria-controls="Level" id="tutorlevel">
 
                                         <span class="nav-text">Level Tutor</span>
 
@@ -214,7 +212,6 @@
                         </div>
 
                     </div>
-
                     <div class="tab-content" id="tabs">
 
                         <div class="tab-pane active" id="university">
@@ -226,29 +223,30 @@
 
 
                         <div class="tab-pane" id="subject">
-                        <div class="table-responsive">
-                            <span id="responsive_Id"></span></div>
+                            <div class="table-responsive">
+                                <span id="responsive_Id"></span>
+                            </div>
 
                         </div>
 
 
 
                         <div class="tab-pane" id="level">
-                        <div class="table-responsive">
-                            <span id="responsived_id"></span>
-                        </div>
+                            <div class="table-responsive">
+                                <span id="responsived_id"></span>
+                            </div>
 
                         </div>
 
-                        
+
 
 
 
                         <div class="tab-pane" id="other">
                             <div class="table-responsive">
-                            <span id="responsived1_id"></span>
+                                <span id="responsived1_id"></span>
                             </div>
-                            
+
 
                         </div>
 
@@ -285,6 +283,68 @@
 <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
 
 <script>
+    function addhourlyrate(subjectId) {
+        $.confirm({
+            title: 'Add Hourly Rate',
+            content: '' +
+                '<form action="" class="formName">' +
+                '<div class="form-group">' +
+                '<label>Enter Rate</label>' +
+                '<input type="number" placeholder="Your Rate" class="rate form-control" required />' +
+                '<span class="text-danger" id="error_rate"></span>' +
+                '</div>' +
+                '</form>',
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        var rate = this.$content.find('.rate').val();
+                        if (rate.trim() == '') {
+                            $('#error_rate').html("Please enter rate");
+                            return false;
+                        }
+
+                        $.ajax({
+
+                            type: "post",
+
+                            url: "{{ route('add-hourly-rate') }}",
+                            data: {
+                                'tutor_id': '{{ $tutor->id }}',
+                                'rate': rate,
+                                'subject_id': subjectId,
+                                "_token": "{{ csrf_token() }}"
+
+                            },
+
+                            success: function(res) {
+
+                                toastr.success(res.error_msg);
+                                getLevelDetails(1);
+                                getCounter();
+                            }
+
+                        })
+                    }
+                },
+                cancel: function() {
+
+                },
+            },
+            onContentReady: function() {
+
+                var jc = this;
+                this.$content.find('form').on('submit', function(e) {
+
+                    e.preventDefault();
+                    jc.$$formSubmit.trigger('click');
+                });
+            }
+        });
+
+    }
+
     function getUniversityDetails(page) {
 
         $.ajax({
@@ -397,7 +457,6 @@
             },
 
             success: function(res) {
-
                 $('#responsived1_id').html("");
 
                 $('#responsived1_id').html(res);
@@ -412,110 +471,126 @@
 </script>
 
 <script>
-    function changeStatus(status, id) {
+    function getCounter() {
+        var id = $('#tutor_id').val();
 
-        $.confirm({
-
-            title: 'Are you sure?',
-
-            columnClass: "col-md-6",
-
-
-
-            content: "you want to change status?",
-
-            buttons: {
-
-                formSubmit: {
-
-                    text: 'Submit',
-
-                    btnClass: 'btn-primary',
-
-                    action: function() {
-
-                        $.ajax({
-
-                            method: "GET",
-
-                            url: "{{ route('changestatus') }}",
-
-                            data: {
-
-
-
-
-
-                                'id': id,
-
-                                'status': status
-
-                            }
-
-
-
-                        }).done(function(r) {
-
-
-
-                            toastr.success(r.error_msg);
-
-                            $('.rejected_id').attr('style', 'display:block');
-
-                            $('.accepted_id').attr('style', 'display:block');
-
-                            if (r.data.status == "Accepted") {
-
-                                var html_res = '<span class="badge badge-success">Accepted</span>';
-
-                                $('.accepted_id').attr('style', 'display:none');
-
-                            } else {
-
-                                var html_res = '<span class="badge badge-danger">Rejected</span>';
-
-                                $('.rejected_id').attr('style', 'display:none');
-
-                            }
-
-
-
-                            $('#status_id').html(html_res);
-
-
-
-                        }).fail(function() {
-
-                            _self.setContent('Something went wrong. Contact Support.');
-
-                            toastr.error('Sorry, something went wrong. Please try again.');
-
-                        });
-
-
-
-                    }
-
-                },
-
-                cancel: function() {
-
-                    //close
-
-                },
-
+        $.ajax({
+            method: "GET",
+            url: "{{ route('get-count') }}",
+            data: {
+                'id': id,
             },
-
-            onContentReady: function() {
-
-                // bind to events
-
-
-
+            success: function(res) {
+                console.log(res.data);
+                $('#tutor_id').val(res.data);
             }
+        })
+    }
 
-        });
 
+    function changeStatus(status, id) {
+        var count = $('#tutor_id').val();
+        if (count == 0) {
+            $.confirm({
+
+                title: 'Are you sure?',
+
+                columnClass: "col-md-6",
+
+
+
+                content: "you want to change status?",
+
+                buttons: {
+
+                    formSubmit: {
+
+                        text: 'Submit',
+
+                        btnClass: 'btn-primary',
+
+                        action: function() {
+
+                            $.ajax({
+
+                                method: "GET",
+
+                                url: "{{ route('changestatus') }}",
+
+                                data: {
+
+                                    'id': id,
+
+                                    'status': status
+
+                                }
+
+
+
+                            }).done(function(r) {
+
+
+
+                                toastr.success(r.error_msg);
+
+                                $('.rejected_id').attr('style', 'display:block');
+
+                                $('.accepted_id').attr('style', 'display:block');
+
+                                if (r.data.status == "Accepted") {
+
+                                    var html_res = '<span class="badge badge-success">Accepted</span>';
+
+                                    $('.accepted_id').attr('style', 'display:none');
+
+                                } else {
+
+                                    var html_res = '<span class="badge badge-danger">Rejected</span>';
+
+                                    $('.rejected_id').attr('style', 'display:none');
+
+                                }
+
+
+
+                                $('#status_id').html(html_res);
+
+
+
+                            }).fail(function() {
+
+                                _self.setContent('Something went wrong. Contact Support.');
+
+                                toastr.error('Sorry, something went wrong. Please try again.');
+
+                            });
+
+
+
+                        }
+
+                    },
+
+
+                },
+
+               
+
+            });
+        } else {
+         
+            $.confirm({
+                title: 'Alert!',
+                content: 'Please Enter Hourly Rate First',
+                buttons: {
+                    OK: function() {
+                        $('#tutorlevel').click();
+                     
+                    },
+
+                }
+            });
+        }
 
 
     }

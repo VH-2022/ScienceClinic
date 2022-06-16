@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Parent;
 
+use App\Helpers\ParentDetailHelper;
 use App\Helpers\TutorAvailabilityHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class BookingsController extends Controller
     public function getTutorAvailabilityDetails()
     {
         $userId = Auth::user()->id;
-      $data = TutorAvailabilityHelper::getData($userId);
+        $data = ParentDetailHelper::getBooklessondata($userId);
         return response()->json($data);
     }
     public function addTutorAvailability(Request $request)

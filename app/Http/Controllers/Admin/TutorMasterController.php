@@ -4,6 +4,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\MailHelper;
+use App\Helpers\ParentDetailHelper;
 use App\Helpers\TutorDetailHelper;
 use App\Http\Controllers\Controller;
 
@@ -20,7 +22,9 @@ use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\TutorSubjectDetailHelper;
 
 use App\Helpers\TutorLevelDetailHelper;
-
+use App\Helpers\TutorLevelHelper;
+use App\Models\ParentDetail;
+use App\Models\TutorLevelDetail;
 use Validator;
 
 use Session;
@@ -94,11 +98,11 @@ class TutorMasterController extends Controller
     }
 
     public function show($id)
-
     {
 
         $data['tutor'] = TutorMasterHelper::getDetailsById($id);
-
+        $data['level'] = TutorLevelDetailHelper::getDetailsById($id);
+ 
         if (isset($data['tutor']->id)) {
 
             return view('admin.tutor.tutor_view', $data);
@@ -144,7 +148,6 @@ class TutorMasterController extends Controller
         $data['query'] = TutorLevelDetailHelper::getListwithPaginate($tutor_id);
 
 
-
         return view('admin.tutor.tutor_level_list', $data);
     }
 
@@ -164,14 +167,46 @@ class TutorMasterController extends Controller
     public function changeStatus(Request $request)
     {
 
+
         $query = UserHelper::updateStatus($request->id, $request->status);
 
         if ($query) {
+
+            $getUserData = UserHelper::getUserDetails($request->id);
+            if($request->status == 'Accepted'){
+                $html = '<p>Your account has been approved by admin now you can login.</p>';
+                $subject = __('emails.tutor_account_email');
+                $BODY = __('emails.tutor_account_body', ['USERNAME' => $getUserData->first_name, 'HTMLTABLE' => $html]);
+                $body_email = __('emails.template', ['BODYCONTENT' => $BODY]);
+                $mail = MailHelper::mail_send($body_email, $getUserData->email, $subject);
+            }
 
             return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => array('status' => $request->status)], 200);
         } else {
 
             return response()->json(['error_msg' => trans('messages.error'), 'data' => array()], 500);
         }
+    }
+
+    public function addHourlyRate(Request $request)
+    {       
+      $update = TutorLevelDetailHelper::saveHourlyRate($request->tutor_id, $request->rate,$request->subject_id);
+      
+      if($update)
+      {
+            return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => $update], 200);
+        } else {
+
+            return response()->json(['error_msg' => trans('messages.error'), 'data' => array()], 500);
+        }
+      
+    }
+    public function getCount(Request $request)
+    {
+    
+        $data = TutorLevelDetailHelper::getDetailsById($request->id);
+     
+            return response()->json(['error_msg' => 'Success', 'data' => $data], 200);
+      
     }
 }

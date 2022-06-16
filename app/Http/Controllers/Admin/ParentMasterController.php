@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\MailHelper;
 use App\Helpers\ParentDetailHelper;
 use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
+use Session;
 
 class ParentMasterController extends Controller
 {
@@ -45,6 +50,67 @@ class ParentMasterController extends Controller
         }
     }
 
+    public function sendPaymentLinkMail(Request $request){
+        if($request->id !=''){
+            $string = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz';
+            $rand =  substr(str_shuffle($string), 0, 8);
+            $encrypted = Crypt::encrypt($rand);
+            $update = ParentDetailHelper::update(array('payment_link_flag' => '1','payment_token' => $rand,'updated_at' => date('Y-m-d H:i:s')),array('id'=>$request->id));
+            $getUserData = ParentDetailHelper::getUserDetails($request->id);
+            if($getUserData){
+
+                //send mail to parent for payment
+                $html = '<p>Admin has sent you a payment request for subject '.$getUserData->subjectDetails->main_title.'.</p><p>Please click on the link below to make a secure online payment:</p>
+                <h5>Stirpe</h5>
+                <a href="' . URL::to('/stripe-payment/' . $encrypted) . '">' . URL::to('/stripe-payment/' . $encrypted) . '</a>
+                <br/>
+                <h5>Paypal</h5>
+                <a href="' . URL::to('/paypal-payment/' . $encrypted) . '">' . URL::to('/stripe-payment/' . $encrypted) . '</a>';
+                $subject = __('emails.payment_email');
+                $BODY = __('emails.payment_email_body', ['USERNAME' => $getUserData->userDetails->first_name, 'HTMLTABLE' => $html]);
+                $body_email = __('emails.template', ['BODYCONTENT' => $BODY]);
+                $mail = MailHelper::mail_send($body_email, $getUserData->userDetails->email, $subject);
+                return 1;
+            }else{
+                return 0;
+            }
+            
+        }else{
+            return 0;
+        }
+    }
+    public function getCalanderBooking(Request $request){
+        $data['parent_id'] = $request->id;
+        return view('admin.parent.parent_calander_list', $data);
+    }
+    public function getBooklesson(Request $request){
+        $data = ParentDetailHelper::getUserDetails($request->id);
+        return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array($data)], 200);
+    }
+    public function updateBooklesson(Request $request){
+        $validator = Validator::make($request->all(), [
+            'days' => 'required',
+            'tuition_time' => 'required',
+         ]);
+
+         if ($validator->fails()) {
+             return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 'inactive', 'data' => array()], 400);
+         }
+
+         $data_array = array(
+
+            'tuition_day' => $request->days,
+            'tuition_time' => $request->tuition_time,
+
+         );
+
+         $update = ParentDetailHelper::update($data_array,array('id'=>$request->input('lesson_id')));
+         return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array()], 200);
+    }
+    public function getParentBookLesson(Request $request){
+        $data = ParentDetailHelper::getBooklessondata($request->parentID);
+        return response()->json($data);
+    }
     public function getInquiryDetails(Request $request)
     {
 

@@ -5,6 +5,14 @@ return
 		'forgot_email' => 'Science Clinic Reset Password',
 		'forgot_email_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
 
+		'payment_email' => 'Science Clinic Payment Link',
+		'payment_email_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
+
+		'tutor_account_email' => 'Welcome to Science Clinic',
+		'tutor_account_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
+
+		
+
 		'template' => '<!DOCTYPE html>
 		<html lang="en">
 

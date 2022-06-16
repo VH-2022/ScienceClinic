@@ -168,7 +168,7 @@
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 ">
                                                         <label class="tutor-label">Email</label>
-                                                        <input autocomplete="off" type="text" class="mb-0" id="email" name="email" placeholder="Email ">
+                                                        <input autocomplete="off" type="text" class="mb-0" id="email" name="email" placeholder="Email">
                                                         <span class="text-danger" id="error_email"></span>
 
                                                     </div>
@@ -237,13 +237,13 @@
                                                         <label class="tutor-label">Ideal Tuition Time</label>
                                                         <select id="time" class="mb-0" name="tuition_time">
                                                             <option value="">Select Time</option>
-                                                            <option value="8:00-9:00">
+                                                            <option value="08:00:00-09:00:00">
                                                                 8am- 9am
                                                             </option>
-                                                            <option value="9:00-10:00">
+                                                            <option value="09:00:00-10:00:00">
                                                                 9am - 10am
                                                             </option>
-                                                            <option value="10:00-11:00">
+                                                            <option value="10:00:00-11:00:00">
                                                                 10am - 11am
                                                             </option>
                                                         </select>
@@ -266,7 +266,7 @@
 
                                                     </div>
 
-                                                    <div class="col-md-6 col-lg-6">
+                                                    <div class="col-md-6 col-lg-6" id="passwordHide">
                                                         <label class="tutor-label">Password</label>
                                                         <input type="password" id="password" class="mb-0" name="password" placeholder="Password">
                                                         <span class="text-danger" id="error_password"></span>
@@ -858,6 +858,32 @@
     $(function() {
         $("#datepicker").datepicker();
     });
+
+    var timeout = null;
+
+$('#email').keyup(function() {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(function() {
+        var email = $("#email").val();
+        if(email !=''){
+            $.ajax({
+                type: 'POST', //THIS NEEDS TO BE GET
+                url: '{{route("check-email-parent")}}',
+                data: {email : email,_token: '{{csrf_token()}}'},
+                success: function (response) {
+                    if(response == '1'){
+                        $("#passwordHide").css('display','none');
+                    }else{
+                        $("#passwordHide").css('display','block');
+                    }
+                },error:function(){ 
+                    
+                }
+            });
+        }
+    }, 500);
+});
 </script>
 
 <script>

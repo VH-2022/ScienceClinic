@@ -26,7 +26,7 @@
 
                         <div class="card-title align-items-start flex-column">
 
-                            <h3 class="card-label font-weight-bolder text-dark">Parents List</h3>
+                            <h3 class="card-label font-weight-bolder text-dark">Parents Payment History</h3>
 
                         </div>
 
@@ -140,56 +140,7 @@
             </div>
 
         </div>
-        <div class="form-group row">
-
-            <label class="col-4 col-form-label">Email</label>
-
-            <div class="col-8">
-
-                <input class="form-control" placeHolder="Enter Search Email" type="text" name="email" id="email">
-
-            </div>
-
-        </div>
-        <div class="form-group row">
-
-            <label class="col-4 col-form-label">Phone</label>
-
-            <div class="col-8">
-
-                <input class="form-control" placeHolder="Enter Search Phone" type="text" name="phone" id="phone">
-
-            </div>
-
-        </div>
-        <div class="form-group row">
-
-            <label class="col-4 col-form-label">Address</label>
-
-            <div class="col-8">
-
-                <input class="form-control" placeHolder="Enter Search address" type="text" name="address" id="address">
-
-            </div>
-
-        </div>
-        <div class="form-group row">
-
-            <label class="col-4 col-form-label">Status</label>
-
-            <div class="col-8">
-
-                <select class="form-control" name="status" id="status">
-                    <option value="">Select</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Accepted">Accepted</option>
-                    <option value="Rejected">Rejected</option>
-
-                </select>
-
-            </div>
-
-        </div>
+        
         <div class="form-group row">
 
             <label class="col-4 col-form-label">Created Date</label>
@@ -317,23 +268,14 @@
     }
 
 
-    var _AJAX_LIST = "{{ route('parent-list-ajax') }}";
+    var _AJAX_LIST = "{{ route('parent-payment-list-ajax') }}";
 
 
 
     function ajaxList(page) {
 
         var name = $('#name').val();
-
         var created_date = $('#created_date').val();
-
-        var email = $('#email').val();
-
-        var phone = $('#phone').val();
-
-        var address = $('#address').val();
-        var status = $('#status').val();
-
         $('.ki-close').click();
 
         $.ajax({
@@ -345,13 +287,7 @@
             data: {
 
                 'name': name,
-                'email': email,
-                'phone': phone,
-                'address': address,
-                'status': status,
-
                 'page': page,
-
                 'created_date': created_date
 
             },
@@ -455,12 +391,7 @@
 
         $('#created_date').val("");
 
-        $('#email').val("");
-
-        $('#phone').val("");
-
-        $('#address').val("");
-        $('#status').val("");
+        
 
         ajaxList(1);
 
