@@ -107,6 +107,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('parent-payment-list-ajax', "ParentPaymentController@ajaxList")->name('parent-payment-list-ajax');
         
         $backendVerified->resource('tutor-payment-history', "TutorPaymentController");
+        $backendVerified->resource('site-setting', "SiteSettingController");
+
         
 
 
