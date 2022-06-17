@@ -19,7 +19,7 @@ class TutorResourcesHelper
         $query = TutorResources::where('user_id',$id)->whereNull('deleted_at')->paginate(10);
         return $query;
     }
-    public static function getListwithPaginateAdmin($id){
+    public static function getListwithPaginateAdmin(){
         $query = TutorResources::whereNull('deleted_at')->paginate(10);
         return $query;
     }

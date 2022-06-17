@@ -146,6 +146,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('user-reset-password/{id}', 'ResetPasswordController@ResetPassword')->name('user-reset-password');
     $frontend->post('update-user-password/{id}', 'ResetPasswordController@UpdatePassword')->name('update-user-password');
     $frontend->get('tutors', 'TutorListController@index')->name('tutors');
+    $frontend->get('E-Learning', 'HomeController@getELearningdata')->name('E-Learning');
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
