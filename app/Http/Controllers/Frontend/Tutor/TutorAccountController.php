@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers\Frontend\Tutor;
 
+use App\Helpers\TutorBankAccountDetailsHelper;
 use App\Helpers\TutorDetailHelper;
 use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\UserHelper;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Traits\ImageUploadTrait;
+use App\Models\TutorBankAccountDetails;
 use App\Models\TutorDetail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -106,7 +108,6 @@ class TutorAccountController extends Controller
         }
     }
     public function updatePassword(Request $request)
-
     {
         $auth  = auth()->user();
         $rules = array(
@@ -137,5 +138,58 @@ class TutorAccountController extends Controller
                 return response()->json(['error_msg' => trans('messages.errormsg'), 'status' => 0, 'data' => array()], 400);
             }
         }
+    }
+
+    public function storeAccountDetails(Request $request)
+    {
+        
+        $rules = array(
+            'account_holder_name' => 'required | max:30',
+
+            'bank_name' => 'required | max:30',
+
+            'account_number' => 'required | numeric',
+
+            'sort_code' => 'required',
+
+        );
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
+        } else {
+            $auth = Auth()->user();
+ 
+            $data_array = array(
+
+                'account_holder_name' => $request->account_holder_name,
+
+                'bank_name' => $request->bank_name,
+
+                'bank_account_number' => $request->account_number,
+
+                'bank_sort_code' => $request->sort_code,
+                'tutor_id' => $auth->id,
+            );
+          $count = TutorBankAccountDetailsHelper::getTutors($auth->id); 
+           if(empty($count))
+           {
+               $data = TutorBankAccountDetailsHelper::save($data_array);
+           }else{
+                $data = TutorBankAccountDetailsHelper::update($data_array,array('tutor_id' => $auth->id));
+           }
+
+            if ($data) {
+                return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), 'status' => 0, 'data' => array($data_array)], $this->successStatus);
+            } else {
+                return response()->json(['error_msg' => "", 'status' => 1, 'data' => array()], $this->successStatus);
+            }
+        }
+    }
+    public function getTutorBankDetails()
+    {
+        $auth = Auth()->user();
+        $data = TutorBankAccountDetailsHelper::getTutors($auth->id);
+        return response()->json($data);
     }
 }
