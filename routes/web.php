@@ -108,6 +108,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         
         $backendVerified->resource('tutor-payment-history', "TutorPaymentController");
         $backendVerified->resource('site-setting', "SiteSettingController");
+        $backendVerified->resource('online-tutoring', "OnlineTutoringController");
+        $backendVerified->resource('text-books', "TextBooksController");
+        $backendVerified->get('online-tutoring-ajax-list', "OnlineTutoringController@ajaxList")->name('online-tutoring-ajax-list');
+        $backendVerified->get('text-books-ajax-list', "TextBooksController@ajaxList")->name('text-books-ajax-list');
+        
 
         
 
@@ -179,6 +184,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('edit-book-slot', 'TutorAvailabilityController@editBookSlot')->name('edit-book-slot');
         $backendVerified->post('update-book-slot', 'TutorAvailabilityController@updateBookSlot')->name('update-book-slot');
         $backendVerified->post('cancel-slot', 'TutorAvailabilityController@cancelSlot')->name('cancel-slot');
+        $backendVerified->post('store-account-details', 'TutorAccountController@storeAccountDetails')->name('store-account-details');
+        $backendVerified->get('get-tutor-bank-details', 'TutorAccountController@getTutorBankDetails')->name('get-tutor-bank-details');
+        
         
         $backendVerified->resource('tutor-resource', "TutorResourceController");
         $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
