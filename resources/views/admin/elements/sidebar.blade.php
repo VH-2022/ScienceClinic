@@ -518,7 +518,7 @@
                 @php
 
                 $cmsFlag = 0;
-                if (Request::segment(1) == 'about-list' || Request::segment(1) == 'online-tutoring' || Request::segment(1) == 'text-books') {
+                if (Request::segment(1) == 'about-list' || Request::segment(1) == 'online-tutoring' || Request::segment(1) == 'text-books' || Request::segment(1) == 'e-learning-cms') {
                     $cmsFlag = 1;
                 }
 
@@ -606,6 +606,22 @@
                                     </i>
 
                                     <span class="menu-text">Text Books</span>
+
+                                </a>
+
+                            </li>
+                            
+                            <li class="menu-item {{ Request::segment(1) == 'e-learning-cms' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+
+                                <a href="{{ route('e-learning-cms.index') }}" class="menu-link">
+
+                                    <i class="menu-bullet menu-bullet-dot">
+
+                                        <span></span>
+
+                                    </i>
+
+                                    <span class="menu-text">E - Learning</span>
 
                                 </a>
 

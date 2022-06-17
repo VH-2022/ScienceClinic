@@ -110,8 +110,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('site-setting', "SiteSettingController");
         $backendVerified->resource('online-tutoring', "OnlineTutoringController");
         $backendVerified->resource('text-books', "TextBooksController");
+        $backendVerified->resource('e-learning-cms', "ELearningController");
         $backendVerified->get('online-tutoring-ajax-list', "OnlineTutoringController@ajaxList")->name('online-tutoring-ajax-list');
         $backendVerified->get('text-books-ajax-list', "TextBooksController@ajaxList")->name('text-books-ajax-list');
+        $backendVerified->get('e-learning-cms-ajax-list', "ELearningController@ajaxList")->name('e-learning-cms-ajax-list');
         
 
         

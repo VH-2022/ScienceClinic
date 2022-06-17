@@ -31,6 +31,7 @@ class OnlineTutoringHelper
     public static function getDetailsByid($id){
         return OnlineTutoring::find($id);
     }
+    
     public static function SoftDelete($data, $where)
     {
         $userId = Auth()->user();
