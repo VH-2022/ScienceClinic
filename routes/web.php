@@ -184,9 +184,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->post('cancel-slot', 'TutorAvailabilityController@cancelSlot')->name('cancel-slot');
         $backendVerified->post('store-account-details', 'TutorAccountController@storeAccountDetails')->name('store-account-details');
         $backendVerified->get('get-tutor-bank-details', 'TutorAccountController@getTutorBankDetails')->name('get-tutor-bank-details');
+        $backendVerified->get('tutor-parent-list', 'ParentListController@index')->name('tutor-parent-list');
+        $backendVerified->get('tutor-parent-list/{id}', 'ParentListController@getParentDetails')->name('tutor-parent-details');
+        $backendVerified->get('parent-subject-details', 'ParentListController@parentSubjectDetails')->name('parent-subject-details');
+        $backendVerified->post('add-teaching-hours', 'ParentListController@saveTutoringHours')->name('add-teaching-hours');
         
-        
-
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
