@@ -381,7 +381,7 @@
                         var validation_status = 0;
         
                         
-                        var validation_filed_array = ['text_book_title'];
+                        var validation_filed_array = ['text_book_title','subject_id'];
         
                         for (var i = 0; i < validation_filed_array.length; i++) {
         

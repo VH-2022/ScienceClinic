@@ -80,6 +80,35 @@
                                 
 
                             </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+
+                                        <label>Subject <span class="text-danger">*</span></label>
+                                        <select name="subject_id" id="subject_id" class="form-control validate_field" data-msg="Subject" >
+                                             <option value="">Select Subject</option>
+                                             @if(count($subject_list) > 0)
+                                                @foreach($subject_list as $ckey)
+                                                    <option value="{{$ckey->id}}">{{$ckey->main_title}}</option>
+                                                @endforeach
+                                             @endif
+                                        </select>
+                                        
+
+                                        <span class="form-text error subject_id_error">{{ $errors->useredit->first('subject_id')}}</span>
+
+                                    </div>
+
+                                </div>
+
+                                
+
+                            </div>
+
+                            
                             <div class="row">
 
                                 <div class="col-md-12">

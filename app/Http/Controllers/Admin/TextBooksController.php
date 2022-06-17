@@ -42,7 +42,8 @@ class TextBooksController extends Controller
         if(empty($auth)){
             return redirect('/login');
         }
-        return view('admin.textbook.addtextbook');
+        $data['subject_list'] = TextBooksHelper::getAllsubject();
+        return view('admin.textbook.addtextbook',$data);
     }
 
     /**
@@ -56,6 +57,7 @@ class TextBooksController extends Controller
         
         $validator = Validator::make($request->all(), [
             'text_book_title' => 'required | max:255',
+            'subject_id' => 'required',
             'text_book_description' => 'required',
             'text_book_upload' => 'required|mimes:jpeg,png,jpg,gif,pptx,pdf,doc,docx',
         ]);
@@ -71,6 +73,7 @@ class TextBooksController extends Controller
             $data_array = array(
                 'user_id' => Auth()->user()->id,
                 'text_book_title' => $request->input('text_book_title'),
+                'subject_id' => $request->input('subject_id'),
                 'text_book_description' => $request->input('text_book_description'),
             );
             if ($text_book_upload != '') {
@@ -113,6 +116,7 @@ class TextBooksController extends Controller
             return redirect('/login');
         }
         $data['basic_details'] = TextBooksHelper::getDetailsByid($id);
+        $data['subject_list'] = TextBooksHelper::getAllsubject();
         return view('admin.textbook.edit_textbook',$data);
     }
 
@@ -127,6 +131,7 @@ class TextBooksController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'text_book_title' => 'required | max:255',
+            'subject_id' => 'required',
             'text_book_description' => 'required',
         ]);
         if ($validator->fails()) {
@@ -140,6 +145,7 @@ class TextBooksController extends Controller
             }
             $data_array = array(
                 'text_book_title' => $request->input('text_book_title'),
+                'subject_id' => $request->input('subject_id'),
                 'text_book_description' => $request->input('text_book_description'),
             );
             if ($text_book_upload != '') {
