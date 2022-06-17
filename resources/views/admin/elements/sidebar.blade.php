@@ -518,7 +518,7 @@
                 @php
 
                 $cmsFlag = 0;
-                if (Request::segment(1) == 'about-list' || Request::segment(1) == 'online-tutoring') {
+                if (Request::segment(1) == 'about-list' || Request::segment(1) == 'online-tutoring' || Request::segment(1) == 'text-books') {
                     $cmsFlag = 1;
                 }
 
@@ -590,6 +590,22 @@
                                     </i>
 
                                     <span class="menu-text">Online Tutoring</span>
+
+                                </a>
+
+                            </li>
+
+                            <li class="menu-item {{ Request::segment(1) == 'text-books' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+
+                                <a href="{{ route('text-books.index') }}" class="menu-link">
+
+                                    <i class="menu-bullet menu-bullet-dot">
+
+                                        <span></span>
+
+                                    </i>
+
+                                    <span class="menu-text">Text Books</span>
 
                                 </a>
 
