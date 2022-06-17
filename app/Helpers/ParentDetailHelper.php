@@ -68,4 +68,9 @@ class ParentDetailHelper {
         $query = ParentDetail::where('id', $id)->update($arrData);
         return $query;
     }
+    public static function getParentsByBookings($parentId)
+    {
+        return ParentDetail::with(['tutorDetails', 'userDetails'])->where('payment_status', 'Success')->where('booking_status', 'Success')->where('user_id', $parentId)->get();
+
+    }
 }
