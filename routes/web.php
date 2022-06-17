@@ -180,7 +180,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->post('update-book-slot', 'TutorAvailabilityController@updateBookSlot')->name('update-book-slot');
         $backendVerified->post('cancel-slot', 'TutorAvailabilityController@cancelSlot')->name('cancel-slot');
         
-
+        $backendVerified->resource('tutor-resource', "TutorResourceController");
+        $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
