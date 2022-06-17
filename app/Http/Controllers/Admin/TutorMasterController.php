@@ -147,7 +147,6 @@ class TutorMasterController extends Controller
 
         $data['query'] = TutorLevelDetailHelper::getListwithPaginate($tutor_id);
 
-
         return view('admin.tutor.tutor_level_list', $data);
     }
 

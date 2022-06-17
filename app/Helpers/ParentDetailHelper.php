@@ -46,7 +46,7 @@ class ParentDetailHelper {
     public static function getListwithPaginate($id)
     {
 
-        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $id)
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('tutor_id', $id)
         ->groupBy('subject_id')->get();
         return $query;
     }
@@ -59,5 +59,13 @@ class ParentDetailHelper {
     {
         return ParentDetail::where('tuition_time', $time)->where('id',$userId)->first();
 
+    }
+    public static function saveHours($id, $hours)
+    {
+        $arrData = array(
+            'teaching_hours' => $hours
+        );
+        $query = ParentDetail::where('id', $id)->update($arrData);
+        return $query;
     }
 }

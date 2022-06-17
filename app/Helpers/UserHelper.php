@@ -246,4 +246,14 @@ class UserHelper
         $query  = User::whereNull('deleted_at')->where('type', 2)->where('status', "Accepted")->get();
         return $query;
     }
+
+    public static function getApprovedParentsList()
+    {
+        return User::whereNull('deleted_at')->where('type', 3)->where('status', "Accepted")->paginate(10);
+    }
+    public static function getParentDetailsById($id)
+    {
+        return User::whereNull('deleted_at')->where('id', $id)->first();
+
+    }
 }
