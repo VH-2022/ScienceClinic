@@ -102,6 +102,26 @@ class TextBooksHelper
         $query = $query->paginate(50);
         return $query;
     }
+    public static function getListwithPaginateId($userId,$title,$created_date){
+
+        $query = TextBooks::whereNull('deleted_at');
+
+                if($title !=""){
+
+                    $query->where('text_book_title','LIKE','%'.$title.'%');
+
+                }
+
+                if($created_date !=""){
+
+                    $explode = explode('-',$created_date);
+
+                    $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
+
+                }
+        $query = $query->where('user_id',$userId)->paginate(50);
+        return $query;
+    }
     public static function getDetailsByid($id){
         $query = TextBooks::where('id',$id)->first();
         return $query;

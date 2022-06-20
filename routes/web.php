@@ -180,16 +180,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->post('update-tutor-image', 'TutorProfilePhotoController@updateTutorImage')->name('update-tutor-image');
         $backendVerified->get('get-bookslot-data', 'TutorAvailabilityController@getBookedSlotData')->name('get-bookslot-data');
         $backendVerified->get('show-bookslot-data/{id}/{time}', 'TutorAvailabilityController@showBookedslots')->name('show-bookslot-data');
-
         $backendVerified->get('edit-book-slot', 'TutorAvailabilityController@editBookSlot')->name('edit-book-slot');
         $backendVerified->post('update-book-slot', 'TutorAvailabilityController@updateBookSlot')->name('update-book-slot');
         $backendVerified->post('cancel-slot', 'TutorAvailabilityController@cancelSlot')->name('cancel-slot');
         $backendVerified->post('store-account-details', 'TutorAccountController@storeAccountDetails')->name('store-account-details');
         $backendVerified->get('get-tutor-bank-details', 'TutorAccountController@getTutorBankDetails')->name('get-tutor-bank-details');
-        
-        
         $backendVerified->resource('tutor-resource', "TutorResourceController");
         $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
+        $backendVerified->resource('tutor-text-books', "TutorTextBooksController");
+        $backendVerified->get('tutor-text-books-ajax-list', "TutorTextBooksController@ajaxList")->name('tutor-text-books-ajax-list');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {

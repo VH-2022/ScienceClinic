@@ -458,9 +458,6 @@
                 $('body').on('click', '.delete-category', function (e) {
         
                     var dataId = $(this).attr('data-id');
-        
-                    
-        
                     $.confirm({
         
                         title: 'Are you sure?',
