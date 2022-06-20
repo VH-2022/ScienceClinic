@@ -83,6 +83,32 @@
 
                                     <div class="form-group">
 
+                                        <label>Subject <span class="text-danger">*</span></label>
+                                        <select name="subject_id" id="subject_id" class="form-control validate_field" data-msg="Subject" >
+                                             <option value="">Select Subject</option>
+                                             @if(count($subject_list) > 0)
+                                                @foreach($subject_list as $ckey)
+                                                    <option value="{{$ckey->id}}" @php if($basic_details->subject_id !='') { if($basic_details->subject_id == $ckey->id){ echo 'selected'; } } @endphp>{{$ckey->main_title}}</option>
+                                                @endforeach
+                                             @endif
+                                        </select>
+                                        
+
+                                        <span class="form-text error subject_id_error">{{ $errors->useredit->first('subject_id')}}</span>
+
+                                    </div>
+
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+
                                         <label>Description <span class="text-danger">*</span></label>
 
                                         <textarea type="text" data-msg="Description" class="form-control validate_field" placeholder="Description" name="text_book_description" id="text_book_description" data-msg="Description">{{ $basic_details->text_book_description}}</textarea>
@@ -157,7 +183,7 @@ $('#text_book_upload').change(function() {
     var name = $('#text_book_upload').val().split('\\').pop();
   	$('#uploadtitle').html(name);
 });
-    var _Add_SUBJECT = "{{route('tutor-text-books.store')}}";
+    var _Add_SUBJECT = "{{route('text-books.store')}}";
 
 </script>
 

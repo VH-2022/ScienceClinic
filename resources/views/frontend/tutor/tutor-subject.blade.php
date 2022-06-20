@@ -530,11 +530,12 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div class="position-relative">
-                                <input type="file" class="input-upload-cus" style="max-width: max-content;" name="document" id="document">
+                                <input type="file" class="input-upload-cus" id="text_book_upload" style="max-width: max-content;" name="document" id="document">
                             </div>
                             <div class="upload-photo-main" style="max-width: max-content;">
                                 <i class="fa fa-plus plus-sign-upload"></i> <span class="mr-1">Upload Document</span><span class="text-danger">*</span>
                             </div>
+                            <span id="uploadtitle"></span>
                             <span class="title error_msg error" style="color: red;" id="document_error">{{ $errors->add->first('document')}}</span>
                         </div>
                     </div>
@@ -597,12 +598,12 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div class="position-relative">
-                                <input type="file" class="input-upload-cus" style="max-width: max-content;" name="document_edit" id="document_edit">
+                                <input type="file" id="text_book_upload_edit" class="input-upload-cus" style="max-width: max-content;" name="document_edit" id="document_edit">
                             </div>
                             <div class="upload-photo-main" style="max-width: max-content;">
                                 <i class="fa fa-plus plus-sign-upload"></i> <span>Upload Document</span>
                             </div>
-                            <a class="view-document" href="javascript:void(0);" target="_blank">View</a>
+                            <span id="uploadtitleEdit"><a class="view-document" href="javascript:void(0);" target="_blank">View</a></span>
                             <span class="title error_msg error" style="color: red;" id="document_error_edit">{{ $errors->edit->first('document_edit')}}</span>
                         </div>
                     </div>
@@ -920,14 +921,21 @@
                     var val = JSON.parse(res);
                     $("#title_edit").val(val.title);
                     $("#description_edit").val(val.description);
-                    $('.view-document').attr("href",val.upload_data);
+                    $('.view-document').attr("href", val.upload_data);
                     $("#user_id").val(val.id);
                 }
             });
             $('#resource-edit-ajax-crud-modal').modal('show');
         <?php } ?>
     });
-
+    $('#text_book_upload').change(function() {
+        var name = $('#text_book_upload').val().split('\\').pop();
+        $('#uploadtitle').html(name);
+    });
+    $('#text_book_upload_edit').change(function() {
+        var name = $('#text_book_upload_edit').val().split('\\').pop();
+        $('#uploadtitleEdit').html(name);
+    });
     $('#btn-resource-save').click(function(e) {
         var titleVal = $('#resource-title').val();
         var descriptionVal = $('#resource-description').val();
@@ -972,7 +980,7 @@
                     var val = JSON.parse(res);
                     $("#resource_title_edit").val(val.title);
                     $("#resource_description_edit").val(val.description);
-                    $('.view-document').attr("href",val.upload_data);
+                    $('.view-document').attr("href", val.upload_data);
                     $("#user_id").val(val.id);
                 }
             });
@@ -1018,7 +1026,7 @@
             buttons: {
                 confirm: function() {
                     $.ajax({
-                        url: "{{route('tutor-resource.destroy','')}}"+"/" + deleteId,
+                        url: "{{route('tutor-resource.destroy','')}}" + "/" + deleteId,
                         type: "DELETE",
                         data: {
                             _token: "{{ csrf_token() }}",

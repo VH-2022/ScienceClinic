@@ -44,7 +44,8 @@ class TutorTextBooksController extends Controller
         if(empty($auth)){
             return redirect('/tutor-login');
         }
-        return view('frontend.tutor.tutor-addtextbook');
+        $data['subject_list'] = TextBooksHelper::getAllsubject();
+        return view('frontend.tutor.tutor-addtextbook',$data);
     }
 
     /**
@@ -58,6 +59,7 @@ class TutorTextBooksController extends Controller
         
         $validator = Validator::make($request->all(), [
             'text_book_title' => 'required | max:255',
+            'subject_id' => 'required',
             'text_book_description' => 'required',
             'text_book_upload' => 'required|mimes:jpeg,png,jpg,gif,pptx,pdf,doc,docx',
         ]);
@@ -73,6 +75,7 @@ class TutorTextBooksController extends Controller
             $data_array = array(
                 'user_id' => Auth()->user()->id,
                 'text_book_title' => $request->input('text_book_title'),
+                'subject_id' => $request->input('subject_id'),
                 'text_book_description' => $request->input('text_book_description'),
             );
             if ($text_book_upload != '') {
@@ -115,6 +118,7 @@ class TutorTextBooksController extends Controller
             return redirect('/tutor-login');
         }
         $data['basic_details'] = TextBooksHelper::getDetailsByid($id);
+        $data['subject_list'] = TextBooksHelper::getAllsubject();
         return view('frontend.tutor.tutor-edit_textbook',$data);
     }
 
@@ -129,10 +133,11 @@ class TutorTextBooksController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'text_book_title' => 'required | max:255',
+            'subject_id' => 'required',
             'text_book_description' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect("/text-books/".$request->input('id').'/edit')
+            return redirect("/tutor-text-books/".$request->input('id').'/edit')
             ->withErrors($validator, 'useredit')
             ->withInput();
         } else {
@@ -142,6 +147,7 @@ class TutorTextBooksController extends Controller
             }
             $data_array = array(
                 'text_book_title' => $request->input('text_book_title'),
+                'subject_id' => $request->input('subject_id'),
                 'text_book_description' => $request->input('text_book_description'),
             );
             if ($text_book_upload != '') {
@@ -166,8 +172,7 @@ class TutorTextBooksController extends Controller
     public function destroy($id)
     {
       
-
-        $update = SubjectHelper::SoftDelete(array(), array('id' => $id));
+        $update = TextBooksHelper::SoftDelete(array(), array('id' => $id));
 
         if ($update) {
             return response()->json(['error_msg' => trans('messages.deletedSuccessfully'), 'data' => array()], 200);

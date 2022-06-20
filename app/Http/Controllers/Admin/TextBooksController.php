@@ -171,7 +171,7 @@ class TextBooksController extends Controller
     {
       
 
-        $update = SubjectHelper::SoftDelete(array(), array('id' => $id));
+        $update = TextBooksHelper::SoftDelete(array(), array('id' => $id));
 
         if ($update) {
             return response()->json(['error_msg' => trans('messages.deletedSuccessfully'), 'data' => array()], 200);
