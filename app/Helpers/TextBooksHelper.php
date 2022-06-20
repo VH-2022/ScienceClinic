@@ -115,6 +115,16 @@ class TextBooksHelper
         $query = $query->where('user_id', $userId)->paginate(50);
         return $query;
     }
+    public static function getListwithPaginateParentTextBook($userId)
+    {
+        $query = TextBooks::select('*','sc_text_books.id as textBookId','sc_parent_inquiry_details.subject_id as subjectId','sc_parent_inquiry_details.id as inquiryId')
+        ->leftjoin('sc_parent_inquiry_details',function($join){
+            $join->on('sc_parent_inquiry_details.subject_id','=','sc_text_books.subject_id');
+        })
+        ->where('sc_parent_inquiry_details.user_id',$userId)
+        ->paginate(50);
+        return $query;
+    }
     public static function getDetailsByid($id)
     {
         $query = TextBooks::where('id', $id)->first();

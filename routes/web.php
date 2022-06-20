@@ -217,6 +217,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->get('bookings', 'BookingsController@index')->name('booking.index');
         $parentVerified->post('add-tutor-availability', 'BookingsController@addTutorAvailability')->name('add-tutor-availability');
         $parentVerified->get('add-tutor-availability-data', 'BookingsController@getTutorAvailabilityDetails')->name('add-tutor-availability-data');
+        $parentVerified->get('parent-text-books', 'ParentTextBooksController@index')->name('parent-text-books');
 
         
     });
