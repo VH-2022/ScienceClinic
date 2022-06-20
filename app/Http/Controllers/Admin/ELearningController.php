@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\OnlineTutoringHelper;
 use App\Helpers\SubjectHelper;
 use App\Helpers\SubjectOtherSectionMasterHelper;
 use App\Helpers\SubjectBannerHelper;
-use App\Helpers\TextBooksHelper;
+use App\Helpers\TutorResourcesHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ImageUploadTrait;
 use Validator;
 use Session;
-class TextBooksController extends Controller
+class ELearningController extends Controller
 {
     use ImageUploadTrait;
     public $successStatus =200;
@@ -22,14 +23,14 @@ class TextBooksController extends Controller
      */
     public function index()
     {
-        return view('admin.textbook.textbook');
+        return view('admin.e_learning.e_learning');
     }
     public function ajaxList(Request $request){
         $data['page'] = $request->input('page');
         $created_date = $request->input('created_date');
         $title = $request->input('title');
-        $data['query'] = TextBooksHelper::getListwithPaginate($title,$created_date);
-        return view('admin.textbook.textbook_ajax_list',$data);
+        $data['query'] = TutorResourcesHelper::getListwithPaginateAdmin($title,$created_date);
+        return view('admin.e_learning.e_learning_ajax_list',$data);
      }
     /**
      * Show the form for creating a new resource.
@@ -42,8 +43,7 @@ class TextBooksController extends Controller
         if(empty($auth)){
             return redirect('/login');
         }
-        $data['subject_list'] = TextBooksHelper::getAllsubject();
-        return view('admin.textbook.addtextbook',$data);
+        return view('admin.e_learning.adde_learning');
     }
 
     /**
@@ -56,36 +56,36 @@ class TextBooksController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'text_book_title' => 'required | max:255',
-            'subject_id' => 'required',
-            'text_book_description' => 'required',
-            'text_book_upload' => 'required|mimes:jpeg,png,jpg,gif,pptx,pdf,doc,docx',
+            'title' => 'required|max:255|unique:sc_tutor_resources,title,null,id,deleted_at,NULL',
+            'description' => 'required',
+            'upload_data' => 'required|mimes:jpeg,png,jpg,gif,pptx,pdf,doc,docx',
         ]);
         if ($validator->fails()) {
-            return redirect("/text-books/create")
+            return redirect("/e-learning-cms/create")
             ->withErrors($validator, 'useredit')
             ->withInput();
         } else {
-            $text_book_upload = '';
-            if ($request->file('text_book_upload') != '') {
-                $text_book_upload = $this->uploadImageWithCompress($request->file('text_book_upload'), 'uploads/text_books');
+            $userId = Auth()->user()->id;
+            $upload_data = '';
+            if ($request->file('upload_data') != '') {
+                $upload_data = $this->uploadImageWithCompress($request->file('upload_data'), 'uploads/resource');
             }
             $data_array = array(
-                'user_id' => Auth()->user()->id,
-                'text_book_title' => $request->input('text_book_title'),
-                'subject_id' => $request->input('subject_id'),
-                'text_book_description' => $request->input('text_book_description'),
+                'user_id' => $userId,
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
             );
-            if ($text_book_upload != '') {
-                $data_array['text_book_upload'] = $text_book_upload;
+            if ($upload_data != '') {
+                $data_array['upload_data'] = $upload_data;
             }
-            $update = TextBooksHelper::save($data_array);
-            if($update){
+            $insert = TutorResourcesHelper::save($data_array);
+            if($insert){
+                
                 Session::flash('success',trans('messages.addedSuccessfully'));
-                return redirect('/text-books');
+                return redirect('/e-learning-cms');
             }else{
                 Session::flash('error',trans('messages.error'));
-                return redirect('/text-books/create');
+                return redirect('/e-learning-cms/create');
                 
             }
            
@@ -115,9 +115,8 @@ class TextBooksController extends Controller
         if(empty($auth)){
             return redirect('/login');
         }
-        $data['basic_details'] = TextBooksHelper::getDetailsByid($id);
-        $data['subject_list'] = TextBooksHelper::getAllsubject();
-        return view('admin.textbook.edit_textbook',$data);
+        $data['basic_details'] = TutorResourcesHelper::getDetailsByid($id);
+        return view('admin.e_learning.edit_e_learning',$data);
     }
 
     /**
@@ -130,32 +129,34 @@ class TextBooksController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'text_book_title' => 'required | max:255',
-            'subject_id' => 'required',
-            'text_book_description' => 'required',
+            'title' => 'required|max:255|unique:sc_tutor_resources,title,' . $id . ',id,deleted_at,NULL',
+            'description' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect("/text-books/".$request->input('id').'/edit')
+            return redirect("/e-learning-cms/".$request->input('id').'/edit')
             ->withErrors($validator, 'useredit')
             ->withInput();
         } else {
-            $text_book_upload = '';
-            if ($request->file('text_book_upload') != '') {
-                $text_book_upload = $this->uploadImageWithCompress($request->file('text_book_upload'), 'uploads/text_books');
+            $upload_data = '';
+            if ($request->file('upload_data') != '') {
+                $upload_data = $this->uploadImageWithCompress($request->file('upload_data'), 'uploads/resource');
             }
             $data_array = array(
-                'text_book_title' => $request->input('text_book_title'),
-                'subject_id' => $request->input('subject_id'),
-                'text_book_description' => $request->input('text_book_description'),
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
             );
-            if ($text_book_upload != '') {
-                $data_array['text_book_upload'] = $text_book_upload;
+            if ($upload_data != '') {
+                $data_array['upload_data'] = $upload_data;
             }
-            $update = TextBooksHelper::update($data_array,array('id'=>$request->input('id')));
+            $update = TutorResourcesHelper::update(array('id' => $id),$data_array);
+            if($update){
+                Session::flash('success',trans('messages.updatedSuccessfully'));
+                return redirect('/e-learning-cms');
+            }else{
+                Session::flash('error',trans('messages.error'));
+                return redirect('/e-learning-cms/'.$id.'/edit');
+            }
             
-           
-            Session::flash('success',trans('messages.updatedSuccessfully'));
-            return redirect('/text-books');
             
            
         }
@@ -171,7 +172,7 @@ class TextBooksController extends Controller
     {
       
 
-        $update = SubjectHelper::SoftDelete(array(), array('id' => $id));
+        $update = TutorResourcesHelper::SoftDelete(array(), array('id' => $id));
 
         if ($update) {
             return response()->json(['error_msg' => trans('messages.deletedSuccessfully'), 'data' => array()], 200);

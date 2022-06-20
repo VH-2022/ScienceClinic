@@ -127,7 +127,7 @@
 
                                         <ul class="sub-menu mobile-section border-bottom-ul">
 
-                                            <li><a href="e-learning.html">E-Learning</a></li>
+                                            <li><a href="{{route('E-Learning')}}">E-Learning</a></li>
 
                                             <li><a href="past-papers-resources.html">Past Paper</a></li>
 

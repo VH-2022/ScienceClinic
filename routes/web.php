@@ -110,8 +110,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('site-setting', "SiteSettingController");
         $backendVerified->resource('online-tutoring', "OnlineTutoringController");
         $backendVerified->resource('text-books', "TextBooksController");
+        $backendVerified->resource('e-learning-cms', "ELearningController");
         $backendVerified->get('online-tutoring-ajax-list', "OnlineTutoringController@ajaxList")->name('online-tutoring-ajax-list');
         $backendVerified->get('text-books-ajax-list', "TextBooksController@ajaxList")->name('text-books-ajax-list');
+        $backendVerified->get('e-learning-cms-ajax-list', "ELearningController@ajaxList")->name('e-learning-cms-ajax-list');
         
 
         
@@ -144,6 +146,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('user-reset-password/{id}', 'ResetPasswordController@ResetPassword')->name('user-reset-password');
     $frontend->post('update-user-password/{id}', 'ResetPasswordController@UpdatePassword')->name('update-user-password');
     $frontend->get('tutors', 'TutorListController@index')->name('tutors');
+    $frontend->get('E-Learning', 'HomeController@getELearningdata')->name('E-Learning');
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });
@@ -189,6 +192,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
         $backendVerified->resource('tutor-text-books', "TutorTextBooksController");
         $backendVerified->get('tutor-text-books-ajax-list', "TutorTextBooksController@ajaxList")->name('tutor-text-books-ajax-list');
+        $backendVerified->get('tutor-parent-list', 'ParentListController@index')->name('tutor-parent-list');
+        $backendVerified->get('tutor-parent-list/{id}', 'ParentListController@getParentDetails')->name('tutor-parent-details');
+        $backendVerified->get('parent-subject-details', 'ParentListController@parentSubjectDetails')->name('parent-subject-details');
+        $backendVerified->post('add-teaching-hours', 'ParentListController@saveTutoringHours')->name('add-teaching-hours');
+        $backendVerified->resource('tutor-resource', "TutorResourceController");
+        $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
+        $backendVerified->get('tutor-feedback', "TutorFeedBackController@index")->name('tutor-feedback');
+
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {

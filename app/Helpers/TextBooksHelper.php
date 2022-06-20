@@ -126,4 +126,7 @@ class TextBooksHelper
         $query = TextBooks::where('id',$id)->first();
         return $query;
     }
+    public static function getAllsubject(){
+        return SubjectMaster::whereNull('deleted_at')->get();
+    }
 }

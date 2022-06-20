@@ -381,7 +381,7 @@
                         var validation_status = 0;
         
                         
-                        var validation_filed_array = ['text_book_title','subject_id'];
+                        var validation_filed_array = ['title'];
         
                         for (var i = 0; i < validation_filed_array.length; i++) {
         
@@ -389,20 +389,20 @@
         
                         }
 
-                        var text_book_description = CKEDITOR.instances['text_book_description'].getData();
+                        var text_book_description = CKEDITOR.instances['description'].getData();
                         $('.text_book_description_error').removeClass('is-valid');
                         $('.text_book_description_error').html("");
 
                         if(text_book_description.trim() ==''){
                            var  dataMSG = $('#text_book_description').attr('data-msg');
                             $('.text_book_description_error').addClass('is-invalid').removeClass('is-valid');
-                                $('.text_book_description_error').html(dataMSG + ' is required.');
+                                $('.text_book_description_error').html('Description is required.');
                                 validation_status = 1;
         
                         }
 
                         $('.text_book_upload_error').html("");
-                        var profile_avatar = $('input[name="text_book_upload"]').prop('files');
+                        var profile_avatar = $('input[name="upload_data"]').prop('files');
                         if(profile_avatar.length == 0){
                             $('.text_book_upload_error').html("Upload is required.");
                             validation_status = 1;
@@ -458,6 +458,9 @@
                 $('body').on('click', '.delete-category', function (e) {
         
                     var dataId = $(this).attr('data-id');
+        
+                    
+        
                     $.confirm({
         
                         title: 'Are you sure?',
@@ -553,7 +556,7 @@
                     var validation_status = 0;
         
                     
-                    var validation_filed_array = ['text_book_title'];
+                    var validation_filed_array = ['title'];
         
                     for (var i = 0; i < validation_filed_array.length; i++) {
         
@@ -561,20 +564,20 @@
         
                     }
 
-                    var text_book_description = CKEDITOR.instances['text_book_description'].getData();
+                    var text_book_description = CKEDITOR.instances['description'].getData();
                         $('.text_book_description_error').removeClass('is-valid');
                         $('.text_book_description_error').html("");
 
                         if(text_book_description.trim() ==''){
-                           var  dataMSG = $('#text_book_description').attr('data-msg');
+                           var  dataMSG = $('#description').attr('data-msg');
                             $('.text_book_description_error').addClass('is-invalid').removeClass('is-valid');
-                                $('.text_book_description_error').html(dataMSG + ' is required.');
+                                $('.text_book_description_error').html('Description is required.');
                                 validation_status = 1;
         
                         }
 
                         $('.text_book_upload_error').html("");
-                        var profile_avatar = $('input[name="text_book_upload"]').prop('files');
+                        var profile_avatar = $('input[name="upload_data"]').prop('files');
                             if(profile_avatar.length !=0) {
                                 var FileUploadPath = profile_avatar[0].name;
             

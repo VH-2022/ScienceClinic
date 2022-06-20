@@ -19,6 +19,10 @@ class TutorResourcesHelper
         $query = TutorResources::where('user_id',$id)->whereNull('deleted_at')->paginate(10);
         return $query;
     }
+    public static function getListwithPaginateAdmin(){
+        $query = TutorResources::whereNull('deleted_at')->paginate(10);
+        return $query;
+    }
     public static function getData($id){
         $query = TutorResources::where('id',$id)->whereNull('deleted_at')->first();
         return $query;
@@ -35,5 +39,8 @@ class TutorResourcesHelper
         $update = TutorResources::where($where)->update($data);
         return $update;
 
+    }
+    public static function getDetailsByid($id){
+        return TutorResources::find($id);
     }
 }
