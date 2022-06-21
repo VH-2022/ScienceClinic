@@ -14,6 +14,10 @@ class Feedback extends Model
 
     public function subjectDetails()
     {
-        return $this->hasOne(SubjectMaster::class, 'id', 'subject');
+        return $this->hasOne(SubjectMaster::class, 'id', 'subject_id');
+    }
+    public function userDetails()
+    {
+        return $this->hasOne(User::class, 'id', 'parent_id');
     }
 }

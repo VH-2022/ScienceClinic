@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\FeedbackHelper;
 use App\Helpers\ParentDetailHelper;
 use App\Helpers\ReviewMasterHelper;
 use App\Helpers\SubjectHelper;
@@ -99,7 +100,8 @@ class FindATutorController extends Controller
         $data['subject_list'] = SubjectHelper::getAllSubjectList();
 
         $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
-            
+        $data['tutor_comments'] = FeedbackHelper::getAllFeedbackByTutorId($id);  
+       
         return view('frontend.SearchTutor.view_tutor_detail', $data);
     }
     public function saveReview(Request $request)
