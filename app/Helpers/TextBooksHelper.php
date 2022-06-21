@@ -112,17 +112,17 @@ class TextBooksHelper
 
             $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
         }
-        $query = $query->where('user_id', $userId)->paginate(50);
+        $query = $query->where('tutor_id', $userId)->paginate(50);
         return $query;
     }
-    public static function getListwithPaginateParentTextBook($userId)
+    public static function getAllTextBooks()
     {
-        $query = TextBooks::select('*','sc_text_books.id as textBookId','sc_parent_inquiry_details.subject_id as subjectId','sc_parent_inquiry_details.id as inquiryId')
-        ->leftjoin('sc_parent_inquiry_details',function($join){
-            $join->on('sc_parent_inquiry_details.subject_id','=','sc_text_books.subject_id');
-        })
-        ->where('sc_parent_inquiry_details.user_id',$userId)
-        ->paginate(50);
+        $query = TextBooks::whereNull('deleted_at')->get();
+        return $query;
+    }
+    public static function getListwithPaginateParentTextBook($id)
+    {
+        $query = TextBooks::select('*')->whereNull('deleted_at')->paginate(50);
         return $query;
     }
     public static function getDetailsByid($id)

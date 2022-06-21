@@ -41,6 +41,7 @@
                                     <tr>
 
                                         <th nowrap="nowrap"> ID</th>
+                                        <th nowrap="nowrap"> Type</th>
                                         <th style="white-space: nowrap">Title </th>
                                         <th style="white-space: nowrap">Description</th>
                                         <th style="white-space: nowrap">Document</th>
@@ -62,14 +63,16 @@
                                     @if (count($query) > 0)
 
                                     @foreach ($query as $live_in)
-
-
-
                                     <tr>
 
                                         <td>
 
                                             {{ $i++ }}
+
+                                        </td>
+                                        <td>
+
+                                            {{ $live_in->type }}
 
                                         </td>
 
@@ -88,17 +91,7 @@
                                         </td>
 
                                         <td>
-                                            @php
-                                            $image_array = array('jpg','png','jpeg','gif');
-                                            $explode = explode('.',$live_in->text_book_upload);
-                                            @endphp
-                                            @if($live_in->text_book_upload)
-                                            @if(in_array($explode[4], $image_array))
-                                            <a href="{{$live_in->upload_data}}" download><i class="fas fa-photo-video"></i></a>
-                                            @else
-                                            <a href="{{$live_in->upload_data}}" download><i class="far fa-file"></i></a>
-                                            @endif
-                                            @endif
+                                           
                                         </td>
 
                                     </tr>
@@ -124,8 +117,6 @@
                             </table>
 
 
-
-                            {!! $query->withQueryString()->links('pagination::bootstrap-5') !!}
 
                         </div>
 

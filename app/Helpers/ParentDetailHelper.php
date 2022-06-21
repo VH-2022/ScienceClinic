@@ -68,4 +68,12 @@ class ParentDetailHelper {
         $query = ParentDetail::where('id', $id)->update($arrData);
         return $query;
     }
+    public static function getAllInquiry($id){
+        $query = ParentDetail::whereNull('deleted_at')->where('user_id', $id)->where('payment_status','Success')->where('booking_status','Success')->groupBy('subject_id')->pluck('tutor_id')->toArray();
+        return $query;
+    }
+    public static function getSubjectInquiry($id){
+        $query = ParentDetail::whereNull('deleted_at')->where('user_id', $id)->where('payment_status','Success')->where('booking_status','Success')->groupBy('subject_id')->pluck('subject_id')->toArray();
+        return $query;
+    }
 }

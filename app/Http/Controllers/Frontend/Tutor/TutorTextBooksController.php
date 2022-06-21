@@ -74,9 +74,11 @@ class TutorTextBooksController extends Controller
             }
             $data_array = array(
                 'user_id' => Auth()->user()->id,
+                'tutor_id' => Auth()->user()->id,
                 'text_book_title' => $request->input('text_book_title'),
                 'subject_id' => $request->input('subject_id'),
                 'text_book_description' => $request->input('text_book_description'),
+                'type' => 'tutor'
             );
             if ($text_book_upload != '') {
                 $data_array['text_book_upload'] = $text_book_upload;

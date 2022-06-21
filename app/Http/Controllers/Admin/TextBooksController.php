@@ -72,6 +72,7 @@ class TextBooksController extends Controller
             }
             $data_array = array(
                 'user_id' => Auth()->user()->id,
+                'type' => 'admin',
                 'text_book_title' => $request->input('text_book_title'),
                 'subject_id' => $request->input('subject_id'),
                 'text_book_description' => $request->input('text_book_description'),
