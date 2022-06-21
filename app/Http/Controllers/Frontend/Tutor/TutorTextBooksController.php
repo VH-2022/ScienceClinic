@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Frontend\Tutor;
 
 use App\Helpers\SubjectHelper;
 use App\Helpers\SubjectOtherSectionMasterHelper;
@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\ImageUploadTrait;
 use Validator;
 use Session;
-class TextBooksController extends Controller
+class TutorTextBooksController extends Controller
 {
     use ImageUploadTrait;
     public $successStatus =200;
@@ -22,14 +22,16 @@ class TextBooksController extends Controller
      */
     public function index()
     {
-        return view('admin.textbook.textbook');
+        return view('frontend.tutor.tutor-textbook');
     }
     public function ajaxList(Request $request){
+        $auth = auth()->user();
+        $userId = $auth['id'];
         $data['page'] = $request->input('page');
         $created_date = $request->input('created_date');
         $title = $request->input('title');
-        $data['query'] = TextBooksHelper::getListwithPaginate($title,$created_date);
-        return view('admin.textbook.textbook_ajax_list',$data);
+        $data['query'] = TextBooksHelper::getListwithPaginateId($userId,$title,$created_date);
+        return view('frontend.tutor.tutor-textbook_ajax_list',$data);
      }
     /**
      * Show the form for creating a new resource.
@@ -40,10 +42,10 @@ class TextBooksController extends Controller
     {
         $auth = auth()->user();
         if(empty($auth)){
-            return redirect('/login');
+            return redirect('/tutor-login');
         }
         $data['subject_list'] = TextBooksHelper::getAllsubject();
-        return view('admin.textbook.addtextbook',$data);
+        return view('frontend.tutor.tutor-addtextbook',$data);
     }
 
     /**
@@ -62,7 +64,7 @@ class TextBooksController extends Controller
             'text_book_upload' => 'required|mimes:jpeg,png,jpg,gif,pptx,pdf,doc,docx',
         ]);
         if ($validator->fails()) {
-            return redirect("/text-books/create")
+            return redirect("/tutor-text-books/create")
             ->withErrors($validator, 'useredit')
             ->withInput();
         } else {
@@ -72,10 +74,11 @@ class TextBooksController extends Controller
             }
             $data_array = array(
                 'user_id' => Auth()->user()->id,
-                'type' => 'admin',
+                'tutor_id' => Auth()->user()->id,
                 'text_book_title' => $request->input('text_book_title'),
                 'subject_id' => $request->input('subject_id'),
                 'text_book_description' => $request->input('text_book_description'),
+                'type' => 'tutor'
             );
             if ($text_book_upload != '') {
                 $data_array['text_book_upload'] = $text_book_upload;
@@ -83,10 +86,10 @@ class TextBooksController extends Controller
             $update = TextBooksHelper::save($data_array);
             if($update){
                 Session::flash('success',trans('messages.addedSuccessfully'));
-                return redirect('/text-books');
+                return redirect('/tutor-text-books');
             }else{
                 Session::flash('error',trans('messages.error'));
-                return redirect('/text-books/create');
+                return redirect('/tutor-text-books/create');
                 
             }
            
@@ -114,11 +117,11 @@ class TextBooksController extends Controller
     {
         $auth = auth()->user();
         if(empty($auth)){
-            return redirect('/login');
+            return redirect('/tutor-login');
         }
         $data['basic_details'] = TextBooksHelper::getDetailsByid($id);
         $data['subject_list'] = TextBooksHelper::getAllsubject();
-        return view('admin.textbook.edit_textbook',$data);
+        return view('frontend.tutor.tutor-edit_textbook',$data);
     }
 
     /**
@@ -136,7 +139,7 @@ class TextBooksController extends Controller
             'text_book_description' => 'required',
         ]);
         if ($validator->fails()) {
-            return redirect("/text-books/".$request->input('id').'/edit')
+            return redirect("/tutor-text-books/".$request->input('id').'/edit')
             ->withErrors($validator, 'useredit')
             ->withInput();
         } else {
@@ -156,7 +159,7 @@ class TextBooksController extends Controller
             
            
             Session::flash('success',trans('messages.updatedSuccessfully'));
-            return redirect('/text-books');
+            return redirect('/tutor-text-books');
             
            
         }
@@ -171,7 +174,6 @@ class TextBooksController extends Controller
     public function destroy($id)
     {
       
-
         $update = TextBooksHelper::SoftDelete(array(), array('id' => $id));
 
         if ($update) {

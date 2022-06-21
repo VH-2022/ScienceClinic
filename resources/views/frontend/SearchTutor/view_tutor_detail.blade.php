@@ -291,81 +291,36 @@
                                                         </div>
                                                     </div>
                                             </form>
-                                            <div class="col-lg-12 col-md-12 col-12">
-                                                <div class="comments comments-overflow-show" id="down">
-                                                    <div class="section-title-wrapper section-title-wrapper-star">
-                                                        <div class="section-title">
-                                                            <h3 class="mb-4">Reviews and References</h3>
-                                                        </div>
-
-
-                                                    </div>
-
-                                                    <div class="mb-3 mt-3">
-                                                        <label for="comment">Description</label>
-                                                        <textarea autocomplete="off" class="form-control mb-0" rows="5" id="description" name="description"></textarea>
-                                                        <span class="text-danger" id="error_description"></span>
-                                                    </div>
-                                                    <form action="" id="review-form">
-                                                        <div class="row form-data">
-                                                            <div class="col-6">
-
-                                                                <div class="from-group">
-                                                                    <label for="subject">Subject:</label>
-                                                                    <input autocomplete="off" type="text" class="form-control mb-0" maxlength="30" id="subject" placeholder="" name="subject">
-                                                                </div>
-                                                                <span class="text-danger" id="error_subject"></span>
-                                                            </div>
-
-                                                            <div class="col-6">
-                                                                <div class="from-group">
-                                                                    <label for="outcome">Outcome:</label>
-                                                                    <input autocomplete="off" type="text" class="form-control mb-0" maxlength="30" id="outcome" placeholder="" name="outcome">
-                                                                </div>
-                                                                <span class="text-danger" id="error_outcome"></span>
-                                                            </div>
-                                                            <div class="col-6 mt-4">
-                                                                <div class="stars-review">
-                                                                    <div>
-                                                                        <fieldset class="rate">
-                                                                            <input type="radio" id="rating10" name="rating" value="5" class="mb-0" /><label for="rating10" title="5 stars"></label>
-                                                                            <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4.5 stars"></label>
-                                                                            <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
-                                                                            <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3.5 stars"></label>
-                                                                            <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
-                                                                            <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2.5 stars"></label>
-                                                                            <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
-                                                                            <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1.5 stars"></label>
-                                                                            <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
-                                                                            <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="0.5 star"></label>
-
-                                                                        </fieldset>
-                                                                    </div>
-                                                                    <span class="text-danger" id="error_rating"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="tutor-btn-end mr-0">
-                                                                    <div class="banner-readmore">
-                                                                        <a class="button-default inline" onclick="submitreview('{{$data->id}}')" href="javascript:void(0)">submit</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                </div>
-
-                                                </form>
-
-
-                                            </div>
+                                            
                                         </div>
                                         <div class="comments">
                                             <h4 class="title">Comments</h4>
+
+                                            @foreach($tutor_comments as $value)
                                             <div class="single-comment" id="reviewcomment">
-
+                                                <div class="comment-text">
+                                                    <div class="author-info">
+                                                        <h4><a href="#">{{$value->userDetails->first_name}} {{$value->userDetails->last_name}}</a></h4>
+                                                        <span class="reply">
+                                                            <div class="review-score">
+                                                                <div class="stars stars2" style="--rating: {{$value->rating}};" aria-label="Rating of this product is 2.3 out of 5."></div>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                    <p>{{$value->descriptions}}</p>
+                                                    <div class="author-subject">
+                                                        <div class="subject-divs">
+                                                            <p class="subject-details">Subject : </p>
+                                                            <p class="subject-name">{{$value->subjectDetails->main_title}}</p>
+                                                        </div>
+                                                        <div class="subject-divs">
+                                                            <p class="subject-details">Outcome :</p>
+                                                            <p class="subject-name">{{$value->outcome}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-
+                                            @endforeach
                                         </div>
                                     </div>
 
@@ -496,92 +451,7 @@
         return expr.test(email);
     }
 
-    function submitreview(id) {
-        var description = $('#description').val();
-        var subject = $('#subject').val();
-        var outcome = $('#outcome').val();
-        var temp = 0;
-        var rating = $("input[name='rating']:checked").val();
-        $('#error_description').html('');
-        $('#error_subject').html('');
-        $('#error_outcome').html('');
-        $('#error_rating').html('');
-
-
-        if (description.trim() == '') {
-            $('#error_description').html('Description is required');
-            temp++;
-        }
-        if (subject.trim() == '') {
-            $('#error_subject').html('Subject is required');
-            temp++;
-        }
-        if (outcome.trim() == '') {
-            $('#error_outcome').html('Outcome is required');
-            temp++;
-        }
-        if ($('input[name="rating"]:checked').length == 0) {
-            $('#error_rating').html('Rating is required');
-            temp++;
-        }
-
-        if (temp == 0) {
-            $.ajax({
-                url: "{{ route('submit.review')}}",
-                data: {
-                    'id': id,
-                    'description': description,
-                    'subject': subject,
-                    'outcome': outcome,
-                    'rating': rating
-                },
-                success: function(res) {
-                    toastr.success(res.error_msg);
-                    var review = '<div class=single-comment><div class=comment-text><div class=author-info><h4><a href=#>MD Tokdir Ali</a></h4><span class=reply><div class=review-score><div class="stars stars2"aria-label="Rating of this product is 2.3 out of 5."style=--rating:' + res.data.rating + '></div></div></span></div><p>' + res.data.descriptions + '<div class=author-subject><div class=subject-divs><p class=subject-details>Subject :<p class=subject-name>' + res.data.subject + '</div><div class=subject-divs><p class=subject-details>Outcome :<p class=subject-name>' + res.data.outcome + '</div></div></div></div>';
-                    $('#reviewcomment').html("");
-                    $('#reviewcomment').html(review);
-                    $('#description').val("");
-                    $('#review-form').trigger("reset");
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    var tempVal = 0;
-                    if (jqXHR.responseJSON.message.description) {
-                        tempVal++;
-                        $('#error_description').text(jqXHR.responseJSON.message.description);
-                    } else {
-                        $('#error_description').text('');
-                    }
-                    if (jqXHR.responseJSON.message.subject) {
-                        tempVal++;
-                        $('#error_subject').text(jqXHR.responseJSON.message.subject);
-                    } else {
-                        $('#error_subject').text('');
-                    }
-                    if (jqXHR.responseJSON.message.outcome) {
-                        tempVal++;
-                        $('#error_outcome').text(jqXHR.responseJSON.message.outcome);
-                    } else {
-                        $('#error_outcome').text('');
-                    }
-                    if (jqXHR.responseJSON.message.rating) {
-                        tempVal++;
-                        $('#error_rating').text(jqXHR.responseJSON.message.rating);
-                    } else {
-                        $('#error_rating').text('');
-                    }
-                    if (tempVal == 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            })
-
-        } else {
-            return false;
-        }
-
-    }
+   
 </script>
 
 <script>
@@ -641,7 +511,7 @@
 
         calendar.render();
     });
-    //-----------------------
+
 
     $('.testimonial-english').owlCarousel({
         loop: true,
@@ -661,10 +531,12 @@
             }
         }
     })
+
     function ValidatePassword(password) {
         var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
         return expr.test(password);
     }
+
     function saveinquiry() {
         var firstName = $('#first_name').val();
         var lastName = $('#last_name').val();
@@ -726,15 +598,18 @@
             $('#error_username').html('Username is required');
             temp++;
         }
-        if (password == '') {
-            $('#error_password').html('Password is required');
-            temp++;
-        } else {
-            if(!ValidatePassword(password)){
-                $("#error_password").html("Password should include 6 charaters, alphabets, numbers and special characters");
+        if (checkPassword == 0) {
+            if (password == '') {
+                $('#error_password').html('Password is required');
                 temp++;
+            } else {
+                if (!ValidatePassword(password)) {
+                    $("#error_password").html("Password should include 6 charaters, alphabets, numbers and special characters");
+                    temp++;
+                }
             }
         }
+
         if (subject.trim() == '') {
             $('#error_subjectinquiry').html('Subject is required');
             temp++;
@@ -860,30 +735,35 @@
     });
 
     var timeout = null;
+    var checkPassword = 0;
+    $('#email').keyup(function() {
+        clearTimeout(timeout);
 
-$('#email').keyup(function() {
-    clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            var email = $("#email").val();
+            if (email != '') {
+                $.ajax({
+                    type: 'POST', //THIS NEEDS TO BE GET
+                    url: '{{route("check-email-parent")}}',
+                    data: {
+                        email: email,
+                        _token: '{{csrf_token()}}'
+                    },
+                    success: function(response) {
+                        if (response == '1') {
+                            $("#passwordHide").css('display', 'none');
+                            checkPassword = 1;
+                        } else {
+                            $("#passwordHide").css('display', 'block');
+                        }
+                    },
+                    error: function() {
 
-    timeout = setTimeout(function() {
-        var email = $("#email").val();
-        if(email !=''){
-            $.ajax({
-                type: 'POST', //THIS NEEDS TO BE GET
-                url: '{{route("check-email-parent")}}',
-                data: {email : email,_token: '{{csrf_token()}}'},
-                success: function (response) {
-                    if(response == '1'){
-                        $("#passwordHide").css('display','none');
-                    }else{
-                        $("#passwordHide").css('display','block');
                     }
-                },error:function(){ 
-                    
-                }
-            });
-        }
-    }, 500);
-});
+                });
+            }
+        }, 500);
+    });
 </script>
 
 <script>

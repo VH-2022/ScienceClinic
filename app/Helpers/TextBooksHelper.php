@@ -29,7 +29,6 @@ class TextBooksHelper
         if ($userId) {
 
             $data['created_by'] = $userId['id'];
-
         }
 
         $insert = new TextBooks($data);
@@ -39,7 +38,6 @@ class TextBooksHelper
         $insertId = $insert->id;
 
         return $insertId;
-
     }
 
 
@@ -55,13 +53,11 @@ class TextBooksHelper
         if ($userId) {
 
             $data['updated_by'] = $userId['id'];
-
         }
 
         $update = TextBooks::where($where)->update($data);
 
         return $update;
-
     }
 
     public static function SoftDelete($data, $where)
@@ -76,37 +72,66 @@ class TextBooksHelper
 
         $update = TextBooks::where($where)->update($data);
 
-        
+
 
         return $update;
-
     }
 
-    public static function getListwithPaginate($title,$created_date){
+    public static function getListwithPaginate($title, $created_date)
+    {
 
         $query = TextBooks::whereNull('deleted_at');
 
-                if($title !=""){
+        if ($title != "") {
 
-                    $query->where('text_book_title','LIKE','%'.$title.'%');
+            $query->where('text_book_title', 'LIKE', '%' . $title . '%');
+        }
 
-                }
+        if ($created_date != "") {
 
-                if($created_date !=""){
+            $explode = explode('-', $created_date);
 
-                    $explode = explode('-',$created_date);
-
-                    $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
-
-                }
+            $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
+        }
         $query = $query->paginate(50);
         return $query;
     }
-    public static function getDetailsByid($id){
-        $query = TextBooks::where('id',$id)->first();
+    public static function getListwithPaginateId($userId, $title, $created_date)
+    {
+
+        $query = TextBooks::whereNull('deleted_at');
+
+        if ($title != "") {
+
+            $query->where('text_book_title', 'LIKE', '%' . $title . '%');
+        }
+
+        if ($created_date != "") {
+
+            $explode = explode('-', $created_date);
+
+            $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
+        }
+        $query = $query->where('tutor_id', $userId)->paginate(50);
         return $query;
     }
-    public static function getAllsubject(){
+    public static function getAllTextBooks()
+    {
+        $query = TextBooks::whereNull('deleted_at')->get();
+        return $query;
+    }
+    public static function getListwithPaginateParentTextBook($id)
+    {
+        $query = TextBooks::select('*')->whereNull('deleted_at')->paginate(50);
+        return $query;
+    }
+    public static function getDetailsByid($id)
+    {
+        $query = TextBooks::where('id', $id)->first();
+        return $query;
+    }
+    public static function getAllsubject()
+    {
         return SubjectMaster::whereNull('deleted_at')->get();
     }
 }

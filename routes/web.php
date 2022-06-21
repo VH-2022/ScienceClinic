@@ -186,12 +186,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->post('update-tutor-image', 'TutorProfilePhotoController@updateTutorImage')->name('update-tutor-image');
         $backendVerified->get('get-bookslot-data', 'TutorAvailabilityController@getBookedSlotData')->name('get-bookslot-data');
         $backendVerified->get('show-bookslot-data/{id}/{time}', 'TutorAvailabilityController@showBookedslots')->name('show-bookslot-data');
-
         $backendVerified->get('edit-book-slot', 'TutorAvailabilityController@editBookSlot')->name('edit-book-slot');
         $backendVerified->post('update-book-slot', 'TutorAvailabilityController@updateBookSlot')->name('update-book-slot');
         $backendVerified->post('cancel-slot', 'TutorAvailabilityController@cancelSlot')->name('cancel-slot');
         $backendVerified->post('store-account-details', 'TutorAccountController@storeAccountDetails')->name('store-account-details');
         $backendVerified->get('get-tutor-bank-details', 'TutorAccountController@getTutorBankDetails')->name('get-tutor-bank-details');
+        $backendVerified->resource('tutor-resource', "TutorResourceController");
+        $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
+        $backendVerified->resource('tutor-text-books', "TutorTextBooksController");
+        $backendVerified->get('tutor-text-books-ajax-list', "TutorTextBooksController@ajaxList")->name('tutor-text-books-ajax-list');
         $backendVerified->get('tutor-parent-list', 'ParentListController@index')->name('tutor-parent-list');
         $backendVerified->get('tutor-parent-list/{id}', 'ParentListController@getParentDetails')->name('tutor-parent-details');
         $backendVerified->get('parent-subject-details', 'ParentListController@parentSubjectDetails')->name('parent-subject-details');
@@ -217,7 +220,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->get('bookings', 'BookingsController@index')->name('booking.index');
         $parentVerified->post('add-tutor-availability', 'BookingsController@addTutorAvailability')->name('add-tutor-availability');
         $parentVerified->get('add-tutor-availability-data', 'BookingsController@getTutorAvailabilityDetails')->name('add-tutor-availability-data');
-
+        $parentVerified->get('parent-text-books', 'ParentTextBooksController@index')->name('parent-text-books');
+        $parentVerified->get('feedback', 'FeedbackController@index')->name('feedback');
+        $parentVerified->get('feedback/{uid}', 'FeedbackController@feedbackForm')->name('feedback-form');
+        $parentVerified->post('submit-parent-review', 'FeedbackController@submitParentFeedback')->name('submit-parent-review');
+        $parentVerified->get('get-feedback', 'FeedbackController@getFeedback')->name('get-feedback');
         
     });
   
