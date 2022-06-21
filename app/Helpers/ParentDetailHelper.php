@@ -76,4 +76,13 @@ class ParentDetailHelper {
         $query = ParentDetail::whereNull('deleted_at')->where('user_id', $id)->where('payment_status','Success')->where('booking_status','Success')->groupBy('subject_id')->pluck('subject_id')->toArray();
         return $query;
     }
+    public static function getParentsByBookings($parentId)
+    {
+        return ParentDetail::with(['tutorDetails', 'userDetails', 'subjectDetails'])->where('payment_status', 'Success')->where('booking_status', 'Success')->where('user_id', $parentId)->get();
+
+    }
+    public static function getParentDetailsById($id)
+    {
+      return ParentDetail::where('id',$id)->first();
+    }
 }
