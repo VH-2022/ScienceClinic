@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('sc_feedback', function (Blueprint $table) {
             $table->id();
+            $table->longText('descriptions')->nullable();
+            $table->string('subject')->nullable();
+            $table->string('outcome')->nullable();
             $table->float('rating')->nullable();
-            $table->longText('feedback')->nullable();
             $table->integer('parent_id')->nullable();
             $table->integer('tutor_id')->nullable();
             $table->integer('created_by')->nullable();

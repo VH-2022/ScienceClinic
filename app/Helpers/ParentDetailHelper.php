@@ -70,7 +70,7 @@ class ParentDetailHelper {
     }
     public static function getParentsByBookings($parentId)
     {
-        return ParentDetail::with(['tutorDetails', 'userDetails'])->where('payment_status', 'Success')->where('booking_status', 'Success')->where('user_id', $parentId)->get();
+        return ParentDetail::with(['tutorDetails', 'userDetails', 'subjectDetails'])->where('payment_status', 'Success')->where('booking_status', 'Success')->where('user_id', $parentId)->get();
 
     }
 }

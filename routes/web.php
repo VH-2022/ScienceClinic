@@ -214,6 +214,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->post('add-tutor-availability', 'BookingsController@addTutorAvailability')->name('add-tutor-availability');
         $parentVerified->get('add-tutor-availability-data', 'BookingsController@getTutorAvailabilityDetails')->name('add-tutor-availability-data');
         $parentVerified->get('feedback', 'FeedbackController@index')->name('feedback');
+        $parentVerified->get('feedback/{uid}', 'FeedbackController@feedbackForm')->name('feedback-form');
+        $parentVerified->post('submit-parent-review', 'FeedbackController@submitParentFeedback')->name('submit-parent-review');
+        $parentVerified->get('get-feedback', 'FeedbackController@getFeedback')->name('get-feedback');
+        
     });
   
 });

@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <div class="d-flex flex-column-fluid">
 
     <!--begin::Container-->
@@ -24,7 +25,7 @@
 
                         <div class="card-title align-items-start flex-column">
 
-                            <h3 class="card-label font-weight-bolder text-dark">Parents List</h3>
+                            <h3 class="card-label font-weight-bolder text-dark">Tutors List</h3>
 
                         </div>
 
@@ -38,9 +39,10 @@
                                 <tr>
 
                                     <th>#</th>
-                                    <th>Parent Name</th>
+                                    <th>Tutor Name</th>
                                     <th>Email</th>
                                     <th>Contact No</th>
+                                    <th>Subject Name</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -54,8 +56,9 @@
                                     <td>{{$value->tutorDetails->first_name}} {{$value->tutorDetails->last_name}}</td>
                                     <td>{{$value->tutorDetails->email}}</td>
                                     <td>{{$value->tutorDetails->mobile_id}}</td>
+                                    <td>{{$value->subjectDetails->main_title}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary">Review</a>
+                                        <a href="{{route('feedback-form',$value->id)}}" class="btn btn-primary">Review</a>
                                     </td>
                                 </tr>
                                 @php $temp++; @endphp
