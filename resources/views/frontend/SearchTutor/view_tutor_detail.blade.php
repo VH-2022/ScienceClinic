@@ -291,11 +291,11 @@
                                                         </div>
                                                     </div>
                                             </form>
-
+                                            
                                         </div>
                                         <div class="comments">
                                             <h4 class="title">Comments</h4>
-                                            @if(count($tutor_comments)>0)
+
                                             @foreach($tutor_comments as $value)
                                             <div class="single-comment" id="reviewcomment">
                                                 <div class="comment-text">
@@ -321,9 +321,6 @@
                                                 </div>
                                             </div>
                                             @endforeach
-                                            @else
-                                            <h6>No Comments Available</h6>
-                                            @endif
                                         </div>
                                     </div>
 
@@ -453,6 +450,8 @@
             /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         return expr.test(email);
     }
+
+   
 </script>
 
 <script>
@@ -512,7 +511,7 @@
 
         calendar.render();
     });
-    //-----------------------
+
 
     $('.testimonial-english').owlCarousel({
         loop: true,
@@ -599,15 +598,18 @@
             $('#error_username').html('Username is required');
             temp++;
         }
-        if (password == '') {
-            $('#error_password').html('Password is required');
-            temp++;
-        } else {
-            if (!ValidatePassword(password)) {
-                $("#error_password").html("Password should include 6 charaters, alphabets, numbers and special characters");
+        if (checkPassword == 0) {
+            if (password == '') {
+                $('#error_password').html('Password is required');
                 temp++;
+            } else {
+                if (!ValidatePassword(password)) {
+                    $("#error_password").html("Password should include 6 charaters, alphabets, numbers and special characters");
+                    temp++;
+                }
             }
         }
+
         if (subject.trim() == '') {
             $('#error_subjectinquiry').html('Subject is required');
             temp++;
@@ -733,7 +735,7 @@
     });
 
     var timeout = null;
-
+    var checkPassword = 0;
     $('#email').keyup(function() {
         clearTimeout(timeout);
 
@@ -750,6 +752,7 @@
                     success: function(response) {
                         if (response == '1') {
                             $("#passwordHide").css('display', 'none');
+                            checkPassword = 1;
                         } else {
                             $("#passwordHide").css('display', 'block');
                         }
