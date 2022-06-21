@@ -49,13 +49,9 @@ class FeedbackHelper {
         return $update;
     }
 
-    public static function getFeedbackDataById($parentId,$tutorId)
+    public static function getFeedbackDataById($uniqueId)
     {
-        return Feedback::where('parent_id',$parentId)->where('tutor_id', $tutorId)->first();
+        return Feedback::with('subjectDetails')->where('inquiry_id', $uniqueId)->first();
     }
-    public static function getFeedback($uniqueId)
-    {
-        return Feedback::where('parent_id', $uniqueId)->first();
-
-    }
+    
 }

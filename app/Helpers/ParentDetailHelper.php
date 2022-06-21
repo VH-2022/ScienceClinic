@@ -73,4 +73,8 @@ class ParentDetailHelper {
         return ParentDetail::with(['tutorDetails', 'userDetails', 'subjectDetails'])->where('payment_status', 'Success')->where('booking_status', 'Success')->where('user_id', $parentId)->get();
 
     }
+    public static function getParentDetailsById($id)
+    {
+      return ParentDetail::where('id',$id)->first();
+    }
 }

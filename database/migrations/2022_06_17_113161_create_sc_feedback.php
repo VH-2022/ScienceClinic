@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('subject')->nullable();
             $table->string('outcome')->nullable();
             $table->float('rating')->nullable();
+            $table->integer('subject_id')->nullable();
             $table->integer('parent_id')->nullable();
-            $table->integer('tutor_id')->nullable();
+            $table->integer('inquiry_id')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();

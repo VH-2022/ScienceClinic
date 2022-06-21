@@ -28,11 +28,11 @@ class FeedbackController extends Controller
    public function submitParentFeedback(Request $request)
    {
       $parentId = Auth()->user()->id;
-
+    $parentDetaials = ParentDetailHelper::getParentDetailsById($request->unique_id);
       $validator = Validator::make($request->all(), [
          'description' => 'required',
-         'subject' => 'required',
-         'outcome' => 'required',
+         'subject' => 'required |max:35',
+         'outcome' => 'required |max:5',
          'rating' => 'required',
       ]);
 
@@ -40,15 +40,16 @@ class FeedbackController extends Controller
 
          return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
       } else {
-         $feedbackData = FeedbackHelper::getFeedbackDataById($parentId, $request->tutor_id);
+         $feedbackData = FeedbackHelper::getFeedbackDataById($request->unique_id);
 
          $data = array(
             'descriptions' => $request->description,
             'subject' => $request->subject,
             'outcome' => $request->outcome,
             'rating' => $request->rating,
-            'tutor_id' => $request->tutor_id,
+            'inquiry_id' => $request->unique_id,
             'parent_id' => $parentId,
+            'subject_id' => $parentDetaials->subject_id,
          );
          if (empty($feedbackData)) {
             $userData = FeedbackHelper::save($data);
@@ -64,7 +65,7 @@ class FeedbackController extends Controller
    }
    public function getFeedback(Request $request)
    {
-      $feedbackData = FeedbackHelper::getFeedback($request->unique_id);
+      $feedbackData = FeedbackHelper::getFeedbackDataById($request->unique_id);
       return response()->json($feedbackData);
    }
 }

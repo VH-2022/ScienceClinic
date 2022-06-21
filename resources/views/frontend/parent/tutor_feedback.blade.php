@@ -143,7 +143,6 @@
                 'unique_id': uid
             },
             success: function(res) {
-               
                 $('#description').val(res.descriptions);
                 $('#subject').val(res.subject);
                 $('#outcome').val(res.outcome);
@@ -183,56 +182,57 @@
 
         if (temp == 0) {
             $.ajax({
-                url: "{{ route('submit-parent-review')}}",
-                method: 'post',
-                data: new FormData($('#add-feedback')[0]),
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function(res) {
-                    toastr.success(res.error_msg);
-                    $('#add-feedback').trigger("reset");
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    var tempVal = 0;
-                    if (jqXHR.responseJSON.message.description) {
-                        tempVal++;
-                        $('#description_error').text(jqXHR.responseJSON.message.description);
-                    } else {
-                        $('#description_error').text('');
-                    }
-                    if (jqXHR.responseJSON.message.subject) {
-                        tempVal++;
-                        $('#subject_error').text(jqXHR.responseJSON.message.subject);
-                    } else {
-                        $('#subject_error').text('');
-                    }
-                    if (jqXHR.responseJSON.message.outcome) {
-                        tempVal++;
-                        $('#outcome_error').text(jqXHR.responseJSON.message.outcome);
-                    } else {
-                        $('#outcome_error').text('');
-                    }
-                    if (jqXHR.responseJSON.message.rating) {
-                        tempVal++;
-                        $('#error_rating').text(jqXHR.responseJSON.message.rating);
-                    } else {
-                        $('#error_rating').text('');
-                    }
-                    if (tempVal == 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            })
+                    url: "{{ route('submit-parent-review')}}",
+                    method: 'post',
+                    data: new FormData($('#add-feedback')[0]),
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function(res) {
+                        toastr.success(res.error_msg);
+                        getFeedback();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            var tempVal = 0;
+                            if (jqXHR.responseJSON.message.description) {
+                                tempVal++;
+                                $('#description_error').text(jqXHR.responseJSON.message.description);
+                            } else {
+                                $('#description_error').text('');
+                            }
+                            if (jqXHR.responseJSON.message.subject) {
+                                tempVal++;
+                                $('#subject_error').text(jqXHR.responseJSON.message.subject);
+                            } else {
+                                $('#subject_error').text('');
+                            }
+                            if (jqXHR.responseJSON.message.outcome) {
+                                tempVal++;
+                                $('#outcome_error').text(jqXHR.responseJSON.message.outcome);
+                            } else {
+                                $('#outcome_error').text('');
+                            }
+                            if (jqXHR.responseJSON.message.rating) {
+                                tempVal++;
+                                $('#error_rating').text(jqXHR.responseJSON.message.rating);
+                            } else {
+                                $('#error_rating').text('');
+                            }
+                            if (tempVal == 0) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    })
 
 
-        } else {
-            return false;
+            }
+            else {
+                return false;
+            }
+
         }
-
-    }
 </script>
 
 @endsection
