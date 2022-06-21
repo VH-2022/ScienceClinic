@@ -518,7 +518,7 @@
                 @php
 
                 $cmsFlag = 0;
-                if (Request::segment(1) == 'about-list' || Request::segment(1) == 'online-tutoring' || Request::segment(1) == 'text-books' || Request::segment(1) == 'e-learning-cms') {
+                if (Request::segment(1) == 'about-list' || Request::segment(1) == 'online-tutoring' || Request::segment(1) == 'text-books' || Request::segment(1) == 'e-learning-cms' || Request::segment(1) == 'past-papers-cms') {
                     $cmsFlag = 1;
                 }
 
@@ -622,6 +622,21 @@
                                     </i>
 
                                     <span class="menu-text">E - Learning</span>
+
+                                </a>
+
+                            </li>
+                            <li class="menu-item {{ Request::segment(1) == 'past-papers-cms' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+
+                                <a href="{{ route('past-papers-cms.index') }}" class="menu-link">
+
+                                    <i class="menu-bullet menu-bullet-dot">
+
+                                        <span></span>
+
+                                    </i>
+
+                                    <span class="menu-text">Past Papers</span>
 
                                 </a>
 

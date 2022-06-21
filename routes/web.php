@@ -114,6 +114,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('online-tutoring-ajax-list', "OnlineTutoringController@ajaxList")->name('online-tutoring-ajax-list');
         $backendVerified->get('text-books-ajax-list', "TextBooksController@ajaxList")->name('text-books-ajax-list');
         $backendVerified->get('e-learning-cms-ajax-list', "ELearningController@ajaxList")->name('e-learning-cms-ajax-list');
+        $backendVerified->resource('past-papers-cms', "PastPapersController");
+        $backendVerified->get('past-papers-cms-ajax-list', "PastPapersController@ajaxList")->name('past-papers-cms-ajax-list');
         
 
         
@@ -147,6 +149,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->post('update-user-password/{id}', 'ResetPasswordController@UpdatePassword')->name('update-user-password');
     $frontend->get('tutors', 'TutorListController@index')->name('tutors');
     $frontend->get('E-Learning', 'HomeController@getELearningdata')->name('E-Learning');
+    
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
 });

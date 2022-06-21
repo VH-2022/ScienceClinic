@@ -46,7 +46,7 @@ class ParentDetailHelper {
     public static function getListwithPaginate($id)
     {
 
-        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('tutor_id', $id)
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $id)
         ->groupBy('subject_id')->get();
         return $query;
     }
