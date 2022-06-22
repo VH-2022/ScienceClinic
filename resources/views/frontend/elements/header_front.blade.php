@@ -129,9 +129,9 @@
 
                                             <li><a href="{{route('E-Learning')}}">E-Learning</a></li>
 
-                                            <li><a href="past-papers-resources.html">Past Paper</a></li>
+                                            <li><a href="{{route('past-papers-resources')}}">Past Paper</a></li>
 
-                                            <li><a href="text-book.html">Text Books</a></li>
+                                            <li><a href="{{route('parent-login')}}">Text Books</a></li>
 
                                             <li>
 

@@ -403,7 +403,7 @@
                                 }else{
                                     $("#subject_paper_title"+z).removeClass('is-invalid');
                                     $("#subject_paper_title"+z).addClass('valid');
-                                    $(".subject_paper_title_error_"+x).html('');
+                                    $(".subject_paper_title_error_"+z).html('');
                                 }
                         }
                         

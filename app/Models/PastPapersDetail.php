@@ -13,4 +13,9 @@ class PastPapersDetail extends Model
     protected $table = 'sc_past_papers_detail';
     protected $fillable = ['id','paper_id','subject_paper_title','upload_paper','upload_mark_scheme', 'created_by', 'created_at', 'updated_at','updated_by','deleted_at','deleted_by'];
 
+
+    public function paperData()
+    {
+        return $this->hasOne(PastPapers::class, 'id', 'paper_id');
+    }
 }

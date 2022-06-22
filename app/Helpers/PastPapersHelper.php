@@ -110,5 +110,18 @@ class PastPapersHelper
     public static function getAllcategory(){
         return PastPapersCategory::whereNull('deleted_at')->get();
     }
+    public static function getDatabyCategory($id){
+        return PastPapers::where('paper_category_id',$id)->whereNull('deleted_at')->get();
+    }
+
+    public static function getSubejctData($id,$subid){
+        return PastPapers::where('paper_category_id',$subid)->where('id',$id)->with('subjectData')->whereNull('deleted_at')->get();
+    }
+
+    public static function getAlldataByPaperID($id){
+        return PastPapers::where('id',$id)->with('subjectData')->groupBy('paper_category_id')->whereNull('deleted_at')->get();
+    }
+    
+    
     
 }
