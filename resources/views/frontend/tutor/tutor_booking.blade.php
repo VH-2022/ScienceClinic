@@ -39,10 +39,10 @@
                     <div class="card-body">
                         <ul class="nav nav-pills personaltab-ul" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="pills-home" aria-selected="true">My Bookings</a>
+                                <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="pills-home" aria-selected="true">My Avalibility</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="payment-tab" data-toggle="pill" href="#payment" role="tab" aria-controls="pills-home" aria-selected="true">Payment</a>
+                                <a class="nav-link" id="payment-tab" data-toggle="pill" href="#payment" role="tab" aria-controls="pills-home" aria-selected="true">My Bookings</a>
                             </li>
                             <input type="hidden" value="{{Auth::user()->id}}" id="tutor_id">
                         </ul>
@@ -50,7 +50,7 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
                                 <div class="prime-container">
-                                    <h3>My Bookings</h3>
+                                    <h3>My Avalibility</h3>
                                     <br></br>
                                     <div class="main-custom-calendar">
                                         <div id='calendar'></div>
