@@ -12,12 +12,26 @@
 
             <!--begin::Info-->
 
-            <div class="d-flex align-items-center flex-wrap mr-2">
-
-                <!--begin::Page Title-->
-
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
-
+            <div class="mr-2 w-100">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--begin::Page Title-->
+                        @php
+                        date_default_timezone_set("Europe/London");
+                        $h = date('G');
+                        $val = '';
+                        @endphp
+                        @if($h>=5 && $h<=11) @php $val="Good morning" ; @endphp @elseif($h>=12 && $h<=15) @php $val="Good afternoon" ; @endphp @else @php $val="Good evening" ; @endphp @endif 
+                        <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="text-dark font-weight-bold mt-2 mb-2 mr-5 greeting-text">{{$val}} {{Auth::user()->first_name}}</h4>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                 <!--end::Page Title-->
 
             </div>
@@ -51,9 +65,24 @@
 
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-md-12 mb-10">
+                                    <h5>Apply for an Enhanced DBS</h5>
+                                    <div class="apply-details-inner">
+                                        <div class="ml-4">
+                                        <input class="form-check-input" type="checkbox" id="valid-dbs" name="valid-dbs" value="valid-dbs">
+                                        <label class="form-check-label">I have a valid DBS</label>    
+                                        </div>
+                                    </div>
+                                    <div class="apply-details-inner">
+                                        <div class="ml-4">
+                                        <input class="form-check-input" type="checkbox" id="no-valid-dbs" name="no-valid-dbs" value="no-valid-dbs">
+                                        <label class="form-check-label">I have no valid DBS</label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-10">
                                     <div class="apply-main">
-                                        <h3>Apply for an Enhanced DBS</h3>
+                                        <h5>You must have a DBS less than a year old or be on an update serve for your account to be approved. </h5>
                                         <div class="apply-details">
                                             <div class="apply-details-inner">
                                                 <i class="fa fa-check mr-2"></i>
@@ -61,12 +90,7 @@
                                                     We can process your DBS application and verify your documents.
                                                 </div>
                                             </div>
-                                            <div class="apply-details-inner">
-                                                <i class="fa fa-check mr-2"></i>
-                                                <div>
-                                                    You must have an Enhanced DBS verified to complete our verification process.
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
 

@@ -26,7 +26,9 @@ class TutorAccountController extends Controller
     public function index()
     {
         $user = Auth::guard('web')->user();
-        return view('frontend.tutor.tutor-account');
+        $userId = $user['id'];
+        $data['getQualificatiosData'] = TutorUniversityDetailHelper::getListwithPaginate($userId);
+        return view('frontend.tutor.tutor-account', $data);
     }
     public function updateProfile(Request $request)
     {

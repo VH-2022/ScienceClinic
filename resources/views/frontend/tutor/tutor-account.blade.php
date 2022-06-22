@@ -112,6 +112,12 @@
                                                     <span id="error_bio" style="color:red;"></span>
                                                 </div>
                                             </div>
+                                            <!-- <div class="col-md-12 mb-3">
+                                                <div class="form-control-spacing">
+                                                    <label for="example-text-input" class="form-label">Qualifications</label> <span style="color:red" class="required-error">*</span>
+                                                    <span id="error_qualifications" style="color:red;"></span>
+                                                </div>
+                                            </div> -->
                                             <div class="col-md-3 offset-md-9 mt-3">
                                                 <input id="submitBtn" class="btn btn-primary w-100" type="button" value="Update">
                                             </div>
@@ -166,6 +172,8 @@
                                 @endif
                             </div>
                             <div class="tab-pane fade" id="my-bank-account" role="tabpanel" aria-labelledby="my-bank-account-tab">
+                                <!-- <p class="mb-1"><b>Please provide us with your bank details so we are able to transfer your wages.</b></p>
+                                <p><b>We pay every friday.</b></p> -->
                                 <div class="prime-container">
                                     <form method="post" id="account-details">
                                         @csrf

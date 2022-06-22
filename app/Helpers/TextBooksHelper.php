@@ -122,7 +122,7 @@ class TextBooksHelper
     }
     public static function getListwithPaginateParentTextBook($id)
     {
-        $query = TextBooks::select('*')->whereNull('deleted_at')->paginate(50);
+        $query = TextBooks::select('*')->whereNull('deleted_at')->get();
         return $query;
     }
     public static function getDetailsByid($id)
