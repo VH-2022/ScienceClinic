@@ -222,7 +222,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->get('feedback/{uid}', 'FeedbackController@feedbackForm')->name('feedback-form');
         $parentVerified->post('submit-parent-review', 'FeedbackController@submitParentFeedback')->name('submit-parent-review');
         $parentVerified->get('get-feedback', 'FeedbackController@getFeedback')->name('get-feedback');
-        
+        $parentVerified->get('parent-text-books-ajax', 'ParentTextBooksController@ajaxList')->name('parent-text-books-ajax');
     });
   
 });
