@@ -297,3 +297,8 @@ button.pass-icons {
         width:135px !important;
     }
 }
+@media only screen and (min-width:768px) {
+    .greeting-text{
+        text-align:right;
+    }
+}
