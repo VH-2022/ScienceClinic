@@ -91,7 +91,17 @@
                                         </td>
 
                                         <td>
-                                           
+                                            @php
+                                            $image_array = array('jpg','png','jpeg','gif');
+                                            $explode = explode('.',$live_in->text_book_upload);
+                                            @endphp
+                                            @if($live_in->text_book_upload)
+                                            @if(in_array($explode[4], $image_array))
+                                            <a href="{{$live_in->upload_data}}" download><i class="fas fa-photo-video"></i></a>
+                                            @else
+                                            <a href="{{$live_in->upload_data}}" download><i class="far fa-file"></i></a>
+                                            @endif
+                                            @endif
                                         </td>
 
                                     </tr>
