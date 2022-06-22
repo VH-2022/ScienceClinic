@@ -161,6 +161,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
     $tfrontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
     $tfrontend->middleware(['auth:web', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('tutor-dashboard','TutorDashboardController@index')->name('tutor-dashboard');
+        $backendVerified->post('change-dbs', 'TutorDashboardController@changeValidDbs')->name('change-dbs');
         $backendVerified->get('tutor-logout', 'TutorLoginController@logout')->name('tutor-logout');
         $backendVerified->get('tutor-verify','TutorVerifyController@index')->name('tutor-verify');
         $backendVerified->post('tutor-profile', 'TutorVerifyController@updateProfile')->name('tutor-profile');
