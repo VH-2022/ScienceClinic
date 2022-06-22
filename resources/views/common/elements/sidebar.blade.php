@@ -95,7 +95,7 @@
 
                 <li class="menu-item {{ Request::segment(1) == 'tutor-verify' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
-                    <a href="{{ route('tutor-verify') }}" class="menu-link">
+                    <a href="#" class="menu-link">
 
                         <span class="svg-icon menu-icon">
 
@@ -119,7 +119,7 @@
 
                         </span>
 
-                        <span class="menu-text">Verification</span>
+                        <span class="menu-text">Schedule a Lesson</span>
 
                     </a>
 
@@ -183,19 +183,18 @@
 
                         </span>
 
-                        <span class="menu-text">Bookings</span>
+                        <span class="menu-text">Avalibility</span>
 
                     </a>
 
                 </li>
 
-                <li class="menu-item {{ Request::segment(1) == 'tutor-profile' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+                <!-- <li class="menu-item {{ Request::segment(1) == 'tutor-profile' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
                     <a href="{{ route('tutor-profile') }}" class="menu-link">
 
                         <span class="svg-icon menu-icon">
 
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
 
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 
@@ -211,7 +210,6 @@
 
                             </svg>
 
-                            <!--end::Svg Icon-->
 
                         </span>
 
@@ -219,7 +217,7 @@
 
                     </a>
 
-                </li>
+                </li> -->
 
                 <li class="menu-item {{ Request::segment(1) == 'tutor-subject' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
