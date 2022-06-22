@@ -25,11 +25,8 @@
         $i = $page * 10 - 9;
 
         @endphp
-
         @if (count($query) > 0)
-
         @foreach ($query as $val)
-
         <tr>
 
             <td>{{ $i++ }}</td>
@@ -39,26 +36,16 @@
             <td>{{$val->mobile_id}}</td>
             <td class="parent-address">{{$val->address1}}</td>
             <td>
-
                 @if ($val->created_at != '')
-
                 {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}
-
                 @endif
-
             </td>
-            <td> @if($val->status =='Pending')
-
+            <td>@if($val->status =='Pending')
                 <span class="badge badge-primary">Pending</span>
-
                 @elseif($val->status =='Accepted')
-
                 <span class="badge badge-success">Accepted</span>
-
                 @else
-
                 <span class="badge badge-danger">Rejected</span>
-
                 @endif
             </td>
             <td>
