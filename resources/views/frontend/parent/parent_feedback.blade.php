@@ -25,8 +25,8 @@
 
                         <div class="card-title align-items-start flex-column">
 
-                            <h3 class="card-label font-weight-bolder text-dark">Tutors List</h3>
-
+                            <h3 class="mb-2 card-label font-weight-bolder text-dark">Tutors List</h3>
+                            <span style="font-size: 12px;">Please tell us your experience with Tutor</span>
                         </div>
 
 
