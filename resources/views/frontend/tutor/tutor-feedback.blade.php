@@ -27,23 +27,12 @@
                     </div>
 
                     <div class="card-body">
-                        <ul class="nav nav-pills personaltab-ul" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="pills-home" aria-selected="true">Payment</a>
-                            </li>
-                        </ul>
 
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
-                                <div class="prime-container">
+                        <div class="table-responsive" id="response_id">
 
-                                </div>
-                            </div>
                         </div>
 
-
                     </div>
-
                 </div>
 
             </div>
@@ -60,4 +49,37 @@
 
 </div>
 
+@endsection
+@section('page-js')
+<script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
+<script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script>
+    var _AJAX_LIST = "{{ route('tutor-feedback-ajax') }}";
+
+    function ajaxList(page) {
+        $('.ki-close').click();
+        $.ajax({
+            type: "GET",
+            url: _AJAX_LIST,
+            data: {
+                'page': page,
+            },
+            success: function(res) {
+                $('#response_id').html("");
+                $('#response_id').html(res);
+            }
+
+        })
+    }
+
+    ajaxList(1);
+    function viewDetail(id){
+        var htmls = $('#desc'+id).html();
+        $.dialog({
+            title: 'Description',
+            content: htmls,
+        });
+    }
+</script>
 @endsection

@@ -60,7 +60,13 @@ class FeedbackHelper
         $query = Feedback::with(['subjectDetails', 'userDetails'])->select('sc_feedback.*', 'sc_parent_inquiry_details.*')
             ->leftjoin('sc_parent_inquiry_details', 'sc_parent_inquiry_details.id', '=', 'sc_feedback.inquiry_id')
             ->whereRaw(' sha1(sc_parent_inquiry_details.tutor_id)="' . $id . '" ');
-
             return $query->get();
+    }
+    public static function getListFeedbackWithPaginate($id)
+    {
+        $query = Feedback::with(['subjectDetails', 'userDetails'])->select('sc_feedback.*', 'sc_parent_inquiry_details.*','sc_feedback.id as mainId')
+            ->leftjoin('sc_parent_inquiry_details', 'sc_parent_inquiry_details.id', '=', 'sc_feedback.inquiry_id')
+            ->where('sc_parent_inquiry_details.tutor_id', $id);
+            return $query->paginate(10);
     }
 }

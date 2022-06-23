@@ -202,7 +202,7 @@
 
 .personaltab-ul {
     border-bottom: 2px solid #eef0f8;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 .personaltab-ul li a {
@@ -220,23 +220,28 @@
 .personaltab-ul li {
     margin-bottom: -1px;
 }
+
 .login-signin .form-control {
     border: 1px solid #cacbcf;
 }
+
 button.pass-icons {
     position: absolute;
     top: 7px;
     right: 12px;
-    outline: none!important;
+    outline: none !important;
     background: none;
     border: 0;
     height: 22.94px;
 }
+
 .pass-icons.active .icon1 {
     display: none;
 }
 
-.pass-icons .icon2 {display: block;}
+.pass-icons .icon2 {
+    display: block;
+}
 
 .pass-icons .icon2 {
     display: none;
@@ -245,12 +250,14 @@ button.pass-icons {
 .pass-icons.active .icon2 {
     display: block;
 }
-.parent-address{
+
+.parent-address {
     text-overflow: ellipsis;
     max-width: 100px;
     overflow: hidden;
     white-space: nowrap;
 }
+
 .upload-photo-main .plus-sign-upload {
     background: #0f7dc2;
     color: #fff;
@@ -259,9 +266,10 @@ button.pass-icons {
     border-radius: 50%;
     height: 20px;
     width: 20px;
-        margin-right: 6px;
+    margin-right: 6px;
     text-align: center;
 }
+
 .upload-photo-main {
     height: 30px;
     max-width: 114px;
@@ -272,6 +280,7 @@ button.pass-icons {
     position: absolute;
     top: 0;
 }
+
 .input-upload-cus {
     height: 30px;
     opacity: 0;
@@ -279,26 +288,60 @@ button.pass-icons {
     z-index: 9999;
     max-width: 114px;
 }
-.address-title{
-    width:135px !important;
+
+.address-title {
+    width: 135px !important;
 }
+
+.stars::before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #ffc107 var(--percent), #d8d8d8 var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stars2 {
+
+    font-size: 25px !important;
+
+    margin-left: 0px;
+}
+
+.stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-family: Times;
+    line-height: 1;
+    font-size: 48px;
+    margin-left: 10px;
+}
+
+.section-title-wrapper-star {
+    margin-bottom: 30px !important;
+
+}
+
 @media only screen and (max-width:767px) {
     .personaltab-ul li a {
         padding: 0.75rem 9px !important;
     }
 }
-@media only screen and (min-width:768px) and (max-width:1024px){
-    .address-title{
-        width: max-content!important;
+
+@media only screen and (min-width:768px) and (max-width:1024px) {
+    .address-title {
+        width: max-content !important;
     }
 }
+
 @media only screen and (min-width:1025px) {
-    .address-title{
-        width:135px !important;
+    .address-title {
+        width: 135px !important;
     }
 }
+
 @media only screen and (min-width:768px) {
-    .greeting-text{
-        text-align:right;
+    .greeting-text {
+        text-align: right;
     }
 }
