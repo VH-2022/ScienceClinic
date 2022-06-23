@@ -534,7 +534,7 @@
 
                         </span>
 
-                        <span class="menu-text">Review</span>
+                        <span class="menu-text">Feedback</span>
 
                     </a>
 
