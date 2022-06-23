@@ -37,7 +37,7 @@ class ParentLoginController extends Controller
         ])) {
 
             Session::flash('success', trans('messages.successLogin'));
-            return redirect('parent-dashboard');
+            return redirect('parent-account');
         } else {
             return redirect()->route('parent-login')->with('error', trans('messages.errorLogin'));
         }
