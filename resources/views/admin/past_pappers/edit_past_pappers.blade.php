@@ -105,8 +105,9 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(count($paper_basic_details) > 0)
                             @php $i = 0;  @endphp
+                            @if(count($paper_basic_details) > 0)
+                            
                                 @foreach($paper_basic_details as $key)
                                 <input type="hidden" name="detail_id[]" value="{{ $key->id}}">
                                     <div class="row" id="deleteRow_{{$i}}">
@@ -153,14 +154,14 @@
                                 <input type="hidden" name="detail_id[]" value="0">
                                 <div class="row">
                                     
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Subject Title <span class="text-danger">*</span></label>
                                             <input class="form-control validate_field" placeholder="Subject Title" autocomplete="off" id="subject_paper_title0" type="text" data-msg="Paper Sub Title" name="subject_paper_title[]">
                                             <span class="form-text error subject_paper_title_error_0">{{ $errors->useredit->first('subject_paper_title')}}</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Upload Paper <span class="text-danger">*</span></label>
                                             <div class="position-relative">

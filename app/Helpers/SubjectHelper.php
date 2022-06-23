@@ -100,7 +100,7 @@ class SubjectHelper
 
                 }
 
-        $query = $query->paginate(50);
+        $query = $query->paginate(10);
 
         return $query;
 
@@ -130,7 +130,7 @@ class SubjectHelper
 
                     $join->on('scb.id','=','sc_subject_master.parent_id');
 
-                })->whereNotNull('sc_subject_master.parent_id')->paginate();
+                })->whereNotNull('sc_subject_master.parent_id')->paginate(10);
 
         
 

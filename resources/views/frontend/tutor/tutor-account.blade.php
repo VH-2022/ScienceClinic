@@ -172,8 +172,8 @@
                                 @endif
                             </div>
                             <div class="tab-pane fade" id="my-bank-account" role="tabpanel" aria-labelledby="my-bank-account-tab">
-                                <!-- <p class="mb-1"><b>Please provide us with your bank details so we are able to transfer your wages.</b></p>
-                                <p><b>We pay every friday.</b></p> -->
+                                <p class="mb-1"><b>Please provide us with your bank details so we are able to transfer your wages.</b></p>
+                                <p><b>We pay every friday.</b></p>
                                 <div class="prime-container">
                                     <form method="post" id="account-details">
                                         @csrf

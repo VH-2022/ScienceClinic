@@ -107,4 +107,7 @@ class PastPapersDetailHelper
     public static function getAllsubject(){
         return SubjectMaster::whereNull('deleted_at')->get();
     }
+    public static function getAlldataByPaperSchemaID($id){
+        return PastPapersDetail::where('paper_id',$id)->whereNull('deleted_at')->get();
+    }
 }

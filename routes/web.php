@@ -149,6 +149,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->post('update-user-password/{id}', 'ResetPasswordController@UpdatePassword')->name('update-user-password');
     $frontend->get('tutors', 'TutorListController@index')->name('tutors');
     $frontend->get('E-Learning', 'HomeController@getELearningdata')->name('E-Learning');
+    $frontend->get('past-papers-resources', 'HomeController@getPastPaperData')->name('past-papers-resources');
+    $frontend->get('past-papers-resources-detail/{id}', 'HomeController@getPastPaperDetailData')->name('past-papers-resources-detail');
     
     // $frontend->get('contact/create', "ContactController@create")->name('contact.create');
     // $frontend->post('contact/store', "ContactController@store")->name('contact.store');
@@ -159,6 +161,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
     $tfrontend->post('verify-login-tutor', 'TutorLoginController@verifyLogin')->name('verify-login-tutor');
     $tfrontend->middleware(['auth:web', 'verified'])->group(function ($backendVerified) {
         $backendVerified->get('tutor-dashboard','TutorDashboardController@index')->name('tutor-dashboard');
+        $backendVerified->post('change-dbs', 'TutorDashboardController@changeValidDbs')->name('change-dbs');
         $backendVerified->get('tutor-logout', 'TutorLoginController@logout')->name('tutor-logout');
         $backendVerified->get('tutor-verify','TutorVerifyController@index')->name('tutor-verify');
         $backendVerified->post('tutor-profile', 'TutorVerifyController@updateProfile')->name('tutor-profile');
@@ -226,7 +229,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->get('feedback/{uid}', 'FeedbackController@feedbackForm')->name('feedback-form');
         $parentVerified->post('submit-parent-review', 'FeedbackController@submitParentFeedback')->name('submit-parent-review');
         $parentVerified->get('get-feedback', 'FeedbackController@getFeedback')->name('get-feedback');
-        
+        $parentVerified->get('parent-text-books-ajax', 'ParentTextBooksController@ajaxList')->name('parent-text-books-ajax');
     });
   
 });
