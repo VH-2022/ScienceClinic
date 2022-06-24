@@ -145,8 +145,7 @@
                     </a>
                     @if(Auth::guard()->user()->type == 2)
                     <a href="{{route('tutor-logout')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>@endif
-                    @if(Auth::guard()->user()->type == 3)
-                    <a href="{{route('parent-logout')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>@endif
+                    <!-- <a href="{{route('parent-logout')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a> -->
 
                 </div>
 
