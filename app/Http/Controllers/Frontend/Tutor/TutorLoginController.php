@@ -44,7 +44,7 @@ class TutorLoginController extends Controller
         ])) {
            
             Session::flash('success', trans('messages.successLogin'));
-            return redirect('tutor-dashboard');
+            return redirect('tutor-account');
         } else {
             return redirect()->route('tutor-login')->with('error', trans('messages.errorLogin'));
         }
