@@ -38,14 +38,14 @@
 
              <td>
                  @php
-                 $image_array = array('jpg','png','jpeg','gif');
+                 $image_array = array('jpg','png','jpeg','gif','doc','docx');
                  $explode = explode('.',$live_in->text_book_upload);
                  @endphp
                  @if($live_in->text_book_upload)
                  @if(in_array($explode[4], $image_array))
-                 <a href="{{$live_in->text_book_upload}}" download><i class="fas fa-photo-video"></i></a>
+                 <a href="{{$live_in->text_book_upload}}" target="_blank"><i class="far fa-file"></i></a>
                  @else
-                 <a href="{{$live_in->text_book_upload}}" download><i class="far fa-file"></i></a>
+                 <a href="{{$live_in->text_book_upload}}#toolbar=0" target="_blank"><i class="far fa-file-pdf"></i></a>
                  @endif
                  @endif
              </td>
