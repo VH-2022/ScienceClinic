@@ -211,6 +211,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
     $pfrontend->get('parent-login', 'ParentLoginController@index')->name('parent-login');
+    $pfrontend->get('textbook-parent-login', 'ParentLoginController@index')->name('textbook-parent-login');
     $pfrontend->post('verify-login-parent', 'ParentLoginController@verifyLogin')->name('verify-login-parent');
     $pfrontend->middleware(['auth:parent', 'verified'])->group(function ($parentVerified) {
         $parentVerified->get('parent-dashboard', 'ParentDashboardController@index')->name('parent-dashboard');

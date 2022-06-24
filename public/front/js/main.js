@@ -197,14 +197,14 @@
 
 // //--- mobile menu
 
-// $(document).on('click', '#menu', function() {
-//     // $(".main-content").toggleClass("active");
-//     $(".mobile-show").toggleClass("active");
-//     $("body").addClass("header-override");
-// });
+$(document).on('click', '#menu', function() {
+    // $(".main-content").toggleClass("active");
+    $(".mobile-show").toggleClass("active");
+    $("body").addClass("header-override");
+});
 
-// $(document).ready(function() {
-//     $("#overlays").click(function() {
-//         $(".mobile-show.active").removeClass("active");
-//     });
-// });
+$(document).ready(function() {
+    $("#overlays").click(function() {
+        $(".mobile-show.active").removeClass("active");
+    });
+});

@@ -14,7 +14,7 @@
 
             <div class="row align-items-center">
 
-                <div class="col-md-12">
+                <div class="col-md-12 header-mobile">
 
                     <div class="header-mob">
 
@@ -67,11 +67,11 @@
 
                                     </li>
 
-                                    <li><a href="{{ route('find-tutor') }}">Find a Tutor</a></li>
+                                    <li class="{{ Request::segment(1) == 'find-tutor' ? 'menu-item-active-front active' : '' }}"><a href="{{ route('find-tutor') }}">Find a Tutor</a></li>
 
-                                    <li><a href="{{route('become-tutor.index')}}">Become a Tutor</a></li>
+                                    <li class="{{ Request::segment(1) == 'become-tutor' ? 'menu-item-active-front active' : '' }}"><a href="{{route('become-tutor.index')}}">Become a Tutor</a></li>
 
-                                    <li class="text-none" id="subject-sub"><a href="javascript:void(0)">Subjects</a>
+                                    <li class="text-none @if(Request::segment(1) =='subject' || Request::segment(1) =='sub-subject') menu-item-active-front active @endif" id="subject-sub"><a href="javascript:void(0)">Subjects</a>
 
                                         <ul class="sub-menu mobile-section border-bottom-ul">
 
@@ -121,7 +121,7 @@
 
                                     </li>
 
-                                    <li class="text-none" id="tutor-sub"><a href="javascript:void(0)">Past
+                                    <li class="text-none @if(Request::segment(1) =='E-Learning' || Request::segment(1) =='past-papers-resources' || Request::segment(1) =='textbook-parent-login') menu-item-active-front active @endif" id="tutor-sub"><a href="javascript:void(0)">Past
 
                                             Papers & Resources</a>
 
@@ -131,7 +131,7 @@
 
                                             <li><a href="{{route('past-papers-resources')}}">Past Paper</a></li>
 
-                                            <li><a href="{{route('parent-login')}}">Text Books</a></li>
+                                            <li><a href="{{route('textbook-parent-login')}}">Text Books</a></li>
 
                                             <li>
 
@@ -171,7 +171,7 @@
 
                                     </li>
 
-                                    <li class="text-none" id="tutor-sub"><a href="javascript:void(0)">Our
+                                    <li class="text-none @if(Request::segment(1) =='tutors') menu-item-active-front active @endif" id="tutor-sub"><a href="javascript:void(0)">Our
 
                                             Tutors</a>
 
@@ -191,8 +191,8 @@
 
                        
                                     
-                                    <li><a href="{{ route('about')}}">About</a></li>
-                                    <li class="text-none" id="tutor-sub"><a href="{{route('contact.index')}}">Contact</a>
+                                    <li class="{{ Request::segment(1) == 'about' ? 'menu-item-active-front active' : '' }}"><a href="{{ route('about')}}">About</a></li>
+                                    <li class="text-none @if(Request::segment(1) =='contact' || Request::segment(1) == 'blog') menu-item-active-front active @endif" id="tutor-sub"><a href="{{route('contact.index')}}">Contact</a>
                                         <ul class="sub-menu mobile-section border-bottom-ul">
                                             <li><a href="{{route('blog')}}">Blog</a></li>
                                             </ul>
@@ -200,7 +200,7 @@
 
 
 
-                                    <li class="text-none" id="tutor-sub"><a href="javascript:void(0)">Login</a>
+                                    <li class="text-none @if(Request::segment(1) =='tutor-login' || Request::segment(1) =='parent-login') menu-item-active-front active @endif" id="tutor-sub"><a href="javascript:void(0)">Login</a>
 
                                         <ul class="sub-menu mobile-section border-bottom-ul">
 
