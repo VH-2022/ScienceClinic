@@ -139,7 +139,7 @@
                                             </div>
 
 
-                                            <div class="row">
+                                            <div class="row" style="padding: 0 12.5px 0 12.5px;">
 
                                                 <div class="col-md-12">
 
@@ -165,7 +165,7 @@
 
                                                                 <div class="col-md-3 mb-0">
 
-                                                                    <div class="form-group">
+                                                                    <div class="form-group mb-3">
 
                                                                         @if($key ==0) <label>University/Institution <span style="color:red" class="required-error">*</span></label>@endif
                                                                         <input name="university[]" maxlength="35" data-id="{{ $uniqid }}" class="mb-0 form-control" autocomplete="off" type="text" placeholder="University/Institution" value="{{$val->university_name}}">
@@ -177,7 +177,7 @@
 
                                                                 <div class="col-md-3 mb-0">
 
-                                                                    <div class="form-group">
+                                                                    <div class="form-group mb-3">
 
                                                                         @if($key ==0)<label> Qualification <span style="color:red" class="required-error">*</span></label>@endif<input name="qualification[]" maxlength="35" data-id="{{ $uniqid }}" class="mb-0 form-control" autocomplete="off" type="text" placeholder="Qualification" value="{{$val->qualification}}">
 
@@ -190,7 +190,7 @@
 
                                                                 <div class="col-md-4 mb-0">
 
-                                                                    <div class="form-group">
+                                                                    <div class="form-group mb-3">
 
                                                                         @if($key ==0)<label> Upload Certificates Here <span style="color:red" class="required-error">*</span>
                                                                         </label>@endif
@@ -297,7 +297,7 @@
                                                 </div>
 
                                             </div>
-                                           
+
                                             <div class="col-md-3 offset-md-9 mt-3">
                                                 <input id="submitBtn" class="btn btn-primary w-100" type="button" value="Update">
                                             </div>
