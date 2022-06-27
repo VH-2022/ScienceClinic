@@ -11,8 +11,9 @@
             <th>Tuition Level </th>
             <th>Tuition Day </th>
             <th>Ideal Time</th>
-
-            <th>Add Hours</th>
+            <th>Teaching Hours</th>
+            <th>Hourly Rate</th>
+            <th>Action</th>
 
         </tr>
 
@@ -43,15 +44,19 @@
             <td>
                 {{$val->tuition_time}}
             </td>
+            <td>
+                {{$val->teaching_hours}}
+            </td>
+            <td>
+                {{$val->hourly_rate}}
+            </td>
 
             <td>
                 @if($val->teaching_hours == '')
-                <button class="btn btn-primary" onclick="addTeacingHours({{$val->id}});">Add Hours</button>
-                @else
-                {{$val->teaching_hours}}
+                <button class="btn btn-primary" onclick="addTeacingHours({{$val->id}});">Add</button>
+                
                 @endif
             </td>
-
         </tr>
         @php
 

@@ -50,6 +50,13 @@ class ParentDetailHelper {
         ->groupBy('subject_id')->get();
         return $query;
     }
+    public static function getListwithPaginateWithParent($parentID,$id)
+    {
+
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)
+        ->groupBy('subject_id')->get();
+        return $query;
+    }
     public static function getBookSlotData($time)
     {
         return ParentDetail::with('userDetails', 'subjectDetails')->where('tuition_time', $time)->where('booking_status', 'Success')->get();
@@ -60,10 +67,12 @@ class ParentDetailHelper {
         return ParentDetail::where('tuition_time', $time)->where('id',$userId)->first();
 
     }
-    public static function saveHours($id, $hours)
+    public static function saveHours($id, $hours,$hourly_rate,$teaching_start_time)
     {
         $arrData = array(
-            'teaching_hours' => $hours
+            'teaching_hours' => $hours,
+            'hourly_rate' => $hourly_rate,
+            'teaching_start_time' => date("H:i:s",strtotime($teaching_start_time)),
         );
         $query = ParentDetail::where('id', $id)->update($arrData);
         return $query;

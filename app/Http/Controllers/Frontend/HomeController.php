@@ -20,14 +20,11 @@ class HomeController extends Controller
 
 {
 
-    public function index()
-
-    {
-
-        
-
+    public function index(){
         return view('frontend.home.home');
-
+    }
+    public function terms_conditions(){
+        return view('frontend.terms_condition');
     }
 
     public function getELearningdata(Request $request){

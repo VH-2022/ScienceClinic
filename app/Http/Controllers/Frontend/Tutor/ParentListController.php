@@ -24,10 +24,11 @@ class ParentListController extends Controller
         return view('frontend.tutor.tutor-parent-details', $data);
     }
 
-    public function parentSubjectDetails()
+    public function parentSubjectDetails(Request $request)
     {
+        
         $tutor_id = Auth::user()->id;
-        $data['query'] = ParentDetailHelper::getListwithPaginate($tutor_id);
+        $data['query'] = ParentDetailHelper::getListwithPaginateWithParent($request->parentID,$tutor_id);
         return view('frontend.tutor.parent-subject-details', $data);
     }
 
@@ -36,13 +37,14 @@ class ParentListController extends Controller
         
         $rules = array(
             'hours' => 'required | max:4',
+            'hourly_rate' => 'required',
         );
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return response()->json(['error_msg' => $validator->errors(), 'status' => 0], 400);
         } else {
-            $update = ParentDetailHelper::saveHours($request->id, $request->hours);
+            $update = ParentDetailHelper::saveHours($request->id, $request->hours, $request->hourly_rate, $request->teaching_start_time);
 
             if ($update) {
                 return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => $update, 'status' => 1], 200);

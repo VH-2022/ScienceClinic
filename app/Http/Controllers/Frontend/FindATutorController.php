@@ -31,6 +31,9 @@ use App\Helpers\TutorDetailHelper;
 use App\Helpers\TutorLevelHelper;
 use App\Helpers\TutorUniversityDetailHelper;
 use App\Models\ParentDetail;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
@@ -143,6 +146,21 @@ class FindATutorController extends Controller
             return 0;
         }
     }
+    public function getDatesFromRange($start, $end, $format = 'Y-m-d') { 
+			
+        $array = array(); 
+        $interval = new DateInterval('P1D'); 
+        $realEnd = new DateTime($end); 
+        $realEnd->add($interval); 
+        $period = new DatePeriod(new DateTime($start), $interval, $realEnd); 
+        
+        foreach($period as $date) {                  
+            $array[] = $date->format($format);  
+        } 
+        
+        
+        return $array; 
+    }
     public function saveInquiry(Request $request)
     {
         $count = UserHelper::checkEmail($request->email);
@@ -207,6 +225,40 @@ class FindATutorController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
         } else {
+            $currdate = date("Y-m-d");
+            $monday = strtotime("last monday");
+			$monday = date('w', $monday)==date('w') ? $monday+7*86400 : $monday;
+			$sunday = strtotime(date("Y-m-d",$monday)." +6 days");
+			$this_week_sd = date("Y-m-d",$monday);
+			$this_week_ed = date("Y-m-d",$sunday);
+			
+			$dateRang = self::getDatesFromRange($this_week_sd,$this_week_ed);
+			$dateArray = array();
+			foreach($dateRang as $dkey){
+				if($currdate <= $dkey){
+                    $dayname = date('l',strtotime($dkey));
+                    $dateArray[$dkey] = $dayname;
+				}
+			}
+
+            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+
+            if(in_array(ucfirst($request->days),$dateArray)){
+                foreach($dateArray as $key => $val){
+                    if(ucfirst($request->days) == $val){
+                        if($key < date('Y-m-d')) {
+                            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+                        }else{
+                            $bookDate = $key;
+                        }
+                    }
+                }
+            }
+            
+            
+
+            
+
             $count = UserHelper::checkEmail($request->email);
           
             if (empty($count)) {
@@ -220,18 +272,27 @@ class FindATutorController extends Controller
                     'user_name' => $request->username,
                     'status' => 'Pending',
                     'password' => Hash::make($request->password),
-
                 );
+
+
+                
+
                 $userData = UserHelper::save($userArr);
                 if ($userData) {
+
+                    
                     $inquiryArr = array(
                         'user_id' => $userData,
                         'subject_id' => $request->subjectinquiry,
                         'level_id' => $request->level,
                         'tuition_day' => $request->days,
                         'tuition_time' => $request->tuition_time,
+                        'booking_date' => $bookDate,
                         'tutor_id' => $request->tutorid,
                     );
+
+                  
+
                     ParentDetailHelper::save($inquiryArr);
                     return response()->json(['error_msg' => "Successfully instered", 'data' => $userArr], 200);
                 } else {
@@ -244,8 +305,10 @@ class FindATutorController extends Controller
                     'level_id' => $request->level,
                     'tuition_day' => $request->days,
                     'tuition_time' => $request->tuition_time,
+                    'booking_date' => $bookDate,
                     'tutor_id' => $request->tutorid,
                 );
+                
                 ParentDetailHelper::save($inquiryArr);
                 return response()->json(['error_msg' => "Successfully instered", 'data' => $inquiryArr], 200);
             }

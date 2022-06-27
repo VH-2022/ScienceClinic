@@ -237,8 +237,32 @@
                                                         <label class="tutor-label">Ideal Tuition Time</label>
                                                         <select id="time" class="mb-0" name="tuition_time">
                                                             <option value="">Select Time</option>
+                                                            <option value="24:00:00-01:00:00">
+                                                                12am- 1am
+                                                            </option>
+                                                            <option value="01:00:00-02:00:00">
+                                                                1am - 2am
+                                                            </option>
+                                                            <option value="02:00:00-03:00:00">
+                                                                2am - 3am
+                                                            </option>
+                                                            <option value="03:00:00-04:00:00">
+                                                                3am - 4am
+                                                            </option>
+                                                            <option value="04:00:00-05:00:00">
+                                                                4am - 5am
+                                                            </option>
+                                                            <option value="05:00:00-06:00:00">
+                                                                5am - 6am
+                                                            </option>
+                                                            <option value="06:00:00-07:00:00">
+                                                                6am - 7am
+                                                            </option>
+                                                            <option value="07:00:00-08:00:00">
+                                                                7am - 8am
+                                                            </option>
                                                             <option value="08:00:00-09:00:00">
-                                                                8am- 9am
+                                                                8am - 9am
                                                             </option>
                                                             <option value="09:00:00-10:00:00">
                                                                 9am - 10am
@@ -246,6 +270,46 @@
                                                             <option value="10:00:00-11:00:00">
                                                                 10am - 11am
                                                             </option>
+                                                            <option value="11:00:00-12:00:00">
+                                                                11am - 12pm
+                                                            </option>
+                                                            <option value="12:00:00-13:00:00">
+                                                                12pm - 1pm
+                                                            </option>
+                                                            <option value="13:00:00-14:00:00">
+                                                                1pm - 2pm
+                                                            </option>
+                                                            <option value="14:00:00-15:00:00">
+                                                                2pm - 3pm
+                                                            </option>
+                                                            <option value="15:00:00-16:00:00">
+                                                                3pm - 4pm
+                                                            </option>
+                                                            <option value="16:00:00-17:00:00">
+                                                                4pm - 5pm
+                                                            </option>
+                                                            <option value="17:00:00-18:00:00">
+                                                                5pm - 6pm
+                                                            </option>
+                                                            <option value="18:00:00-19:00:00">
+                                                                6pm - 7pm
+                                                            </option>
+                                                            <option value="19:00:00-20:00:00">
+                                                                7pm - 8pm
+                                                            </option>
+                                                            <option value="20:00:00-21:00:00">
+                                                                8pm - 9pm
+                                                            </option>
+                                                            <option value="21:00:00-22:00:00">
+                                                                9pm - 10pm
+                                                            </option>
+                                                            <option value="22:00:00-23:00:00">
+                                                                10pm - 11pm
+                                                            </option>
+                                                            <option value="23:00:00-24:00:00">
+                                                                11pm - 12am
+                                                            </option>
+                                                            
                                                         </select>
                                                         <span class="text-danger" id="error_time"></span>
 
@@ -277,7 +341,7 @@
                                                         <div class="form-check custom-check">
                                                             <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
                                                             <label class="form-check-label condition-text" for="defaultCheck1">
-                                                                <a class="condition-text" href="terms-and-conditions.html">Terms & conditions </a>
+                                                                <a class="condition-text" target="_blank" href="{{url('terms-and-conditions')}}">Terms & conditions </a>
                                                             </label>
                                                         </div>
                                                     </div>
