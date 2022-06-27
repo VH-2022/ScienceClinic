@@ -24,6 +24,7 @@ class TutorAccountController extends Controller
 
 {
     public $successStatus = 200;
+    use ImageUploadTrait;
     public function index()
     {
         $user = Auth::guard('web')->user();
@@ -34,7 +35,6 @@ class TutorAccountController extends Controller
     }
     public function updateProfile(Request $request)
     {
-        // dd($request->all());
         $rules = array(
             'name' => 'required | max:30',
 
@@ -83,20 +83,20 @@ class TutorAccountController extends Controller
 
             );
             $data = UserHelper::update($data_array, array('id' => $auth->id));
-                   $deleteUniversity = TutorUniversityDetailHelper::deleteUniversity($auth->id);
             $university = $request->university;
-
+            
             if (!empty($university)) {
+                $deleteUniversity = TutorUniversityDetailHelper::deleteUniversity($auth->id);
 
                 foreach ($university as $key => $val) {
                     $document_image = '';
 
-                    if ($request->file('document_certi') != '') {
-
+                    if(isset($request->file('document_certi')[$key])){
                         $document_image = $this->uploadImageWithCompress($request->file('document_certi')[$key], 'uploads/user/certificate');
                     }else{
-                        $document_image = $request->document_certi[$key];
+                        $document_image = $request->odocument_certi[$key];
                     }
+                    
 
                     $tutorUniversityDetails = array(
 

@@ -10,7 +10,20 @@
 
     .add-btn {
         justify-content: end !important;
-        padding-right: 82px;
+        padding-right: 88px;
+    }
+
+    .btn.btn-danger,
+    .btn.btn-danger:hover:not(.btn-text):not(:disabled):not(.disabled),
+    .btn.btn-danger:focus:not(.btn-text),
+    .btn.btn-danger.focus:not(.btn-text) {
+        background-color: #F64E60;
+        border-color: #F64E60;
+    }
+
+    .max-upload-main {
+        max-width: 119px;
+        margin: auto;
     }
 </style>
 
@@ -124,7 +137,7 @@
                                                     <span id="error_bio" style="color:red;"></span>
                                                 </div>
                                             </div>
-                                            <!-- <label for="example-text-input" class="form-label">Qualifications</label> <span style="color:red" class="required-error">*</span> -->
+
 
                                             <div class="row">
 
@@ -156,7 +169,7 @@
 
                                                                         @if($key ==0) <label>University/Institution <span style="color:red" class="required-error">*</span></label>@endif
                                                                         <input name="university[]" maxlength="35" data-id="{{ $uniqid }}" class="mb-0 form-control" autocomplete="off" type="text" placeholder="University/Institution" value="{{$val->university_name}}">
-                                                                        <span id="customer_name_{{$uniqid}}_error" class="text-danger"></span>
+                                                                        <span id="customer_name_{{$uniqid}}_error" style="color:red;"></span>
 
                                                                     </div>
 
@@ -168,21 +181,27 @@
 
                                                                         @if($key ==0)<label> Qualification <span style="color:red" class="required-error">*</span></label>@endif<input name="qualification[]" maxlength="35" data-id="{{ $uniqid }}" class="mb-0 form-control" autocomplete="off" type="text" placeholder="Qualification" value="{{$val->qualification}}">
 
-                                                                        <span id="qualification{{$uniqid}}_error" class="text-danger"></span>
+                                                                        <span id="qualification{{$uniqid}}_error" style="color:red;"></span>
 
                                                                     </div>
 
                                                                 </div>
-                                                                <input type="hidden" name="document_certi[]" value="{{$val->document_image}}">
+                                                                <input type="hidden" name="odocument_certi[]" value="{{$val->document_image}}" class="odocument_{{ $uniqid }}" data-id="{{ $uniqid }}">
 
                                                                 <div class="col-md-4 mb-0">
 
                                                                     <div class="form-group">
 
-                                                                        @if($key ==0)<label> Upload Certificates Here <span style="color:red" class="required-error">*</span></label>@endif
-                                                                        <input type="file" class="mb-0 form-control" name="document_certi[]" class="bio-input-fild" data-id="{{ $uniqid }}" id="uploadeviBtn" value="{{$val->document_image}}">
+                                                                        @if($key ==0)<label> Upload Certificates Here <span style="color:red" class="required-error">*</span>
+                                                                        </label>@endif
 
-                                                                        <span id="document_certi{{$uniqid}}_error" class="text-danger"></span>
+                                                                        <div class="position-relative  max-upload-main">
+                                                                            <input type="file" class="mb-0 form-control input-upload-cus" name="document_certi[]" class="bio-input-fild" data-id="{{ $uniqid }}" id="uploadeviBtn">
+                                                                            <div class="upload-photo-main">
+                                                                                <i class="fa fa-plus plus-sign-upload"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <span id="document_certi{{$uniqid}}_error" style="color:red;"></span>
 
                                                                     </div>
 
@@ -190,7 +209,7 @@
 
                                                                 <div class="col-md-1 text-end p-0" style="@if(count($getUniversityDetails) ==1) display:none @endif" id="remove_ids">
 
-                                                                    <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a>
+                                                                    <a class="btn btn-danger remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
 
                                                                 </div>
 
@@ -213,45 +232,50 @@
 
                                                             <div class="row">
 
-                                                                <div class="col-md-3 mb-4">
+                                                                <div class="col-md-3 mb-0">
 
                                                                     <div class="form-group">
 
                                                                         <label>University/Institution</label><span style="color:red" class="required-error">*</span>
                                                                         <input name="university[]" maxlength="35" data-id="{{ $uniqid }}" class="mb-0 form-control" autocomplete="off" type="text" placeholder="University/Institution">
-                                                                        <span id="customer_name_{{$uniqid}}_error" class="text-danger"></span>
+                                                                        <span id="customer_name_{{$uniqid}}_error" style="color:red;"></span>
 
                                                                     </div>
 
                                                                 </div>
 
-                                                                <div class="col-md-3 mb-4">
+                                                                <div class="col-md-3 mb-0">
 
                                                                     <div class="form-group">
 
                                                                         <label>Qualification</label><span style="color:red" class="required-error">*</span> <input name="qualification[]" maxlength="35" data-id="{{ $uniqid }}" class="mb-0 form-control" autocomplete="off" type="text" placeholder="Qualification">
 
-                                                                        <span id="qualification{{$uniqid}}_error" class="text-danger"></span>
+                                                                        <span id="qualification{{$uniqid}}_error" style="color:red;"></span>
 
                                                                     </div>
 
                                                                 </div>
-                                                                <div class="col-md-4 mb-4">
+                                                                <div class="col-md-4 mb-0">
 
                                                                     <div class="form-group">
 
                                                                         <label>Upload Certificates Here</label><span style="color:red" class="required-error">*</span>
-                                                                        <input type="file" class="mb-0 form-control" name="document_certi[]" class="bio-input-fild" data-id="{{ $uniqid }}" id="uploadeviBtn">
+                                                                        <div class="position-relative  max-upload-main">
+                                                                            <input type="file" class="mb-0 form-control input-upload-cus" name="document_certi[]" class="bio-input-fild" data-id="{{ $uniqid }}" id="uploadeviBtn">
+                                                                            <div class="upload-photo-main">
+                                                                                <i class="fa fa-plus plus-sign-upload"></i>
+                                                                            </div>
+                                                                        </div>
 
-                                                                        <span id="document_certi{{$uniqid}}_error" class="text-danger"></span>
+                                                                        <span id="document_certi{{$uniqid}}_error" style="color:red;"></span>
 
                                                                     </div>
 
                                                                 </div>
 
-                                                                <div class="col-md-1 text-end p-0" id="remove_ids_section_two">
+                                                                <div class="col-md-1 text-end p-0 mb-0" id="remove_ids_section_two">
 
-                                                                    <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a>
+                                                                    <a class="btn btn-danger  remove-btn1 mb-0" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
 
                                                                 </div>
 
@@ -268,7 +292,7 @@
 
                                                 <div class="col-md-12 text-end add-btn">
 
-                                                    <a class="btn btn-primary float-right" onclick="addMoreSolution();" href="javascript:void(0)"><i class="fa fa-plus fa-icon search-menu2" aria-hidden="true"></i></a>
+                                                    <a class="btn btn-primary float-right" onclick="addMoreSolution();" href="javascript:void(0)">Add</a>
 
                                                 </div>
 
@@ -564,7 +588,7 @@
 
             if (value.trim() == '') {
 
-                $('#customer_name_' + dataId + '_error').html("Please enter university/institution");
+                $('#customer_name_' + dataId + '_error').html("Please enter University/Institution");
 
                 temp++;
 
@@ -582,7 +606,7 @@
 
             if (value.trim() == '') {
 
-                $('#qualification' + dataId + '_error').html("Please enter qualification");
+                $('#qualification' + dataId + '_error').html("Please enter Qualification");
 
                 temp++;
 
@@ -590,44 +614,31 @@
 
         })
 
-        // $('input[name="document_certi[]"]').each(function(e) {
+        $('input[name="document_certi[]"]').each(function(e) {
+            var dataId = $(this).attr('data-id');
+            var image = $(this).prop('files');
+            var exisImage = $('.odocument_' + dataId).val();
+            if (image.length == 0 && exisImage == undefined) {
+                $('#document_certi' + dataId + '_error').html("Please upload Certificate");
+                temp++;
+            } else {
+                if (image.length != 0) {
+                    var fileUploadPath = image[0].name;
+                    var Extension = fileUploadPath.substring(fileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                    if (Extension == "pdf") {
+                        $('#document_certi' + dataId + '_error').html("");
+                    } else {
+                        $('#document_certi' + dataId + '_error').html("Only Pdf Allowed");
+                        temp++;
+                    }
+                }
 
-        //     var dataId = $(this).attr('data-id');
-
-        //     var value = $(this).prop('files');
-
-        //     $('#document_certi' + dataId + '_error').html("");
-
-        //     if (value.length == 0) {
-
-        //         $('#document_certi' + dataId + '_error').html("Please upload certificate");
-
-        //         temp++;
-
-        //     } else {
-
-        //         var FileUploadPath = value[0].name;
-
-        //         var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1)
-        //             .toLowerCase();
-
-
-
-        //         if (Extension == 'pdf') {
+            }
 
 
+        });
 
-        //         } else {
 
-        //             $('#document_certi' + dataId + '_error').html("Only Pdf Allowed");
-
-        //             temp++;
-
-        //         }
-
-        //     }
-
-        // })
 
         if (temp == 0) {
             $.ajax({
@@ -960,7 +971,7 @@
             '<input name="university[]" class="mb-0 form-control" autocomplete="off" maxlength="35" data-id="' + mathRand +
             '" type="text" placeholder="University/Institution">' +
 
-            '<span id="customer_name_' + mathRand + '_error" class="text-danger"></span>' +
+            '<span id="customer_name_' + mathRand + '_error" style="color:red;"></span>' +
 
             '</div>' +
 
@@ -969,7 +980,7 @@
             '<input name="qualification[]" class="mb-0 form-control" autocomplete="off" maxlength="35" data-id="' + mathRand +
             '" type="text" placeholder="Qualification">' +
 
-            '<span id="qualification' + mathRand + '_error" class="text-danger"></span>' +
+            '<span id="qualification' + mathRand + '_error" style="color:red;"></span>' +
 
             '</div>' +
 
@@ -977,19 +988,16 @@
 
             '<div class="downloaded-file position-relative">' +
 
-            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio mt-0 mb-0"> </p> </div> <input type="file"  class="bio-input-fild mb-0 form-control" name="document_certi[]" id="uploadeviBtn" data-id="' +
-            mathRand + '" ><span id="document_certi' + mathRand + '_error" class="text-danger"></span>' +
-
-
-
+            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio mt-0 mb-0"> </p> </div> <div class="position-relative  max-upload-main"><input type="file"  class="bio-input-fild mb-0 form-control input-upload-cus" name="document_certi[]" id="uploadeviBtn" data-id="' +
+            mathRand + '" > <div class="upload-photo-main"> <i class = "fa fa-plus plus-sign-upload"></i></div><span id="document_certi' + mathRand + '_error" style="color:red;"></span > </div>' +
             '</div>' +
 
             '</div>' +
 
             '</div>' +
 
-            '<div class="col-md-1 add text-end p-0"> <a href="javascript:void(0)" class="remove-field btn btn-primary btn-remove-customer" onclick="removeSolution(' +
-            mathRand + ')"><i class="fa fa-minus fa-icon search-menu2" aria-hidden="true"></i></a></div>' +
+            '<div class="col-md-1 add text-end p-0"> <a href="javascript:void(0)" class="remove-field btn btn-danger btn-remove-customer" onclick="removeSolution(' +
+            mathRand + ')">Remove</a></div>' +
 
             '</div>' +
 
@@ -1015,40 +1023,6 @@
             $('#remove_ids').attr('style', 'display:none');
 
         }
-
-
-
     }
-
-    $('input[name="link_more[]"]').each(function(e) {
-
-        var title = $(this).val();
-
-        var dataId = $(this).attr('data-id');
-
-        var dataMSG = $(this).attr('data-msg');
-
-        if (title.trim() != '') {
-
-            if (!validateLink(title)) {
-
-                $('.link_more' + dataId + '_error').addClass('is-invalid').removeClass('is-valid');
-
-                $('.link_more' + dataId + '_error').html('Please enter ' + dataMSG + ' in proper format.');
-
-                validation_status = 1;
-
-            } else {
-
-                $('.link_more' + dataId + '_error').addClass('is-valid').removeClass('is-invalid');
-
-                $('.link_more' + dataId + '_error').html("");
-
-            }
-
-        }
-
-
-    })
 </script>
 @endsection
