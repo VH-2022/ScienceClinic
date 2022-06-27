@@ -206,6 +206,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
         $backendVerified->get('tutor-feedback', "TutorFeedBackController@index")->name('tutor-feedback');
         $backendVerified->get('tutor-feedback-ajax', "TutorFeedBackController@ajaxList")->name('tutor-feedback-ajax');
+        $backendVerified->resource('tutor-support-ticket', "TutorSupportController");
+        $backendVerified->get('tutor-support-ajax', "TutorSupportController@supportAjaxList")->name('tutor-support-ajax');
+        $backendVerified->get('tutor-support-edit/{id}', "TutorSupportController@edit")->name('tutor-support-edit');
 
     });
 });
