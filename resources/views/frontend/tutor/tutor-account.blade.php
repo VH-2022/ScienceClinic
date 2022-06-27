@@ -201,7 +201,7 @@
                                                                                 <i class="fa fa-plus plus-sign-upload"></i>
                                                                             </div>
                                                                         </div>
-                                                                        <span id="document_certi{{$uniqid}}_error" style="color:red;"></span>
+                                                                        <span id="document_certi{{$uniqid}}_error" style="color:red;     margin-left: 62px"></span>
 
                                                                     </div>
 
@@ -297,9 +297,7 @@
                                                 </div>
 
                                             </div>
-                                            <!-- <div class="col-md-1 add" style="padding-left:25px;margin-top: 27px;">
-                                                <a class="form-control btn btn-primary search-menu" onclick="addmoreSubject()" href="javascript:void(0)"><i class="fa fa-plus fa-icon" aria-hidden="true" style="margin-top: -2px;"></i></a>
-                                            </div> -->
+                                           
                                             <div class="col-md-3 offset-md-9 mt-3">
                                                 <input id="submitBtn" class="btn btn-primary w-100" type="button" value="Update">
                                             </div>
