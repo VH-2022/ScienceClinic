@@ -234,6 +234,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->post('submit-parent-review', 'FeedbackController@submitParentFeedback')->name('submit-parent-review');
         $parentVerified->get('get-feedback', 'FeedbackController@getFeedback')->name('get-feedback');
         $parentVerified->get('parent-text-books-ajax', 'ParentTextBooksController@ajaxList')->name('parent-text-books-ajax');
+        $parentVerified->resource('parent-support-ticket', "ParentSupportController");
+        $parentVerified->get('parent-support-ajax', "ParentSupportController@supportAjaxList")->name('parent-support-ajax');
+        $parentVerified->get('parent-support-edit/{id}', "ParentSupportController@edit")->name('parent-support-edit');
     });
   
 });
