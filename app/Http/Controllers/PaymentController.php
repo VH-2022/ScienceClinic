@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\MailHelper;
 use App\Helpers\ParentDetailHelper;
+use App\Helpers\SiteSettingHelper;
 use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
@@ -22,6 +23,12 @@ class PaymentController extends Controller
         $data['id'] = $tokenid = Crypt::decrypt($id);
         $getParentPymenttoken = ParentDetailHelper::getPaymenttoken($tokenid);
         if($getParentPymenttoken){
+            $totalAmount = $getParentPymenttoken->teaching_hours * $getParentPymenttoken->hourly_rate;
+            // add commission
+            $getSitesetting = SiteSettingHelper::getSettingdata(1);
+            $grandTotal = ($totalAmount * isset($getSitesetting->commission_value) ? $getSitesetting->commission_value : 0) / 100;
+            $data['total'] = $totalAmount + $grandTotal;
+            $data['total_commision'] = $grandTotal;
             return view('payment.stripe_payment',$data);  
         }else{
             abort(404);
@@ -33,7 +40,14 @@ class PaymentController extends Controller
         $paymentID = Crypt::decrypt($id);
         $getParentPymenttoken = ParentDetailHelper::getPaymenttoken($paymentID);
         if($getParentPymenttoken){
-            $data['paypalNew'] = '100';
+
+
+            $totalAmount = $getParentPymenttoken->teaching_hours * $getParentPymenttoken->hourly_rate;
+            // add commission
+            $getSitesetting = SiteSettingHelper::getSettingdata(1);
+            $grandTotal = ($totalAmount * isset($getSitesetting->commission_value) ? $getSitesetting->commission_value : 0) / 100;
+            $data['paypalNew'] = $totalAmount + $grandTotal;
+            $data['total_commision'] = $grandTotal;
             $data['user_id'] = $getParentPymenttoken->user_id;
             $data['user_inquiry_id'] = $getParentPymenttoken->user_inquiry_id;
             return view('payment.index',$data);  
@@ -59,6 +73,7 @@ class PaymentController extends Controller
         $txn_id = $request->input('txn_id');
         $payment_gross = $request->input('payment_gross');
         $item_number = $request->input('item_number');
+        $item_name = $request->input('item_name');
         $paymentDetail = json_encode($_POST);
 
 
@@ -66,6 +81,7 @@ class PaymentController extends Controller
             "user_id" => $request->input('id'),
             "user_inquiry_id" => $item_number,
             'pay_amount' => $payment_gross,
+            'total_commision' => $item_name,
             "payment_type" => 'paypal',
             "payment_status" => 'success',
             "payment_json" => $paymentDetail,
@@ -87,7 +103,8 @@ class PaymentController extends Controller
             'name' => $request->name,
             'source' => $request->stripeToken
         ));
-        $price = 100;
+        $price = $request->pay_amount;
+        $total_commision = $request->total_commision;
         $stripe_customer_id = $customer->id;
         $randomNo = substr(str_shuffle("0123456789"), 0, 4);
         $order_number = date('Ymdhis'). $randomNo;
@@ -113,6 +130,7 @@ class PaymentController extends Controller
                     'user_id' => $getParentPymenttoken->user_id,
                     'user_inquiry_id' => $getParentPymenttoken->id,
                     'pay_amount' => $price,
+                    'total_commision' => $total_commision,
                     'payment_type' => 'stripe',
                     'payment_status' => 'success',
                     'payment_json' => json_encode($chargeJson),

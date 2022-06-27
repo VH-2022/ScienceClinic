@@ -46,24 +46,32 @@
             <td>{{$val->tutorDetails ? $val->tutorDetails->first_name : ''}} {{$val->tutorDetails ? $val->tutorDetails->last_name : ''}}</td>
             <td>
                 @php 
+                
+                
                     if($val->payment_status == 'Pending'){
                         $payment_status = '<span class="badge badge-warning">Payment Pending</span>';
                     }else{
                         $payment_status = '<span class="badge badge-success">Payment Success</span>';
                     }
                 @endphp
-                @if($val->payment_link_flag == '0')
-                    
-                <a href="javascript:void(0);" onclick="editDetail('{{$val->id}}')" class="btn btn-success btn-sm">Edit Lesson</a>
-
-                    <a href="javascript:void(0);" onclick="sendPaymentmail({{$val->id}})" class="btn btn-info btn-sm">Book Lesson</a>
-
-                    
-                @else
+                @php 
                 
-                    @php echo $payment_status; @endphp
-
-                @endif
+                if($parentStatus != '' && $parentStatus != 'Pending' && $parentStatus != 'Rejected'){ @endphp
+                @if($val->payment_link_flag == '0')
+                    @if($val->hourly_rate !='' && $val->teaching_start_time !='' && $val->teaching_hours !='')
+                        <a href="javascript:void(0);" onclick="editDetail('{{$val->id}}')" class="btn btn-success btn-sm">Edit Lesson</a>
+    
+                        <a href="javascript:void(0);" onclick="sendPaymentmail({{$val->id}})" class="btn btn-info btn-sm">Book Lesson</a>
+                    @endif
+                        
+                    @else
+                    
+                        @php echo $payment_status; @endphp
+    
+                    @endif
+                @php  } @endphp
+                    
+                
             </td>
 
         </tr>

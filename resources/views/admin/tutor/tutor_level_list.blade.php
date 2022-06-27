@@ -10,7 +10,6 @@
 
 
             <th>Created Date</th>
-            <th>Hourly Rate</th>
 
         </tr>
 
@@ -44,12 +43,7 @@
                 @endif
 
             </td>
-            <td>@if($val->hourly_rate == '')
-                <button class="btn btn-primary" onclick="addhourlyrate({{$val->subject_id}});">Add</button>
-                @else
-                {{ $val->hourly_rate }}
-                @endif
-            </td>
+           
 
 
         </tr>

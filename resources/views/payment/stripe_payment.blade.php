@@ -36,6 +36,8 @@
                             id="payment-form">
                         @csrf
                         <input type="hidden" name="parent_token" value="{{$id}}" />
+                        <input type="hidden" name="pay_amount" value="{{$total}}" />
+                        <input type="hidden" name="total_commision" value="{{$total_commision}}" />
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
                                 <label class='control-label'>Name on Card</label> <input
@@ -78,7 +80,7 @@
     
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now ($100)</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (${{$total}})</button>
                             </div>
                         </div>
                             

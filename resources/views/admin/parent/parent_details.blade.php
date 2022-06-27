@@ -292,7 +292,7 @@
 <script>
    
     function inquiryDetails(page) {
-
+        var parentStatus = '{{$parents->status}}';
         $.ajax({
 
             type: "GET",
@@ -302,8 +302,8 @@
             data: {
 
                 'tutor_id': '{{ $parents->id }}',
-
                 'page': page,
+                'parentStatus': parentStatus,
 
             },
 
@@ -391,7 +391,7 @@
                             }
 
 
-
+                            inquiryDetails(1);
                             $('#status_id').html(html_res);
 
 

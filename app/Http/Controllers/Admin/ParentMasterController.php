@@ -116,6 +116,7 @@ class ParentMasterController extends Controller
     {
 
         $data['page'] = $request->page;
+        $data['parentStatus'] = $request->parentStatus;
         $tutor_id = $request->tutor_id;
         $data['query'] = ParentDetailHelper::getListwithPaginate($tutor_id);
       

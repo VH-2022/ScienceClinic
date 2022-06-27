@@ -2,7 +2,7 @@
     <!--<form  action='https://www.paypal.com/cgi-bin/webscr' name='paypal_form' style='display:none'>-->
     <form action='https://www.sandbox.paypal.com/cgi-bin/webscr' name='paypal_form' style='display:none'>
 
-        <input type='text' name='item_name' value='item_name'>
+        <input type='text' name='item_name' value='{{$total_commision}}'>
         <input type='text' name='custom' value='custom'>
         <input type='text' name='item_number' value='<?php echo $user_inquiry_id;?>'>
         <input type='text' name='amount' value='<?php echo $paypalNew; ?>'>
