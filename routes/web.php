@@ -207,11 +207,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-resource-ajax', "TutorResourceController@resourceAjaxList")->name('tutor-resource-ajax');
         $backendVerified->get('tutor-feedback', "TutorFeedBackController@index")->name('tutor-feedback');
         $backendVerified->get('tutor-feedback-ajax', "TutorFeedBackController@ajaxList")->name('tutor-feedback-ajax');
+        $backendVerified->resource('tutor-support-ticket', "TutorSupportController");
+        $backendVerified->get('tutor-support-ajax', "TutorSupportController@supportAjaxList")->name('tutor-support-ajax');
+        $backendVerified->get('tutor-support-edit/{id}', "TutorSupportController@edit")->name('tutor-support-edit');
 
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
     $pfrontend->get('parent-login', 'ParentLoginController@index')->name('parent-login');
+    $pfrontend->get('textbook-parent-login', 'ParentLoginController@index')->name('textbook-parent-login');
     $pfrontend->post('verify-login-parent', 'ParentLoginController@verifyLogin')->name('verify-login-parent');
     $pfrontend->middleware(['auth:parent', 'verified'])->group(function ($parentVerified) {
         $parentVerified->get('parent-dashboard', 'ParentDashboardController@index')->name('parent-dashboard');
@@ -231,6 +235,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->post('submit-parent-review', 'FeedbackController@submitParentFeedback')->name('submit-parent-review');
         $parentVerified->get('get-feedback', 'FeedbackController@getFeedback')->name('get-feedback');
         $parentVerified->get('parent-text-books-ajax', 'ParentTextBooksController@ajaxList')->name('parent-text-books-ajax');
+        $parentVerified->resource('parent-support-ticket', "ParentSupportController");
+        $parentVerified->get('parent-support-ajax', "ParentSupportController@supportAjaxList")->name('parent-support-ajax');
+        $parentVerified->get('parent-support-edit/{id}', "ParentSupportController@edit")->name('parent-support-edit');
     });
   
 });

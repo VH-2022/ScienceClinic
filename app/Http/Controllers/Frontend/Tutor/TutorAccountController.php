@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Traits\ImageUploadTrait;
 use App\Models\TutorBankAccountDetails;
 use App\Models\TutorDetail;
+use App\Models\TutorUniversityDetail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -23,11 +24,13 @@ class TutorAccountController extends Controller
 
 {
     public $successStatus = 200;
+    use ImageUploadTrait;
     public function index()
     {
         $user = Auth::guard('web')->user();
         $userId = $user['id'];
         $data['getQualificatiosData'] = TutorUniversityDetailHelper::getListwithPaginate($userId);
+        $data['getUniversityDetails'] = TutorUniversityDetailHelper::getTutorUniversityDetailsById($userId);
         return view('frontend.tutor.tutor-account', $data);
     }
     public function updateProfile(Request $request)
@@ -80,6 +83,38 @@ class TutorAccountController extends Controller
 
             );
             $data = UserHelper::update($data_array, array('id' => $auth->id));
+            $university = $request->university;
+            
+            if (!empty($university)) {
+                $deleteUniversity = TutorUniversityDetailHelper::deleteUniversity($auth->id);
+
+                foreach ($university as $key => $val) {
+                    $document_image = '';
+
+                    if(isset($request->file('document_certi')[$key])){
+                        $document_image = $this->uploadImageWithCompress($request->file('document_certi')[$key], 'uploads/user/certificate');
+                    }else{
+                        $document_image = $request->odocument_certi[$key];
+                    }
+                    
+
+                    $tutorUniversityDetails = array(
+
+                        'tutor_id' => $auth->id,
+
+                        'university_name' => $val,
+
+                        'qualification' => $request->input('qualification')[$key],
+
+                        'document_image' => $document_image
+
+                    );
+
+
+
+                    TutorUniversityDetailHelper::save($tutorUniversityDetails);
+                }
+            }
 
             if ($data) {
                 return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), 'status' => 0, 'data' => array($data_array)], $this->successStatus);

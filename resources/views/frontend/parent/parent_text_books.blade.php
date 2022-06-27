@@ -99,5 +99,6 @@
         ajaxList(page);
 
     });
+
 </script>
 @endsection
