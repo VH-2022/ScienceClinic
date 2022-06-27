@@ -59,7 +59,7 @@
                                         <ul class="sub-menu mobile-section border-bottom-ul">
                                             @if(count($online_tutorigData) > 0)
                                             @foreach($online_tutorigData as $ckey)
-                                            <li><a href="{{$ckey->online_tutoring_link}}">{{$ckey->online_tutoring_name}}</a>
+                                            <li><a target="_blank" href="{{$ckey->online_tutoring_link}}">{{$ckey->online_tutoring_name}}</a>
                                             </li>
                                             @endforeach
                                             @endif
