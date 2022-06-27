@@ -49,15 +49,10 @@ class FindATutorController extends Controller
 
 
     public function getTutors(Request $request)
-
     {
-
         $final_array = array();
-
-
         TutorSearchInquiryHelper::save(array('tuition_often' => $request->input('tutor_often'), 'subject' => $request->input('sibject'), 'subject' => $request->input('subject'), 'level' => $request->input('level'), 'pincode' => $request->input('pincode')));
-        $subjectUserList = TutorLevelDetailHelper::getSearchUserId($request->subject, $request->level);
-
+        $subjectUserList = TutorLevelDetailHelper::getSearchUserId($request->subject, $request->level,$request->pincode);
         foreach ($subjectUserList as $val) {
 
             if (in_array($val->tutor_id, $final_array)) {
@@ -67,10 +62,8 @@ class FindATutorController extends Controller
             }
         }
 
-
-
-
         $query = UserHelper::getTutorListLimitFive($final_array);
+
 
         foreach ($query as $val) {
 
