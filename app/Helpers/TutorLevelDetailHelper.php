@@ -92,7 +92,7 @@ class TutorLevelDetailHelper
 
     }
 
-    public static function getSearchUserId($search,$level)
+    public static function getSearchUserId($search,$level,$postCode)
 
     {
 
@@ -101,12 +101,17 @@ class TutorLevelDetailHelper
             $join->on('sb.id', '=', 'sc_tutor_level_details.subject_id');
         })->leftjoin('sc_tutor_level as level', function ($join) {
             $join->on('level.id', '=', 'sc_tutor_level_details.level_id');
+        })->leftjoin('users', function ($join) {
+            $join->on('users.id', '=', 'sc_tutor_level_details.tutor_id');
         });
         if($search !=''){
             $query->whereRaw('LOWER(sb.main_title) LIKE "%'.strtolower($search).'%"');
         }
         if ($level != '') {
             $query->whereRaw('LOWER(level.title) LIKE "%' . strtolower($level) . '%"');
+        }
+        if ($postCode != '') {
+            $query->whereRaw('LOWER(users.postcode) LIKE "%' . strtolower($postCode) . '%"');
         }
         $query = $query->groupBy('sc_tutor_level_details.tutor_id')->get();
         return $query;
