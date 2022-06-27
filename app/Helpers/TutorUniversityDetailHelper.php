@@ -99,5 +99,15 @@ class TutorUniversityDetailHelper
         $query = TutorUniversityDetail::where('tutor_id',$user['id'])->where('id', $id)->update($data);
         return $query;
     }
+
+    public static function getTutorUniversityDetailsById($id)
+    {
+        $query = TutorUniversityDetail::where('tutor_id', $id)->get();
+        return $query;
+    }
+    public static function deleteUniversity($id)
+    {
+       return TutorUniversityDetail::where('tutor_id',$id)->delete();
+    }
 }
 
