@@ -170,8 +170,44 @@
     }
 
 
-    function addTeacingHours(id) {
+    function attendClass(id) {
+        $.confirm({  
+        title: 'Are you sure?',
+        columnClass:"col-md-6",
+        content: "you want to attend this class?",
+        buttons: {
+            formSubmit: {
+                text: 'Submit',
+                btnClass: 'btn-danger',
+                action: function () { 
+                    $.ajax({
+                                type: "post",
+                                url: "{{ route('attend-lesson-subject') }}",
+                                data: {
+                                    'id': id,
+                                    "_token": "{{ csrf_token() }}"
+                                },
 
+                                success: function(res) {
+                                    if (res.status == 1) {
+                                        toastr.success(res.error_msg);
+                                        addSubjectList(1);
+                                    } else {
+                                        toastr.error(res.error_msg);
+                                    }
+                                }
+
+                            });
+                }
+            },
+            cancel: function () {
+            },
+        },
+        onContentReady: function () {
+        }
+    });
+    }
+    function addTeacingHours(id) {
         $.confirm({
             title: 'Add Teaching Hours',
             content: '' +

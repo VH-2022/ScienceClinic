@@ -30,6 +30,9 @@ class ParentDetailHelper {
         return $update;
 
     }
+    public static function attendStudentlesson($id){
+        return ParentDetail::where('id',$id)->update(array('attend_class' => '1','updated_at' => date('Y-m-d H:i:s')));
+    }
     public static function getBooklessondata($id){
         return ParentDetail::with('tutorDetails','subjectDetails','levelDetails')->where('user_id',$id)->where('payment_status','Success')->get();
     }

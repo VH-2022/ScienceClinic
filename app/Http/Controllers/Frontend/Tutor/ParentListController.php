@@ -32,6 +32,15 @@ class ParentListController extends Controller
         return view('frontend.tutor.parent-subject-details', $data);
     }
 
+    public function attendLesson(Request $request){
+        $update = ParentDetailHelper::attendStudentlesson($request->id);
+        if ($update) {
+            return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => $update, 'status' => 1], 200);
+        } else {
+
+            return response()->json(['error_msg' => trans('messages.error'), 'data' => array(), 'status' => 0], 500);
+        }
+    }
     public function saveTutoringHours(Request $request)
     {
         
