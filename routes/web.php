@@ -172,9 +172,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->put('update-tutor', "TutorAccountController@updateProfile")->name('update-tutor');
         $backendVerified->get('check-password-tutor', "TutorAccountController@checkCurrentPassword")->name('check-password-tutor');
         $backendVerified->post('update-password-tutor', "TutorAccountController@updatePassword")->name('update-password-tutor');
-        $backendVerified->get('tutor-availability', 'TutorAvailabilityController@index')->name('tutor-availability');
+        $backendVerified->get('tutor-bookings', 'TutorAvailabilityController@index')->name('tutor-bookings');
+        $backendVerified->get('tutor-availability', 'TutorAvailabilityController@tutorAvailability')->name('tutor-availability');
         $backendVerified->post('add-availability', 'TutorAvailabilityController@addTutorAvailability')->name('add-availability');
         $backendVerified->get('get-tutor-availability', 'TutorAvailabilityController@getTutorAvailabilityDetails')->name('get-tutor-availability');
+        $backendVerified->get('get-tutor-bookings', 'TutorAvailabilityController@getTutorBookingsDetails')->name('get-tutor-bookings');
         $backendVerified->get('tutor-profile', 'TutorProfileController@index')->name('tutor-profile');
         $backendVerified->get('tutor-subject', 'TutorSubjectController@index')->name('tutor-subject');
         $backendVerified->post('tutor-subject-store', 'TutorSubjectController@store')->name('tutor-subject-store');

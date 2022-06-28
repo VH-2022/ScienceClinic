@@ -494,9 +494,6 @@
                                     start: r.available_datetime,
                                     title: 'Available',
                                     "textColor": "#ffffff"
-
-
-
                                 })
 
                             });
