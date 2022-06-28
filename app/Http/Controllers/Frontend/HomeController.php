@@ -28,7 +28,7 @@ class HomeController extends Controller
     }
 
     public function getELearningdata(Request $request){
-        $data['getElearning'] = TutorResourcesHelper::getListwithPaginateAdmin();
+        $data['getElearning'] = TutorResourcesHelper::getListwithPaginateAdminAll();
         return view('frontend.home.e_learning',$data);
     }
     
