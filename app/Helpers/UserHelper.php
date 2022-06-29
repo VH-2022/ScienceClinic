@@ -256,4 +256,8 @@ class UserHelper
         return User::whereNull('deleted_at')->where('id', $id)->first();
 
     }
+    public static function getAdminData()
+    {
+        return User::select('email')->whereNull('deleted_at')->where('type', 1)->first();
+    }
 }
