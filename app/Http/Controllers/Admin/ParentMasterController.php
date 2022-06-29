@@ -8,6 +8,9 @@ use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
@@ -96,16 +99,60 @@ class ParentMasterController extends Controller
          if ($validator->fails()) {
              return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 'inactive', 'data' => array()], 400);
          }
+            $currdate = date("Y-m-d");
+            $monday = strtotime("last monday");
+			$monday = date('w', $monday)==date('w') ? $monday+7*86400 : $monday;
+			$sunday = strtotime(date("Y-m-d",$monday)." +6 days");
+			$this_week_sd = date("Y-m-d",$monday);
+			$this_week_ed = date("Y-m-d",$sunday);
+			
+			$dateRang = self::getDatesFromRange($this_week_sd,$this_week_ed);
+			$dateArray = array();
+			foreach($dateRang as $dkey){
+				if($currdate <= $dkey){
+                    $dayname = date('l',strtotime($dkey));
+                    $dateArray[$dkey] = $dayname;
+				}
+			}
+
+            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+
+            if(in_array(ucfirst($request->days),$dateArray)){
+                foreach($dateArray as $key => $val){
+                    if(ucfirst($request->days) == $val){
+                        if($key < date('Y-m-d')) {
+                            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+                        }else{
+                            $bookDate = $key;
+                        }
+                    }
+                }
+            }
 
          $data_array = array(
 
             'tuition_day' => $request->days,
             'tuition_time' => $request->tuition_time,
-
+            'booking_date' => $bookDate,
          );
 
          $update = ParentDetailHelper::update($data_array,array('id'=>$request->input('lesson_id')));
          return response()->json(['error_msg' =>trans('messages.updatedSuccessfully'), 'data' => array()], 200);
+    }
+    public function getDatesFromRange($start, $end, $format = 'Y-m-d') { 
+			
+        $array = array(); 
+        $interval = new DateInterval('P1D'); 
+        $realEnd = new DateTime($end); 
+        $realEnd->add($interval); 
+        $period = new DatePeriod(new DateTime($start), $interval, $realEnd); 
+        
+        foreach($period as $date) {                  
+            $array[] = $date->format($format);  
+        } 
+        
+        
+        return $array; 
     }
     public function getParentBookLesson(Request $request){
         $data = ParentDetailHelper::getBooklessondata($request->parentID);

@@ -78,9 +78,41 @@ class TutorAvailabilityController extends Controller
             return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
         } else {
 
+
+            $currdate = date("Y-m-d");
+            $monday = strtotime("last monday");
+			$monday = date('w', $monday)==date('w') ? $monday+7*86400 : $monday;
+			$sunday = strtotime(date("Y-m-d",$monday)." +6 days");
+			$this_week_sd = date("Y-m-d",$monday);
+			$this_week_ed = date("Y-m-d",$sunday);
+			
+			$dateRang = self::getDatesFromRange($this_week_sd,$this_week_ed);
+			$dateArray = array();
+			foreach($dateRang as $dkey){
+				if($currdate <= $dkey){
+                    $dayname = date('l',strtotime($dkey));
+                    $dateArray[$dkey] = $dayname;
+				}
+			}
+
+            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+
+            if(in_array(ucfirst($request->days),$dateArray)){
+                foreach($dateArray as $key => $val){
+                    if(ucfirst($request->days) == $val){
+                        if($key < date('Y-m-d')) {
+                            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+                        }else{
+                            $bookDate = $key;
+                        }
+                    }
+                }
+            }
+
             $dataArr = array(
                 'tuition_day' => $request->day,
-                'tuition_time' => $request->time
+                'tuition_time' => $request->time,
+                'booking_date' => $bookDate,
             );
 
             $data = ParentDetailHelper::update($dataArr, array('id' => $request->id));

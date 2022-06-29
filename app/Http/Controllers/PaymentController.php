@@ -91,7 +91,7 @@ class PaymentController extends Controller
         $insert->save();
         $insertId = $insert->id;
         $getParentPymenttoken = ParentDetailHelper::getPaymenttoken($request->input('id'));
-        $update = ParentDetailHelper::update(array('payment_status' => 'Success','payment_token' => null,'updated_at' => date('Y-m-d H:i:s')),array('id' => $getParentPymenttoken->id));
+        $update = ParentDetailHelper::update(array('payment_status' => 'Success','payment_token' => null,'updated_at' => date('Y-m-d H:i:s')),array('id' => $request->input('id')));
 
         Session::flash('success',trans('messages.paymentaddedSuccessfully'));
                 return redirect('/parent-login');
