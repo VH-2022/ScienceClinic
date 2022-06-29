@@ -15,12 +15,14 @@ class TutorAvailabilityController extends Controller
     {
         return view('frontend.tutor.tutor_booking');
     }
+    public function tutorAvailability()
+    {
+        return view('frontend.tutor.tutor_availability');
+    }
     public function getTutorAvailabilityDetails()
     {
         $userId = Auth::user()->id;
-        //$data = TutorAvailabilityHelper::getData($userId);
-        $data = ParentDetailHelper::getBooklessondataTutor($userId);
-
+        $data = TutorAvailabilityHelper::getData($userId);
         return response()->json($data);
     }
     public function addTutorAvailability(Request $request)
@@ -132,5 +134,12 @@ class TutorAvailabilityController extends Controller
         }else{
             return response()->json(['error_msg' => "", 'status' => 0, 'data' => array()], 400);
         }
+    }
+    public function getTutorBookingsDetails(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $data = ParentDetailHelper::getBooklessondataTutor($userId);
+
+        return response()->json($data);
     }
 }
