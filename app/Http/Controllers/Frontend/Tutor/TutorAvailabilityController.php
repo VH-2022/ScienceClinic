@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\FuncCall;
 
 class TutorAvailabilityController extends Controller
 {
@@ -18,6 +19,10 @@ class TutorAvailabilityController extends Controller
     public function tutorAvailability()
     {
         return view('frontend.tutor.tutor_availability');
+    }
+    public function tutorMissedLesson()
+    {
+        return view('frontend.tutor.tutor-missed-lessons');
     }
     public function getTutorAvailabilityDetails()
     {
@@ -139,7 +144,22 @@ class TutorAvailabilityController extends Controller
     {
         $userId = Auth::user()->id;
         $data = ParentDetailHelper::getBooklessondataTutor($userId);
-
         return response()->json($data);
+    }
+    public function missedLessonAjax(Request $request){
+        $this->data['page'] = $request->page;
+        $this->data['missedLession'] = ParentDetailHelper::getMissedLesson();
+        return view('frontend.tutor.tutor-missed-lessons-ajax', $this->data);
+    }
+    public function addMissedLessonReason(Request $request){
+        $dataArr = array(
+            'tutor_reject_reason' => $request->reason
+        );
+        $data = ParentDetailHelper::update($dataArr, array('id' => $request->id));
+        if ($data) {
+            return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), 'status' => 1, 'data' => ''], 200);
+        } else {
+            return response()->json(['error_msg' => "", 'status' => 0, 'data' => array()], 400);
+        }
     }
 }

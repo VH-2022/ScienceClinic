@@ -157,7 +157,7 @@
 
                 </li>
 
-                <li class="menu-item {{ Request::segment(1) == 'tutor-availability' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+                <li class="menu-item @if (Request::segment(1) == 'tutor-availability' || Request::segment(1) == 'tutor-bookings') menu-item-active @endif" aria-haspopup="true">
 
                     <a href="{{ route('tutor-availability') }}" class="menu-link">
 
