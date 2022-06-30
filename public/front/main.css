@@ -8548,3 +8548,7 @@ label:hover~input:checked~label
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
 }
+
+.paginate .d-sm-flex{
+    width: 100%;
+}

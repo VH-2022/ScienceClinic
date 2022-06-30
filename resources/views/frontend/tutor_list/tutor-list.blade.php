@@ -42,25 +42,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 col-lg-9">
-                            <div class="row">
-                                @foreach($tutorData as $val)
-                          
-                                    <div class="col-md-6 col-lg-4 tutor-card">
-                                        
-                                        <a class="tutor-content" href="{{route('tutors-details',sha1($val->id))}}">
-                                            <div class="single-product-item">
-                                                <div class="single-product-image">
-                                                    <img src="{{$val->profile_photo}}">
-                                                </div>
-                                                <div class="single-product-text">
-                                                    <h4 class="testing-user"> {{$val->first_name}}</h4>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                @endforeach
-                            </div>
-
+                            <div id="tutor-list"></div>
                         </div>
                         <div class="col-md-12 col-lg-3 position-side">
                             <div class="p-tags">
@@ -74,9 +56,8 @@
                                                 <li class="position-relative">
                                                     <div class="custom-checkbox-subject">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="checkbox" id="customRadio1" name="customRadio" class="custom-control-input">
-
-                                                            <label class="custom-control-label" for="customRadio1">{{$subject->main_title}} </label>
+                                                            <input type="checkbox" value="{{$subject->id}}" name="subject-title" id="{{$subject->id}}" class="custom-control-input">
+                                                            <label class="custom-control-label" for="{{$subject->id}}">{{$subject->main_title}}</label>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -96,11 +77,8 @@
                                                 <li class="position-relative">
                                                     <div class="custom-checkbox-subject">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="checkbox" id="level1" name="level" class="custom-control-input">
-
-                                                            <label class="custom-control-label" for="level1">{{$level->title}}</label>
-
-                                                            
+                                                            <input type="checkbox" value="{{$level->id}}" name="level-title" id="level-{{$level->id}}" class="custom-control-input">
+                                                            <label class="custom-control-label" for="level-{{$level->id}}">{{$level->title}}</label>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -109,7 +87,7 @@
                                         @endforeach
                                     </div>
                                     <div class="banner-readmore mt-4">
-                                        <a class="button-default inline" href="javascript:void(0)">Filter</a>
+                                        <a class="button-default inline" onclick="filterTutor(1)" href="javascript:void(0)">Filter</a>
                                     </div>
                                 </div>
                             </div>
@@ -134,6 +112,34 @@
 @endsection
 @section('page-js')
 <script>
+    var _AJAX_LIST = "{{ route('tutors-ajax-list') }}";
+    var _AJAX_LIST_FILTER = "{{ route('tutors-filter-ajax-list') }}";
+
+    function ajaxList(page) {
+        var subject =
+            $('.ki-close').click();
+        $.ajax({
+            type: "GET",
+            url: _AJAX_LIST,
+            data: {
+                'page': page,
+            },
+            success: function(res) {
+                $('#tutor-list').html("");
+                $('#tutor-list').html(res);
+            }
+
+        })
+    }
+    $('body').on('click', '.pagination a', function(event) {
+        $('li').removeClass('active');
+        $(this).parent('li').addClass('active');
+        event.preventDefault();
+        var myurl = $(this).attr('href');
+        var page = $(this).attr('href').split('page=')[1];
+        ajaxList(page);
+    });
+    ajaxList(1);
     $('.testimonial-english').owlCarousel({
         loop: false,
         margin: 10,
@@ -154,5 +160,30 @@
             }
         }
     })
+
+    function filterTutor(page) {
+        var subjectArray = [];
+        var levelArray = [];
+        $.each($("input[name='subject-title']:checked"), function() {
+            subjectArray.push($(this).val());
+        });
+        $.each($("input[name='level-title']:checked"), function() {
+            levelArray.push($(this).val());
+        });
+        $.ajax({
+            type: "GET",
+            url: _AJAX_LIST_FILTER,
+            data: {
+                'subject': subjectArray,
+                'level': levelArray,
+                'page': page
+            },
+            success: function(res) {
+                $('#tutor-list').html("");
+                $('#tutor-list').html(res);
+            }
+
+        })
+    }
 </script>
 @endsection

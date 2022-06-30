@@ -243,7 +243,7 @@ class UserHelper
     }
     public static function getTutors()
     {
-        $query  = User::whereNull('deleted_at')->where('type', 2)->where('status', "Accepted")->get();
+        $query  = User::whereNull('deleted_at')->where('type', 2)->where('status', "Accepted")->paginate(6);
         return $query;
     }
 
@@ -259,5 +259,25 @@ class UserHelper
     public static function getAdminData()
     {
         return User::select('email')->whereNull('deleted_at')->where('type', 1)->first();
+    }
+    public static function filterTutors($subject, $level){
+        $query =  User::with(['subjectDetails', 'levelDetails'])->select('*')
+        ->whereHas('subjectDetails', function ($subjectQuery) use ($subject) {
+            if(!empty($subject)){
+                $subjectQuery->whereIn('subject_id', $subject);
+                $subjectQuery->whereNull('deleted_at');
+            }
+        })
+        ->whereHas('levelDetails', function ($queryVal) use ($level) {
+            if(!empty($level)){
+                $queryVal->whereIn('level_id', $level);
+                $queryVal->whereNull('deleted_at');
+            }
+        })
+        ->where('type',2)
+        ->where('status','Accepted')
+        ->whereNull('deleted_at')
+        ->paginate(6);
+        return $query;
     }
 }

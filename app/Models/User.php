@@ -154,6 +154,13 @@ class User extends Authenticatable
         'profile_photo_url',
 
     ];
-
+    public function subjectDetails()
+    {
+        return $this->belongsTo(TutorSubjectDetail::class, 'id', 'tutor_id');
+    }
+    public function levelDetails()
+    {
+        return $this->belongsTo(TutorLevelDetail::class, 'id', 'tutor_id');
+    }
 }
 

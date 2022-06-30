@@ -151,6 +151,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('user-reset-password/{id}', 'ResetPasswordController@ResetPassword')->name('user-reset-password');
     $frontend->post('update-user-password/{id}', 'ResetPasswordController@UpdatePassword')->name('update-user-password');
     $frontend->get('tutors', 'TutorListController@index')->name('tutors');
+    $frontend->get('tutors-ajax-list', 'TutorListController@ajaxList')->name('tutors-ajax-list');
+    $frontend->get('tutors-filter-ajax-list', 'TutorListController@ajaxFilterList')->name('tutors-filter-ajax-list');
     $frontend->get('E-Learning', 'HomeController@getELearningdata')->name('E-Learning');
     $frontend->get('past-papers-resources', 'HomeController@getPastPaperData')->name('past-papers-resources');
     $frontend->get('past-papers-resources-detail/{id}', 'HomeController@getPastPaperDetailData')->name('past-papers-resources-detail');
