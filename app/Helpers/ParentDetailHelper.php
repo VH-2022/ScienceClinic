@@ -103,8 +103,6 @@ class ParentDetailHelper
     }
     public static function getMissedLesson()
     {
-        $currentDate = date('Y-m-d');
-        $currentTime = date('H:i:s');
         $query =  ParentDetail::with(['tutorDetails', 'subjectDetails'])->select('id','tuition_day', 'tutor_id', 'subject_id', 'attend_class', 'tutor_reject_reason', 'teaching_start_time', 'booking_date')
         ->whereHas('subjectDetails', function ($subjectQuery) {
             $subjectQuery->whereNull('deleted_at');
@@ -112,10 +110,8 @@ class ParentDetailHelper
         ->whereHas('tutorDetails', function ($queryVal) {
             $queryVal->where('status','Accepted');
         })
-        ->where('booking_date','<=',$currentDate)
-        ->where('teaching_start_time','<',$currentTime)
         ->where('attend_class','0')
-        ->paginate(10);
+        ->get();
         return $query;
     }
 }

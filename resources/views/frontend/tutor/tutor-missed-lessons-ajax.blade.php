@@ -21,15 +21,14 @@
     </thead>
 
     <tbody>
-
         @php
 
         $i = $page * 10 - 9;
 
         @endphp
-        @if(count($missedLession) > 0)
+        @if(count($data) > 0)
 
-        @foreach ($missedLession as $val)
+        @foreach ($data as $val)
         <span style="display: none;" id="desc{{$val->id}}">{{$val->tutor_reject_reason}}</span>
         <tr>
 
@@ -50,7 +49,9 @@
             </td>
 
             <td>
+                @if(!empty($val->tutor_reject_reason))
                 <a href="javascript:void(0)" onclick="showReason('{{$val->id}}')" class="edit-details" data-id="{{$val->id}}"><i class="fa fa-eye"></i></a>
+                @endif
             </td>
 
         </tr>
@@ -71,4 +72,4 @@
 
 </table>
 
-{!! $missedLession->withQueryString()->links('pagination::bootstrap-5') !!}
+{!! $data->render('pagination::bootstrap-5') !!}

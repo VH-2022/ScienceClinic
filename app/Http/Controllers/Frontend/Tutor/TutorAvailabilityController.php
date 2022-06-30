@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TutorAvailabilityController extends Controller
 {
@@ -88,28 +90,28 @@ class TutorAvailabilityController extends Controller
 
             $currdate = date("Y-m-d");
             $monday = strtotime("last monday");
-			$monday = date('w', $monday)==date('w') ? $monday+7*86400 : $monday;
-			$sunday = strtotime(date("Y-m-d",$monday)." +6 days");
-			$this_week_sd = date("Y-m-d",$monday);
-			$this_week_ed = date("Y-m-d",$sunday);
-			
-			$dateRang = self::getDatesFromRange($this_week_sd,$this_week_ed);
-			$dateArray = array();
-			foreach($dateRang as $dkey){
-				if($currdate <= $dkey){
-                    $dayname = date('l',strtotime($dkey));
+            $monday = date('w', $monday) == date('w') ? $monday + 7 * 86400 : $monday;
+            $sunday = strtotime(date("Y-m-d", $monday) . " +6 days");
+            $this_week_sd = date("Y-m-d", $monday);
+            $this_week_ed = date("Y-m-d", $sunday);
+
+            $dateRang = self::getDatesFromRange($this_week_sd, $this_week_ed);
+            $dateArray = array();
+            foreach ($dateRang as $dkey) {
+                if ($currdate <= $dkey) {
+                    $dayname = date('l', strtotime($dkey));
                     $dateArray[$dkey] = $dayname;
-				}
-			}
+                }
+            }
 
-            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+            $bookDate = date('Y-m-d', strtotime($request->days . ' next week'));
 
-            if(in_array(ucfirst($request->days),$dateArray)){
-                foreach($dateArray as $key => $val){
-                    if(ucfirst($request->days) == $val){
-                        if($key < date('Y-m-d')) {
-                            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
-                        }else{
+            if (in_array(ucfirst($request->days), $dateArray)) {
+                foreach ($dateArray as $key => $val) {
+                    if (ucfirst($request->days) == $val) {
+                        if ($key < date('Y-m-d')) {
+                            $bookDate = date('Y-m-d', strtotime($request->days . ' next week'));
+                        } else {
                             $bookDate = $key;
                         }
                     }
@@ -134,9 +136,9 @@ class TutorAvailabilityController extends Controller
     public function cancelSlot(Request $request)
     {
         $update = ParentDetailHelper::update(array('booking_status' => 'Cancelled'), array('id' => $request->userId));
-        if($update){
+        if ($update) {
             return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'status' => 1, 'data' => array()], 200);
-        }else{
+        } else {
             return response()->json(['error_msg' => "", 'status' => 0, 'data' => array()], 400);
         }
     }
@@ -146,12 +148,40 @@ class TutorAvailabilityController extends Controller
         $data = ParentDetailHelper::getBooklessondataTutor($userId);
         return response()->json($data);
     }
-    public function missedLessonAjax(Request $request){
-        $this->data['page'] = $request->page;
-        $this->data['missedLession'] = ParentDetailHelper::getMissedLesson();
+    public function paginate($items, $perPage = 10, $page = null)
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $total = count($items);
+        $currentpage = $page;
+        $offset = ($currentpage * $perPage) - $perPage;
+        $itemstoshow = array_slice($items, $offset, $perPage);
+        return new LengthAwarePaginator($itemstoshow, $total, $perPage);
+    }
+    public function missedLessonAjax(Request $request)
+    {
+        $currentTime = date('Y-m-d H:i:s');
+        if ($request->input('page')) {
+            $this->data['page'] = $request->input('page');
+        } else {
+            $this->data['page'] = 1;
+        }
+        $getMissedLesson = ParentDetailHelper::getMissedLesson();
+        $mainArray = array();
+        if (count($getMissedLesson) > 0) {
+            foreach ($getMissedLesson as $val) {
+                $dateTime = $val->booking_date . ' ' . $val->teaching_start_time;
+                if ($dateTime <= $currentTime) {
+                    $mainArray[] = $val;
+                }
+            }
+        }
+        $this->data['query'] = $mainArray;
+        $paginationData = $this->paginate($mainArray);
+        $this->data['data'] = $paginationData->withPath('tutor-missed-lessons');
         return view('frontend.tutor.tutor-missed-lessons-ajax', $this->data);
     }
-    public function addMissedLessonReason(Request $request){
+    public function addMissedLessonReason(Request $request)
+    {
         $dataArr = array(
             'tutor_reject_reason' => $request->reason
         );

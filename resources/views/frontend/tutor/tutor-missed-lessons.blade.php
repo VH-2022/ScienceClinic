@@ -20,7 +20,7 @@
 
                     <div class="card-header py-3">
                         <div class="card-title align-items-start flex-column">
-                            <h3 class="card-label font-weight-bolder text-dark">Schedule Lessons</h3>
+                            <h3 class="card-label font-weight-bolder text-dark">Missed Lessons</h3>
                         </div>
                     </div>
 
@@ -41,7 +41,7 @@
                         <div class="tab-pane fade show active" id="payment" role="tabpanel" aria-labelledby="payment-tab">
                             <div class="prime-container">
                                 <h3>Missed Lessons</h3>
-                                <br></br>
+                                <p>Some Tutors prefer to use other online platforms that they are already familiar with like Zoom and google classroom to deliver the lessons. Tutors are permitted to use the online platform of their choice to deliver their lessons but all lessons must be scheduled using Tutor Hunt.</p>
                                 <div class="main-custom-calendar">
                                     <div id="missed-lesson"></div>
                                 </div>
@@ -165,13 +165,22 @@
 
         });
     });
-    function showReason(id){
-        var htmls = $('#desc'+id).html();
+
+    function showReason(id) {
+        var htmls = $('#desc' + id).html();
         $.dialog({
             title: 'Description',
             content: htmls,
         });
     }
+    $('body').on('click', '.pagination a', function(event) {
+        $('li').removeClass('active');
+        $(this).parent('li').addClass('active');
+        event.preventDefault();
+        var myurl = $(this).attr('href');
+        var page = $(this).attr('href').split('page=')[1];
+        ajaxList(page);
+    });
     ajaxList(1);
 </script>
 @endsection
