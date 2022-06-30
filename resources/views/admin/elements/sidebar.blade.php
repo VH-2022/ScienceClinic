@@ -492,7 +492,7 @@
 
                             <li class="menu-item {{ Request::segment(1) == 'tutor-payment-history' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
-                                <a href="#" class="menu-link">
+                                <a href="{{ route('tutor-payment-history.index') }}" class="menu-link">
 
                                     <i class="menu-bullet menu-bullet-dot">
 

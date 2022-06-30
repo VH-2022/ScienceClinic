@@ -49,7 +49,7 @@ class PaymentController extends Controller
             $data['paypalNew'] = $totalAmount + $grandTotal;
             $data['total_commision'] = $grandTotal;
             $data['user_id'] = $getParentPymenttoken->user_id;
-            $data['user_inquiry_id'] = $getParentPymenttoken->user_inquiry_id;
+            $data['user_inquiry_id'] = $getParentPymenttoken->id;
             return view('payment.index',$data);  
         }else{
             abort(404);

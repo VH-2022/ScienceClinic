@@ -107,6 +107,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('parent-payment-list-ajax', "ParentPaymentController@ajaxList")->name('parent-payment-list-ajax');
         
         $backendVerified->resource('tutor-payment-history', "TutorPaymentController");
+        $backendVerified->get('tutor-payment-list-ajax', "TutorPaymentController@ajaxList")->name('tutor-payment-list-ajax');
+        $backendVerified->post('tutor-pay-amounts', "TutorPaymentController@tutorPayamount")->name('tutor-pay-amounts');
         $backendVerified->resource('site-setting', "SiteSettingController");
         $backendVerified->resource('online-tutoring', "OnlineTutoringController");
         $backendVerified->resource('text-books', "TextBooksController");
