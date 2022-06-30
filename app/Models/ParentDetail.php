@@ -11,7 +11,7 @@ class ParentDetail extends Model
 
     protected $guarded = ["id"];
     protected $table = 'sc_parent_inquiry_details';
-    protected $fillable = ['id', 'user_id', 'subject_id', 'level_id', 'tuition_day', 'tuition_time',  'created_by', 'updated_by', 'deleted_by', 'deleted_at','created_at', 'updated_at', 'tutor_id','payment_link_flag','payment_token','payment_status', 'booking_status','booking_date','hourly_rate','teaching_start_time','teaching_hours'];
+    protected $fillable = ['id', 'user_id', 'subject_id', 'level_id', 'tuition_day', 'tuition_time',  'created_by', 'updated_by', 'deleted_by', 'deleted_at','created_at', 'updated_at', 'tutor_id','payment_link_flag','payment_token','payment_status', 'booking_status','booking_date','hourly_rate','teaching_start_time','teaching_hours','attend_class','tutor_reject_reason'];
 
     public function userDetails()
     {

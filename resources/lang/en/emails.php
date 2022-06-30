@@ -11,7 +11,9 @@ return
 		'tutor_account_email' => 'Welcome to Science Clinic',
 		'tutor_account_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
 
-		
+		'contact_us' => 'Science Clinic Contact Inquiry',
+		'contact_us_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
+
 
 		'template' => '<!DOCTYPE html>
 		<html lang="en">
