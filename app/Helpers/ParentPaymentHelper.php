@@ -18,7 +18,16 @@ class ParentPaymentHelper
         $insertId = $insert->id;
         return $insertId;
     }  
-    
+    public static function update($data, $where)
+    {
+        $userId = Auth()->user();
+        $data['updated_at'] = date('Y-m-d H:i:s');
+        if ($userId) {
+            $data['updated_by'] = $userId['id'];
+        }
+        $update = ParentPayment::where($where)->update($data);
+        return $update;
+    }
     public static function getListwithPaginate($name,$created_date){
 
         $query = ParentPayment::whereNull('deleted_at')->with('parentDetail')->with('parentDetail.tutorDetails')->with('parentDetail.subjectDetails')->with('parentDetail.levelDetails')->with('userDetails')->whereHas('userDetails', function ($query) use ($name) {
