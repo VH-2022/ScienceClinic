@@ -32,32 +32,28 @@
                         <div class="card-title align-items-start flex-column">
                             <h3 class="card-label font-weight-bolder text-dark">Tutors Payment History</h3>
                         </div>
-
                     </div>
 
                     <div class="card-body">
                         <ul class="nav nav-pills personaltab-ul" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="pills-home" aria-selected="true">Paid</a>
+                                <a class="nav-link" id="personal-info-tab" data-toggle="pill" onclick="window.location.href='tutor-payment-history'" role="tab" aria-controls="pills-home" aria-selected="true">Paid</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="password-tab" data-toggle="pill"
-                                 href="javascript:void(0)" onclick="window.location.href='tutor-unpaid-payment-history'" role="tab" aria-controls="pills-profile" aria-selected="false">Unpaid</a>
+                                <a class="nav-link active" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="pills-profile" aria-selected="false">Unpaid</a>
                             </li>
 
                         </ul>
                         <button class="btn btn-success" id="multipay" style="background-color: #1BC5BD !important;border-color: #1BC5BD !important; display: none;">Pay</button>
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
-                                <div class="prime-container">
-                                    <div class="table-responsive" id="response_id">
-                                    </div>
-                                </div>
+                            <div class="tab-pane fade" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
+
                             </div>
-                            <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <div class="tab-pane fade show active" id="password" role="tabpanel" aria-labelledby="password-tab">
 
                                 <div class="prime-container">
-                                    <div class="table-responsive" id="unpaid_id">
+                                    <div class="table-responsive" id="response_id">
+
                                     </div>
                                 </div>
                             </div>
@@ -178,24 +174,37 @@
 <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <script>
+    $(document).ready(function() {
+        $('#select_all').on('click', function() {
+            if (this.checked) {
+                $('.checkbox').each(function() {
+                    this.checked = true;
+                });
+            } else {
+                $('.checkbox').each(function() {
+                    this.checked = false;
+                });
+            }
+        });
+
+        $('.checkbox').on('click', function() {
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#select_all').prop('checked', true);
+            } else {
+                $('#select_all').prop('checked', false);
+            }
+        });
+    });
+
     function checkVal() {
-
-
-        if ($("input[name='checkbox']:checked").length > 1) {
+        if ($("input[name='checkboxval']:checked").length > 1) {
             $('#multipay').css("display", "block");
-            // alert("dgvdg");
         } else {
             $('#multipay').css("display", "none");
         }
 
     }
 
-    function checkAll(arrayData) {
-        $('#select_all').checked(function() {
-            alert("kjfks");
-            $('.checkbox').prop('checked', this.checked);
-        });
-    }
 
 
 
@@ -237,11 +246,9 @@
 
 
 
-    var _AJAX_LIST = "{{ route('tutor-payment-list-ajax') }}";
 
 
-
-    function ajaxList(page) {
+    function ajaxUnpaidList(page) {
 
         var name = $('#name').val();
         var created_date = $('#created_date').val();
@@ -251,7 +258,7 @@
 
             type: "GET",
 
-            url: _AJAX_LIST,
+            url: "{{route('tutor-paid-payment-list-ajax')}}",
 
             data: {
 
@@ -262,21 +269,16 @@
             },
 
             success: function(res) {
-
                 $('#response_id').html("");
 
                 $('#response_id').html(res);
 
             }
-
         })
 
     }
 
-   
-
-    ajaxList(1);
- 
+    ajaxUnpaidList(1);
 
     $('body').on('click', '.pagination a', function(event) {
 
@@ -290,8 +292,7 @@
 
         var page = $(this).attr('href').split('page=')[1];
 
-        ajaxList(page);
- 
+        ajaxUnpaidList(page);
 
 
     });
@@ -358,21 +359,18 @@
 
     })
     $('.clear').click(function(e) {
-
-
-
         $('#name').val("");
 
         $('#created_date').val("");
 
 
 
-        ajaxList(1);
+        ajaxUnpaidList(1);
 
     })
 
     $('.search_id').click(function(e) {
-        ajaxList(1);
+        ajaxUnpaidList(1);
     });
 </script>
 
