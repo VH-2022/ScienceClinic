@@ -114,4 +114,15 @@ class ParentDetailHelper
         ->get();
         return $query;
     }
+    public static function getPaidParentListWithPaginate($id)
+    {
+        $query =  ParentDetail::with(['userDetails'])->select('id','user_id', 'booking_date', 'payment_status')
+        ->whereHas('userDetails', function ($queryVal) {
+            $queryVal->where('status','Accepted');
+        })
+        ->where('user_id',$id)
+        ->where('payment_status','Success')
+        ->get();
+        return $query;
+    }
 }

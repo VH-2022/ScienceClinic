@@ -248,6 +248,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function (
         $parentVerified->resource('parent-support-ticket', "ParentSupportController");
         $parentVerified->get('parent-support-ajax', "ParentSupportController@supportAjaxList")->name('parent-support-ajax');
         $parentVerified->get('parent-support-edit/{id}', "ParentSupportController@edit")->name('parent-support-edit');
+        $parentVerified->resource('parent-lesson-payment', "ParentLessonPaymentController");
+        $parentVerified->get('parent-lesson-payment-ajax', "ParentLessonPaymentController@lessonAjaxList")->name('parent-lesson-payment-ajax');
     });
   
 });
