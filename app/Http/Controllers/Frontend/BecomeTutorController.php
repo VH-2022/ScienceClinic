@@ -4,8 +4,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-
-
+use App\Helpers\MailHelper;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -158,9 +157,9 @@ class BecomeTutorController extends Controller
         if ($validator->fails()) {
             return redirect("/become-tutor")
 
-            ->withErrors($validator, 'useredit')
+                ->withErrors($validator, 'useredit')
 
-            ->withInput();
+                ->withInput();
         } else {
             $image = '';
 
@@ -200,9 +199,9 @@ class BecomeTutorController extends Controller
                 'password' => Hash::make($request->password)
 
             );
-           $data = UserHelper::save($data_array);
-           
-          if ($data) {
+            $data = UserHelper::save($data_array);
+
+            if ($data) {
 
                 $document = '';
 
@@ -232,7 +231,7 @@ class BecomeTutorController extends Controller
 
                 );
 
-                TutorDetailHelper::save($tutorDetails);
+                $detail = TutorDetailHelper::save($tutorDetails);
 
 
 
@@ -263,7 +262,7 @@ class BecomeTutorController extends Controller
 
 
 
-                        TutorUniversityDetailHelper::save($tutorUniversityDetails);
+                        $university = TutorUniversityDetailHelper::save($tutorUniversityDetails);
                     }
                 }
                 $subject = $request->input('main_subject_id');
@@ -271,9 +270,9 @@ class BecomeTutorController extends Controller
                 if (!empty($subject)) {
 
                     foreach ($subject as $vals) {
-                        
+
                         $levelArray = $request->input('level' . $vals);
-                        foreach($levelArray as $val){
+                        foreach ($levelArray as $val) {
                             $subject = $request->input('subject' . $vals);
                             $tutorLevelDetails = array(
                                 'tutor_id' => $data,
@@ -281,18 +280,33 @@ class BecomeTutorController extends Controller
                                 'subject_id' => $request->input('subject' . $vals)[0],
                                 'website_flag' => 1
                             );
-                            TutorLevelDetailHelper::save($tutorLevelDetails);
+                            $subject = TutorLevelDetailHelper::save($tutorLevelDetails);
                         }
-                       
                     }
                 }
+                if ($data && $detail && $university && $subject) {
+                    $adminData = UserHelper::getAdminData();
+                    $email = $adminData->email;
+                    $html = '
+                        <p style="margin-bottom: 0px;">Name : <span>' . $request->name . '</span></p>
+                        <p style="margin-bottom: 0px;">Email : <span>' . $request->email . '</span></p>
+                        <p style="margin-bottom: 0px;">Phone No : <span>' . $request->mobile . '</span></p>
+                        <p style="margin-bottom: 0px;">Address1 : <span>' . $request->address1 . '</span></p>
+                        <p style="margin-bottom: 0px;">Address2 : <span>' . $request->address2 . '</span></p>
+                        <p style="margin-bottom: 0px;">Address3 : <span>' . $request->address3 . '</span></p>
+                        <p style="margin-bottom: 0px;">City : <span>' . $request->city . '</span></p>
+                        <p style="margin-bottom: 0px;">Postcode : <span>' . $request->postcode . '</span></p>
+                        <p style="margin-bottom: 0px;">Bio : <span>' . $request->bio . '</span></p>
+                    ';
+                    $subject = __('emails.tutor_inquiry');
+                    $body = __('emails.tutor_inquiry_body', ['USERNAME' => 'Admin', 'HTMLTABLE' => $html]);
+                    $body_email = __('emails.template', ['BODYCONTENT' => $body]);
+                    $mail = MailHelper::mail_send($body_email, $email, $subject);
+                }
                 Session::flash('success', trans('messages.addedSuccessfully'));
-
                 return redirect('/become-tutor');
             } else {
-
                 Session::flash('error', trans('messages.error'));
-
                 return redirect('/become-tutor');
             }
         }

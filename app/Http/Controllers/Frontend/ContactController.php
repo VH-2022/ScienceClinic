@@ -42,26 +42,19 @@ class ContactController extends Controller
             'message' => $request->message
 
         );
-       
+
         $update = ContactHelper::save($data_array);
         if ($update) {
             $adminData = UserHelper::getAdminData();
             $email = $adminData->email;
-           $html = '<table>
-                    <thead>
-                        <tr>
-                        <p class="mb-0">Name : <span>' . $request->name . '</span></p>
-                            <p class="mb-0">Phone No : <span>' . $request->phone_no . '</span></p>
-                            <p class="mb-0">Tutor Type : <span>' . $request->tutor_type . '</span></p>
-                             <p class="mb-0">Email : <span>' . $request->email . '</span></p>
-                            <p class="mb-0">Address : <span>' . $request->address . '</span></p>
-                             <p class="mb-0">Message : <span>' . $request->message . '</span></p>
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                    </table>';
+            $html = '
+                    <p class="mb-0">Name : <span>' . $request->name . '</span></p>
+                    <p class="mb-0">Phone No : <span>' . $request->phone_no . '</span></p>
+                    <p class="mb-0">Tutor Type : <span>' . $request->tutor_type . '</span></p>
+                    <p class="mb-0">Email : <span>' . $request->email . '</span></p>
+                    <p class="mb-0">Address : <span>' . $request->address . '</span></p>
+                    <p class="mb-0">Message : <span>' . $request->message . '</span></p>
+                ';
             $subject = __('emails.contact_us');
             $body = __('emails.contact_us_body', ['USERNAME' => 'Admin', 'HTMLTABLE' => $html]);
             $body_email = __('emails.template', ['BODYCONTENT' => $body]);

@@ -14,6 +14,11 @@ return
 		'contact_us' => 'Science Clinic Contact Inquiry',
 		'contact_us_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
 
+		'tutor_inquiry' => 'Science Clinic Tutor Inquiry',
+		'tutor_inquiry_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
+
+		'parent_inquiry' => 'Science Clinic Parent Inquiry',
+		'parent_inquiry_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
 
 		'template' => '<!DOCTYPE html>
 		<html lang="en">

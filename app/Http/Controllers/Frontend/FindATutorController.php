@@ -5,6 +5,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\FeedbackHelper;
+use App\Helpers\MailHelper;
 use App\Helpers\ParentDetailHelper;
 use App\Helpers\ReviewMasterHelper;
 use App\Helpers\SubjectHelper;
@@ -55,7 +56,7 @@ class FindATutorController extends Controller
     {
         $final_array = array();
         TutorSearchInquiryHelper::save(array('tuition_often' => $request->input('tutor_often'), 'subject' => $request->input('sibject'), 'subject' => $request->input('subject'), 'level' => $request->input('level'), 'pincode' => $request->input('pincode')));
-        $subjectUserList = TutorLevelDetailHelper::getSearchUserId($request->subject, $request->level,$request->pincode);
+        $subjectUserList = TutorLevelDetailHelper::getSearchUserId($request->subject, $request->level, $request->pincode);
         foreach ($subjectUserList as $val) {
 
             if (in_array($val->tutor_id, $final_array)) {
@@ -96,8 +97,8 @@ class FindATutorController extends Controller
         $data['subject_list'] = SubjectHelper::getAllSubjectList();
 
         $data['tutor_level_list'] = TutorLevelHelper::getAllTutorList();
-        $data['tutor_comments'] = FeedbackHelper::getAllFeedbackByTutorId($id);  
-       
+        $data['tutor_comments'] = FeedbackHelper::getAllFeedbackByTutorId($id);
+
         return view('frontend.SearchTutor.view_tutor_detail', $data);
     }
     public function saveReview(Request $request)
@@ -130,29 +131,31 @@ class FindATutorController extends Controller
         }
     }
 
-    public function checkEmailParent(Request $request){
-        
+    public function checkEmailParent(Request $request)
+    {
+
         $checkParentEmail = UserHelper::checkEmail($request->email);
-        if($checkParentEmail){
+        if ($checkParentEmail) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
     }
-    public function getDatesFromRange($start, $end, $format = 'Y-m-d') { 
-			
-        $array = array(); 
-        $interval = new DateInterval('P1D'); 
-        $realEnd = new DateTime($end); 
-        $realEnd->add($interval); 
-        $period = new DatePeriod(new DateTime($start), $interval, $realEnd); 
-        
-        foreach($period as $date) {                  
-            $array[] = $date->format($format);  
-        } 
-        
-        
-        return $array; 
+    public function getDatesFromRange($start, $end, $format = 'Y-m-d')
+    {
+
+        $array = array();
+        $interval = new DateInterval('P1D');
+        $realEnd = new DateTime($end);
+        $realEnd->add($interval);
+        $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+
+        foreach ($period as $date) {
+            $array[] = $date->format($format);
+        }
+
+
+        return $array;
     }
     public function saveInquiry(Request $request)
     {
@@ -160,100 +163,100 @@ class FindATutorController extends Controller
         if (empty($count)) {
             $rules = array(
                 'first_name' => 'required| max:30',
-    
+
                 'last_name' => 'required| max:30',
-    
+
                 'email' => 'required| max:30',
-    
+
                 'phone' => 'required|max:12',
-    
+
                 'subjectinquiry' => 'required',
-    
+
                 'level' => 'required',
-    
+
                 'days' => 'required',
-    
+
                 'tuition_time' => 'required',
-    
+
                 'address' => 'required| max:255',
-    
+
                 'username' => 'required| max:30',
-    
-                'password' => ['required','min:6','regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/'],
-                
+
+                'password' => ['required', 'min:6', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).*$/'],
+
             );
-        }else{
+        } else {
             $rules = array(
                 'first_name' => 'required| max:30',
-    
+
                 'last_name' => 'required| max:30',
-    
+
                 'email' => 'required| max:30',
-    
+
                 'phone' => 'required|max:12',
-    
+
                 'subjectinquiry' => 'required',
-    
+
                 'level' => 'required',
-    
+
                 'days' => 'required',
-    
+
                 'tuition_time' => 'required',
-    
+
                 'address' => 'required| max:255',
-    
+
                 'username' => 'required| max:30',
-                
+
             );
         }
-        
+
         $messsages = array(
             'password.regex' => 'Password should be include 6 charaters, alphabets, numbers and special characters',
-           
+
         );
         $validator = Validator::make($request->all(), $rules, $messsages);
-          
 
-        
+
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors(), 'status' => 0], 400);
         } else {
             $currdate = date("Y-m-d");
             $monday = strtotime("last monday");
-			$monday = date('w', $monday)==date('w') ? $monday+7*86400 : $monday;
-			$sunday = strtotime(date("Y-m-d",$monday)." +6 days");
-			$this_week_sd = date("Y-m-d",$monday);
-			$this_week_ed = date("Y-m-d",$sunday);
-			
-			$dateRang = self::getDatesFromRange($this_week_sd,$this_week_ed);
-			$dateArray = array();
-			foreach($dateRang as $dkey){
-				if($currdate <= $dkey){
-                    $dayname = date('l',strtotime($dkey));
+            $monday = date('w', $monday) == date('w') ? $monday + 7 * 86400 : $monday;
+            $sunday = strtotime(date("Y-m-d", $monday) . " +6 days");
+            $this_week_sd = date("Y-m-d", $monday);
+            $this_week_ed = date("Y-m-d", $sunday);
+
+            $dateRang = self::getDatesFromRange($this_week_sd, $this_week_ed);
+            $dateArray = array();
+            foreach ($dateRang as $dkey) {
+                if ($currdate <= $dkey) {
+                    $dayname = date('l', strtotime($dkey));
                     $dateArray[$dkey] = $dayname;
-				}
-			}
+                }
+            }
 
-            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
+            $bookDate = date('Y-m-d', strtotime($request->days . ' next week'));
 
-            if(in_array(ucfirst($request->days),$dateArray)){
-                foreach($dateArray as $key => $val){
-                    if(ucfirst($request->days) == $val){
-                        if($key < date('Y-m-d')) {
-                            $bookDate = date('Y-m-d', strtotime($request->days.' next week'));
-                        }else{
+            if (in_array(ucfirst($request->days), $dateArray)) {
+                foreach ($dateArray as $key => $val) {
+                    if (ucfirst($request->days) == $val) {
+                        if ($key < date('Y-m-d')) {
+                            $bookDate = date('Y-m-d', strtotime($request->days . ' next week'));
+                        } else {
                             $bookDate = $key;
                         }
                     }
                 }
             }
-            
-            
 
-            
+
+
+
 
             $count = UserHelper::checkEmail($request->email);
-          
+
             if (empty($count)) {
                 $userArr = array(
                     'first_name' => $request->first_name,
@@ -268,12 +271,12 @@ class FindATutorController extends Controller
                 );
 
 
-                
+
 
                 $userData = UserHelper::save($userArr);
                 if ($userData) {
 
-                    
+
                     $inquiryArr = array(
                         'user_id' => $userData,
                         'subject_id' => $request->subjectinquiry,
@@ -284,9 +287,23 @@ class FindATutorController extends Controller
                         'tutor_id' => $request->tutorid,
                     );
 
-                  
 
-                    ParentDetailHelper::save($inquiryArr);
+
+                    $inquiry = ParentDetailHelper::save($inquiryArr);
+                    if ($inquiry && $userData) {
+                        $adminData = UserHelper::getAdminData();
+                        $email = $adminData->email;
+                        $html = '
+                            <p style="margin-bottom: 0px;">Name : <span>' . $request->first_name . ' '.$request->last_name.'</span></p>
+                            <p style="margin-bottom: 0px;">Email : <span>' . $request->email . '</span></p>
+                            <p style="margin-bottom: 0px;">Phone No : <span>' . $request->phone . '</span></p>
+                            <p style="margin-bottom: 0px;">Address : <span>' . $request->address . '</span></p>
+                        ';
+                        $subject = __('emails.parent_inquiry');
+                        $body = __('emails.parent_inquiry_body', ['USERNAME' => 'Admin', 'HTMLTABLE' => $html]);
+                        $body_email = __('emails.template', ['BODYCONTENT' => $body]);
+                        $mail = MailHelper::mail_send($body_email, $email, $subject);
+                    }
                     return response()->json(['error_msg' => "Successfully instered", 'data' => $userArr], 200);
                 } else {
                     return response()->json(['error_msg' => "Something went wrong", 'data' => ''], 500);
@@ -301,7 +318,7 @@ class FindATutorController extends Controller
                     'booking_date' => $bookDate,
                     'tutor_id' => $request->tutorid,
                 );
-                
+
                 ParentDetailHelper::save($inquiryArr);
                 return response()->json(['error_msg' => "Successfully instered", 'data' => $inquiryArr], 200);
             }
@@ -309,7 +326,7 @@ class FindATutorController extends Controller
     }
     public function tutorAvailabilityDetails(Request $request)
     {
-        
+
         $data = TutorAvailabilityHelper::getData($request->tutotid);
         return response()->json($data);
     }
