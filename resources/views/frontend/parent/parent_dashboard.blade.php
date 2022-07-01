@@ -12,61 +12,93 @@
 
             <!--begin::Info-->
 
-            <div class="d-flex align-items-center flex-wrap mr-2">
-
-                <!--begin::Page Title-->
-
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
-
-                <!--end::Page Title-->
-
+            <div class="mr-2 w-100">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--begin::Page Title-->
+                        @php
+                        date_default_timezone_set("Europe/London");
+                        $h = date('G');
+                        $val = '';
+                        @endphp
+                        @if($h>=5 && $h<=11) @php $val="Good morning" ; @endphp @elseif($h>=12 && $h<=15) @php $val="Good afternoon" ; @endphp @else @php $val="Good evening" ; @endphp @endif <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="text-dark font-weight-bold mt-2 mb-2 mr-5 greeting-text">{{$val}} {{Auth::user()->first_name}}</h4>
+                                </div>
+                    </div>
+                </div>
             </div>
 
-            <!--end::Info-->
+            <!--end::Page Title-->
 
         </div>
 
+        <!--end::Info-->
+
     </div>
 
-    <!--end::Subheader-->
+</div>
 
-    <!--begin::Entry-->
+<!--end::Subheader-->
 
-    <div class="d-flex flex-column-fluid">
+<!--begin::Entry-->
 
-        <!--begin::Container-->
+<div class="d-flex flex-column-fluid">
 
-        <div class="container-fluid">
+    <!--begin::Container-->
 
-            <!--begin::Dashboard-->
-            <div class="d-flex flex-row">
+    <div class="container-fluid">
 
-                <!--begin::Content-->
+        <!--begin::Dashboard-->
+        <div class="d-flex flex-row">
 
-                <div class="flex-row-fluid" id="personam_id">
+            <!--begin::Content-->
 
-                    <div class="card card-custom card-stretch">
+            <div class="flex-row-fluid" id="personam_id">
 
-                        <!--begin::Header-->
+                <div class="card card-custom card-stretch">
 
-                        
+                    <!--begin::Header-->
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="apply-main">
+                                    <h5>Thank you for choosing to work with us.</h5>
+                                    <div class="apply-details">
+                                        <div class="apply-details-inner">
+                                            Please click the link below to select a tutor in other subjects.
+                                        </div>
+                                        <div>
+                                            <a href="{{route('tutors')}}" class="btn btn-primary" target="_blank">Tutors</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
 
                 </div>
 
-                <!--end::Content-->
-
             </div>
-            <!--end::Dashboard-->
+
+            <!--end::Content-->
 
         </div>
-
-        <!--end::Container-->
+        <!--end::Dashboard-->
 
     </div>
 
-    <!--end::Entry-->
+    <!--end::Container-->
+
+</div>
+
+<!--end::Entry-->
 
 </div>
 
