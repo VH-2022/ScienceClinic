@@ -9,6 +9,11 @@
         z-index: 999999 !important;
 
     }
+
+    .hide-btn {
+        display: flex;
+        margin-left: auto;
+    }
 </style>
 <div class="d-flex flex-column-fluid">
 
@@ -31,6 +36,52 @@
                     <div class="card-header py-3">
                         <div class="card-title align-items-start flex-column">
                             <h3 class="card-label font-weight-bolder text-dark">Tutors Payment History</h3>
+
+                        </div>
+                        <div class="card-toolbar">
+
+                            <!--begin::Dropdown-->
+
+                            <div class="dropdown dropdown-inline mr-2">
+
+                                <button id="kt_demo_panel_toggle" type="button" class="btn btn-light-primary font-weight-bolder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    <span class="svg-icon svg-icon-md">
+
+                                        <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+
+                                                <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"></path>
+
+                                                <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"></path>
+
+                                            </g>
+
+                                        </svg>
+
+                                        <!--end::Svg Icon-->
+
+                                    </span>Search</button>
+
+                                <!--begin::Dropdown Menu-->
+
+
+
+                            </div>
+
+                            <!--end::Dropdown-->
+
+                            <!--begin::Button-->
+
+
+
+                            <!--end::Button-->
+
                         </div>
                     </div>
 
@@ -44,7 +95,8 @@
                             </li>
 
                         </ul>
-                        <button class="btn btn-success" id="multipay" style="background-color: #1BC5BD !important;border-color: #1BC5BD !important; display: none;">Pay</button>
+
+                        <button class="btn btn-success hide-btn" id="multipay" style="background-color: #1BC5BD !important;border-color: #1BC5BD !important; display: none;" onclick="paymultiple();">Pay</button>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
 
@@ -174,38 +226,46 @@
 <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#select_all').on('click', function() {
-            if (this.checked) {
-                $('.checkbox').each(function() {
-                    this.checked = true;
-                });
-            } else {
-                $('.checkbox').each(function() {
-                    this.checked = false;
-                });
-            }
+    function paymultiple(dataArray) {
+        var test = [];
+        var dataArr = [];
+        // console.log(dataArray);
+        $('input[name="checkboxval[]"]:checked').each(function() {
+            test = $(this).val();
+            dataArr.push(test);
         });
+        $.confirm({
+            title: 'Pay!',
+            content: 'you want to pay ?',
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-danger',
+                    action: function() {
+                        $.ajax({
+                            method: "POST",
+                            url: "{{ route('multiple-tutor-pay-amount') }}",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'data': dataArr,
+                            }
+                        }).done(function(r) {
+                            toastr.success(r.error_msg);
+                            ajaxUnpaidList(1);
+                            $('#multipay').css("display", "none");
+                        }).fail(function() {
+                            toastr.error('Sorry, something went wrong. Please try again.');
+                        });
 
-        $('.checkbox').on('click', function() {
-            if ($('.checkbox:checked').length == $('.checkbox').length) {
-                $('#select_all').prop('checked', true);
-            } else {
-                $('#select_all').prop('checked', false);
+                    }
+
+                }
+
             }
-        });
-    });
 
-    function checkVal() {
-        if ($("input[name='checkboxval']:checked").length > 1) {
-            $('#multipay').css("display", "block");
-        } else {
-            $('#multipay').css("display", "none");
-        }
+        });
 
     }
-
-
 
 
     function tutor_pay_amount(Id, tutorAmount) {
@@ -228,7 +288,7 @@
                             }
                         }).done(function(r) {
                             toastr.success(r.error_msg);
-                            ajaxList(1);
+                            ajaxUnpaidList(1);
                         }).fail(function() {
                             toastr.error('Sorry, something went wrong. Please try again.');
                         });

@@ -5,7 +5,6 @@
         <tr>
 
             <th nowrap="nowrap">ID</th>
-
             <th style="white-space: nowrap">Parent Name</th>
             <th style="white-space: nowrap">Tutor Name</th>
             <th style="white-space: nowrap">Subject Name</th>
@@ -15,7 +14,7 @@
             <th style="white-space: nowrap">Tutor Amount</th>
             <th style="white-space: nowrap">Pay Status</th>
             <th style="white-space: nowrap">Created Date</th>
-            <th><input type="checkbox" name="select_all" id="select_all" value="{{$query}}" onclick="checkVal();"></th>
+            <th><input type="checkbox" name="select_all" id="select_all" value="{{$query}}"></th>
             <th style="white-space: nowrap">Action</th>
 
         </tr>
@@ -60,7 +59,7 @@
                 @endif
 
             </td>
-            <td><input type="checkbox" class="checkbox" name="checkboxval" value="{{$val->id}},{{$tutorAmount}}" onclick="checkVal();"></td>
+            <td><input type="checkbox" class="checkbox" name="checkboxval[]" value="{{$val->id}},{{$tutorAmount}}"></td>
             <td>
                 @if($val->tutor_payment_status =='Pending')
                 <a href="javascript:void(0)" onclick="tutor_pay_amount({{$val->id}},{{$tutorAmount}})" class="btn btn-success" style="background-color: #1BC5BD !important;border-color: #1BC5BD !important;" data-id="{{ $val->id}}">Pay</a>
@@ -92,30 +91,33 @@
 
 <script>
     $(document).ready(function() {
-        $(document).ready(function() {
-            $('#select_all').on('click', function() {
-                if (this.checked) {
-                    $('.checkbox').each(function() {
-                        this.checked = true;
-                    });
+        $('#select_all').on('click', function() {
+            if (this.checked) {
+                $('.checkbox').each(function() {
+                    this.checked = true;
                     $('#multipay').css("display", "block");
-                } else {
-                    $('.checkbox').each(function() {
-                        $('#multipay').css("display", "none");
-                        this.checked = false;
-                    });
-                }
-            });
-
-            $('.checkbox').on('click', function() {
-                if ($('.checkbox:checked').length == $('.checkbox').length) {
-                    $('#multipay').css("display", "block");
-                    $('#select_all').prop('checked', true);
-                } else {
-                    $('#multipay').css("display", "none");
-                    $('#select_all').prop('checked', false);
-                }
-            });
+                });
+            } else {
+                $('.checkbox').each(function() {
+                    this.checked = false;
+                });
+                $('#multipay').css("display", "none");
+            }
         });
+        $('.checkbox').on('click', function() {
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#select_all').prop('checked', true);
+                $('#multipay').css("display", "block");
+            } else {
+                $('#select_all').prop('checked', false);
+                $('#multipay').css("display", "none");
+            }
+            if ($("input[name='checkboxval[]']:checked").length > 1) {
+                $('#multipay').css("display", "block");
+            } else {
+                $('#multipay').css("display", "none");
+            }
+        });
+
     });
 </script>

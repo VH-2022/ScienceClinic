@@ -111,6 +111,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-unpaid-payment-history', "TutorPaymentController@tutorUnpaidList")->name('tutor-unpaid-payment-history');
         $backendVerified->get('tutor-paid-payment-list-ajax', "TutorPaymentController@ajaxListUnpaid")->name('tutor-paid-payment-list-ajax');
         $backendVerified->post('tutor-pay-amounts', "TutorPaymentController@tutorPayamount")->name('tutor-pay-amounts');
+        $backendVerified->post('multiple-tutor-pay-amount', "TutorPaymentController@payMultipleTutorsAmount")->name('multiple-tutor-pay-amount');
         $backendVerified->resource('site-setting', "SiteSettingController");
         $backendVerified->resource('online-tutoring', "OnlineTutoringController");
         $backendVerified->resource('text-books', "TextBooksController");
