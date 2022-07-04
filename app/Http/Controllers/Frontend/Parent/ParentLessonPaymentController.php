@@ -26,6 +26,6 @@ class ParentLessonPaymentController extends Controller
         $id = $auth['id'];
         $data['page'] = $request->page;
         $data['query'] = ParentDetailHelper::getPaidParentListWithPaginate($id);
-        return view('frontend.parent.parent-support-ajax', $data);
+        return view('frontend.parent.parent-lesson-payment-ajax', $data);
     }
 }

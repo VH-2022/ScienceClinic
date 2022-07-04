@@ -116,13 +116,20 @@ class ParentDetailHelper
     }
     public static function getPaidParentListWithPaginate($id)
     {
-        $query =  ParentDetail::with(['userDetails'])->select('id','user_id', 'booking_date', 'payment_status')
+        $query =  ParentDetail::with(['userDetails', 'tutorDetails','subjectDetails'])->select('id','user_id', 'booking_date', 'payment_status','subject_id','tutor_id')
         ->whereHas('userDetails', function ($queryVal) {
             $queryVal->where('status','Accepted');
         })
+        ->whereHas('subjectDetails', function ($subjectQuery) {
+            $subjectQuery->whereNull('deleted_at');
+        })
+        ->whereHas('tutorDetails', function ($tutorVal) {
+            $tutorVal->where('status','Accepted');
+        })
         ->where('user_id',$id)
         ->where('payment_status','Success')
-        ->get();
+        ->where('booking_status','Success')
+        ->paginate(10);
         return $query;
     }
 }

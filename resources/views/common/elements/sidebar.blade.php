@@ -602,7 +602,7 @@
                     </a>
 
                 </li>
-                <li class="menu-item {{ Request::segment(1) == 'lesson-payment' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+                <li class="menu-item {{ Request::segment(1) == 'parent-lesson-payment' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
                     <a href="{{ url('parent-lesson-payment') }}" class="menu-link">
 

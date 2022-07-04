@@ -6,11 +6,13 @@
 
             <th nowrap="nowrap">ID</th>
 
-            <th style="white-space: nowrap">Description</th>
+            <th style="white-space: nowrap">Subject Name</th>
 
-            <th style="white-space: nowrap">Created Date</th>
+            <th style="white-space: nowrap">Tutor Name</th>
 
-            <th>Actions</th>
+            <th style="white-space: nowrap">Booking Date</th>
+
+            <th>Status</th>
 
         </tr>
 
@@ -32,20 +34,18 @@
 
             <td>{{ $i++ }}</td>
 
-            <td id="description">{{ Str::limit($val->support_msg, 100) }}</td>
+            <td>{{ $val->subjectDetails->main_title }}</td>
+
+            <td>{{ $val->tutorDetails->first_name }}</td>
 
             <td>
-                @if ($val->created_at != '')
-                {{ Utility::convertYMDTimeToDMYTime($val->created_at) }}
+                @if ($val->booking_date != '')
+                {{ Utility::convertDMY($val->booking_date) }}
                 @endif
             </td>
 
             <td>
-
-                <a href="javascript:void(0)" class="edit-details" data-id="{{$val->id}}"><i class="fa fa-edit"></i></a>
-
-                <a href="javascript:void(0)" class="delete-details" data-id="{{$val->id}}}"><i class="fa fa-trash"></i></a>
-
+                {{ $val->payment_status }}
             </td>
 
         </tr>
