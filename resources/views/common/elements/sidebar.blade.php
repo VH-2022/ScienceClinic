@@ -443,7 +443,7 @@
 
                 <li class="menu-item {{ Request::segment(1) == 'tutor-past-papers' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
-                    <a href="{{ url('tutor-past-papers-resources') }}" class="menu-link">
+                    <a href="{{ url('tutor-past-papers') }}" class="menu-link">
 
                         <span class="svg-icon menu-icon">
 
@@ -467,7 +467,7 @@
 
                         </span>
 
-                        <span class="menu-text">E-Learning</span>
+                        <span class="menu-text">Past Paper</span>
 
                     </a>
 

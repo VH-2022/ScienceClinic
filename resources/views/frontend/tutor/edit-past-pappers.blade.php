@@ -42,7 +42,7 @@
 
 
 
-                    <form class="form" id="submitid" method="post" action="{{url('past-papers-cms')}}/{{$basic_details->id}}" enctype="multipart/form-data">
+                    <form class="form" id="submitid" method="post" action="{{url('tutor-past-papers')}}/{{$basic_details->id}}" enctype="multipart/form-data">
 
                         @csrf
                         @method('put')
@@ -110,7 +110,7 @@
                             
                                 @foreach($paper_basic_details as $key)
                                 <input type="hidden" name="detail_id[]" value="{{ $key->id}}">
-                                    <div class="row" id="deleteRow_{{$i}}">
+                                    <div class="row" id="deleteRowEdit_{{$i}}">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Subject Title <span class="text-danger">*</span></label>
@@ -146,7 +146,7 @@
                                                 <span class="form-text error upload_mark_scheme_error_{{$i}}"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-1"><div class="form-group"><button type="button" onclick="removeDeleteID({{$key->id}})" class="btn btn-secondary btn-sm">Delete</button></div></div>
+                                        <div class="col-md-1"><div class="form-group"><button type="button" onclick="removeDeleteID({{$key->id}},{{$i}})" class="btn btn-secondary btn-sm">Delete</button></div></div>
                                     </div>
                                     @php $i++;  @endphp
                                 @endforeach
@@ -191,6 +191,7 @@
                                     </div>
                                 </div>
                             @endif
+                            <input type="hidden" name="detail_id_val[]" id="final_data">
                             <input type="hidden" id="deletedID" name="deletedID" />
                             <div id="appendData"></div>
                            
@@ -200,7 +201,7 @@
 
                             <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Submit</button>
 
-                            <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('past-papers-cms')}}"'>Cancel</button>
+                            <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('tutor-past-papers')}}"'>Cancel</button>
 
                         </div>
 
@@ -313,7 +314,7 @@ function removeID(id){
 }
 
 var idArray = [];
-function removeDeleteID(id){
+function removeDeleteID(id, val){
     $.confirm({
     title: 'Are you sure?',
     columnClass:"col-md-6",
@@ -325,7 +326,8 @@ function removeDeleteID(id){
             action: function () {
                 idArray.push(id);
                 $("#deletedID").val(idArray);
-                $("#deleteRow_"+id).remove();
+                $("#final_data").val(val);
+                $("#deleteRowEdit_"+val).remove();
             }
         },
         cancel: function () {
