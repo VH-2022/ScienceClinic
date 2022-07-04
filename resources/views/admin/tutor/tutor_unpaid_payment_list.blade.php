@@ -229,7 +229,6 @@
     function paymultiple(dataArray) {
         var test = [];
         var dataArr = [];
-        // console.log(dataArray);
         $('input[name="checkboxval[]"]:checked').each(function() {
             test = $(this).val();
             dataArr.push(test);
