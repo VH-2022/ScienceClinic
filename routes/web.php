@@ -220,7 +220,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-missed-lessons', 'TutorAvailabilityController@tutorMissedLesson')->name('tutor-missed-lessons');
         $backendVerified->get('tutor-missed-lesson-ajax', 'TutorAvailabilityController@missedLessonAjax')->name('tutor-missed-lesson-ajax');
         $backendVerified->post('add-missed-lesson-reason', 'TutorAvailabilityController@addMissedLessonReason')->name('add-missed-lesson-reason');
-
+        $backendVerified->resource('tutor-e-learning', "TutorELearningController");
+        $backendVerified->get('tutor-e-learning-ajax-list', "TutorELearningController@ajaxList")->name('tutor-e-learning-ajax-list');
+        $backendVerified->resource('tutor-past-papers', "TutorPastPapersController");
+        $backendVerified->get('tutor-past-papers-ajax-list', "TutorPastPapersController@ajaxList")->name('tutor-past-papers-ajax-list');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {
