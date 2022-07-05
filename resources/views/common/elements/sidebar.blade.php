@@ -183,7 +183,7 @@
 
                         </span>
 
-                        <span class="menu-text">Avalibility</span>
+                        <span class="menu-text">Availability</span>
 
                     </a>
 
