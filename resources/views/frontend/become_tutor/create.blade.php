@@ -13,6 +13,10 @@
     .form-data .col-md-12 {
         margin-bottom: 23px;
     }
+
+    .inputbar-padding {
+        padding-top: 10px !important;
+    }
 </style>
 <link href="{{ asset('assets/css/toastr.css') }}" rel="stylesheet" />
 <div class="as-mainwrapper">
@@ -260,7 +264,7 @@
                                                                             <p type="text" class="mb-0 mt-0" id="uploadeviFile" class="input-upload-bio"> </p>
                                                                         </div>
 
-                                                                        <input type="file" class="mb-0" name="document_certi[]" data-id="{{ $uniqid }}" class="bio-input-fild" id="uploadeviBtn">
+                                                                        <input type="file" class="mb-0 inputbar-padding" name="document_certi[]" data-id="{{ $uniqid }}" class="bio-input-fild" id="uploadeviBtn">
 
                                                                         <span id="document_certi{{ $uniqid }}_error" class="text-danger"></span>
 
@@ -410,7 +414,7 @@
 
                                                         <div class="file-flex">
 
-                                                            <input type="file" name="document_pdf" class="mb-0 blank-input file-input-box" id="uploadFile">
+                                                            <input type="file" name="document_pdf" class="mb-0 blank-input file-input-box inputbar-padding" id="uploadFile">
 
                                                         </div>
 
@@ -597,17 +601,16 @@
 
                                             <div class="form-check custom-check">
 
-                                                <input class="form-check-input terms-condition" type="checkbox" value="1" name="term" id="term">
+                                                <input class="form-check-input terms-condition" type="checkbox" name="term" id="term">
 
-                                                <span class="text-danger" id="error_term"></span>
 
                                                 <label class="form-check-label condition-text" for="defaultCheck1">
-
-                                                    <a class="condition-text" href="#">Terms & conditions </a>
+                                                    <a class="condition-text" href="{{url('terms-and-conditions')}}">Terms & conditions </a>
 
                                                 </label>
 
                                             </div>
+                                            <span class="text-danger" id="error_term"></span>
 
                                         </div>
 
@@ -741,7 +744,7 @@
 
             '<div class="downloaded-file position-relative">' +
 
-            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio mt-0 mb-0"> </p> </div> <input type="file"  class="bio-input-fild mb-0" name="document_certi[]" id="uploadeviBtn" data-id="' +
+            '<div class="chemistry-icon-text">    <div class="input-file-bio"> <p type="text" id="uploadeviFile" class="input-upload-bio mt-0 mb-0"> </p> </div> <input type="file"  class="bio-input-fild mb-0 inputbar-padding" name="document_certi[]" id="uploadeviBtn" data-id="' +
             mathRand + '" ><span id="document_certi' + mathRand + '_error" class="text-danger"></span>' +
 
 
@@ -768,18 +771,6 @@
         $('#' + id).remove();
     }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
     function show1() {
@@ -856,7 +847,7 @@
         var expr = /^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!@$#%&*]).{6,}$/;
         return expr.test(password);
     }
-    $("#email").keyup(function() { 
+    $("#email").keyup(function() {
         var emailVal = $("#email").val();
         $("#user_name").val(emailVal);
     });
@@ -899,7 +890,7 @@
         var password = $("#password").val();
 
 
-        // var term = $("#term").val();
+        var term = $("#term").val();
 
         var temp = 0;
 
@@ -929,7 +920,7 @@
         $("#user_name_error").html('');
         $("#password_error").html('');
 
-        // $("#error_term").html('');
+        $("#error_term").html('');
 
 
         if (userName.trim() == '') {
@@ -943,7 +934,7 @@
             $('#password_error').html('Please enter password');
             temp++;
         } else {
-            if(!ValidatePassword(password)){
+            if (!ValidatePassword(password)) {
                 $("#password_error").html("Password should include 6 charaters, alphabets, numbers and special characters");
                 temp++;
             }
@@ -1248,6 +1239,11 @@
             temp++
 
         }
+        if ($("input[name='term']:checked").length == 0) {
+            $('#error_term').html('Please select Term & condition');
+            temp++
+        }
+
 
         if (temp == 0) {
             return true;

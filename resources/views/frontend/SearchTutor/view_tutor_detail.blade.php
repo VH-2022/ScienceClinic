@@ -309,7 +309,7 @@
                                                             <option value="23:00:00-24:00:00">
                                                                 11pm - 12am
                                                             </option>
-                                                            
+
                                                         </select>
                                                         <span class="text-danger" id="error_time"></span>
 
@@ -339,11 +339,12 @@
 
                                                     <div class="col-md-6 col-lg-4">
                                                         <div class="form-check custom-check">
-                                                            <input class="form-check-input terms-condition" type="checkbox" value="" id="defaultCheck1">
+                                                            <input class="form-check-input terms-condition" type="checkbox" name="term" value="" id="defaultCheck1">
                                                             <label class="form-check-label condition-text" for="defaultCheck1">
                                                                 <a class="condition-text" target="_blank" href="{{url('terms-and-conditions')}}">Terms & conditions </a>
                                                             </label>
                                                         </div>
+                                                        <span class="text-danger" id="error_term"></span>
                                                     </div>
 
                                                     <div class="col-md-12 mr-0">
@@ -355,7 +356,7 @@
                                                         </div>
                                                     </div>
                                             </form>
-                                            
+
                                         </div>
                                         <div class="comments">
                                             <h4 class="title">Comments</h4>
@@ -514,11 +515,10 @@
             /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         return expr.test(email);
     }
-    $("#email").keyup(function() { 
+    $("#email").keyup(function() {
         var emailVal = $("#email").val();
         $("#username").val(emailVal);
     });
-   
 </script>
 
 <script>
@@ -626,6 +626,7 @@
         $('#error_level').html('');
         $('#error_days').html('');
         $('#error_time').html('');
+        $('#error_term').html('');
 
 
         if (firstName.trim() == '') {
@@ -691,6 +692,10 @@
         if (level.trim() == '') {
             $('#error_level').html('Level is required');
             temp++;
+        }
+        if ($("input[name='term']:checked").length == 0) {
+            $('#error_term').html('Please select Term & condition');
+            temp++
         }
         if (temp == 0) {
             $.ajax({
