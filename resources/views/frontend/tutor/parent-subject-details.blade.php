@@ -30,7 +30,6 @@
         @if (count($query) > 0)
 
         @foreach ($query as $val)
-
         <tr>
 
             <td>{{ $i }}</td>
@@ -55,23 +54,22 @@
                 @if($val->teaching_hours == '')
                 <button class="btn btn-primary" onclick="addTeacingHours({{$val->id}});">Add</button>
                 @else
-                @php 
-                    $currentDate = date('Y-m-d H:i:s');
+                @php
+                $currentDate = date('Y-m-d H:i:s');
 
-                    $bookingDatetime = $val->booking_date.' '. $val->teaching_start_time;
-                    $currentTime = date('Y-m-d H:i:s', strtotime('-15 minutes', strtotime($bookingDatetime)));
-                    $endDatetime = date('Y-m-d H:i:s', strtotime('+ 1 hours',strtotime($val->teaching_start_time)));
+                $bookingDatetime = $val->booking_date.' '. $val->teaching_start_time;
+                $currentTime = date('Y-m-d H:i:s', strtotime('-15 minutes', strtotime($bookingDatetime)));
+                $endDatetime = date('Y-m-d H:i:s', strtotime('+ 1 hours',strtotime($val->teaching_start_time)));
 
-                        if (($currentDate >= $currentTime) && ($currentDate <= $endDatetime)){ 
-                            if($val->attend_class == '1'){ echo '<span class="text-success">Attended</span>';  }else{    
+                if (($currentDate >= $currentTime) && ($currentDate <= $endDatetime)){ if($val->attend_class == '1'){ echo '<span class="text-success">Attended</span>'; }else{
                     @endphp
-                        
 
-                        <button class="btn btn-primary" onclick="attendClass({{$val->id}});">Attend</button>
-
-                   @php } } 
-                @endphp
-                @endif
+                    @if($val->payment_status == 'Success')
+                    <button class="btn btn-primary" onclick="attendClass({{$val->id}});">Attend</button>
+                    @endif
+                    @php } }
+                    @endphp
+                    @endif
             </td>
         </tr>
         @php

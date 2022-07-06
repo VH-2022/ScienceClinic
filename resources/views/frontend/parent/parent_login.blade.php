@@ -44,13 +44,8 @@
 
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="form-check custom-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                                Remember me
-                                            </label>
-                                        </div>
+                                    <div class="d-flex justify-content-between" style="float: right;">
+                                        
                                         <div class="mb-30">
                                             <a href="{{route('forgot-password-user')}}" class="link-text"> Forgot
                                                 Password?</a>

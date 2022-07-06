@@ -6,6 +6,7 @@ use App\Helpers\ParentDetailHelper;
 use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ParentDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +14,8 @@ class ParentListController extends Controller
 {
     public function index()
     {
-        $data['parentslist'] = UserHelper::getApprovedParentsList();
+      $tutorId = auth::user()->id;
+        $data['parentslist'] = ParentDetailHelper::getParentData($tutorId);
         return view('frontend.tutor.tutor-parent-list', $data);
     }
 

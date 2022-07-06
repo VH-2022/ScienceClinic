@@ -204,13 +204,13 @@
 
                 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
 
-                    <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
+                    <!-- <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary"> -->
 
-                        <span class="svg-icon svg-icon-xl svg-icon-primary">
+                        <!-- <span class="svg-icon svg-icon-xl svg-icon-primary"> -->
 
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Code/Compiling.svg-->
 
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 
@@ -222,15 +222,15 @@
 
                                 </g>
 
-                            </svg>
+                            </svg> -->
 
                             <!--end::Svg Icon-->
 
-                        </span>
+                        <!-- </span> -->
 
-                        <span class="pulse-ring"></span>
+                        <!-- <span class="pulse-ring"></span> -->
 
-                    </div>
+                    <!-- </div> -->
 
                 </div>
 

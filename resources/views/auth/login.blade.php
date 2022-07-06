@@ -121,17 +121,9 @@
 
                             </div>
 
-                            <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+                            <div class="form-group d-flex flex-wrap justify-content-between align-items-center" style="float: right;">
 
-                                <div class="checkbox-inline">
-
-                                    <label class="checkbox m-0 text-muted dark-sign-color">
-
-                                        <input type="checkbox" name="remember" />
-
-                                        <span></span>Remember me</label>
-
-                                </div>
+                                
 
                                 <a href="{{ route('password.request') }}" id="kt_login_forgot" class="text-muted text-hover-primary dark-sign-color">Forgot Password?</a>
 
