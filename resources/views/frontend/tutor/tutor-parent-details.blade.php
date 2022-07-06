@@ -3,13 +3,13 @@
 " rel="stylesheet">
 <link href="{{ asset('assets/plugins/custom/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
 <style>
-.bootstrap-timepicker-widget table td input{
-    width: 33px !important;
-}
-.table
-{
-    font-size: 13px !important;
-}
+    .bootstrap-timepicker-widget table td input {
+        width: 33px !important;
+    }
+
+    .table {
+        font-size: 13px !important;
+    }
 </style>
 @section('content')
 <div class="d-flex flex-column-fluid">
@@ -36,9 +36,9 @@
 
                         <div class="card-title">
 
-                            <span class="nav-profile-name">Parent Detail</span>
+                            <span class="nav-profile-name">Parent Details</span>
 
-                            <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
+                           
 
                         </div>
                     </div>
@@ -51,33 +51,24 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Full Name: </strong>
-                                    {{$parentData->first_name}} {{$parentData->last_name}}
+                                    <strong>First Name: </strong>
+                                    {{$parentData->first_name}} 
 
                                 </div>
 
                             </div>
-
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Email: </strong>
-                                    {{$parentData->email}}
+                                    <strong>Last Name: </strong>
+                                    {{$parentData->last_name}}
+
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
-
-                                <div class="d-flex mb-4">
-
-                                    <strong>Mobile No: </strong>
-                                    {{$parentData->mobile_id}}
-                                </div>
-
-                            </div>
-
+                            
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
@@ -155,7 +146,7 @@
             url: "{{ route('parent-subject-details') }}",
 
             data: {
-                parentID:parentID,
+                parentID: parentID,
             },
 
             success: function(res) {
@@ -171,42 +162,41 @@
 
 
     function attendClass(id) {
-        $.confirm({  
-        title: 'Are you sure?',
-        columnClass:"col-md-6",
-        content: "you want to attend this class?",
-        buttons: {
-            formSubmit: {
-                text: 'Submit',
-                btnClass: 'btn-danger',
-                action: function () { 
-                    $.ajax({
-                                type: "post",
-                                url: "{{ route('attend-lesson-subject') }}",
-                                data: {
-                                    'id': id,
-                                    "_token": "{{ csrf_token() }}"
-                                },
+        $.confirm({
+            title: 'Are you sure?',
+            columnClass: "col-md-6",
+            content: "you want to attend this class?",
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-danger',
+                    action: function() {
+                        $.ajax({
+                            type: "post",
+                            url: "{{ route('attend-lesson-subject') }}",
+                            data: {
+                                'id': id,
+                                "_token": "{{ csrf_token() }}"
+                            },
 
-                                success: function(res) {
-                                    if (res.status == 1) {
-                                        toastr.success(res.error_msg);
-                                        addSubjectList(1);
-                                    } else {
-                                        toastr.error(res.error_msg);
-                                    }
+                            success: function(res) {
+                                if (res.status == 1) {
+                                    toastr.success(res.error_msg);
+                                    addSubjectList(1);
+                                } else {
+                                    toastr.error(res.error_msg);
                                 }
+                            }
 
-                            });
-                }
+                        });
+                    }
+                },
+                cancel: function() {},
             },
-            cancel: function () {
-            },
-        },
-        onContentReady: function () {
-        }
-    });
+            onContentReady: function() {}
+        });
     }
+
     function addTeacingHours(id) {
         $.confirm({
             title: 'Add Teaching Hours',
@@ -221,7 +211,7 @@
                 '<label>Enter Hourly Rate <span class="text-danger">*</span></label>' +
                 '<input type="number" name="hourly_rate" id="hourly_rate" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" placeholder="Enter Hourly Rate" class="hours form-control number-only" required />' +
                 '<span class="text-danger" id="error_hourly_rate"></span>' +
-                '</div>' + 
+                '</div>' +
                 '<div class="form-group">' +
                 '<label>Enter Teaching Start Time <span class="text-danger">*</span></label>' +
                 '<input type="text" name="teaching_start_time" id="teaching_start_time" placeholder="Enter Teaching Start Time" class="form-control" required />' +
@@ -250,7 +240,7 @@
                             temp++;
                         }
 
-                        if(temp == 0){
+                        if (temp == 0) {
                             $.ajax({
                                 type: "post",
                                 url: "{{ route('add-teaching-hours') }}",
@@ -272,11 +262,11 @@
                                 }
 
                             });
-                        }else{
+                        } else {
                             return false;
                         }
 
-                        
+
                     }
                 },
                 cancel: function() {
@@ -297,7 +287,6 @@
             }
         });
     }
-   
 </script>
 
 @endsection
