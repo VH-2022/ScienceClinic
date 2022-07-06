@@ -78,9 +78,8 @@
 
                                 <div class="d-flex mb-4">
 
-                                <strong class="address-title">Address : </strong>&nbsp;
-
-                                <span class="address-text">{{ $parents->address1 }}</span>
+                                    <strong>Address : </strong>&nbsp;
+                                    {{ $parents->address1 }}
 
                                 </div>
 
@@ -132,7 +131,7 @@
                                 </li>
                                 <li class="nav-item">
 
-                                    <a class="nav-link"  href="{{url('calander-booking?id=')}}{{$parents->id}}" >
+                                    <a class="nav-link" href="{{url('calander-booking?id=')}}{{$parents->id}}">
 
                                         <span class="nav-text">Booking</span>
 
@@ -151,7 +150,7 @@
                         <div class="tab-pane active" id="parentinquiry">
                             <span id="responsive_id"></span>
                         </div>
-                        
+
 
 
                     </div>
@@ -159,7 +158,7 @@
                 </div>
 
 
-                
+
 
 
             </div>
@@ -180,45 +179,43 @@
 
 <div class="modal fade title-edit" id="editajax-crud-modal" aria-hidden="true">
 
-        <div class="modal-dialog">
+    <div class="modal-dialog">
 
-            <div class="modal-content">
+        <div class="modal-content">
 
-                <div class="modal-header">
+            <div class="modal-header">
 
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Book Lesson</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Book Lesson</h5>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-                        <i aria-hidden="true" class="ki ki-close"></i>
+                    <i aria-hidden="true" class="ki ki-close"></i>
 
-                    </button>
+                </button>
 
-                </div>
-                @php $daysArr = [ 'Monday' =>'monday',
-                                                    'Tuesday' => 'tuesday',
-                                                    'Wednesday' => 'wednesday',
-                                                    'Thursday' => 'thursday',
-                                                    'Friday' => 'friday',
-                                                    'Saturday' => 'saturday',
-                                                    'Sunday' => 'sunday'] @endphp
+            </div>
+            @php $daysArr = [ 'Monday' =>'monday',
+            'Tuesday' => 'tuesday',
+            'Wednesday' => 'wednesday',
+            'Thursday' => 'thursday',
+            'Friday' => 'friday',
+            'Saturday' => 'saturday',
+            'Sunday' => 'sunday'] @endphp
 
-                <form id="editLesson" name="editLesson" class="form-horizontal" Method="POST">
+            <form id="editLesson" name="editLesson" class="form-horizontal" Method="POST">
 
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                    <div class="modal-body">
+                <div class="modal-body">
 
-                        <input type="hidden" name="lesson_id" id="lesson_edit">
+                    <input type="hidden" name="lesson_id" id="lesson_edit">
 
-                        <div class="form-group row">
+                    <div class="form-group row">
 
-                            <label for="name" class="col-md-4 col-form-label">Day of Tuition<span
+                        <label for="name" class="col-md-4 col-form-label">Day of Tuition<span class="text-danger">*</span></label>
 
-                                    class="text-danger">*</span></label>
-
-                            <div class="col-md-12">
-                            <select name="days"  class="form-control" id="days">
+                        <div class="col-md-12">
+                            <select name="days" class="form-control" id="days">
                                 <option value="">Select Days</option>
                                 @foreach($daysArr as $key=>$val)
                                 <option value="{{$val}}">
@@ -226,21 +223,19 @@
                                 </option>
                                 @endforeach
                             </select>
-                                
 
-                                <span class="title error_msg error" id="title_error"></span>
 
-                            </div>
+                            <span class="title error_msg error" id="title_error"></span>
 
                         </div>
-                        <div class="form-group row">
 
-                            <label for="name" class="col-md-4 col-form-label">Ideal Tuition Time<span
+                    </div>
+                    <div class="form-group row">
 
-                                    class="text-danger">*</span></label>
+                        <label for="name" class="col-md-4 col-form-label">Ideal Tuition Time<span class="text-danger">*</span></label>
 
-                            <div class="col-md-12">
-                            <select name="tuition_time"  class="form-control" id="time">
+                        <div class="col-md-12">
+                            <select name="tuition_time" class="form-control" id="time">
                                 <option value="">Select Time</option>
                                 <option value="24:00:00-01:00:00">
                                     12am- 1am
@@ -315,36 +310,34 @@
                                     11pm - 12am
                                 </option>
                             </select>
-                                
 
-                                <span class="title error_msg error" id="error_time"></span>
 
-                            </div>
+                            <span class="title error_msg error" id="error_time"></span>
 
                         </div>
-                        
 
                     </div>
 
-                    <div class="modal-footer">
 
-                        <button type="submit" class="btn btn-primary" id="btn-update" value="update" title="Update">Update
+                </div>
 
-                        </button>
+                <div class="modal-footer">
 
-                        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" aria-hidden="true"
+                    <button type="submit" class="btn btn-primary" id="btn-update" value="update" title="Update">Update
 
-                            title="Cancel">Cancel</button>
+                    </button>
 
-                    </div>
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" aria-hidden="true" title="Cancel">Cancel</button>
 
-                </form>
+                </div>
 
-            </div>
+            </form>
 
         </div>
 
     </div>
+
+</div>
 
 @endsection
 
@@ -353,7 +346,6 @@
 <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
 
 <script>
-   
     function inquiryDetails(page) {
         var parentStatus = '{{$parents->status}}';
         $.ajax({
@@ -375,7 +367,7 @@
                 $('#responsive_id').html("");
 
                 $('#responsive_id').html(res);
-                $("#calendar").css('display','none');
+                $("#calendar").css('display', 'none');
             }
 
         })
@@ -531,7 +523,7 @@
 
             $.ajax({
 
-                url: "{{url('getBooklesson?id=')}}"+id,
+                url: "{{url('getBooklesson?id=')}}" + id,
 
                 type: "GET",
 
@@ -539,15 +531,15 @@
                     var json = res.data[0];
                     $("#lesson_edit").val(json.id);
 
-                    $('#days option[value='+json.tuition_day+']').attr('selected','selected');
-                    $('#time option[value="'+json.tuition_time+'"]').attr('selected','selected');
+                    $('#days option[value=' + json.tuition_day + ']').attr('selected', 'selected');
+                    $('#time option[value="' + json.tuition_time + '"]').attr('selected', 'selected');
                     $('#editajax-crud-modal').modal('show');
                 }
             });
         }
     }
 
-    $('#editLesson').submit(function (event) {
+    $('#editLesson').submit(function(event) {
         event.preventDefault();
 
         var tuition_day = $('#days').val();
@@ -567,7 +559,7 @@
             cnt = 1;
 
         }
-    
+
         if (tuition_time.trim() == '') {
 
             $('#error_time').html("Ideal Tuition Time is required");
@@ -622,7 +614,7 @@
 
         }
 
-        });
+    });
 </script>
 
 @endsection
