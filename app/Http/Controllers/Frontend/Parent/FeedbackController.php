@@ -27,12 +27,13 @@ class FeedbackController extends Controller
    }
    public function submitParentFeedback(Request $request)
    {
+
       $parentId = Auth()->user()->id;
     $parentDetaials = ParentDetailHelper::getParentDetailsById($request->unique_id);
       $validator = Validator::make($request->all(), [
          'description' => 'required',
-         'subject' => 'required |max:35',
-         'outcome' => 'required |max:5',
+         'subject' => 'required',
+         'outcome' => 'required |max:15',
          'rating' => 'required',
       ]);
 
