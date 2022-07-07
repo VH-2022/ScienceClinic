@@ -5,7 +5,7 @@
 namespace App\Helpers;
 
 use App\Models\ParentDetail;
-
+use Carbon\Carbon;
 class ParentDetailHelper
 {
 
@@ -75,10 +75,14 @@ class ParentDetailHelper
     }
     public static function saveHours($id, $hours, $hourly_rate, $teaching_start_time)
     {
+
+        $time = Carbon::parse($teaching_start_time);
+        $endTime = $time->addHours($hours);
         $arrData = array(
             'teaching_hours' => $hours,
             'hourly_rate' => $hourly_rate,
             'teaching_start_time' => date("H:i:s", strtotime($teaching_start_time)),
+            'teaching_end_time' => $endTime
         );
         $query = ParentDetail::where('id', $id)->update($arrData);
         return $query;

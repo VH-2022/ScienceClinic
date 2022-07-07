@@ -110,7 +110,6 @@ class BecomeTutorController extends Controller
      */
 
     public function store(Request $request)
-
     {
         $rules = array(
             'name' => 'required | max:30',
@@ -287,7 +286,7 @@ class BecomeTutorController extends Controller
                 if ($data && $detail && $university && $subject) {
                     $adminData = UserHelper::getAdminData();
                     $email = $adminData->email;
-                    $html = '
+                    $html = '<p>Here mention new tutor inquiry details.</p><br>
                         <p style="margin-bottom: 0px;">Name : <span>' . $request->name . '</span></p>
                         <p style="margin-bottom: 0px;">Email : <span>' . $request->email . '</span></p>
                         <p style="margin-bottom: 0px;">Phone No : <span>' . $request->mobile . '</span></p>

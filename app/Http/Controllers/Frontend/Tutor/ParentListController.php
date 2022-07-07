@@ -6,7 +6,6 @@ use App\Helpers\ParentDetailHelper;
 use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\ParentDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,7 +20,6 @@ class ParentListController extends Controller
 
     public function getParentDetails($id)
     {
-
         $data['parentData'] = UserHelper::getParentDetailsById($id);
         return view('frontend.tutor.tutor-parent-details', $data);
     }
@@ -45,7 +43,7 @@ class ParentListController extends Controller
     }
     public function saveTutoringHours(Request $request)
     {
-        
+
         $rules = array(
             'hours' => 'required | max:3',
             'hourly_rate' => 'required',

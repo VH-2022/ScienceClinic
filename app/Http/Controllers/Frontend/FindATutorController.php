@@ -270,13 +270,8 @@ class FindATutorController extends Controller
                     'password' => Hash::make($request->password),
                 );
 
-
-
-
                 $userData = UserHelper::save($userArr);
                 if ($userData) {
-
-
                     $inquiryArr = array(
                         'user_id' => $userData,
                         'subject_id' => $request->subjectinquiry,
@@ -290,10 +285,10 @@ class FindATutorController extends Controller
 
 
                     $inquiry = ParentDetailHelper::save($inquiryArr);
-                    if ($inquiry && $userData) {
+                    if ($inquiry) {
                         $adminData = UserHelper::getAdminData();
                         $email = $adminData->email;
-                        $html = '
+                        $html = '<p>Here mention new parent inquiry details.</p><br>
                             <p style="margin-bottom: 0px;">Name : <span>' . $request->first_name . ' '.$request->last_name.'</span></p>
                             <p style="margin-bottom: 0px;">Email : <span>' . $request->email . '</span></p>
                             <p style="margin-bottom: 0px;">Phone No : <span>' . $request->phone . '</span></p>
