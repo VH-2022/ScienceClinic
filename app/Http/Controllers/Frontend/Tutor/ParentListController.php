@@ -47,7 +47,7 @@ class ParentListController extends Controller
     {
         
         $rules = array(
-            'hours' => 'required | max:4',
+            'hours' => 'required | max:3',
             'hourly_rate' => 'required',
         );
         $validator = Validator::make($request->all(), $rules);

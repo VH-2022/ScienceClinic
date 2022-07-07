@@ -204,12 +204,12 @@
                 '<form action="" class="formName">' +
                 '<div class="form-group">' +
                 '<label>Enter Teaching Hours <span class="text-danger">*</span></label>' +
-                '<input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" name="teaching_hours" id="teaching_hours" placeholder="Enter Teaching Hours" class="hours form-control number-only" required />' +
+                '<input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" maxlength="3" name="teaching_hours" id="teaching_hours" placeholder="Enter Teaching Hours" class="hours form-control number-only" required />' +
                 '<span class="text-danger" id="error_hours"></span>' +
                 '</div>' +
                 '<div class="form-group">' +
                 '<label>Enter Hourly Rate <span class="text-danger">*</span></label>' +
-                '<input type="number" name="hourly_rate" id="hourly_rate" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" placeholder="Enter Hourly Rate" class="hours form-control number-only" required />' +
+                '<input type="number" name="hourly_rate" id="hourly_rate" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" maxlength="3" placeholder="Enter Hourly Rate" class="hours form-control number-only" required />' +
                 '<span class="text-danger" id="error_hourly_rate"></span>' +
                 '</div>' +
                 '<div class="form-group">' +
