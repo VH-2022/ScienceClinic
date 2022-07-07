@@ -53,4 +53,8 @@ class OnlineTutoringHelper
         $query = $query->orderBy('id','desc')->paginate(10);
         return $query;
     }
+    public static function getDetails(){
+        $query = OnlineTutoring::select('id','online_tutoring_name')->whereNull('deleted_at')->get();
+        return $query;
+    }
 }

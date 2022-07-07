@@ -73,11 +73,12 @@ class ParentDetailHelper
     {
         return ParentDetail::where('tuition_time', $time)->where('id', $userId)->first();
     }
-    public static function saveHours($id, $hours, $hourly_rate, $teaching_start_time)
+    public static function saveHours($id, $hours, $hourly_rate, $teaching_start_time, $teaching_type)
     {
         $arrData = array(
             'teaching_hours' => $hours,
             'hourly_rate' => $hourly_rate,
+            'teaching_type' => $teaching_type,
             'teaching_start_time' => date("H:i:s", strtotime($teaching_start_time)),
         );
         $query = ParentDetail::where('id', $id)->update($arrData);

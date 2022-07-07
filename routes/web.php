@@ -221,6 +221,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-missed-lesson-ajax', 'TutorAvailabilityController@missedLessonAjax')->name('tutor-missed-lesson-ajax');
         $backendVerified->post('add-missed-lesson-reason', 'TutorAvailabilityController@addMissedLessonReason')->name('add-missed-lesson-reason');
         $backendVerified->get('merithub-classroom', 'TutorMerithubController@getToken')->name('merithub-classroom');
+        $backendVerified->get('get-online-tutoring-data', 'ParentListController@getOnlineTutoringData')->name('get-online-tutoring-data');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {

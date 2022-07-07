@@ -3,13 +3,13 @@
 " rel="stylesheet">
 <link href="{{ asset('assets/plugins/custom/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
 <style>
-.bootstrap-timepicker-widget table td input{
-    width: 33px !important;
-}
-.table
-{
-    font-size: 13px !important;
-}
+    .bootstrap-timepicker-widget table td input {
+        width: 33px !important;
+    }
+
+    .table {
+        font-size: 13px !important;
+    }
 </style>
 @section('content')
 <div class="d-flex flex-column-fluid">
@@ -155,7 +155,7 @@
             url: "{{ route('parent-subject-details') }}",
 
             data: {
-                parentID:parentID,
+                parentID: parentID,
             },
 
             success: function(res) {
@@ -171,133 +171,183 @@
 
 
     function attendClass(id) {
-        $.confirm({  
-        title: 'Are you sure?',
-        columnClass:"col-md-6",
-        content: "you want to attend this class?",
-        buttons: {
-            formSubmit: {
-                text: 'Submit',
-                btnClass: 'btn-danger',
-                action: function () { 
-                    $.ajax({
-                                type: "post",
-                                url: "{{ route('attend-lesson-subject') }}",
-                                data: {
-                                    'id': id,
-                                    "_token": "{{ csrf_token() }}"
-                                },
-
-                                success: function(res) {
-                                    if (res.status == 1) {
-                                        toastr.success(res.error_msg);
-                                        addSubjectList(1);
-                                    } else {
-                                        toastr.error(res.error_msg);
-                                    }
-                                }
-
-                            });
-                }
-            },
-            cancel: function () {
-            },
-        },
-        onContentReady: function () {
-        }
-    });
-    }
-    function addTeacingHours(id) {
         $.confirm({
-            title: 'Add Teaching Hours',
-            content: '' +
-                '<form action="" class="formName">' +
-                '<div class="form-group">' +
-                '<label>Enter Teaching Hours <span class="text-danger">*</span></label>' +
-                '<input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" name="teaching_hours" id="teaching_hours" placeholder="Enter Teaching Hours" class="hours form-control number-only" required />' +
-                '<span class="text-danger" id="error_hours"></span>' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<label>Enter Hourly Rate <span class="text-danger">*</span></label>' +
-                '<input type="number" name="hourly_rate" id="hourly_rate" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" placeholder="Enter Hourly Rate" class="hours form-control number-only" required />' +
-                '<span class="text-danger" id="error_hourly_rate"></span>' +
-                '</div>' + 
-                '<div class="form-group">' +
-                '<label>Enter Teaching Start Time <span class="text-danger">*</span></label>' +
-                '<input type="text" name="teaching_start_time" id="teaching_start_time" placeholder="Enter Teaching Start Time" class="form-control" required />' +
-                '<span class="text-danger" id="error_teaching_start_time"></span>' +
-                '</div>' +
-                '</form>',
+            title: 'Are you sure?',
+            columnClass: "col-md-6",
+            content: "you want to attend this class?",
             buttons: {
                 formSubmit: {
                     text: 'Submit',
-                    btnClass: 'btn-blue',
+                    btnClass: 'btn-danger',
                     action: function() {
-                        var hours = $("#teaching_hours").val();
-                        var hourly_rate = $("#hourly_rate").val();
-                        var teaching_start_time = $("#teaching_start_time").val();
-                        var temp = 0;
-                        if (hours.trim() == '') {
-                            $('#error_hours').html("Please enter Teaching Hours");
-                            temp++;
-                        }
-                        if (hourly_rate.trim() == '') {
-                            $('#error_hourly_rate').html("Please enter Hourly Rates");
-                            temp++;
-                        }
-                        if (teaching_start_time.trim() == '') {
-                            $('#error_teaching_start_time').html("Please enter Teaching Start Time");
-                            temp++;
-                        }
+                        $.ajax({
+                            type: "post",
+                            url: "{{ route('attend-lesson-subject') }}",
+                            data: {
+                                'id': id,
+                                "_token": "{{ csrf_token() }}"
+                            },
 
-                        if(temp == 0){
-                            $.ajax({
-                                type: "post",
-                                url: "{{ route('add-teaching-hours') }}",
-                                data: {
-                                    'id': id,
-                                    'hours': hours,
-                                    'hourly_rate': hourly_rate,
-                                    'teaching_start_time': teaching_start_time,
-                                    "_token": "{{ csrf_token() }}"
-                                },
-
-                                success: function(res) {
-                                    if (res.status == 1) {
-                                        toastr.success(res.error_msg);
-                                        addSubjectList(1);
-                                    } else {
-                                        toastr.error(res.error_msg);
-                                    }
+                            success: function(res) {
+                                if (res.status == 1) {
+                                    toastr.success(res.error_msg);
+                                    addSubjectList(1);
+                                } else {
+                                    toastr.error(res.error_msg);
                                 }
+                            }
 
-                            });
-                        }else{
-                            return false;
-                        }
-
-                        
+                        });
                     }
                 },
-                cancel: function() {
-
-                },
+                cancel: function() {},
             },
-            onContentReady: function() {
+            onContentReady: function() {}
+        });
+    }
 
-                var jc = this;
-                this.$content.find('form').on('submit', function(e) {
-
-                    e.preventDefault();
-                    jc.$$formSubmit.trigger('click');
+    function addTeachingHours(id) {
+        $.ajax({
+            async: false,
+            global: false,
+            url: "{{ url('get-online-tutoring-data') }}",
+            type: "GET",
+            success: function(response) {
+                var val = JSON.parse(response);
+                var html_res = '';
+                html_res += '<option value="">Select</option>';
+                $.each(val, function(k, v) {
+                    html_res += '<option value="' + v.id + '">' + v.online_tutoring_name + '</option>';
                 });
-                $('#teaching_start_time').timepicker({
-                    defaultTIme: false
+                $.confirm({
+                    title: 'Add Teaching Hours',
+                    content: '' +
+                        '<form action="" class="formName">' +
+                        '<div class="form-group">' +
+                        '<label>Enter Teaching Hours <span class="text-danger">*</span></label>' +
+                        '<input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" name="teaching_hours" id="teaching_hours" placeholder="Enter Teaching Hours" class="hours form-control number-only" required />' +
+                        '<span class="text-danger" id="error_hours"></span>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label>Enter Hourly Rate <span class="text-danger">*</span></label>' +
+                        '<input type="number" name="hourly_rate" id="hourly_rate" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" placeholder="Enter Hourly Rate" class="hours form-control number-only" required />' +
+                        '<span class="text-danger" id="error_hourly_rate"></span>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label>Enter Teaching Start Time <span class="text-danger">*</span></label>' +
+                        '<input type="text" name="teaching_start_time" id="teaching_start_time" placeholder="Enter Teaching Start Time" class="form-control" required />' +
+                        '<span class="text-danger" id="error_teaching_start_time"></span>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label>Select Teaching Type <span class="text-danger">*</span></label>' +
+                        '<select class="form-control validate_field" name="teching-type" id="teaching_type">' + html_res + '</select>' +
+                        '<span class="text-danger" id="error_teaching_type"></span>' +
+                        '</div>' +
+                        '</form>',
+                    buttons: {
+                        formSubmit: {
+                            text: 'Submit',
+                            btnClass: 'btn-blue',
+                            action: function() {
+                                var hours = $("#teaching_hours").val();
+                                var hourly_rate = $("#hourly_rate").val();
+                                var teaching_start_time = $("#teaching_start_time").val();
+                                var teaching_type = $("#teaching_type").val();
+                                var temp = 0;
+                                $('#error_hours').html("");
+                                $('#error_hourly_rate').html("");
+                                $('#error_teaching_start_time').html("");
+                                $('#error_teaching_type').html("");
+                                if (hours.trim() == '') {
+                                    $('#error_hours').html("Please enter Teaching Hours");
+                                    temp++;
+                                }
+                                if (hourly_rate.trim() == '') {
+                                    $('#error_hourly_rate').html("Please enter Hourly Rates");
+                                    temp++;
+                                }
+                                if (teaching_start_time.trim() == '') {
+                                    $('#error_teaching_start_time').html("Please enter Teaching Start Time");
+                                    temp++;
+                                }
+                                if (teaching_type == '') {
+                                    $('#error_teaching_type').html("Please select Teaching Type");
+                                    temp++;
+                                }
+                                if (temp == 0) {
+                                    $.ajax({
+                                        type: "post",
+                                        url: "{{ route('add-teaching-hours') }}",
+                                        data: {
+                                            'id': id,
+                                            'hours': hours,
+                                            'hourly_rate': hourly_rate,
+                                            'teaching_start_time': teaching_start_time,
+                                            'teaching_type': teaching_type,
+                                            "_token": "{{ csrf_token() }}"
+                                        },
+
+                                        success: function(res) {
+                                            if (res.status == 1) {
+                                                toastr.success(res.error_msg);
+                                                addSubjectList(1);
+                                            } else {
+                                                toastr.error(res.error_msg);
+                                            }
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown) {
+                                            var tempVal = 0;
+                                            if (jqXHR.responseJSON.error_msg.hours[0]) {
+                                                $('#error_hours').html(jqXHR.responseJSON.error_msg.hours[0]);
+                                                tempVal++;
+                                            } else {
+                                                $('#error_hours').html('');
+                                            }
+                                            if (jqXHR.responseJSON.error_msg.hourly_rate[0]) {
+                                                $('#error_hourly_rate').html(jqXHR.responseJSON.error_msg.hourly_rate[0]);
+                                                tempVal++;
+                                            } else {
+                                                $('#error_hourly_rate').html('');
+                                            }
+                                            if (jqXHR.responseJSON.error_msg.teaching_type[0]) {
+                                                $('#error_teaching_type').html(jqXHR.responseJSON.error_msg.teaching_type[0]);
+                                                tempVal++;
+                                            } else {
+                                                $('#error_teaching_type').html('');
+                                            }
+                                            if (tempVal == 1) {
+                                                return false;
+                                            }
+                                        }
+
+                                    });
+                                } else {
+                                    return false;
+                                }
+
+
+                            }
+                        },
+                        cancel: function() {
+
+                        },
+                    },
+                    onContentReady: function() {
+
+                        var jc = this;
+                        this.$content.find('form').on('submit', function(e) {
+
+                            e.preventDefault();
+                            jc.$$formSubmit.trigger('click');
+                        });
+                        $('#teaching_start_time').timepicker({
+                            defaultTIme: false
+                        });
+                    }
                 });
             }
         });
     }
-   
 </script>
 
 @endsection

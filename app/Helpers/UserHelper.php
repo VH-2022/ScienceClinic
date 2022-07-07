@@ -92,11 +92,12 @@ class UserHelper
         return $query;
     }
 
-    public static function updateStatus($id, $status)
+    public static function updateStatus($id, $status, $userUniqueId)
 
     {
 
         $data['status'] = $status;
+        $data['unique_user_id'] = $userUniqueId;
 
         $query  = User::where('id', $id)->update($data);
 
@@ -278,6 +279,11 @@ class UserHelper
         ->where('status','Accepted')
         ->whereNull('deleted_at')
         ->paginate(6);
+        return $query;
+    }
+    public static function updateApiResponse($id, $data)
+    {
+        $query  = User::where('id', $id)->update($data);
         return $query;
     }
 }

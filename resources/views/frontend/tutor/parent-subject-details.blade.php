@@ -53,7 +53,7 @@
 
             <td>
                 @if($val->teaching_hours == '')
-                <button class="btn btn-primary" onclick="addTeacingHours({{$val->id}});">Add</button>
+                <button class="btn btn-primary" onclick="addTeachingHours({{$val->id}});">Add</button>
                 @else
                 @php 
                     $currentDate = date('Y-m-d H:i:s');
