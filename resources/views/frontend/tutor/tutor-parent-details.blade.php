@@ -99,7 +99,7 @@
 
                         <div class="card-title tutor">
 
-                            <span class="nav-profile-name">Subject Details</span>
+                            <span class="nav-profile-name">Subject List</span>
                             <!-- <ul class="nav nav-pills nav-fill">
 
                                 <li class="nav-item">
