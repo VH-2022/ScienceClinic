@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Frontend\Tutor;
 
+use App\Helpers\OnlineTutoringHelper;
 use App\Helpers\ParentDetailHelper;
 use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class ParentListController extends Controller
 {
@@ -19,9 +21,14 @@ class ParentListController extends Controller
 
     public function getParentDetails($id)
     {
-
         $data['parentData'] = UserHelper::getParentDetailsById($id);
         return view('frontend.tutor.tutor-parent-details', $data);
+    }
+
+    public function getOnlineTutoringData()
+    {
+        $data = OnlineTutoringHelper::getDetails();
+        return json_encode($data);
     }
 
     public function parentSubjectDetails(Request $request)
@@ -47,13 +54,14 @@ class ParentListController extends Controller
         $rules = array(
             'hours' => 'required | max:4',
             'hourly_rate' => 'required',
+            'teaching_type' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return response()->json(['error_msg' => $validator->errors(), 'status' => 0], 400);
         } else {
-            $update = ParentDetailHelper::saveHours($request->id, $request->hours, $request->hourly_rate, $request->teaching_start_time);
+            $update = ParentDetailHelper::saveHours($request->id, $request->hours, $request->hourly_rate, $request->teaching_start_time, $request->teaching_type);
 
             if ($update) {
                 return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => $update, 'status' => 1], 200);

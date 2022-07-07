@@ -9,20 +9,6 @@ use Exception;
 
 class TutorMerithubController extends Controller
 {
-    function base64url_encode($str)
-    {
-        return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
-    }
-    function generate_jwt($headers, $payload, $secret = '')
-    {
-        $secret = env('MERITHUB_CLIENT_SECRET');
-        $headers_encoded = $this->base64url_encode(json_encode($headers));
-        $payload_encoded = $this->base64url_encode(json_encode($payload));
-        $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);
-        $signature_encoded = $this->base64url_encode($signature);
-        $jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
-        return $jwt;
-    }
     function is_jwt_valid($jwt, $secret = 'secret')
     {
         // split the jwt
@@ -50,13 +36,26 @@ class TutorMerithubController extends Controller
             echo "TRUE";
         }
     }
+    function base64url_encode($str)
+    {
+        return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
+    }
+    function generate_jwt($headers, $payload, $secret = '')
+    {
+        $secret = env('MERITHUB_CLIENT_SECRET');
+        $headers_encoded = $this->base64url_encode(json_encode($headers));
+        $payload_encoded = $this->base64url_encode(json_encode($payload));
+        $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);
+        $signature_encoded = $this->base64url_encode($signature);
+        $jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
+        return $jwt;
+    }
     public function getToken()
     {
         $clientId = env('MERITHUB_CLIENT_ID');
         $headers = array('alg' => 'HS256', 'typ' => 'JWT');
-        $payload = array('aud' => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/api/token', 'iss' => $clientId, 'expiry' => (time() + 60));
+        $payload = array('aud' => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/api/token', 'iss' => $clientId, 'expiry' => (time() + 55));
         $jwt = $this->generate_jwt($headers, $payload);
-
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/api/token',

@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ApiAccessTokenHelper;
 use App\Helpers\MailHelper;
 use App\Helpers\ParentDetailHelper;
 use App\Helpers\TutorDetailHelper;
@@ -22,12 +23,8 @@ use App\Helpers\TutorUniversityDetailHelper;
 use App\Helpers\TutorSubjectDetailHelper;
 
 use App\Helpers\TutorLevelDetailHelper;
-use App\Helpers\TutorLevelHelper;
-use App\Models\ParentDetail;
-use App\Models\TutorLevelDetail;
-use Validator;
-
-use Session;
+use App\Models\ApiAccessToken;
+use Illuminate\Support\Str;
 
 
 
@@ -102,7 +99,7 @@ class TutorMasterController extends Controller
 
         $data['tutor'] = TutorMasterHelper::getDetailsById($id);
         $data['level'] = TutorLevelDetailHelper::getDetailsById($id);
- 
+
         if (isset($data['tutor']->id)) {
 
             return view('admin.tutor.tutor_view', $data);
@@ -162,24 +159,134 @@ class TutorMasterController extends Controller
     }
 
 
+    function base64url_encode($str)
+    {
+        return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
+    }
+    function generate_jwt($headers, $payload, $secret = '')
+    {
+        $secret = env('MERITHUB_CLIENT_SECRET');
+        $headers_encoded = $this->base64url_encode(json_encode($headers));
+        $payload_encoded = $this->base64url_encode(json_encode($payload));
+        $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);
+        $signature_encoded = $this->base64url_encode($signature);
+        $jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
+        return $jwt;
+    }
 
     public function changeStatus(Request $request)
     {
-
-
-        $query = UserHelper::updateStatus($request->id, $request->status);
+        $character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $numbers = '0123456789';
+        $randomString = substr(str_shuffle(str_repeat($character, 5)), 0, 4);
+        $randomNumbers = substr(str_shuffle(str_repeat($numbers, 5)), 0, 4);
+        $userUniqueId = $randomNumbers . '-' . $randomString;
+        $query = UserHelper::updateStatus($request->id, $request->status, $userUniqueId);
 
         if ($query) {
 
             $getUserData = UserHelper::getUserDetails($request->id);
-            if($request->status == 'Accepted'){
+            if ($request->status == 'Accepted') {
                 $html = '<p>Your account has been approved by admin now you can login.</p>';
                 $subject = __('emails.tutor_account_email');
                 $BODY = __('emails.tutor_account_body', ['USERNAME' => $getUserData->first_name, 'HTMLTABLE' => $html]);
                 $body_email = __('emails.template', ['BODYCONTENT' => $BODY]);
                 $mail = MailHelper::mail_send($body_email, $getUserData->email, $subject);
             }
+            /*Merithub Code*/
+            $clientId = env('MERITHUB_CLIENT_ID');
+            $timeZone = env('APP_TIMEZONE');
+            $headers = array('alg' => 'HS256', 'typ' => 'JWT');
+            $payload = array('aud' => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/api/token', 'iss' => $clientId, 'expiry' => (time() + 55));
+            $jwt = $this->generate_jwt($headers, $payload);
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/api/token',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => 'grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=' . $jwt,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/x-www-form-urlencoded'
+                ),
+            ));
+            $accessToken = curl_exec($curl);
+            if (!$accessToken) {
+                echo curl_error($curl);
+            }
+            curl_close($curl);
+            if ($accessToken) {
+                $getAccessToken = json_decode($accessToken);
+                $token['access_token'] = $getAccessToken->access_token;
+                $token['time'] = date('Y-m-d H:i:s');
+                $token['api_response'] = $accessToken;
+                $dataInsert = ApiAccessTokenHelper::save($token, $request->id);
+                $lastId = $dataInsert;
+                $getData = ApiAccessTokenHelper::getDetails($lastId);
 
+                $curl = curl_init();
+                if($getUserData->type == "2"){
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/users',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => '{
+                            "name": "'.$getUserData->first_name.'",
+                            "img": "'.$getUserData->profile_photo.'",
+                            "lang": "en",
+                            "clientUserId": "'.$getUserData->unique_user_id.'",
+                            "email": "'.$getUserData->email.'",
+                            "role": "C",
+                            "timeZone": "'.$timeZone.'",
+                            "permission": "CC"
+                        }',
+                        CURLOPT_HTTPHEADER => array(
+                            'Authorization: '.$getData->access_token,
+                            'Content-Type: application/json'
+                        ),
+                    ));
+                }
+                else{
+                    $name = $getUserData->first_name.' '.$getUserData->last_name;
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/users',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => '{
+                            "name": "'.$name.'",
+                            "img": "'.$getUserData->profile_photo.'",
+                            "lang": "en",
+                            "clientUserId": "'.$getUserData->unique_user_id.'",
+                            "email": "'.$getUserData->email.'",
+                            "role": "M",
+                            "timeZone": "'.$timeZone.'",
+                            "permission": "CJ"
+                        }',
+                        CURLOPT_HTTPHEADER => array(
+                            'Authorization: '.$getData->access_token,
+                            'Content-Type: application/json'
+                        ),
+                    ));
+                }
+                $userAdded = curl_exec($curl);
+                if (!$userAdded) {
+                    echo curl_error($curl);
+                }
+                curl_close($curl);
+                $userToken['api_response'] = $userAdded;
+                $query = UserHelper::updateApiResponse($request->id, $userToken);
+            }
             return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => array('status' => $request->status)], 200);
         } else {
 
@@ -188,24 +295,21 @@ class TutorMasterController extends Controller
     }
 
     public function addHourlyRate(Request $request)
-    {       
-      $update = TutorLevelDetailHelper::saveHourlyRate($request->tutor_id, $request->rate,$request->subject_id);
-      
-      if($update)
-      {
+    {
+        $update = TutorLevelDetailHelper::saveHourlyRate($request->tutor_id, $request->rate, $request->subject_id);
+
+        if ($update) {
             return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => $update], 200);
         } else {
 
             return response()->json(['error_msg' => trans('messages.error'), 'data' => array()], 500);
         }
-      
     }
     public function getCount(Request $request)
     {
-    
+
         $data = TutorLevelDetailHelper::getDetailsById($request->id);
-     
-            return response()->json(['error_msg' => 'Success', 'data' => $data], 200);
-      
+
+        return response()->json(['error_msg' => 'Success', 'data' => $data], 200);
     }
 }
