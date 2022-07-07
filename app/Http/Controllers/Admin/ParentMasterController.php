@@ -43,7 +43,6 @@ class ParentMasterController extends Controller
     {
         
         $data['parents'] = UserHelper::getDetailsById($id);
-
         if (isset($data['parents']->id)) {
 
             return view('admin.parent.parent_details', $data);
@@ -65,10 +64,10 @@ class ParentMasterController extends Controller
                 //send mail to parent for payment
                 $html = '<p>Admin has sent you a payment request for subject '.$getUserData->subjectDetails->main_title.'.</p><p>Please click on the link below to make a secure online payment:</p>
                 <h5>Stirpe</h5>
-                <a href="' . URL::to('/stripe-payment/' . $encrypted) . '">' . URL::to('/stripe-payment/' . $encrypted) . '</a>
+                <a href="' . URL::to('/stripe-payment/' . $encrypted) . '"><button style="color: #FFFFFF;background-color: #0f7dc2; border-color: #187DE4;">Pay Using Stripe</button></a>
                 <br/>
                 <h5>Paypal</h5>
-                <a href="' . URL::to('/paypal-payment/' . $encrypted) . '">' . URL::to('/stripe-payment/' . $encrypted) . '</a>';
+                <a href="' . URL::to('/paypal-payment/' . $encrypted) . '"><button style="color: #FFFFFF;background-color: #0f7dc2; border-color: #187DE4;">Pay Using Paypal</button></a>';
                 $subject = __('emails.payment_email');
                 $BODY = __('emails.payment_email_body', ['USERNAME' => $getUserData->userDetails->first_name, 'HTMLTABLE' => $html]);
                 $body_email = __('emails.template', ['BODYCONTENT' => $BODY]);
@@ -166,15 +165,11 @@ class ParentMasterController extends Controller
         $data['parentStatus'] = $request->parentStatus;
         $tutor_id = $request->tutor_id;
         $data['query'] = ParentDetailHelper::getListwithPaginate($tutor_id);
-      
-
         return view('admin.parent.tutor_inquiry_list', $data);
     }
 
     public function destroy($id)
-
     {
-  
 
         $update = UserHelper::SoftDelete(array(), array('id' => $id));
 
