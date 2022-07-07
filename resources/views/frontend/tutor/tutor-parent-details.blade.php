@@ -38,7 +38,7 @@
 
                             <span class="nav-profile-name">Parent Details</span>
 
-                           
+
 
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                                 <div class="d-flex mb-4">
 
                                     <strong>First Name: </strong>
-                                    {{$parentData->first_name}} 
+                                    {{$parentData->first_name}}
 
                                 </div>
 
@@ -68,7 +68,7 @@
 
                             </div>
 
-                            
+
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
@@ -99,7 +99,8 @@
 
                         <div class="card-title tutor">
 
-                            <ul class="nav nav-pills nav-fill">
+                            <span class="nav-profile-name">Subject Details</span>
+                            <!-- <ul class="nav nav-pills nav-fill">
 
                                 <li class="nav-item">
 
@@ -108,7 +109,7 @@
                                     </a>
 
                                 </li>
-                            </ul>
+                            </ul> -->
 
                         </div>
 
