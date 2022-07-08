@@ -20,6 +20,9 @@ return
 		'parent_inquiry' => 'Science Clinic Parent Inquiry',
 		'parent_inquiry_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
 
+		'merithub_parent_link' => 'Merithub Join Link',
+		'merithub_parent_link_body' => '<p style="font-family: "Poppins-SemiBold";">Hello :USERNAME,</p><br/> :HTMLTABLE',
+
 		'template' => '<!DOCTYPE html>
 		<html lang="en">
 

@@ -34,6 +34,18 @@ class ParentDetailHelper
     {
         return ParentDetail::where('id', $id)->update(array('attend_class' => '1', 'updated_at' => date('Y-m-d H:i:s')));
     }
+    public static function getMerithubStudentlesson($tutorId, $subjectId, $teachingType)
+    {
+        return ParentDetail::where('tutor_id', $tutorId)->where('teaching_type', $teachingType)->where('schedule_class', 0)->where('subject_id', $subjectId)->whereDate('booking_date', date('Y-m-d'))->get();
+    }
+    public static function getScheduledMerithubStudentlesson($tutorId, $subjectId, $teachingType)
+    {
+        return ParentDetail::where('tutor_id', $tutorId)->where('teaching_type', $teachingType)->where('schedule_class', 1)->where('subject_id', $subjectId)->whereDate('booking_date', date('Y-m-d'))->get();
+    }
+    public static function attendMerithubStudentlesson($id, $tutorId, $subjectId)
+    {
+        return ParentDetail::where('id', $id)->where('tutor_id', $tutorId)->where('subject_id', $subjectId)->whereDate('booking_date', date('Y-m-d'))->update(array('attend_class' => '1', 'updated_at' => date('Y-m-d H:i:s'), 'schedule_class' => 1));
+    }
     public static function getBooklessondata($id)
     {
         return ParentDetail::with('tutorDetails', 'subjectDetails', 'levelDetails')->where('user_id', $id)->where('payment_status', 'Success')->get();
@@ -60,8 +72,7 @@ class ParentDetailHelper
     public static function getListwithPaginateWithParent($parentID, $id)
     {
 
-        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)
-            ->groupBy('subject_id')->get();
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)->whereDate('booking_date','>=',date('Y-m-d'))->groupBy('subject_id')->get();
         return $query;
     }
     public static function getBookSlotData($time)
@@ -131,6 +142,17 @@ class ParentDetailHelper
         ->where('payment_status','Success')
         ->where('booking_status','Success')
         ->paginate(10);
+        return $query;
+    }
+    public static function getSubjectDetails($id, $tutorId, $subjectId){
+        return ParentDetail::with('subjectDetails')->where('id', $id)->where('tutor_id', $tutorId)->where('subject_id', $subjectId)->whereDate('booking_date', date('Y-m-d'))
+        ->whereHas('subjectDetails', function ($subjectQuery) {
+            $subjectQuery->whereNull('deleted_at');
+        })
+        ->first();
+    }
+    public static function updateResponse($subject_id, $id, $data){
+        $query = ParentDetail::where('subject_id', $subject_id)->where('tutor_id', $id)->whereDate('booking_date', date('Y-m-d'))->update($data);
         return $query;
     }
 }

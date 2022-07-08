@@ -170,7 +170,7 @@
     }
 
 
-    function attendClass(id) {
+    function attendClass(id, subjectId, teachingType) {
         $.confirm({
             title: 'Are you sure?',
             columnClass: "col-md-6",
@@ -185,6 +185,8 @@
                             url: "{{ route('attend-lesson-subject') }}",
                             data: {
                                 'id': id,
+                                'subjectId': subjectId,
+                                'teachingType': teachingType,
                                 "_token": "{{ csrf_token() }}"
                             },
 

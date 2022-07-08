@@ -30,7 +30,6 @@
         @if (count($query) > 0)
 
         @foreach ($query as $val)
-
         <tr>
 
             <td>{{ $i }}</td>
@@ -63,11 +62,11 @@
                     $endDatetime = date('Y-m-d H:i:s', strtotime('+ 1 hours',strtotime($val->teaching_start_time)));
 
                         if (($currentDate >= $currentTime) && ($currentDate <= $endDatetime)){ 
-                            if($val->attend_class == '1'){ echo '<span class="text-success">Attended</span>';  }else{    
+                            if($val->attend_class == '1' && $val->schedule_class == 1 ){ echo '<span class="text-success">A Link has been Sent on Mail. Please Check Mail.</span>';  } elseif($val->attend_class == '1'){ echo '<span class="text-success">Attended</span>'; } else {    
                     @endphp
                         
 
-                        <button class="btn btn-primary" onclick="attendClass({{$val->id}});">Attend</button>
+                        <button class="btn btn-primary" onclick="attendClass({{$val->id}},{{$val->subject_id}},{{$val->teaching_type}});">Attend</button>
 
                    @php } } 
                 @endphp

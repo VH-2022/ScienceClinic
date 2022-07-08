@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ApiAccessTokenHelper;
 use App\Helpers\MailHelper;
+use App\Helpers\MerithubHelper as Helper;
 use App\Helpers\ParentDetailHelper;
 use App\Helpers\TutorDetailHelper;
 use App\Http\Controllers\Controller;
@@ -157,8 +158,6 @@ class TutorMasterController extends Controller
 
         return view('admin.tutor.tutor_other_list', $data);
     }
-
-
     function base64url_encode($str)
     {
         return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
@@ -166,14 +165,13 @@ class TutorMasterController extends Controller
     function generate_jwt($headers, $payload, $secret = '')
     {
         $secret = env('MERITHUB_CLIENT_SECRET');
-        $headers_encoded = $this->base64url_encode(json_encode($headers));
-        $payload_encoded = $this->base64url_encode(json_encode($payload));
+        $headers_encoded = self::base64url_encode(json_encode($headers));
+        $payload_encoded = self::base64url_encode(json_encode($payload));
         $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);
-        $signature_encoded = $this->base64url_encode($signature);
+        $signature_encoded = self::base64url_encode($signature);
         $jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
         return $jwt;
     }
-
     public function changeStatus(Request $request)
     {
         $character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -198,7 +196,7 @@ class TutorMasterController extends Controller
             $timeZone = env('APP_TIMEZONE');
             $headers = array('alg' => 'HS256', 'typ' => 'JWT');
             $payload = array('aud' => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/api/token', 'iss' => $clientId, 'expiry' => (time() + 55));
-            $jwt = $this->generate_jwt($headers, $payload);
+            $jwt = self::generate_jwt($headers, $payload);
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_URL => 'https://serviceaccount1.meritgraph.com/v1/' . $clientId . '/api/token',
@@ -213,6 +211,7 @@ class TutorMasterController extends Controller
                     'Content-Type: application/x-www-form-urlencoded'
                 ),
             ));
+            curl_setopt($curl, CURLOPT_FAILONERROR, true);
             $accessToken = curl_exec($curl);
             if (!$accessToken) {
                 echo curl_error($curl);
@@ -280,6 +279,7 @@ class TutorMasterController extends Controller
                     ));
                 }
                 $userAdded = curl_exec($curl);
+                curl_setopt($curl, CURLOPT_FAILONERROR, true);
                 if (!$userAdded) {
                     echo curl_error($curl);
                 }

@@ -281,6 +281,14 @@ class UserHelper
         ->paginate(6);
         return $query;
     }
+    public static function getTutorDetailsById($id){
+        $query = User::select('id','first_name','api_response')->where('id', $id)->where('type', 2)->whereNull('deleted_at')->first();
+        return $query;
+    }
+    public static function getTutorDetailsByIdMerithub($id){
+        $query = User::where('id', $id)->where('type', 2)->whereNull('deleted_at')->first();
+        return $query;
+    }
     public static function updateApiResponse($id, $data)
     {
         $query  = User::where('id', $id)->update($data);
