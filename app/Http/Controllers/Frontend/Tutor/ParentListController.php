@@ -202,7 +202,7 @@ class ParentListController extends Controller
     {
 
         $rules = array(
-            'hours' => 'required | max:3',
+            'hours' => 'required | max:4',
             'hourly_rate' => 'required',
             'teaching_type' => 'required'
         );
