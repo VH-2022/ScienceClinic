@@ -72,7 +72,7 @@ class ParentDetailHelper
     public static function getListwithPaginateWithParent($parentID, $id)
     {
 
-        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)->whereDate('booking_date','>=',date('Y-m-d'))->groupBy('subject_id')->get();
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)->groupBy('subject_id')->get();
         return $query;
     }
     public static function getBookSlotData($time)

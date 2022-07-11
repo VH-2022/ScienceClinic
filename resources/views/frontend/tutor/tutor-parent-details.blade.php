@@ -247,6 +247,17 @@
                                 var hourly_rate = $("#hourly_rate").val();
                                 var teaching_start_time = $("#teaching_start_time").val();
                                 var teaching_type = $("#teaching_type").val();
+                                var tutionTime = $('#desc' + id).html();
+                                var time = tutionTime.split('-');
+                                var startTime = time[0];
+                                var endTime = time[1];
+                                var teachingTime = moment(teaching_start_time, "h:mm:ss A").format("HH:mm:ss");
+                                var startTimeVal = moment(startTime, "h:mm:ss A").format("HH:mm:ss");
+                                var endTimeVal = moment(endTime, "h:mm:ss A").format("HH:mm:ss");
+                                var format = 'hh:mm:ss';
+                                var time = moment(teachingTime, format),
+                                    beforeTime = moment(startTimeVal, format),
+                                    afterTime = moment(endTimeVal, format);
                                 var temp = 0;
                                 $('#error_hours').html("");
                                 $('#error_hourly_rate').html("");
@@ -262,6 +273,10 @@
                                 }
                                 if (teaching_start_time.trim() == '') {
                                     $('#error_teaching_start_time').html("Please enter Teaching Start Time");
+                                    temp++;
+                                }
+                                else if ((!time.isBetween(beforeTime, afterTime)) && (!time.isSame(beforeTime)) && (!time.isSame(afterTime))) {
+                                    $('#error_teaching_start_time').html("Please enter Teaching Start Time Between " + startTime + " & " + endTime);
                                     temp++;
                                 }
                                 if (teaching_type == '') {

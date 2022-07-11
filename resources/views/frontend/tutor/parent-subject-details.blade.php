@@ -49,7 +49,7 @@
             <td>
                 {{$val->hourly_rate}}
             </td>
-
+            <span id="desc{{$val->id}}" style="display:none">{{ $val->tuition_time}}</span>
             <td>
                 @if($val->teaching_hours == '')
                 <button class="btn btn-primary" onclick="addTeachingHours({{$val->id}});">Add</button>
