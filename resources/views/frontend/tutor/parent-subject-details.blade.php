@@ -65,9 +65,9 @@
                             if($val->attend_class == '1' && $val->schedule_class == 1 ){ echo '<span class="text-success">A Link has been Sent on Mail. Please Check Mail.</span>';  } elseif($val->attend_class == '1'){ echo '<span class="text-success">Attended</span>'; } else {    
                     @endphp
                         
-
+                    @if($val->payment_status == "Success")
                         <button class="btn btn-primary" onclick="attendClass({{$val->id}},{{$val->subject_id}},{{$val->teaching_type}});">Attend</button>
-
+                    @endif
                    @php } } 
                 @endphp
                 @endif
