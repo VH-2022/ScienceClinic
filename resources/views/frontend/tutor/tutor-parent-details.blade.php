@@ -247,6 +247,7 @@
                                 var hourly_rate = $("#hourly_rate").val();
                                 var teaching_start_time = $("#teaching_start_time").val();
                                 var teaching_type = $("#teaching_type").val();
+                                var minutes = hours.split('.');
                                 var temp = 0;
                                 $('#error_hours').html("");
                                 $('#error_hourly_rate').html("");
@@ -255,6 +256,11 @@
                                 if (hours.trim() == '') {
                                     $('#error_hours').html("Please enter Teaching Hours");
                                     temp++;
+                                } else {
+                                    if (minutes[1] > 59) {
+                                        $('#error_hours').html("Please enter valid Teaching Hours");
+                                        temp++;
+                                    }
                                 }
                                 if (hourly_rate.trim() == '') {
                                     $('#error_hourly_rate').html("Please enter Hourly Rates");
@@ -274,7 +280,8 @@
                                         url: "{{ route('add-teaching-hours') }}",
                                         data: {
                                             'id': id,
-                                            'hours': hours,
+                                            'hours': minutes[0],
+                                            'minutes':minutes[1],
                                             'hourly_rate': hourly_rate,
                                             'teaching_start_time': teaching_start_time,
                                             'teaching_type': teaching_type,
