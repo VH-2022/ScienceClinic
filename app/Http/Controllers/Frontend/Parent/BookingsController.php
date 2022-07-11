@@ -17,9 +17,13 @@ class BookingsController extends Controller
     }
     public function getTutorAvailabilityDetails()
     {
-        $userId = Auth::user()->id;
-        $data = ParentDetailHelper::getBooklessondata($userId);
-        return response()->json($data);
+        $userData = Auth::user();
+        if(Auth::user()->status == 'Accepted'){
+            $data = ParentDetailHelper::getBooklessondata($userData->id);
+            return response()->json($data);
+        }else{
+            return response()->json();
+        }
     }
     public function addTutorAvailability(Request $request)
     {

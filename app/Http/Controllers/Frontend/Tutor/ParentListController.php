@@ -18,7 +18,8 @@ class ParentListController extends Controller
 {
     public function index()
     {
-        $data['parentslist'] = UserHelper::getApprovedParentsList();
+      $tutorId = auth::user()->id;
+        $data['parentslist'] = ParentDetailHelper::getParentData($tutorId);
         return view('frontend.tutor.tutor-parent-list', $data);
     }
 
@@ -201,7 +202,7 @@ class ParentListController extends Controller
     {
 
         $rules = array(
-            'hours' => 'required | max:4',
+            'hours' => 'required | max:3',
             'hourly_rate' => 'required',
             'teaching_type' => 'required'
         );

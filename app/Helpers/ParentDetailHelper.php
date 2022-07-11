@@ -5,7 +5,7 @@
 namespace App\Helpers;
 
 use App\Models\ParentDetail;
-
+use Carbon\Carbon;
 class ParentDetailHelper
 {
 
@@ -86,11 +86,15 @@ class ParentDetailHelper
     }
     public static function saveHours($id, $hours, $hourly_rate, $teaching_start_time, $teaching_type)
     {
+
+        $time = Carbon::parse($teaching_start_time);
+        $endTime = $time->addHours($hours);
         $arrData = array(
             'teaching_hours' => $hours,
             'hourly_rate' => $hourly_rate,
             'teaching_type' => $teaching_type,
             'teaching_start_time' => date("H:i:s", strtotime($teaching_start_time)),
+            'teaching_end_time' => $endTime
         );
         $query = ParentDetail::where('id', $id)->update($arrData);
         return $query;
@@ -115,33 +119,45 @@ class ParentDetailHelper
     }
     public static function getMissedLesson()
     {
-        $query =  ParentDetail::with(['tutorDetails', 'subjectDetails'])->select('id','tuition_day', 'tutor_id', 'subject_id', 'attend_class', 'tutor_reject_reason', 'teaching_start_time', 'booking_date')
-        ->whereHas('subjectDetails', function ($subjectQuery) {
-            $subjectQuery->whereNull('deleted_at');
-        })
-        ->whereHas('tutorDetails', function ($queryVal) {
-            $queryVal->where('status','Accepted');
-        })
-        ->where('attend_class','0')
-        ->get();
+        $query =  ParentDetail::with(['tutorDetails', 'subjectDetails'])->select('id', 'tuition_day', 'tutor_id', 'subject_id', 'attend_class', 'tutor_reject_reason', 'teaching_start_time', 'booking_date')
+            ->whereHas('subjectDetails', function ($subjectQuery) {
+                $subjectQuery->whereNull('deleted_at');
+            })
+            ->whereHas('tutorDetails', function ($queryVal) {
+                $queryVal->where('status', 'Accepted');
+            })
+            ->where('attend_class', '0')
+            ->get();
         return $query;
     }
     public static function getPaidParentListWithPaginate($id)
     {
-        $query =  ParentDetail::with(['userDetails', 'tutorDetails','subjectDetails'])->select('id','user_id', 'booking_date', 'payment_status','subject_id','tutor_id')
-        ->whereHas('userDetails', function ($queryVal) {
-            $queryVal->where('status','Accepted');
+        $query =  ParentDetail::with(['userDetails', 'tutorDetails', 'subjectDetails'])->select('id', 'user_id', 'booking_date', 'payment_status', 'subject_id', 'tutor_id')
+            ->whereHas('userDetails', function ($queryVal) {
+                $queryVal->where('status', 'Accepted');
+            })
+            ->whereHas('subjectDetails', function ($subjectQuery) {
+                $subjectQuery->whereNull('deleted_at');
+            })
+            ->whereHas('tutorDetails', function ($tutorVal) {
+                $tutorVal->where('status', 'Accepted');
+            })
+            ->where('user_id', $id)
+            ->where('payment_status', 'Success')
+            ->where('booking_status', 'Success')
+            ->paginate(10);
+        return $query;
+    }
+    public static function getParentData($id)
+    {
+        $query =  ParentDetail::with('userDetails')->whereHas('userDetails', function ($queryVal) {
+            $queryVal->where('status', 'Accepted');
+            $queryVal->whereNull('deleted_at');
+            $queryVal->orderBy('id', 'desc');
         })
-        ->whereHas('subjectDetails', function ($subjectQuery) {
-            $subjectQuery->whereNull('deleted_at');
-        })
-        ->whereHas('tutorDetails', function ($tutorVal) {
-            $tutorVal->where('status','Accepted');
-        })
-        ->where('user_id',$id)
-        ->where('payment_status','Success')
-        ->where('booking_status','Success')
-        ->paginate(10);
+            ->where('tutor_id', $id)
+            ->groupBy('user_id')
+            ->paginate(10);
         return $query;
     }
     public static function getSubjectDetails($id, $tutorId, $subjectId){

@@ -142,7 +142,11 @@
             $('#reason_error').html("Reason is required");
             cnt = 1;
         }
-        $.ajax({
+        if(cnt == 1){
+            return false;
+        }
+        else{
+            $.ajax({
             async: false,
             global: false,
             url: "{{ route('add-missed-lesson-reason') }}",
@@ -164,6 +168,7 @@
             }
 
         });
+        }
     });
 
     function showReason(id) {

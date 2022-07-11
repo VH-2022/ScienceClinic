@@ -38,26 +38,25 @@
                                 <tr>
 
                                     <th>#</th>
-                                    <th>Parent Name</th>
-                                    <th>Email</th>
-                                    <th>Contact No</th>
-
+                                    <th>Parent First Name</th>
+                                    <th>Parent Last Name</th>
+                                    <th>Address</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                               
+
 
                                 @if (count($parentslist) > 0)
                                 @php $temp = 1; @endphp
                                 @foreach($parentslist as $value)
                                 <tr>
                                     <td>{{$temp}}</td>
-                                    <td>{{$value->first_name}} {{$value->last_name}}</td>
-                                    <td>{{$value->email}}</td>
-                                    <td>{{$value->mobile_id}}</td>
+                                    <td>{{isset($value->userDetails->first_name) ? $value->userDetails->first_name :''}}</td>
+                                    <td>{{isset($value->userDetails->last_name) ? $value->userDetails->last_name :''}}</td>
+                                    <td>{{isset($value->userDetails->address1) ? Str::limit($value->userDetails->address1, 20) :''}}</td>
                                     <td>
-                                        <a href="{{route('tutor-parent-details',$value->id)}}"><i class="fa fa-eye"></i></a>
+                                        <a href="{{route('tutor-parent-details',$value->user_id)}}"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                                 @php $temp++; @endphp

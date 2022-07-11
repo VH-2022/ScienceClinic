@@ -54,12 +54,12 @@
                 @if($val->teaching_hours == '')
                 <button class="btn btn-primary" onclick="addTeachingHours({{$val->id}});">Add</button>
                 @else
-                @php 
-                    $currentDate = date('Y-m-d H:i:s');
+                @php
+                $currentDate = date('Y-m-d H:i:s');
 
-                    $bookingDatetime = $val->booking_date.' '. $val->teaching_start_time;
-                    $currentTime = date('Y-m-d H:i:s', strtotime('-15 minutes', strtotime($bookingDatetime)));
-                    $endDatetime = date('Y-m-d H:i:s', strtotime('+ 1 hours',strtotime($val->teaching_start_time)));
+                $bookingDatetime = $val->booking_date.' '. $val->teaching_start_time;
+                $currentTime = date('Y-m-d H:i:s', strtotime('-15 minutes', strtotime($bookingDatetime)));
+                $endDatetime = date('Y-m-d H:i:s', strtotime('+ 1 hours',strtotime($val->teaching_start_time)));
 
                         if (($currentDate >= $currentTime) && ($currentDate <= $endDatetime)){ 
                             if($val->attend_class == '1' && $val->schedule_class == 1 ){ echo '<span class="text-success">A Link has been Sent on Mail. Please Check Mail.</span>';  } elseif($val->attend_class == '1'){ echo '<span class="text-success">Attended</span>'; } else {    
@@ -67,10 +67,15 @@
                         
 
                         <button class="btn btn-primary" onclick="attendClass({{$val->id}},{{$val->subject_id}},{{$val->teaching_type}});">Attend</button>
+                if (($currentDate >= $currentTime) && ($currentDate <= $endDatetime)){ if($val->attend_class == '1'){ echo '<span class="text-success">Attended</span>'; }else{
+                    @endphp
 
-                   @php } } 
-                @endphp
-                @endif
+                    @if($val->payment_status == 'Success')
+                    <button class="btn btn-primary" onclick="attendClass({{$val->id}});">Attend</button>
+                    @endif
+                    @php } }
+                    @endphp
+                    @endif
             </td>
         </tr>
         @php

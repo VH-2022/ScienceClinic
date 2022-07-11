@@ -18,45 +18,53 @@ use Session;
 
 class PaymentController extends Controller
 {
-   public function stripePayment(Request $request,$id)
-   {
+    public function stripePayment(Request $request, $id)
+    {
         $data['id'] = $tokenid = Crypt::decrypt($id);
         $getParentPymenttoken = ParentDetailHelper::getPaymenttoken($tokenid);
-        if($getParentPymenttoken){
+        if ($getParentPymenttoken) {
             $totalAmount = $getParentPymenttoken->teaching_hours * $getParentPymenttoken->hourly_rate;
             // add commission
             $getSitesetting = SiteSettingHelper::getSettingdata(1);
-            $grandTotal = ($totalAmount * isset($getSitesetting->commission_value) ? $getSitesetting->commission_value : 0) / 100;
+            $commission_value = $getSitesetting->commission_value;
+            if ($getSitesetting->commission_value == '') {
+                $commission_value = 0;
+            }
+            $grandTotal = (($totalAmount * $commission_value) / 100);
             $data['total'] = $totalAmount + $grandTotal;
+
             $data['total_commision'] = $grandTotal;
-            return view('payment.stripe_payment',$data);  
-        }else{
+            return view('payment.stripe_payment', $data);
+        } else {
             abort(404);
         }
-        
-   }
+    }
 
-   public function paypalPayment(Request $request,$id){
+    public function paypalPayment(Request $request, $id)
+    {
         $paymentID = Crypt::decrypt($id);
         $getParentPymenttoken = ParentDetailHelper::getPaymenttoken($paymentID);
-        if($getParentPymenttoken){
+        if ($getParentPymenttoken) {
 
 
             $totalAmount = $getParentPymenttoken->teaching_hours * $getParentPymenttoken->hourly_rate;
             // add commission
             $getSitesetting = SiteSettingHelper::getSettingdata(1);
-            $grandTotal = ($totalAmount * isset($getSitesetting->commission_value) ? $getSitesetting->commission_value : 0) / 100;
+            $commission_value = $getSitesetting->commission_value;
+            if ($getSitesetting->commission_value == '') {
+                $commission_value = 0;
+            }
+            $grandTotal = (($totalAmount * $commission_value) / 100);
             $data['paypalNew'] = $totalAmount + $grandTotal;
             $data['total_commision'] = $grandTotal;
             $data['user_id'] = $getParentPymenttoken->user_id;
             $data['user_inquiry_id'] = $getParentPymenttoken->id;
-            return view('payment.index',$data);  
-        }else{
+            return view('payment.index', $data);
+        } else {
             abort(404);
         }
-        
-   }
-   public function ipn(Request $request)
+    }
+    public function ipn(Request $request)
     {
 
         $paymentDetail = json_encode($_POST);
@@ -91,13 +99,14 @@ class PaymentController extends Controller
         $insert->save();
         $insertId = $insert->id;
         $getParentPymenttoken = ParentDetailHelper::getPaymenttoken($request->input('id'));
-        $update = ParentDetailHelper::update(array('payment_status' => 'Success','payment_token' => null,'updated_at' => date('Y-m-d H:i:s')),array('id' => $request->input('id')));
+        $update = ParentDetailHelper::update(array('payment_status' => 'Success', 'payment_token' => null, 'updated_at' => date('Y-m-d H:i:s')), array('id' => $request->input('id')));
 
-        Session::flash('success',trans('messages.paymentaddedSuccessfully'));
-                return redirect('/parent-login');
+        Session::flash('success', trans('messages.paymentaddedSuccessfully'));
+        return redirect('/parent-login');
     }
-   public function redirectPayment(Request $request){
-        
+    public function redirectPayment(Request $request)
+    {
+
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $customer = \Stripe\Customer::create(array(
             'name' => $request->name,
@@ -107,7 +116,7 @@ class PaymentController extends Controller
         $total_commision = $request->total_commision;
         $stripe_customer_id = $customer->id;
         $randomNo = substr(str_shuffle("0123456789"), 0, 4);
-        $order_number = date('Ymdhis'). $randomNo;
+        $order_number = date('Ymdhis') . $randomNo;
         $currency = "eur";
         $itemName = "Order Payment";
         $itemNumber = $order_number;
@@ -122,10 +131,10 @@ class PaymentController extends Controller
             )
         ));
         $chargeJson = $charge->jsonSerialize();
-       
+
         if ($chargeJson['amount_refunded'] == 0 && empty($chargeJson['failure_code']) && $chargeJson['paid'] == 1 && $chargeJson['captured'] == 1 && $chargeJson['status'] == 'succeeded') {
             $getParentPymenttoken = ParentDetailHelper::getPaymenttoken($request->parent_token);
-            if($getParentPymenttoken){
+            if ($getParentPymenttoken) {
                 $insertArray = array(
                     'user_id' => $getParentPymenttoken->user_id,
                     'user_inquiry_id' => $getParentPymenttoken->id,
@@ -139,16 +148,14 @@ class PaymentController extends Controller
                 $insert = new ParentPayment($insertArray);
                 $insert->save();
 
-                $update = ParentDetailHelper::update(array('payment_status' => 'Success','payment_token' => null,'updated_at' => date('Y-m-d H:i:s')),array('id' => $getParentPymenttoken->id));
+                $update = ParentDetailHelper::update(array('payment_status' => 'Success', 'payment_token' => null, 'updated_at' => date('Y-m-d H:i:s')), array('id' => $getParentPymenttoken->id));
 
-                Session::flash('success',trans('messages.paymentaddedSuccessfully'));
+                Session::flash('success', trans('messages.paymentaddedSuccessfully'));
                 return redirect('/parent-login');
-            }else{
-                Session::flash('error',trans('messages.error'));
+            } else {
+                Session::flash('error', trans('messages.error'));
                 return back();
             }
         }
-
-   }
-    
+    }
 }

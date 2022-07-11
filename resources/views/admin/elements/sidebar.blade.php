@@ -95,7 +95,7 @@
 
                 $subjectFlag = 0;
                 if (Request::segment(1) == 'subject-master' || Request::segment(1) == 'sub-subject-master') {
-                    $subjectFlag = 1;
+                $subjectFlag = 1;
                 }
 
                 @endphp
@@ -429,8 +429,8 @@
                 @php
 
                 $paymentFlag = 0;
-                if (Request::segment(1) == 'parent-payment-history' || Request::segment(1) == 'tutor-payment-history') {
-                    $paymentFlag = 1;
+                if (Request::segment(1) == 'parent-payment-history' || Request::segment(1) == 'tutor-payment-history' || Request::segment(1) == 'tutor-unpaid-payment-histor') {
+                $paymentFlag = 1;
                 }
 
                 @endphp
@@ -490,7 +490,7 @@
 
                             </li>
 
-                            <li class="menu-item {{ Request::segment(1) == 'tutor-payment-history' ? 'menu-item-active' : '' }}" aria-haspopup="true">
+                            <li class="menu-item @if (Request::segment(1) == 'tutor-payment-history' || Request::segment(1) == 'tutor-unpaid-payment-history') menu-item-active @endif" aria-haspopup="true">
 
                                 <a href="{{ route('tutor-payment-history.index') }}" class="menu-link">
 
@@ -519,7 +519,7 @@
 
                 $cmsFlag = 0;
                 if (Request::segment(1) == 'about-list' || Request::segment(1) == 'online-tutoring' || Request::segment(1) == 'text-books' || Request::segment(1) == 'e-learning-cms' || Request::segment(1) == 'past-papers-cms') {
-                    $cmsFlag = 1;
+                $cmsFlag = 1;
                 }
 
                 @endphp
@@ -610,7 +610,7 @@
                                 </a>
 
                             </li>
-                            
+
                             <li class="menu-item {{ Request::segment(1) == 'e-learning-cms' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
                                 <a href="{{ route('e-learning-cms.index') }}" class="menu-link">
@@ -651,9 +651,9 @@
                 </li>
 
 
-                
 
-               
+
+
                 <li class="menu-item {{ Request::segment(1) == 'testimonial' ? 'menu-item-active' : '' }}" aria-haspopup="true">
 
                     <a href="{{ route('testimonial.index') }}" class="menu-link">

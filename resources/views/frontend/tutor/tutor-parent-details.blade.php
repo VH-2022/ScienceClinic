@@ -36,9 +36,9 @@
 
                         <div class="card-title">
 
-                            <span class="nav-profile-name">Parent Detail</span>
+                            <span class="nav-profile-name">Parent Details</span>
 
-                            <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
+
 
                         </div>
                     </div>
@@ -51,32 +51,23 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Full Name: </strong>
-                                    {{$parentData->first_name}} {{$parentData->last_name}}
+                                    <strong>First Name: </strong>
+                                    {{$parentData->first_name}}
 
                                 </div>
 
                             </div>
-
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Email: </strong>
-                                    {{$parentData->email}}
+                                    <strong>Last Name: </strong>
+                                    {{$parentData->last_name}}
+
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
-
-                                <div class="d-flex mb-4">
-
-                                    <strong>Mobile No: </strong>
-                                    {{$parentData->mobile_id}}
-                                </div>
-
-                            </div>
 
                             <div class="col-lg-4">
 
@@ -108,7 +99,8 @@
 
                         <div class="card-title tutor">
 
-                            <ul class="nav nav-pills nav-fill">
+                            <span class="nav-profile-name">Subject List</span>
+                            <!-- <ul class="nav nav-pills nav-fill">
 
                                 <li class="nav-item">
 
@@ -117,7 +109,7 @@
                                     </a>
 
                                 </li>
-                            </ul>
+                            </ul> -->
 
                         </div>
 

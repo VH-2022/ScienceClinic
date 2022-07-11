@@ -76,7 +76,7 @@
                                         <div class="form-control-spacing">
                                             <label for="example-text-input" class="form-label">
                                                 Subject</label> <span style="color:red" class="required-error">*</span>
-                                            <input type="text" class="form-control placeholder2" id="subject" name="subject" autocomplete="off" placeholder="Subject">
+                                            <input type="text" class="form-control placeholder2" id="subject" name="subject" autocomplete="off" placeholder="Subject" readonly>
                                             <span id="subject_error" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                         <div class="form-control-spacing">
                                             <label for="example-text-input" class="form-label">
                                                 Outcome</label> <span style="color:red" class="required-error">*</span>
-                                            <input type="text" class="form-control placeholder2" id="outcome" name="outcome" autocomplete="off" placeholder="Outcome">
+                                            <input type="text" class="form-control placeholder2" id="outcome" name="outcome" autocomplete="off" placeholder="Outcome" maxlength="15">
 
                                             <span id="outcome_error" class="text-danger"></span>
                                         </div>
@@ -144,7 +144,7 @@
             },
             success: function(res) {
                 $('#description').val(res.descriptions);
-                $('#subject').val(res.subject);
+                $('#subject').val(res.subject_details.main_title);
                 $('#outcome').val(res.outcome);
                 $("input[name='rating'][value='" + res.rating + "']").attr('checked', 'checked');
             }
@@ -182,57 +182,56 @@
 
         if (temp == 0) {
             $.ajax({
-                    url: "{{ route('submit-parent-review')}}",
-                    method: 'post',
-                    data: new FormData($('#add-feedback')[0]),
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function(res) {
-                        toastr.success(res.error_msg);
-                        getFeedback();
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            var tempVal = 0;
-                            if (jqXHR.responseJSON.message.description) {
-                                tempVal++;
-                                $('#description_error').text(jqXHR.responseJSON.message.description);
-                            } else {
-                                $('#description_error').text('');
-                            }
-                            if (jqXHR.responseJSON.message.subject) {
-                                tempVal++;
-                                $('#subject_error').text(jqXHR.responseJSON.message.subject);
-                            } else {
-                                $('#subject_error').text('');
-                            }
-                            if (jqXHR.responseJSON.message.outcome) {
-                                tempVal++;
-                                $('#outcome_error').text(jqXHR.responseJSON.message.outcome);
-                            } else {
-                                $('#outcome_error').text('');
-                            }
-                            if (jqXHR.responseJSON.message.rating) {
-                                tempVal++;
-                                $('#error_rating').text(jqXHR.responseJSON.message.rating);
-                            } else {
-                                $('#error_rating').text('');
-                            }
-                            if (tempVal == 0) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        }
-                    })
+                url: "{{ route('submit-parent-review')}}",
+                method: 'post',
+                data: new FormData($('#add-feedback')[0]),
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(res) {
+                    toastr.success(res.error_msg);
+                    getFeedback();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var tempVal = 0;
+                    if (jqXHR.responseJSON.message.description) {
+                        tempVal++;
+                        $('#description_error').text(jqXHR.responseJSON.message.description);
+                    } else {
+                        $('#description_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.subject) {
+                        tempVal++;
+                        $('#subject_error').text(jqXHR.responseJSON.message.subject);
+                    } else {
+                        $('#subject_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.outcome) {
+                        tempVal++;
+                        $('#outcome_error').text(jqXHR.responseJSON.message.outcome);
+                    } else {
+                        $('#outcome_error').text('');
+                    }
+                    if (jqXHR.responseJSON.message.rating) {
+                        tempVal++;
+                        $('#error_rating').text(jqXHR.responseJSON.message.rating);
+                    } else {
+                        $('#error_rating').text('');
+                    }
+                    if (tempVal == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            })
 
 
-            }
-            else {
-                return false;
-            }
-
+        } else {
+            return false;
         }
+
+    }
 </script>
 
 @endsection
