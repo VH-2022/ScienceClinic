@@ -62,7 +62,7 @@ class ParentMasterController extends Controller
             if($getUserData){
                 //send mail to parent for payment
                 $html = '<p>Admin has sent you a payment request for subject '.$getUserData->subjectDetails->main_title. '.</p>
-                <p>Date : ' . $getUserData->booking_date . '.</p>
+                <p>Date : ' . date("d/m/Y", strtotime($getUserData->booking_date)) . '.</p>
                 <p>Day : ' . ucfirst(trans($getUserData->tuition_day)) . '.</p>
                 <p>Start Time : ' . date('h:i A', strtotime($getUserData->teaching_start_time)) . '.</p>
                 <p>Please click on the link below to make a secure online payment:</p>
