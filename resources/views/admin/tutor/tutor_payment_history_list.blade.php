@@ -67,7 +67,31 @@
 
 
                             </div>
+                            <a href="javascript:void(0)" onclick="downloadPaymentHistory()" class="btn btn-primary mr-2">
 
+                                <span class="svg-icon svg-icon-md">
+
+                                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Flatten.svg-->
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+
+                                            <rect x="0" y="0" width="24" height="24"></rect>
+
+                                            <circle fill="#000000" cx="9" cy="15" r="6"></circle>
+
+                                            <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"></path>
+
+                                        </g>
+
+                                    </svg>
+
+                                    <!--end::Svg Icon-->
+
+                                </span>Export to CSV</a>
+
+                            <!--end::Button-->
                             <!--end::Dropdown-->
 
                             <!--begin::Button-->
@@ -83,9 +107,6 @@
                         <ul class="nav nav-pills personaltab-ul" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="pills-home" aria-selected="true">Paid</a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="password-tab" data-toggle="pill" href="javascript:void(0)" onclick="window.location.href='tutor-unpaid-payment-history'" role="tab" aria-controls="pills-profile" aria-selected="false">Unpaid</a>
                             </li>
                         </ul>
                         <button class="btn btn-success" id="multipay" style="background-color: #1BC5BD !important;border-color: #1BC5BD !important; display: none;">Pay</button>
@@ -220,67 +241,7 @@
 <script src="{{ asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 
 <script>
-    function checkVal() {
-
-
-        if ($("input[name='checkbox']:checked").length > 1) {
-            $('#multipay').css("display", "block");
-        } else {
-            $('#multipay').css("display", "none");
-        }
-
-    }
-
-    function checkAll(arrayData) {
-        $('#select_all').checked(function() {
-            alert("kjfks");
-            $('.checkbox').prop('checked', this.checked);
-        });
-    }
-
-
-
-    function tutor_pay_amount(Id, tutorAmount) {
-        event.preventDefault();
-        $.confirm({
-            title: 'Pay!',
-            content: 'you want to pay this tutor?',
-            buttons: {
-                formSubmit: {
-                    text: 'Submit',
-                    btnClass: 'btn-danger',
-                    action: function() {
-                        $.ajax({
-                            method: "POST",
-                            url: "{{ route('tutor-pay-amounts') }}",
-                            data: {
-                                '_token': '{{ csrf_token() }}',
-                                'id': Id,
-                                'tutorAmount': tutorAmount,
-                            }
-                        }).done(function(r) {
-                            toastr.success(r.error_msg);
-                            ajaxList(1);
-                        }).fail(function() {
-                            toastr.error('Sorry, something went wrong. Please try again.');
-                        });
-
-
-
-                    }
-
-                }
-
-            }
-
-        });
-    }
-
-
-
-    var _AJAX_LIST = "{{ route('tutor-payment-list-ajax') }}";
-
-
+    var _AJAX_LIST = "{{ route('tutor-payment-history-list-ajax') }}";
 
     function ajaxList(page) {
 
@@ -313,12 +274,7 @@
         })
 
     }
-
-
-
     ajaxList(1);
-
-
     $('body').on('click', '.pagination a', function(event) {
 
         $('li').removeClass('active');
@@ -336,82 +292,45 @@
 
 
     });
-</script>
-
-<script type="text/javascript">
-    function isName(event) {
-
-        var regex = new RegExp("^[a-zA-Z \s]+$");
-
-        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-
-        if (!regex.test(key)) {
-
-            event.preventDefault();
-
-            return false;
-
-        }
+    function downloadPaymentHistory(){
 
     }
-
-
-
+</script>
+<script type="text/javascript">
+    function isName(event) {
+        var regex = new RegExp("^[a-zA-Z \s]+$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    }
     $(function() {
-
         var start = moment().subtract(29, 'days');
-
         var end = moment();
-
         $('#kt_daterangepicker_3').daterangepicker({
-
             buttonClasses: ' btn',
-
             applyClass: 'btn-primary',
-
             cancelClass: 'btn-secondary',
-
             startDate: start,
-
             endDate: end,
-
             ranges: {
-
                 'Today': [moment(), moment()],
-
                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-
                 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-
                 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-
             }
-
         }, function(start, end, label) {
-
             $('#kt_daterangepicker_3 .form-control').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-
         });
-
     })
     $('.clear').click(function(e) {
-
-
-
         $('#name').val("");
-
         $('#created_date').val("");
-
-
-
         ajaxList(1);
-
     })
-
     $('.search_id').click(function(e) {
         ajaxList(1);
     });

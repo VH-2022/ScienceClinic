@@ -78,5 +78,15 @@ class TutorPaymentController extends Controller
             return response()->json(['error_msg' => trans('messages.error_msg'), 'data' => array()], 500);
         }
     }
-    
+    public function getPaymentHistory(){
+        return view('admin.tutor.tutor_payment_history_list'); 
+    }
+    public function ajaxHistoryList(Request $request)
+    {
+        $data['page'] = $request->page;
+        $name = $request->name;
+        $created_date = $request->created_date;
+        $data['query'] = ParentPaymentHelper::getPaidListwithPaginate($name,$created_date);
+        return view('admin.tutor.tutor_payment_history_list_ajax', $data);
+    }
 }
