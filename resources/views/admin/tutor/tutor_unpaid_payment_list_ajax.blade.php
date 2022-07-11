@@ -3,8 +3,8 @@
     <thead>
 
         <tr>
-
             <th nowrap="nowrap">ID</th>
+            <th><input type="checkbox" name="select_all" id="select_all" value="{{$query}}"></th>
             <th style="white-space: nowrap">Parent Name</th>
             <th style="white-space: nowrap">Tutor Name</th>
             <th style="white-space: nowrap">Subject Name</th>
@@ -14,7 +14,6 @@
             <th style="white-space: nowrap">Tutor Amount</th>
             <th style="white-space: nowrap">Pay Status</th>
             <th style="white-space: nowrap">Created Date</th>
-            <th><input type="checkbox" name="select_all" id="select_all" value="{{$query}}"></th>
             <th style="white-space: nowrap">Action</th>
 
         </tr>
@@ -38,7 +37,8 @@
         <tr>
 
             <td>{{ $i++ }}</td>
-
+            <td><input type="checkbox" class="checkbox" name="checkboxval[]" value="{{$val->id}},{{$tutorAmount}}"></td>
+            
             <td>{{isset($val->userDetails->first_name) ? $val->userDetails->first_name :''}} {{isset($val->userDetails->last_name) ? $val->userDetails->last_name :''}}</td>
             <td>{{isset($val->parentDetail->tutorDetails->first_name) ? $val->parentDetail->tutorDetails->first_name :''}} {{isset($val->parentDetail->tutorDetails->last_name) ? $val->parentDetail->tutorDetails->last_name : ''}}</td>
             <td>{{isset($val->parentDetail->subjectDetails->main_title) ? $val->parentDetail->subjectDetails->main_title :''}}</td>
@@ -59,7 +59,6 @@
                 @endif
 
             </td>
-            <td><input type="checkbox" class="checkbox" name="checkboxval[]" value="{{$val->id}},{{$tutorAmount}}"></td>
             <td>
                 @if($val->tutor_payment_status =='Pending')
                 <a href="javascript:void(0)" onclick="tutor_pay_amount({{$val->id}},{{$tutorAmount}})" class="btn btn-success" style="background-color: #1BC5BD !important;border-color: #1BC5BD !important;" data-id="{{ $val->id}}">Pay</a>
