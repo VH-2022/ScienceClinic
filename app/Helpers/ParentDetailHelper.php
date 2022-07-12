@@ -178,4 +178,8 @@ class ParentDetailHelper
         $query = ParentDetail::where('subject_id', $subject_id)->where('tutor_id', $id)->whereDate('booking_date', date('Y-m-d'))->update($data);
         return $query;
     }
+    public static function getFeedbackDataById($uniqueId)
+    {
+        return ParentDetail::with('subjectDetails')->where('id', $uniqueId)->first();
+    }
 }
