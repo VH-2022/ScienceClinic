@@ -382,7 +382,6 @@
 
                 // var validation_filed_array = ['title', 'sub_title', 'title_section_one', 'main_subject'];
                 var validation_filed_array = ['title', 'main_subject'];
-
                 for (var i = 0; i < validation_filed_array.length; i++) {
 
                     validation_status += parseInt(validatField($('#' + validation_filed_array[i] + '.validate_field')));

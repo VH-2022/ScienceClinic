@@ -3,7 +3,6 @@
 @section('content')
 
 <style>
-
     .remove-btn1 {
 
         margin-top: 26.5px;
@@ -17,7 +16,6 @@
         color: red;
 
     }
-
 </style>
 
 <div class="d-flex flex-column-fluid">
@@ -98,7 +96,7 @@
 
                                         <label>Title <span class="text-danger">*</span></label>
 
-                                        <input class="form-control validate_field" placeholder="Title" autocomplete="off" id="title" type="text" data-msg="Title" name="title">
+                                        <input class="charCls form-control validate_field" placeholder="Title" autocomplete="off" id="title" type="text" data-msg="Title" name="title">
 
                                         <span class="form-text error title_error">{{ $errors->useredit->first('title')}}</span>
 
@@ -391,22 +389,27 @@
 
 
 <script>
-
     var _Add_SUBJECT = "{{route('sub-subject-master.store')}}";
-
 </script>
 
 <script>
-
+    $(".charCls").keypress(function(event) {
+        var regex = new RegExp("^[a-zA-Z ]+$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    });
     // Class definition
 
     var uniqid = '{{ uniqid() }}';
 
 
 
-    CKEDITOR.replace( 'subject_description' );
+    CKEDITOR.replace('subject_description');
 
-    CKEDITOR.replace( 'description_section_two{{$uniqid}}' );
+    CKEDITOR.replace('description_section_two{{$uniqid}}');
 
 
 
@@ -494,9 +497,9 @@
 
         var id = '#description_section_two' + length;
 
-        CKEDITOR.replace( 'description_section_two' + length);
+        CKEDITOR.replace('description_section_two' + length);
 
-        
+
 
         if ($('.scopy_id_section_two').length > 1) {
 
@@ -543,7 +546,6 @@
         }
 
     }
-
 </script>
 
 
