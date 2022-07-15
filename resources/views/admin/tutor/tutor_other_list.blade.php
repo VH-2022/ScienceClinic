@@ -54,7 +54,7 @@
                         
                     @endphp
                     @if($val->document)
-                        @if(in_array($explode[4], $image_array))
+                        @if(in_array($explode[3], $image_array))
                             <a  href="{{$val->document}}" download ><i class="fas fa-photo-video"></i></a>
                         @else
                             <a href="{{$val->document}}" download><i class="far fa-file-pdf"></i></a>

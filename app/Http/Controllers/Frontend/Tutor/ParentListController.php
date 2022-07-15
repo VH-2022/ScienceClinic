@@ -58,7 +58,7 @@ class ParentListController extends Controller
     public function attendLesson(Request $request)
     {
         $tutor_id = Auth::user()->id;
-        if ($request->teachingType == 7) {
+        if ($request->teachingType == 8) {
             $getData = ParentDetailHelper::getMerithubStudentlesson($tutor_id, $request->subjectId, $request->teachingType);
             if ($getData) {
                 foreach ($getData as $val) {
