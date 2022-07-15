@@ -4,7 +4,7 @@
 
         <tr>
             <th nowrap="nowrap">ID</th>
-            <th><input type="checkbox" name="select_all" id="select_all" value="{{$query}}"></th>
+            <th><input type="checkbox" name="select_all" id="select_all"></th>
             <th style="white-space: nowrap">Parent Name</th>
             <th style="white-space: nowrap">Tutor Name</th>
             <th style="white-space: nowrap">Subject Name</th>
