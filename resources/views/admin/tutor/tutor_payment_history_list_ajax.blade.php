@@ -34,7 +34,7 @@
         <tr>
 
             <td>{{ $i++ }}</td>
-            <td>{{isset($val->parentDetail->tutorDetails->first_name) ? $val->parentDetail->tutorDetails->first_name :''}} {{isset($val->parentDetail->tutorDetails->last_name) ? $val->parentDetail->tutorDetails->last_name : ''}}</td>
+            <td>{{isset($val->parentDetail->tutorDetails->first_name) ? $val->parentDetail->tutorDetails->first_name :''}}</td>
             <td>{{isset($val->userDetails->first_name) ? $val->userDetails->first_name :''}} {{isset($val->userDetails->last_name) ? $val->userDetails->last_name :''}}</td>
             <td>{{isset($val->parentDetail->tuition_day) ? $val->parentDetail->tuition_day :''}}</td>
             <td>{{isset($val->parentDetail->tuition_time) ? $val->parentDetail->tuition_time :''}}</td>

@@ -171,11 +171,11 @@
         <!--begin::Wrapper-->
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Name</label>
+            <label class="col-4 col-form-label">Parent Name</label>
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="name">
+                <input class="form-control" autocomplete="off" placeHolder="Enter Parent Name" type="text" name="name" id="name">
 
             </div>
 
@@ -183,13 +183,37 @@
 
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Created Date</label>
+            <label class="col-4 col-form-label">Tutor Name</label>
+
+            <div class="col-8">
+
+                <input class="form-control" autocomplete="off" placeHolder="Enter Tutor Name" type="text" name="tutorname" id="tutorname">
+
+            </div>
+
+        </div>
+        
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Day of Tution</label>
+
+            <div class="col-8">
+
+                <input class="form-control" autocomplete="off"  placeHolder="Enter Day of Tution" type="text" name="tutionday" id="tutionday">
+
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Date</label>
 
             <div class="col-8">
 
                 <div class="input-group" id="kt_daterangepicker_3">
 
-                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date">
+                    <input type="text" autocomplete="off" name="created_date" id="created_date" class="form-control" placeholder="Date">
 
                 </div>
 
@@ -247,6 +271,8 @@
 
         var name = $('#name').val();
         var created_date = $('#created_date').val();
+        var tutorName = $('#tutorname').val();
+        var tutionDay = $('#tutionday').val();
         $('.ki-close').click();
 
         $.ajax({
@@ -259,6 +285,8 @@
 
                 'name': name,
                 'page': page,
+                'tutorName': tutorName,
+                'tutionDay': tutionDay,
                 'created_date': created_date
 
             },
@@ -292,8 +320,35 @@
 
 
     });
-    function downloadPaymentHistory(){
 
+    function downloadPaymentHistory() {
+        var name = $("#name").val();
+        var tutorName = $('#tutorname').val();
+        var createdDate = $("#created_date").val();
+        var tutionDay = $('#tutionday').val();
+        var historyUrl = '{{ route("filter-tutor-payment-history-report") }}?name=' + name + '&date=' + createdDate + '&tutorname=' + tutorName + '&tutionDay=' + tutionDay;
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = dd + '_' + mm + '_' + yyyy;
+        $.ajax({
+            type: "GET",
+            url: historyUrl,
+            success: function(data) {
+                var downloadLink = document.createElement("a");
+                var fileData = [data];
+                var blobObject = new Blob(fileData, {
+                    type: "text/csv;charset=utf-8;"
+                });
+                var url = URL.createObjectURL(blobObject);
+                downloadLink.href = url;
+                downloadLink.download = "Tutors Payment History" + '-' + today + ".csv";
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            }
+        })
     }
 </script>
 <script type="text/javascript">
@@ -329,6 +384,8 @@
     $('.clear').click(function(e) {
         $('#name').val("");
         $('#created_date').val("");
+        $('#tutorname').val("");
+        $('#tutionday').val("");
         ajaxList(1);
     })
     $('.search_id').click(function(e) {

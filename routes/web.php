@@ -108,6 +108,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         
         $backendVerified->resource('tutor-payment-history', "TutorPaymentController");
         $backendVerified->get('tutor-payment-history-report', "TutorPaymentController@getPaymentHistory")->name('tutor-payment-history-report');
+        $backendVerified->get('filter-tutor-payment-history-report/{search?}', "TutorPaymentController@filterPaymentHistory")->name('filter-tutor-payment-history-report');
         $backendVerified->get('tutor-payment-history-list-ajax', "TutorPaymentController@ajaxHistoryList")->name('tutor-payment-history-list-ajax');
         $backendVerified->get('tutor-payment-list-ajax', "TutorPaymentController@ajaxList")->name('tutor-payment-list-ajax');
         $backendVerified->get('tutor-unpaid-payment-history', "TutorPaymentController@tutorUnpaidList")->name('tutor-unpaid-payment-history');

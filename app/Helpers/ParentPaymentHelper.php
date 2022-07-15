@@ -28,11 +28,21 @@ class ParentPaymentHelper
         $update = ParentPayment::where($where)->update($data);
         return $update;
     }
-    public static function getPaidListwithPaginate($name,$created_date){
-
-        $query = ParentPayment::where('tutor_payment_status', 'Success')->whereNull('deleted_at')->with('parentDetail')->with('parentDetail.tutorDetails')->with('parentDetail.subjectDetails')->with('parentDetail.levelDetails')->with('userDetails')->whereHas('userDetails', function ($query) use ($name) {
+    public static function getPaidListwithPaginate($name,$created_date, $tutorName, $tutionDay){
+        $query = ParentPayment::where('tutor_payment_status', 'Success')->whereNull('deleted_at')->with('parentDetail')->with('parentDetail.tutorDetails')->with('parentDetail.subjectDetails')->with('parentDetail.levelDetails')->with('userDetails')
+        ->whereHas('userDetails', function ($query) use ($name) {
             if($name !=''){
-                $query->whereRaw('LOWER(first_name) LIKE "%'.strtolower($name).'%"');
+                $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", [$name]);
+            }
+        })
+        ->whereHas('parentDetail.tutorDetails', function ($queryTutor) use ($tutorName) {
+            if ($tutorName != '') {
+                $queryTutor->whereRaw('LOWER(first_name) LIKE "%' . strtolower($tutorName) . '%"');
+            }
+        })
+        ->whereHas('parentDetail', function ($queryDay) use ($tutionDay) {
+            if ($tutionDay != '') {
+                $queryDay->whereRaw('LOWER(tuition_day) LIKE "%' . strtolower($tutionDay) . '%"');
             }
         });
         
@@ -42,6 +52,32 @@ class ParentPaymentHelper
             $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
         }
         $query = $query->orderBy('id','desc')->paginate(10);
+        return $query;
+    }
+    public static function downloadPaidList($name,$created_date, $tutorName, $tutionDay){
+
+        $query = ParentPayment::where('tutor_payment_status', 'Success')->whereNull('deleted_at')->with('parentDetail')->with('parentDetail.tutorDetails')->with('parentDetail.subjectDetails')->with('parentDetail.levelDetails')->with('userDetails')->whereHas('userDetails', function ($query) use ($name) {
+            if($name !=''){
+                $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", [$name]);
+            }
+        })
+        ->whereHas('parentDetail.tutorDetails', function ($queryTutor) use ($tutorName) {
+            if ($tutorName != '') {
+                $queryTutor->whereRaw('LOWER(first_name) LIKE "%' . strtolower($tutorName) . '%"');
+            }
+        })
+        ->whereHas('parentDetail', function ($queryDay) use ($tutionDay) {
+            if ($tutionDay != '') {
+                $queryDay->whereRaw('LOWER(tuition_day) LIKE "%' . strtolower($tutionDay) . '%"');
+            }
+        });
+        
+ 
+        if($created_date !=''){
+            $explode = explode('-',$created_date);
+            $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
+        }
+        $query = $query->orderBy('id','desc')->get();
         return $query;
     }
 
