@@ -63,6 +63,16 @@
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 
+    <style>
+        .custom-position {
+            position: relative;
+        }
+
+        .eye-icon {
+            top: 12px !important;
+            right: 5px !important;
+        }
+    </style>
     <!--begin::Main-->
 
     <div class="d-flex flex-column flex-root">
@@ -113,10 +123,13 @@
 
                             </div>
 
-                            <div class="form-group mb-5">
+                            <div class="form-group mb-5 custom-position">
 
-                                <input class="form-control h-auto  py-4 px-8" type="password" id="password" placeholder="Password" name="password" />
-
+                                <input class="form-control h-auto pass-icons py-4 px-8" type="password" id="password" placeholder="Password" name="password" />
+                                <button id="toggle-password" class="pass-icons eye-icon" type="button">
+                                    <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
+                                    <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
+                                </button>
                                 <span style="color:red;margin-right: 240px;" id="passworderror"></span>
 
                             </div>
@@ -161,6 +174,24 @@
     <!--end::Global Theme Bundle-->
 
     <script>
+        var togglePassword = document.getElementById("toggle-password");
+
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    $(this).addClass("active");
+                } else {
+                    x.type = "password";
+                    $(this).removeClass("active");
+
+                    // $("#toggle-password" <!--Background Area Start-->).removeClass("active");
+
+                }
+            });
+        }
+
         function ValidateEmail(email) {
 
             var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
