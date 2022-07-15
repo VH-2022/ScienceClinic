@@ -170,11 +170,11 @@
 
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Search Text</label>
+            <label class="col-4 col-form-label">Title</label>
 
             <div class="col-8">
 
-                    <input class="form-control" placeHolder="Enter Search Text" type="text" name="name" id="title">
+                    <input class="form-control" placeHolder="Enter Title" type="text" name="name" id="title">
 
             </div>
 
