@@ -63,7 +63,7 @@
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 
-<!--begin::Main-->
+    <!--begin::Main-->
 
     <div class="d-flex flex-column flex-root">
 
@@ -109,7 +109,7 @@
 
                                 <input class="form-control h-auto  py-4 px-8" type="text" placeholder="Email" id="email" name="email" autocomplete="off">
 
-                                <span style="color: red;" id="emailerror"></span>
+                                <span style="color: red;margin-right: 270px;" id="emailerror"></span>
 
                             </div>
 
@@ -117,13 +117,13 @@
 
                                 <input class="form-control h-auto  py-4 px-8" type="password" id="password" placeholder="Password" name="password" />
 
-                                <span style="color: red;" id="passworderror"></span>
+                                <span style="color:red;margin-right: 240px;" id="passworderror"></span>
 
                             </div>
 
                             <div class="form-group d-flex flex-wrap justify-content-between align-items-center" style="float: right;">
 
-                                
+
 
                                 <a href="{{ route('password.request') }}" id="kt_login_forgot" class="text-muted text-hover-primary dark-sign-color">Forgot Password?</a>
 
@@ -161,7 +161,6 @@
     <!--end::Global Theme Bundle-->
 
     <script>
-
         function ValidateEmail(email) {
 
             var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -221,15 +220,12 @@
             }
 
         }
-
     </script>
 
     @if(Session::has('success'))
 
     <script>
-
         Command: toastr["success"]('<?php echo Session::get('success') ?>')
-
     </script>
 
     @endif
@@ -239,9 +235,7 @@
     @if(Session::has('error'))
 
     <script>
-
         Command: toastr["error"]('<?php echo Session::get('error') ?>')
-
     </script>
 
     @endif
