@@ -173,7 +173,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" maxlength="255" name="city" class="mb-0" autocomplete="off" id="city" placeholder="Town/City">
+                                            <input type="text" maxlength="15" name="city" class="mb-0" autocomplete="off" id="city" placeholder="Town/City">
 
                                             <span class="text-danger" id="error_city">{{ $errors->useredit->first('city') }}</span>
 

@@ -124,7 +124,7 @@ class BecomeTutorController extends Controller
 
             'address3' => 'required | max:255',
 
-            'city' => 'required | max:255',
+            'city' => 'required | max:15',
 
             'postcode' => 'required | max:6',
 
