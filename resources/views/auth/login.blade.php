@@ -111,7 +111,7 @@
 
                         </div>
 
-                        <form class="form" id="kt_login_signin_form" method="POST" action="{{ route('verify-login') }}" onsubmit="return validate();">
+                        <form class="form" id="kt_login_signin_form" method="POST" action="{{ route('verify-login') }}">
 
                             @csrf
 
@@ -199,9 +199,7 @@
             return expr.test(email);
 
         }
-
-        function validate() {
-
+        $('#kt_login_signin_form').submit(function() {
             var temp = 0;
 
             var email = $("#email").val();
@@ -241,7 +239,7 @@
             }
 
             if (temp == 0) {
-
+                $("#kt_login_signin_submit").prop('disabled', true);
                 return true;
 
             } else {
@@ -249,6 +247,11 @@
                 return false;
 
             }
+        });
+
+        function validate() {
+
+
 
         }
     </script>
