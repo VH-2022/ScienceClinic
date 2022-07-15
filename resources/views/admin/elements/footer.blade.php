@@ -12,7 +12,7 @@
 
                 <span class="text-muted font-weight-bold mr-2">{{ date('Y')}}©</span>
 
-                <a href="#" target="_blank" class="text-dark-75 text-hover-primary">Science Clinic</a>
+                <a href="{{url('admin')}}" class="text-dark-75 text-hover-primary">Science Clinic</a>
 
             </div>
 
