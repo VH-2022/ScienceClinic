@@ -345,3 +345,10 @@ button.pass-icons {
         text-align: right;
     }
 }
+.dash-btn{
+    padding:5px 16px;
+
+}
+.apply-details {
+    line-height: 31px;
+}

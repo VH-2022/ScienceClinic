@@ -80,6 +80,9 @@
                                             </div>
 
                                         </div>
+                                        <div class="col-md-12 mt-4 mx-3">
+                                        <p class="mr-3">{{$data->city}}</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="bio-text">

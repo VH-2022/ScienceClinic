@@ -1,6 +1,24 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    @media only screen and (max-width:767px) {
+        .apply-details {
+            line-height: normal;
+    }
+    .apply-details-inner{
+        align-items:baseline;
+    }
+    .dash-btn{
+        margin-bottom: 7px;
+    }
+    .res-startbtn{
+        justify-content: left !important;
+        margin-left:25px;
+    }
+}
+</style>
+
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -79,14 +97,68 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <div class="apply-main">
                                     <h5>Apply for an Enhanced DBS</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="apply-main">
+                                            <!-- <h5>Apply for an Enhanced DBS</h5> -->
+                                            <div class="apply-details">
+                                                <div class="apply-details-inner">
+                                                    <i class="fa fa-check mr-2"></i>
+                                                    <div>
+                                                        We can process your DBS application and verify your documents.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 d-flex align-items-center justify-content-end res-startbtn">
+                                        <a class="btn start-dbs btn-primary dash-btn" href="https://portal.checksdirect.co.uk/self-service.php" target="_blank">
+                                            Start DBS Application
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="apply-main">
+                                            <div class="apply-details">
+                                                <div class="apply-details-inner">
+                                                    <i class="fa fa-check mr-2"></i>
+                                                    <div>
+                                                        When you get your certificate please register for update service here.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 d-flex align-items-center mt-2 justify-content-end res-startbtn">
+                                <a class="btn start-dbs btn-primary dash-btn" href="https://secure.crbonline.gov.uk/crsc/apply?execution=e1s1" target="_blank">
+                                    Update Service
+                                </a>
+                            </div>
+                                </div>
+
+
+
+                            <div class="col-md-12 p-0">
+                                <div class="apply-main">
                                     <div class="apply-details">
                                         <div class="apply-details-inner">
                                             <i class="fa fa-check mr-2"></i>
                                             <div>
-                                                We can process your DBS application and verify your documents.
+                                                Click <a class="start-dbs" href="{{asset('uploads/pdf/DBS-ID-docs-info-jan22.pdf')}}" target="_blank">here</a> to see the acceptable identification documents for DBS checks.
                                             </div>
                                         </div>
 
@@ -94,27 +166,37 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-2 d-flex align-items-center">
-                                <button class="btn start-dbs btn-primary">
-                                    Start DBS Application
-                                </button>
+                            <div class="col-md-12 p-0">
+                                <div class="apply-main">
+                                    <div class="apply-details">
+                                        <div class="apply-details-inner">
+                                            <i class="fa fa-check mr-2"></i>
+                                            <div>
+                                                Contact admin to obtain organisation pin and the phrases you need for application.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
                     </div>
 
                 </div>
 
             </div>
 
-            <!--end::Content-->
-
         </div>
-        <!--end::Dashboard-->
+
+        <!--end::Content-->
 
     </div>
+    <!--end::Dashboard-->
 
-    <!--end::Container-->
+</div>
+
+<!--end::Container-->
 
 </div>
 
