@@ -67,6 +67,12 @@ class FeedbackController extends Controller
    public function getFeedback(Request $request)
    {
       $feedbackData = FeedbackHelper::getFeedbackDataById($request->unique_id);
-      return response()->json($feedbackData);
+      if($feedbackData){
+         return response()->json($feedbackData);
+      }
+      else{
+         $feedbackData = ParentDetailHelper::getFeedbackDataById($request->unique_id);
+         return response()->json($feedbackData);
+      }
    }
 }
