@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Frontend\Tutor;
 
 use App\Helpers\ParentDetailHelper;
+use App\Helpers\SubjectHelper;
 use App\Helpers\TutorAvailabilityHelper;
+use App\Helpers\TutorLevelHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -190,6 +192,31 @@ class TutorAvailabilityController extends Controller
             return response()->json(['success_msg' => trans('messages.updatedSuccessfully'), 'status' => 1, 'data' => ''], 200);
         } else {
             return response()->json(['error_msg' => "", 'status' => 0, 'data' => array()], 400);
+        }
+    }
+    public function tutorOfflineBooking()
+    {
+        $this->data['subject'] = SubjectHelper::getAllSubjectList();
+        $this->data['level'] = TutorLevelHelper::getAllTutorList();
+        return view('frontend.tutor.tutor-offline-booking', $this->data);
+    }
+    public function storeOfflineBooking(Request $request){
+        $rules = array(
+            'sname' => 'required',
+            'main_subject' => 'required',
+            'level' => 'required'
+        );
+        $messsages = array(
+            'main_subject.required' => 'Please select Subject',
+            'sname.required' => 'Please enter Student Name',
+            'level.required' => 'Please select Level'
+        );
+        $validator = Validator::make($request->all(), $rules, $messsages);
+        if ($validator->fails()) {
+            return redirect("/tutor-offline-booking?addpopup=1")
+                ->withErrors($validator, 'booking')
+                ->withInput();
+        } else {
         }
     }
 }
