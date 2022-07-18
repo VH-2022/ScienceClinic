@@ -1030,9 +1030,9 @@
         
                     if (cur_elm_val.trim() == '' && !range_valid) {
         
-                        console.log(cur_elem_id);
+                        // console.log(cur_elem_id);
         
-                        $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
+                        // $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
         
                         $('.' + cur_elem_id + '_error').html(cur_err_msg + ' is required.');
         
@@ -1044,7 +1044,7 @@
         
                         if (isNaN(cur_elm_val)) {
         
-                            $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
+                            // $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
         
                             $('.' + cur_elem_id + '_error').html(cur_err_msg + ' must be a number.');
         
@@ -1052,7 +1052,7 @@
         
                         } else {
         
-                            $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
+                            // $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
         
                         }
         
