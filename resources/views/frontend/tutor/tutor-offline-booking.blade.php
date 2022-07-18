@@ -1,6 +1,13 @@
 @extends('layouts.master')
-
+<link href="//cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css
+" rel="stylesheet">
+<link href="{{ asset('assets/plugins/custom/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
 @section('content')
+<style>
+    .modal-open .bootstrap-timepicker-meridian{
+        width: 38px;
+    }
+</style>
 <div class="d-flex flex-column-fluid">
 
 
@@ -202,7 +209,22 @@
 
                             </select>
 
-                            <span class="title error_msg error" style="color: red;" id="level_error">{{ $errors->subject->first('level')}}</span>
+                            <span class="title error_msg error" style="color: red;" id="day_error">{{ $errors->subject->first('level')}}</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+
+                            <label for="exampleSelectd">Idel Time <span class="text-danger">*</span></label>
+
+                            <input type="text" class="form-control" name="idel_time" id="idel_time">
+
+
+                            <span class="idel_time error_msg error" style="color: red;" id="idel_time_error">{{ $errors->booking->first('idel_time')}}</span>
 
                         </div>
 
@@ -229,6 +251,7 @@
 </div>
 @endsection
 @section('page-js')
+<script src="{{asset('assets/plugins/custom/timepicker/bootstrap-timepicker.js')}}"></script>
 <script>
     var _AJAX_LIST = "{{ route('tutor-subject-ajax') }}";
 
@@ -247,34 +270,60 @@
 
         })
     }
-
+    $('#idel_time').timepicker({
+        defaultTIme: false
+    });
     ajaxList(1);
-    // $('#btn-save').click(function(e) {
-    //     var name = $('#main_subject').val();
-    //     var studentName = $('#sname').val();
-    //     var level = $('#level').val();
-    //     var cnt = 0;
-    //     $('#name_error').html("");
-    //     $('#subject_error').html("");   
-    //     $('#level_error').html("");
-    //     if (studentName == '') {
-    //         $('#name_error').html("Student Name is required");
-    //         cnt = 1;
-    //     }
-    //     if (name == '') {
-    //         $('#subject_error').html("Subject is required");
-    //         cnt = 1;
-    //     }
-    //     if (level == '') {
-    //         $('#level_error').html("Level is required");
-    //         cnt = 1;
-    //     }
-    //     if (cnt == 1) {
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // })
+    $('#btn-save').click(function(e) {
+        var name = $('#main_subject').val();
+        var studentName = $('#sname').val();
+        var level = $('#level').val();
+        var day = $('#day').val();
+        var idelTime = $('#idel_time').val();
+        // var tutionTime = $('#desc').html();
+        // var time = tutionTime.split('-');
+        // var startTime = time[0];
+        // var endTime = time[1];
+        // var timeVal = moment(idelTime, "h:mm:ss A").format("HH:mm:ss");
+        // var startTimeVal = moment(startTime, "h:mm:ss A").format("HH:mm:ss");
+        // var endTimeVal = moment(endTime, "h:mm:ss A").format("HH:mm:ss");
+        // var format = 'hh:mm:ss';
+        // var time = moment(teachingTime, format),
+        //     beforeTime = moment(startTimeVal, format),
+        //     afterTime = moment(endTimeVal, format);
+        // var minutes = hours.split('.');
+        var cnt = 0;
+        $('#name_error').html("");
+        $('#subject_error').html("");
+        $('#level_error').html("");
+        $('#day_error').html("");
+        $('#idel_time_error').html("");
+        if (studentName == '') {
+            $('#name_error').html("Student Name is required");
+            cnt = 1;
+        }
+        if (name == '') {
+            $('#subject_error').html("Subject is required");
+            cnt = 1;
+        }
+        if (level == '') {
+            $('#level_error').html("Level is required");
+            cnt = 1;
+        }
+        if (day == '') {
+            $('#day_error').html("Day is required");
+            cnt = 1;
+        }
+        if (idelTime == '') {
+            $('#idel_time_error').html("Ideltime is required");
+            cnt = 1;
+        }
+        if (cnt == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    })
 
     $('#btn-update').click(function(e) {
         var name = $('#main_subject_edit').val();
