@@ -168,11 +168,11 @@
 
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Name</label>
+            <label class="col-4 col-form-label">Level Name</label>
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="title" autocomplete="off">
+                <input class="form-control" placeHolder="Enter Level Name" type="text" name="name" id="title" autocomplete="off">
 
             </div>
 
