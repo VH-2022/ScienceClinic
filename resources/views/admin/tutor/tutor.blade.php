@@ -128,11 +128,11 @@
 
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Full Name</label>
+            <label class="col-4 col-form-label">Tutor Name</label>
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Full Name" type="text" name="firstname" id="first_name" autocomplete="off">
+                <input class="form-control" placeHolder="Enter Tutor Name" type="text" name="firstname" id="first_name" autocomplete="off">
 
             </div>
 
