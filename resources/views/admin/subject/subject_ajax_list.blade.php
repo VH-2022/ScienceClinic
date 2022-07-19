@@ -1,5 +1,3 @@
-
-
 <table class="table table-separate table-head-custom">
 
     <thead>
@@ -10,7 +8,7 @@
 
             <th style="white-space: nowrap">Title </th>
 
-           
+
 
             <th style="white-space: nowrap">Created Date</th>
 
@@ -22,69 +20,69 @@
 
     <tbody>
 
-    @php
+        @php
 
-        
+
 
         $i = $page * 50 - 49;
 
-    @endphp
+        @endphp
 
-     @if (count($query) > 0)
+        @if (count($query) > 0)
 
         @foreach ($query as $live_in)
 
-            
 
-            <tr>
 
-                <td>
+        <tr>
 
-                    {{ $i++}}
+            <td>
 
-                </td>
+                {{ $i++}}
 
-                <td>
+            </td>
 
-                    {{ $live_in->main_title}}
+            <td>
 
-                </td>
+                {{ $live_in->main_title}}
 
-                
+            </td>
 
-                <td>
 
-                 @if($live_in->created_at !='')
 
-                            {{ Utility::convertYMDTimeToDMYTime($live_in->created_at) }}
+            <td>
 
-                        @endif
+                @if($live_in->created_at !='')
 
-                </td>
+                {{ Utility::convertYMDTimeToDMYTime($live_in->created_at) }}
 
-                <td>
+                @endif
 
-                    <a href="{{ url('subject-master') }}/{{$live_in->id}}/edit"><i class="fa fa-edit"></i></a>
-<!--
+            </td>
+
+            <td>
+
+                <a href="{{ url('subject-master') }}/{{$live_in->id}}/edit"><i class="fa fa-edit" title="Edit"></i></a>
+                <!--
                     <a href="javascript:void(0)" class="delete-category" data-id="{{ $live_in->id}}"><i class="fa fa-trash"></i></a> -->
 
-                </td>
+            </td>
 
-            </tr>
+        </tr>
 
         @endforeach
 
-        
 
-    @endif
 
-    @if (count($query) == 0)
+        @endif
 
-            <tr>
+        @if (count($query) == 0)
 
-                <td colspan="6">No record available</td>
+        <tr>
 
-            </tr>
+            <td colspan="6">No record available</td>
+
+        </tr>
 
         @endif
 
@@ -95,6 +93,3 @@
 
 
 {!! $query->withQueryString()->links('pagination::bootstrap-5') !!}
-
-
-
