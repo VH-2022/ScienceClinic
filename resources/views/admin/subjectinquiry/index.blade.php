@@ -151,7 +151,7 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Subject" type="text" name="subject" id="subject">
+                <input class="form-control" placeHolder="Enter Search Subject" type="text" name="subject" id="subject" autocomplete="off">
 
             </div>
 
@@ -162,7 +162,7 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Level" type="text" name="level" id="level">
+                <input class="form-control" placeHolder="Enter Search Level" type="text" name="level" id="level" autocomplete="off">
 
             </div>
 
@@ -173,7 +173,7 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Postcode" type="text" name="postcode" id="postcode">
+                <input class="form-control" placeHolder="Enter Search Postcode" type="text" name="postcode" id="postcode" autocomplete="off">
 
             </div>
 
@@ -187,7 +187,7 @@
 
                 <div class="input-group" id="kt_daterangepicker_3">
 
-                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date">
+                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date" autocomplete="off">
 
                 </div>
 

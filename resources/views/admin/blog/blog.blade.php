@@ -94,15 +94,14 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Title</label>
                 <div class="col-8">
-                    <input class="form-control" placeHolder="Enter Search Title" type="text" name="title" id="title">
+                    <input class="form-control" placeHolder="Enter Search Title" type="text" name="title" id="title" autocomplete="off"> 
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-4 col-form-label">Created Date</label>
                 <div class="col-8">
                     <div class="input-group" id="kt_daterangepicker_3">
-                        <input type="text" name="created_date" id="created_date" class="form-control"
-                            placeholder="Created Date">
+                        <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date" autocomplete="off">
                     </div>
                 </div>
             </div>

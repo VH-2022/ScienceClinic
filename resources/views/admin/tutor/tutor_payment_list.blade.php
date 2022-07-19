@@ -155,7 +155,7 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="name">
+                <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="name" autocomplete="off">
 
             </div>
 
@@ -169,7 +169,7 @@
 
                 <div class="input-group" id="kt_daterangepicker_3">
 
-                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date">
+                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date" autocomplete="off">
 
                 </div>
 
