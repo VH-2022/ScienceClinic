@@ -236,7 +236,7 @@
 
             <div class="modal-header">
 
-                <h5 class="modal-title" id="exampleModalLabel">Add TutorLevel</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Tutor Level</h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
@@ -294,7 +294,7 @@
 
             <div class="modal-header">
 
-                <h5 class="modal-title" id="exampleModalLabel">Edit TutorLevel</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Tutor Level</h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
