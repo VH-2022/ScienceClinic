@@ -174,445 +174,453 @@
                                 </div>
 
 
-                                </div>
+                            </div>
 
-                                <div class="col-lg-6">
-                                    <div class="d-flex mb-4">
-                                        <div>
-                                            <strong class="bold-text">Bio:</strong>
-                                        </div>
-
-                                        <div class="ml-14">
-                                            {{ $tutor->bio }}
-                                        </div>
-
-
+                            <div class="col-lg-6">
+                                <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Bio:</strong>
                                     </div>
+
+                                    <div class="ml-14">
+                                        {{ $tutor->bio }}
+                                    </div>
+
+
                                 </div>
-
-
-
                             </div>
+
+
 
                         </div>
 
                     </div>
-
-
-
-                    <!--begin::Header-->
-
-                    <div class="card card-custom">
-
-                        <div class="card-header">
-
-                            <div class="card-title tutor">
-
-                                <ul class="nav nav-pills nav-fill">
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link active" onclick="getUniversityDetails(1)" href="#university" data-toggle="tab">
-
-                                            <span class="nav-text">University</span>
-
-                                        </a>
-
-                                    </li>
-
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" href="#level" data-toggle="tab" onclick="getLevelDetails(1)" aria-controls="Level" id="tutorlevel">
-
-                                            <span class="nav-text">Level Tutor</span>
-
-                                        </a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" href="#other" data-toggle="tab" onclick="getOtherDetails(1)" aria-controls="Other">
-
-                                            <span class="nav-text">Other</span>
-
-                                        </a>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-
-                        </div>
-                        <div class="tab-content" id="tabs">
-
-                            <div class="tab-pane active" id="university">
-
-                                <span id="responsive_id"></span>
-
-                            </div>
-
-
-
-                            <div class="tab-pane" id="subject">
-                                <div class="table-responsive">
-                                    <span id="responsive_Id"></span>
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="tab-pane" id="level">
-                                <div class="table-responsive">
-                                    <span id="responsived_id"></span>
-                                </div>
-
-                            </div>
-
-
-
-
-
-                            <div class="tab-pane" id="other">
-                                <div class="table-responsive">
-                                    <span id="responsived1_id"></span>
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-
 
                 </div>
 
-                <!--end::Subject List-->
+
+
+                <!--begin::Header-->
+
+                <div class="card card-custom">
+
+                    <div class="card-header">
+
+                        <div class="card-title tutor">
+
+                            <ul class="nav nav-pills nav-fill">
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link active" onclick="getUniversityDetails(1)" href="#university" data-toggle="tab">
+
+                                        <span class="nav-text">University</span>
+
+                                    </a>
+
+                                </li>
+
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link" href="#level" data-toggle="tab" onclick="getLevelDetails(1)" aria-controls="Level" id="tutorlevel">
+
+                                        <span class="nav-text">Level Tutor</span>
+
+                                    </a>
+
+                                </li>
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link" href="#other" data-toggle="tab" onclick="getOtherDetails(1)" aria-controls="Other">
+
+                                        <span class="nav-text">Other</span>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+                    <div class="tab-content" id="tabs">
+
+                        <div class="tab-pane active" id="university">
+
+                            <span id="responsive_id"></span>
+
+                        </div>
+
+
+
+                        <div class="tab-pane" id="subject">
+                            <div class="table-responsive">
+                                <span id="responsive_Id"></span>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="tab-pane" id="level">
+                            <div class="table-responsive">
+                                <span id="responsived_id"></span>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <div class="tab-pane" id="other">
+                            <div class="table-responsive">
+                                <span id="responsived1_id"></span>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
 
             </div>
 
-            <!--end::Container-->
+            <!--end::Subject List-->
 
         </div>
 
-        <!--end::Card-->
+        <!--end::Container-->
 
     </div>
 
-    <!--end::Container-->
+    <!--end::Card-->
+
+</div>
+
+<!--end::Container-->
 
 
 
-    @endsection
+@endsection
 
-    @section('page-js')
+@section('page-js')
 
-    <script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
 
-    <script>
-        function addhourlyrate(subjectId) {
-            $.confirm({
-                title: 'Add Hourly Rate',
-                content: '' +
-                    '<form action="" class="formName">' +
-                    '<div class="form-group">' +
-                    '<label>Enter Rate</label>' +
-                    '<input type="number" placeholder="Your Rate" class="rate form-control" required />' +
-                    '<span class="text-danger" id="error_rate"></span>' +
-                    '</div>' +
-                    '</form>',
-                buttons: {
-                    formSubmit: {
-                        text: 'Submit',
-                        btnClass: 'btn-blue',
-                        action: function() {
-                            var rate = this.$content.find('.rate').val();
-                            if (rate.trim() == '') {
-                                $('#error_rate').html("Please enter rate");
-                                return false;
+<script>
+    function addhourlyrate(subjectId) {
+        $.confirm({
+            title: 'Add Hourly Rate',
+            content: '' +
+                '<form action="" class="formName">' +
+                '<div class="form-group">' +
+                '<label>Enter Rate</label>' +
+                '<input type="number" placeholder="Your Rate" class="rate form-control" required />' +
+                '<span class="text-danger" id="error_rate"></span>' +
+                '</div>' +
+                '</form>',
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        var rate = this.$content.find('.rate').val();
+                        if (rate.trim() == '') {
+                            $('#error_rate').html("Please enter rate");
+                            return false;
+                        }
+
+                        $.ajax({
+
+                            type: "post",
+
+                            url: "{{ route('add-hourly-rate') }}",
+                            data: {
+                                'tutor_id': '{{ $tutor->id }}',
+                                'rate': rate,
+                                'subject_id': subjectId,
+                                "_token": "{{ csrf_token() }}"
+
+                            },
+
+                            success: function(res) {
+
+                                toastr.success(res.error_msg);
+                                getLevelDetails(1);
+                                getCounter();
                             }
 
-                            $.ajax({
-
-                                type: "post",
-
-                                url: "{{ route('add-hourly-rate') }}",
-                                data: {
-                                    'tutor_id': '{{ $tutor->id }}',
-                                    'rate': rate,
-                                    'subject_id': subjectId,
-                                    "_token": "{{ csrf_token() }}"
-
-                                },
-
-                                success: function(res) {
-
-                                    toastr.success(res.error_msg);
-                                    getLevelDetails(1);
-                                    getCounter();
-                                }
-
-                            })
-                        }
-                    },
-                    cancel: function() {
-
-                    },
+                        })
+                    }
                 },
-                onContentReady: function() {
-
-                    var jc = this;
-                    this.$content.find('form').on('submit', function(e) {
-
-                        e.preventDefault();
-                        jc.$$formSubmit.trigger('click');
-                    });
-                }
-            });
-
-        }
-
-        function getUniversityDetails(page) {
-
-            $.ajax({
-
-                type: "GET",
-
-                url: "{{ route('tutor-university') }}",
-
-                data: {
-
-                    'tutor_id': '{{ $tutor->id }}',
-
-                    'page': page,
+                cancel: function() {
 
                 },
+            },
+            onContentReady: function() {
 
-                success: function(res) {
+                var jc = this;
+                this.$content.find('form').on('submit', function(e) {
 
-                    $('#responsive_id').html("");
+                    e.preventDefault();
+                    jc.$$formSubmit.trigger('click');
+                });
+            }
+        });
 
-                    $('#responsive_id').html(res);
+    }
 
-                }
+    function getUniversityDetails(page) {
 
-            })
+        $.ajax({
 
+            type: "GET",
+
+            url: "{{ route('tutor-university') }}",
+
+            data: {
+
+                'tutor_id': '{{ $tutor->id }}',
+
+                'page': page,
+
+            },
+
+            success: function(res) {
+
+                $('#responsive_id').html("");
+
+                $('#responsive_id').html(res);
+
+            }
+
+        })
+
+    }
+
+    getUniversityDetails(1);
+
+
+
+    function getSubjectDetails(page) {
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "{{ route('tutor-subject') }}",
+
+            data: {
+
+                'tutor_id': '{{ $tutor->id }}',
+
+                'page': page,
+
+            },
+
+            success: function(res) {
+
+                $('#responsive_Id').html("");
+
+                $('#responsive_Id').html(res);
+
+            }
+
+        })
+
+    }
+
+    getSubjectDetails(1);
+
+
+
+    function getLevelDetails(page) {
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "{{ route('tutor-level-list') }}",
+
+            data: {
+
+                'tutor_id': '{{ $tutor->id }}',
+
+                'page': page,
+
+            },
+
+            success: function(res) {
+
+                $('#responsived_id').html("");
+
+                $('#responsived_id').html(res);
+
+            }
+
+        })
+
+    }
+
+    getLevelDetails(1);
+
+
+    function getOtherDetails(page) {
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "{{ route('tutor-other-list') }}",
+
+            data: {
+
+                'tutor_id': '{{ $tutor->id }}',
+
+                'page': page,
+
+            },
+
+            success: function(res) {
+                $('#responsived1_id').html("");
+
+                $('#responsived1_id').html(res);
+
+            }
+
+        })
+
+    }
+
+    getOtherDetails(1);
+</script>
+
+<script>
+    function getCounter() {
+        var id = $('#tutor_id').val();
+
+        $.ajax({
+            method: "GET",
+            url: "{{ route('get-count') }}",
+            data: {
+                'id': id,
+            },
+            success: function(res) {
+                $('#tutor_id').val(res.data);
+            }
+        })
+    }
+
+
+    function changeStatus(status, id) {
+        var count = $('#tutor_id').val();
+        var name = '';
+        if (status == 'Accepted') {
+            name = 'Accept';
+        } else {
+            name = 'Reject';
         }
+        $.confirm({
 
-        getUniversityDetails(1);
+            title: 'Are you sure?',
+
+            columnClass: "col-md-6",
 
 
 
-        function getSubjectDetails(page) {
+            content: "you want to change status?",
 
-            $.ajax({
+            buttons: {
 
-                type: "GET",
+                formSubmit: {
 
-                url: "{{ route('tutor-subject') }}",
+                    text: name,
 
-                data: {
+                    btnClass: 'btn-primary',
 
-                    'tutor_id': '{{ $tutor->id }}',
+                    action: function() {
 
-                    'page': page,
+                        $.ajax({
+
+                            method: "GET",
+
+                            url: "{{ route('changestatus') }}",
+
+                            data: {
+
+                                'id': id,
+
+                                'status': status
+
+                            }
+
+
+
+                        }).done(function(r) {
+
+
+
+                            toastr.success(r.error_msg);
+
+                            $('.rejected_id').attr('style', 'display:block');
+
+                            $('.accepted_id').attr('style', 'display:block');
+
+                            if (r.data.status == "Accepted") {
+
+                                var html_res = '<span class="badge badge-success">Accepted</span>';
+
+                                $('.accepted_id').attr('style', 'display:none');
+
+                            } else {
+
+                                var html_res = '<span class="badge badge-danger">Rejected</span>';
+
+                                $('.rejected_id').attr('style', 'display:none');
+
+                            }
+
+
+
+                            $('#status_id').html(html_res);
+
+
+
+                        }).fail(function() {
+
+                            _self.setContent('Something went wrong. Contact Support.');
+
+                            toastr.error('Sorry, something went wrong. Please try again.');
+
+                        });
+
+
+
+                    }
 
                 },
-
-                success: function(res) {
-
-                    $('#responsive_Id').html("");
-
-                    $('#responsive_Id').html(res);
-
-                }
-
-            })
-
-        }
-
-        getSubjectDetails(1);
-
-
-
-        function getLevelDetails(page) {
-
-            $.ajax({
-
-                type: "GET",
-
-                url: "{{ route('tutor-level-list') }}",
-
-                data: {
-
-                    'tutor_id': '{{ $tutor->id }}',
-
-                    'page': page,
-
-                },
-
-                success: function(res) {
-
-                    $('#responsived_id').html("");
-
-                    $('#responsived_id').html(res);
-
-                }
-
-            })
-
-        }
-
-        getLevelDetails(1);
-
-
-        function getOtherDetails(page) {
-
-            $.ajax({
-
-                type: "GET",
-
-                url: "{{ route('tutor-other-list') }}",
-
-                data: {
-
-                    'tutor_id': '{{ $tutor->id }}',
-
-                    'page': page,
-
-                },
-
-                success: function(res) {
-                    $('#responsived1_id').html("");
-
-                    $('#responsived1_id').html(res);
-
-                }
-
-            })
-
-        }
-
-        getOtherDetails(1);
-    </script>
-
-    <script>
-        function getCounter() {
-            var id = $('#tutor_id').val();
-
-            $.ajax({
-                method: "GET",
-                url: "{{ route('get-count') }}",
-                data: {
-                    'id': id,
-                },
-                success: function(res) {
-                    console.log(res.data);
-                    $('#tutor_id').val(res.data);
-                }
-            })
-        }
-
-
-        function changeStatus(status, id) {
-            var count = $('#tutor_id').val();
-            $.confirm({
-
-                title: 'Are you sure?',
-
-                columnClass: "col-md-6",
-
-
-
-                content: "you want to change status?",
-
-                buttons: {
-
-                    formSubmit: {
-
-                        text: 'Submit',
-
-                        btnClass: 'btn-primary',
-
-                        action: function() {
-
-                            $.ajax({
-
-                                method: "GET",
-
-                                url: "{{ route('changestatus') }}",
-
-                                data: {
-
-                                    'id': id,
-
-                                    'status': status
-
-                                }
-
-
-
-                            }).done(function(r) {
-
-
-
-                                toastr.success(r.error_msg);
-
-                                $('.rejected_id').attr('style', 'display:block');
-
-                                $('.accepted_id').attr('style', 'display:block');
-
-                                if (r.data.status == "Accepted") {
-
-                                    var html_res = '<span class="badge badge-success">Accepted</span>';
-
-                                    $('.accepted_id').attr('style', 'display:none');
-
-                                } else {
-
-                                    var html_res = '<span class="badge badge-danger">Rejected</span>';
-
-                                    $('.rejected_id').attr('style', 'display:none');
-
-                                }
-
-
-
-                                $('#status_id').html(html_res);
-
-
-
-                            }).fail(function() {
-
-                                _self.setContent('Something went wrong. Contact Support.');
-
-                                toastr.error('Sorry, something went wrong. Please try again.');
-
-                            });
-
-
-
-                        }
-
-                    },
-
-
+                cancel: function() {
+                   
                 },
 
 
+            },
 
-            });
 
 
-        }
-    </script>
+        });
 
-    @endsection
+
+    }
+</script>
+
+@endsection
