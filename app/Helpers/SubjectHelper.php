@@ -100,7 +100,7 @@ class SubjectHelper
 
                 }
 
-        $query = $query->paginate(10);
+        $query = $query->orderBy('id', 'DESC')->paginate(10);
 
         return $query;
 
