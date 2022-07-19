@@ -90,10 +90,10 @@ class ParentDetailHelper
         $time = Carbon::parse($teaching_start_time);
         $endTime = $time->addHours($hours);
         $finalEndTime = $endTime;
-           if($minutes != ''){
-        $finalEndTime = $endTime->addMinutes($minutes);
-        $hours = $hours.'.'. $minutes;
-           }
+        if ($minutes != '') {
+            $finalEndTime = $endTime->addMinutes($minutes);
+            $hours = $hours . '.' . $minutes;
+        }
         $arrData = array(
             'teaching_hours' => $hours,
             'hourly_rate' => $hourly_rate,
@@ -181,5 +181,60 @@ class ParentDetailHelper
     public static function getFeedbackDataById($uniqueId)
     {
         return ParentDetail::with('subjectDetails')->where('id', $uniqueId)->first();
+    }
+    public static function getOfflineBooking($tutorId)
+    {
+        $query =  ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->select('id', 'tuition_day', 'tutor_id', 'subject_id', 'attend_class', 'tutor_reject_reason', 'teaching_start_time', 'booking_date', 'user_name as userName', 'level_id')
+            ->whereHas('subjectDetails', function ($subjectQuery) {
+                $subjectQuery->whereNull('deleted_at');
+            })
+            ->whereHas('tutorDetails', function ($queryVal) {
+                $queryVal->where('status', 'Accepted');
+            })
+            ->where('attend_class', '0')
+            ->where('tutor_id', $tutorId)
+            ->whereNotNull('user_name')
+            ->paginate(10);
+        return $query;
+    }
+    public static function getOfflineBookingDetails($tutorId)
+    {
+        $query =  ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->select('id', 'tuition_day', 'tutor_id', 'subject_id', 'attend_class', 'tutor_reject_reason', 'teaching_start_time', 'booking_date', 'user_name as userName', 'level_id')
+            ->whereHas('subjectDetails', function ($subjectQuery) {
+                $subjectQuery->whereNull('deleted_at');
+            })
+            ->whereHas('tutorDetails', function ($queryVal) {
+                $queryVal->where('status', 'Accepted');
+            })
+            ->where('attend_class', '0')
+            ->where('id', $tutorId)
+            ->whereNotNull('user_name')
+            ->first();
+        return $query;
+    }
+    public static function getOfflineBookings($name, $tutorName, $subjectName, $level, $day)
+    {
+        $query =  ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])
+            ->whereHas('tutorDetails', function ($queryTutor) use ($tutorName) {
+                if ($tutorName != '') {
+                    $queryTutor->whereRaw('LOWER(first_name) LIKE "%' . strtolower($tutorName) . '%"');
+                }
+            })
+            ->whereHas('subjectDetails', function ($querySubject) use ($subjectName) {
+                if ($subjectName != '') {
+                    $querySubject->whereRaw('LOWER(main_title) LIKE "%' . strtolower($subjectName) . '%"');
+                }
+            })
+            ->whereHas('levelDetails', function ($queryLevel) use ($level) {
+                if ($level != '') {
+                    $queryLevel->whereRaw('LOWER(title) LIKE "%' . strtolower($level) . '%"');
+                }
+            })
+            ->whereRaw('LOWER(tuition_day) LIKE "%' . strtolower($day) . '%"')
+            ->whereRaw('LOWER(user_name) LIKE "%' . strtolower($name) . '%"')
+            ->whereNotNull('user_name')
+            ->where('inquiry_type', "2")
+            ->paginate(10);
+        return $query;
     }
 }

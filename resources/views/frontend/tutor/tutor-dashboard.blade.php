@@ -83,7 +83,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 mb-10">
-                                <h5>You must have a DBS less than a year old or be on an update serve for your account to be approved. </h5>
+                                <h5>You must have a DBS less than a year old or be on an update service for your account to be approved. </h5>
                                 <div class="apply-details-inner">
                                     <div class="ml-4">
                                         <input class="form-check-input example" type="checkbox" id="valid-dbs" name="dbs" value="1" @if(Auth::user()->valid_dbs == 1) checked @endif onclick="dbsData(1)">

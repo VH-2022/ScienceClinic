@@ -6,7 +6,7 @@ use App\Helpers\ParentDetailHelper;
 use App\Helpers\SubjectHelper;
 use App\Helpers\TutorAvailabilityHelper;
 use App\Helpers\TutorLevelHelper;
-use App\Helpers\UserHelper;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Redis;
 
 class TutorAvailabilityController extends Controller
 {
@@ -222,10 +223,9 @@ class TutorAvailabilityController extends Controller
         return $array;
     }
 
-    public function storeOfflineBooking(Request $request){
-        // dd($request->all());
+    public function storeOfflineBooking(Request $request)
+    {
         $tutorId = Auth::user()->id;
-        // dd($tutorId);
         $rules = array(
             'sname' => 'required',
             'main_subject' => 'required',
@@ -247,50 +247,44 @@ class TutorAvailabilityController extends Controller
                 ->withErrors($validator, 'booking')
                 ->withInput();
         } else {
-            $offlineUserData = array(
-                'first_name' => $request->sname,
-                'type' => 3
-            );
-          $userId = UserHelper::save($offlineUserData);
-          if($userId){
             $hours = 1;
             $finalEndTime = "";
-        $time = Carbon::parse($request->idel_time);
-        $endTime = $time->addHours($hours);
-        $finalEndTime = $endTime;
+            $time = Carbon::parse($request->idel_time);
+            $endTime = $time->addHours($hours);
+            $finalEndTime = $endTime;
 
-        $currdate = date("Y-m-d");
-        $monday = strtotime("last monday");
-        $monday = date('w', $monday) == date('w') ? $monday + 7 * 86400 : $monday;
-        $sunday = strtotime(date("Y-m-d", $monday) . " +6 days");
-        $this_week_sd = date("Y-m-d", $monday);
-        $this_week_ed = date("Y-m-d", $sunday);
+            $currdate = date("Y-m-d");
+            $monday = strtotime("last monday");
+            $monday = date('w', $monday) == date('w') ? $monday + 7 * 86400 : $monday;
+            $sunday = strtotime(date("Y-m-d", $monday) . " +6 days");
+            $this_week_sd = date("Y-m-d", $monday);
+            $this_week_ed = date("Y-m-d", $sunday);
 
-        $dateRang = self::getDatesFromRange($this_week_sd, $this_week_ed);
-        $dateArray = array();
-        foreach ($dateRang as $dkey) {
-            if ($currdate <= $dkey) {
-                $dayname = date('l', strtotime($dkey));
-                $dateArray[$dkey] = $dayname;
+            $dateRang = self::getDatesFromRange($this_week_sd, $this_week_ed);
+            $dateArray = array();
+            foreach ($dateRang as $dkey) {
+                if ($currdate <= $dkey) {
+                    $dayname = date('l', strtotime($dkey));
+                    $dateArray[$dkey] = $dayname;
+                }
             }
-        }
 
-        $bookDate = date('Y-m-d', strtotime($request->day . ' next week'));
+            $bookDate = date('Y-m-d', strtotime($request->day . ' next week'));
 
-        if (in_array(ucfirst($request->day), $dateArray)) {
-            foreach ($dateArray as $key => $val) {
-                if (ucfirst($request->day) == $val) {
-                    if ($key < date('Y-m-d')) {
-                        $bookDate = date('Y-m-d', strtotime($request->day . ' next week'));
-                    } else {
-                        $bookDate = $key;
+            if (in_array(ucfirst($request->day), $dateArray)) {
+                foreach ($dateArray as $key => $val) {
+                    if (ucfirst($request->day) == $val) {
+                        if ($key < date('Y-m-d')) {
+                            $bookDate = date('Y-m-d', strtotime($request->day . ' next week'));
+                        } else {
+                            $bookDate = $key;
+                        }
                     }
                 }
             }
-        }
 
             $offlineUserInquiryData = array(
-                'user_id' => $userId,
+                'user_id' => 0,
                 'tutor_id' => $tutorId,
                 'subject_id' => $request->main_subject,
                 'level_id' => $request->level,
@@ -300,16 +294,119 @@ class TutorAvailabilityController extends Controller
                 'teaching_start_time' => date("H:i:s", strtotime($request->idel_time)),
                 'teaching_end_time' => $finalEndTime,
                 'inquiry_type' => 2,
-   
+                'user_name' => $request->sname,
+                'payment_status' => "Success"
+
             );
-          $saveData = ParentDetailHelper::save($offlineUserInquiryData);
-          if($saveData)
-          {
-            response()->json(['error_msg' => "Successfully instered", 'data' => $offlineUserInquiryData], 200);
-          }else{
-            response()->json(['error_msg' => "Something went wrong", 'data' => ''], 500);
-          }
-          }
+            $saveData = ParentDetailHelper::save($offlineUserInquiryData);
+            if ($saveData) {
+                Session::flash('success', trans('messages.addedSuccessfully'));
+                return redirect('tutor-offline-booking');
+            } else {
+                Session::flash('error', trans('messages.error'));
+                return redirect('tutor-offline-booking');
+            }
+        }
+    }
+    public function getOfflineBookingAjax(Request $request){
+        $tutorId = Auth::user()->id;
+        if ($request->input('page')) {
+            $this->data['page'] = $request->input('page');
+        } else {
+            $this->data['page'] = 1;
+        }
+        $this->data['data'] = ParentDetailHelper::getOfflineBooking($tutorId);
+        return view('frontend.tutor.tutor-offline-booking-ajax', $this->data);
+    }
+    public function editOfflineBooking(Request $request){
+        $id = $request->id;
+        $data = ParentDetailHelper::getOfflineBookingDetails($id);
+        return json_encode($data);
+    }
+    public function updateOfflineBooking(Request $request)
+    {
+        $tutorId = Auth::user()->id;
+        $mainId = $request->main_id_edit;
+        $rules = array(
+            'sname_edit' => 'required',
+            'main_subject_edit' => 'required',
+            'level_edit' => 'required',
+            'day_edit' => 'required',
+            'idel_time_edit' => 'required',
+
+        );
+        $messsages = array(
+            'main_subject_edit.required' => 'Please select Subject',
+            'sname_edit.required' => 'Please enter Student Name',
+            'level_edit.required' => 'Please select Level',
+            'day_edit.required' => 'Please select Day',
+            'idel_time_edit.required' => 'Please Enter Ideltime'
+        );
+        $validator = Validator::make($request->all(), $rules, $messsages);
+        if ($validator->fails()) {
+            return redirect("/tutor-offline-booking?editpopup=1&id=" . $mainId)
+                ->withErrors($validator, 'booking_edit')
+                ->withInput();
+        } else {
+            $hours = 1;
+            $finalEndTime = "";
+            $time = Carbon::parse($request->idel_time_edit);
+            $endTime = $time->addHours($hours);
+            $finalEndTime = $endTime;
+
+            $currdate = date("Y-m-d");
+            $monday = strtotime("last monday");
+            $monday = date('w', $monday) == date('w') ? $monday + 7 * 86400 : $monday;
+            $sunday = strtotime(date("Y-m-d", $monday) . " +6 days");
+            $this_week_sd = date("Y-m-d", $monday);
+            $this_week_ed = date("Y-m-d", $sunday);
+
+            $dateRang = self::getDatesFromRange($this_week_sd, $this_week_ed);
+            $dateArray = array();
+            foreach ($dateRang as $dkey) {
+                if ($currdate <= $dkey) {
+                    $dayname = date('l', strtotime($dkey));
+                    $dateArray[$dkey] = $dayname;
+                }
+            }
+
+            $bookDate = date('Y-m-d', strtotime($request->day_edit . ' next week'));
+
+            if (in_array(ucfirst($request->day_edit), $dateArray)) {
+                foreach ($dateArray as $key => $val) {
+                    if (ucfirst($request->day_edit) == $val) {
+                        if ($key < date('Y-m-d')) {
+                            $bookDate = date('Y-m-d', strtotime($request->day_edit . ' next week'));
+                        } else {
+                            $bookDate = $key;
+                        }
+                    }
+                }
+            }
+
+            $offlineUserInquiryData = array(
+                'user_id' => 0,
+                'tutor_id' => $tutorId,
+                'subject_id' => $request->main_subject_edit,
+                'level_id' => $request->level_edit,
+                'tuition_day' => $request->day_edit,
+                'tuition_time' =>  date("H:i:s", strtotime($request->idel_time_edit)),
+                'booking_date' => $bookDate,
+                'teaching_start_time' => date("H:i:s", strtotime($request->idel_time_edit)),
+                'teaching_end_time' => $finalEndTime,
+                'inquiry_type' => 2,
+                'user_name' => $request->sname_edit,
+                'payment_status' => "Success"
+
+            );
+            $updateData = ParentDetailHelper::update($offlineUserInquiryData, array('id' => $mainId));
+            if ($updateData) {
+                Session::flash('success', trans('messages.updatedSuccessfully'));
+                return redirect('tutor-offline-booking');
+            } else {
+                Session::flash('error', trans('messages.error'));
+                return redirect('tutor-offline-booking');
+            }
         }
     }
 }

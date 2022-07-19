@@ -294,4 +294,8 @@ class UserHelper
         $query  = User::where('id', $id)->update($data);
         return $query;
     }
+    public static function getApprovedTutor(){
+        $query = User::select('id','status','type','deleted_at','first_name')->where('type', 2)->where('status','Accepted')->whereNull('deleted_at')->get();
+        return $query;
+    }
 }

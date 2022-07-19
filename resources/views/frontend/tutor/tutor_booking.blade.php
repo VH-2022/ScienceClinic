@@ -122,8 +122,8 @@
                 right: ''
             },
             contentHeight: 450,
-            selectable: true,
-            editable: true,
+            selectable: false,
+            editable: false,
             initialView: 'timeGridWeek',
             slotDuration: '01:00',
             displayEventTime: false,
@@ -147,16 +147,29 @@
                                     (('' + month).length < 2 ? '0' : '') + month + '-' +
                                     (('' + day).length < 2 ? '0' : '') + day;
                                 var timeslot = r.tuition_time.split('-');
-
-                                var eventTitle = r.user_details.first_name + "\r" + r.subject_details.main_title;
-
-                                events.push({
-                                    id: r.id,
-                                    title: eventTitle,
-                                    start: output + ' ' + timeslot[0],
-                                    end: output + ' ' + timeslot[1],
-                                    time: r.tuition_time,
-                                })
+                                if (r.inquiry_type == "1") {
+                                    var eventTitle = r.user_details.first_name + "\r" + r.subject_details.main_title;
+                                    events.push({
+                                        id: r.id,
+                                        title: eventTitle,
+                                        start: r.booking_date + ' ' + r.teaching_start_time,
+                                        end: r.booking_date + ' ' + r.teaching_end_time,
+                                        time: r.tuition_time,
+                                        inquiry_type: r.inquiry_type
+                                    })
+                                } else {
+                                    var eventTitle = r.user_name + "\r" + r.subject_details.main_title;
+                                    events.push({
+                                        id: r.id,
+                                        title: eventTitle,
+                                        start: r.booking_date + ' ' + r.teaching_start_time,
+                                        end: r.booking_date + ' ' + r.teaching_end_time,
+                                        time: r.tuition_time,
+                                        backgroundColor: '#727272',
+                                        borderColor: '#727272',
+                                        inquiry_type: r.inquiry_type
+                                    })
+                                }
                             });
                         }
                         callback(events);
@@ -166,8 +179,9 @@
             eventClick: function(info) {
                 var setTime = info.event.extendedProps.time;
                 var userId = info.event.id;
-
-                window.location.href = '{{url("/show-bookslot-data/")}}' + '/' + userId + '/' + setTime;
+                if(info.event.extendedProps.inquiry_type == 1){
+                    window.location.href = '{{url("/show-bookslot-data/")}}' + '/' + userId + '/' + setTime;
+                }
             },
         });
         calendar.render();

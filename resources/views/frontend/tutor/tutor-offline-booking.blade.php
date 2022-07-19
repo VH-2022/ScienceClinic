@@ -7,6 +7,9 @@
     .modal-open .bootstrap-timepicker-meridian{
         width: 38px;
     }
+    .custom-table-td tr td{
+        font-size: 13px;
+    }
 </style>
 <div class="d-flex flex-column-fluid">
 
@@ -88,7 +91,6 @@
                         <div class="tab-pane fade show active" id="payment" role="tabpanel" aria-labelledby="payment-tab">
                             <div class="prime-container">
                                 <h3>Offline Booking</h3>
-                                <br></br>
                             </div>
                         </div>
                         <div class="table-responsive" id="response_id">
@@ -124,7 +126,7 @@
 
             </div>
 
-            <form action="{{route('offling-booking-store')}}" method="post" id="subjectForm" name="userForm" class="form-horizontal">
+            <form action="{{route('offline-booking-store')}}" method="post" id="subjectForm" name="userForm" class="form-horizontal">
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -209,7 +211,7 @@
 
                             </select>
 
-                            <span class="title error_msg error" style="color: red;" id="day_error">{{ $errors->subject->first('level')}}</span>
+                            <span class="title error_msg error" style="color: red;" id="day_error">{{ $errors->booking->first('level')}}</span>
 
                         </div>
 
@@ -249,11 +251,155 @@
     </div>
 
 </div>
+<div class="modal fade title-edit" id="editajax-crud-modal" aria-hidden="true">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+    <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">Edit booking</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+            <i aria-hidden="true" class="ki ki-close"></i>
+
+        </button>
+
+    </div>
+
+    <form action="{{route('offline-booking-update')}}" method="post" id="subjectForm" name="userForm" class="form-horizontal">
+
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="main_id_edit" id="main_id_edit">
+
+        <div class="modal-body">
+
+            <div class="form-group row">
+
+                <div class="col-md-12">
+
+                    <label for="exampleSelectd">Student Name <span class="text-danger">*</span></label>
+                    <input type="text" autocomplete="off" class="form-control" name="sname_edit" id="sname_edit">
+                    <span class="title error_msg error" style="color: red;" id="name_error_edit">{{ $errors->booking_edit->first('sname_edit')}}</span>
+
+                </div>
+
+            </div>
+            <div class="form-group row">
+
+                <div class="col-md-12">
+
+                    <label for="exampleSelectd">Subject <span class="text-danger">*</span></label>
+
+                    <select class="form-control validate_field main_subject" name="main_subject_edit" id="main_subject_edit">
+
+                        <option value="">Select Subject</option>
+
+                        @foreach($subject as $val)
+                        <option value="{{$val->id}}">{{$val->main_title}}</option>
+                        @endforeach
+
+                    </select>
+
+                    <span class="title error_msg error" style="color: red;" id="subject_error_edit">{{ $errors->booking_edit->first('main_subject_edit')}}</span>
+
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-md-12">
+
+                    <label for="exampleSelectd">Level <span class="text-danger">*</span></label>
+
+                    <select class="form-control validate_field main_subject" name="level_edit" id="level_edit">
+
+                        <option value="">Select Level</option>
+
+                        @foreach($level as $val)
+                        <option value="{{$val->id}}">{{$val->title}}</option>
+                        @endforeach
+
+                    </select>
+
+                    <span class="title error_msg error" style="color: red;" id="level_error_edit">{{ $errors->booking_edit->first('level_edit')}}</span>
+
+                </div>
+
+            </div>
+            @php $daysArr = [ 'Monday' =>'monday',
+            'Tuesday' => 'tuesday',
+            'Wednesday' => 'wednesday',
+            'Thursday' => 'thursday',
+            'Friday' => 'friday',
+            'Saturday' => 'saturday',
+            'Sunday' => 'sunday'] @endphp
+            <div class="form-group row">
+
+                <div class="col-md-12">
+
+                    <label for="exampleSelectd">Day <span class="text-danger">*</span></label>
+
+                    <select class="form-control validate_field main_subject" name="day_edit" id="day_edit">
+
+                        <option value="">Select Day</option>
+
+                        @foreach($daysArr as $key=>$val)
+                        <option value="{{$val}}">
+                            {{$key}}
+                        </option>
+                        @endforeach
+
+                    </select>
+
+                    <span class="title error_msg error" style="color: red;" id="day_error_edit">{{ $errors->booking_edit->first('level_edit')}}</span>
+
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-md-12">
+
+                    <label for="exampleSelectd">Idel Time <span class="text-danger">*</span></label>
+
+                    <input type="text" class="form-control" name="idel_time_edit" id="idel_time_edit">
+
+
+                    <span class="idel_time error_msg error" style="color: red;" id="idel_time_error_edit">{{ $errors->booking_edit->first('idel_time_edit')}}</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button type="submit" class="btn btn-primary" id="btn-update" title="Submit">Update
+
+            </button>
+
+            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" aria-hidden="true" title="Cancel">Cancel</button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</div>
+
+</div>
 @endsection
 @section('page-js')
 <script src="{{asset('assets/plugins/custom/timepicker/bootstrap-timepicker.js')}}"></script>
 <script>
-    var _AJAX_LIST = "{{ route('tutor-subject-ajax') }}";
+    var _AJAX_LIST = "{{ route('tutor-offline-subject-ajax') }}";
 
     function ajaxList(page) {
         $('.ki-close').click();
@@ -273,6 +419,9 @@
     $('#idel_time').timepicker({
         defaultTIme: false
     });
+    $('#idel_time_edit').timepicker({
+        defaultTIme: false
+    });
     ajaxList(1);
     $('#btn-save').click(function(e) {
         var name = $('#main_subject').val();
@@ -280,18 +429,6 @@
         var level = $('#level').val();
         var day = $('#day').val();
         var idelTime = $('#idel_time').val();
-        // var tutionTime = $('#desc').html();
-        // var time = tutionTime.split('-');
-        // var startTime = time[0];
-        // var endTime = time[1];
-        // var timeVal = moment(idelTime, "h:mm:ss A").format("HH:mm:ss");
-        // var startTimeVal = moment(startTime, "h:mm:ss A").format("HH:mm:ss");
-        // var endTimeVal = moment(endTime, "h:mm:ss A").format("HH:mm:ss");
-        // var format = 'hh:mm:ss';
-        // var time = moment(teachingTime, format),
-        //     beforeTime = moment(startTimeVal, format),
-        //     afterTime = moment(endTimeVal, format);
-        // var minutes = hours.split('.');
         var cnt = 0;
         $('#name_error').html("");
         $('#subject_error').html("");
@@ -327,89 +464,34 @@
 
     $('#btn-update').click(function(e) {
         var name = $('#main_subject_edit').val();
+        var studentName = $('#sname_edit').val();
         var level = $('#level_edit').val();
-        var id = $('#level_id_edit').val();
-        var mainId = $('#main_id_edit').val();
+        var day = $('#day_edit').val();
+        var idelTime = $('#idel_time_edit').val();
         var cnt = 0;
+        $('#name_error_edit').html("");
         $('#subject_error_edit').html("");
         $('#level_error_edit').html("");
+        $('#day_error_edit').html("");
+        $('#idel_time_error_edit').html("");
+        if (studentName == '') {
+            $('#name_error_edit').html("Student Name is required");
+            cnt = 1;
+        }
         if (name == '') {
             $('#subject_error_edit').html("Subject is required");
             cnt = 1;
-        } else {
-            $.ajax({
-                async: false,
-                global: false,
-                url: "{{route('check-level-subject')}}",
-                type: "POST",
-                data: {
-                    name: name,
-                    level: level,
-                    id: id,
-                    mainId: mainId,
-                    _token: "{{ csrf_token()}}"
-                },
-                success: function(response) {
-                    if (response == 1) {
-                        $('#level_error_edit').html("Level is already exist");
-                        $('#subject_error_edit').html("Subject is already exist");
-                        cnt = 1;
-                    } else {
-                        $('#level_error_edit').html("");
-                        $('#subject_error_edit').html("");
-                    }
-                }
-            });
         }
         if (level == '') {
             $('#level_error_edit').html("Level is required");
             cnt = 1;
         }
-        if (cnt == 1) {
-            return false;
-        } else {
-            return true;
-        }
-    })
-
-    $('#btn-update-online').click(function(e) {
-        var name = $('#main_subject_online_edit').val();
-        var level = $('#level_online_edit').val();
-        var id = $('#level_id_online_edit').val();
-        var mainId = $('#main_id_online_edit').val();
-        var cnt = 0;
-        $('#subject_error_online_edit').html("");
-        $('#level_error_online_edit').html("");
-        if (name == '') {
-            $('#subject_error_online_edit').html("Subject is required");
+        if (day == '') {
+            $('#day_error_edit').html("Day is required");
             cnt = 1;
-        } else {
-            $.ajax({
-                async: false,
-                global: false,
-                url: "{{route('check-level-subject')}}",
-                type: "POST",
-                data: {
-                    name: name,
-                    level: level,
-                    id: id,
-                    mainId: mainId,
-                    _token: "{{ csrf_token()}}"
-                },
-                success: function(response) {
-                    if (response == 1) {
-                        $('#level_error_online_edit').html("Level is already exist");
-                        $('#subject_error_online_edit').html("Subject is already exist");
-                        cnt = 1;
-                    } else {
-                        $('#level_error_online_edit').html("");
-                        $('#subject_error_online_edit').html("");
-                    }
-                }
-            });
         }
-        if (level == '') {
-            $('#level_error_online_edit').html("Level is required");
+        if (idelTime == '') {
+            $('#idel_time_error_edit').html("Ideltime is required");
             cnt = 1;
         }
         if (cnt == 1) {
@@ -423,42 +505,20 @@
         if (id != "") {
             $('#editajax-crud-modal').modal('show');
             $.ajax({
-                url: "{{ url('tutor-subject-edit') }}/" + id,
+                url: "{{ url('tutor-offline-booking-edit') }}/" + id,
                 type: "GET",
                 success: function(res) {
                     var val = JSON.parse(res);
                     $("#main_subject_edit").find("option[value=" + val.subject_id + "]").attr('selected', true);
                     $("#level_edit").find("option[value=" + val.level_id + "]").attr('selected', true);
-                    $("#level_id_edit").val(val.tutor_id);
+                    $("#day_edit").find("option[value=" + val.tuition_day + "]").attr('selected', true);
+                    $("#sname_edit").val(val.userName);
                     $("#main_id_edit").val(val.id);
+                    $("#idel_time_edit").val(val.teaching_start_time);
                 }
             });
 
         }
-    }
-
-    function deleteDetail(deleteId) {
-        event.preventDefault(); // prevent form submit
-        $.confirm({
-            title: 'Delete!',
-            content: 'you want to delete this subject?',
-            buttons: {
-                confirm: function() {
-                    $.ajax({
-                        url: "{{ url('remove-subject') }}/" + deleteId,
-                        type: "DELETE",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            _method: "DELETE"
-                        },
-                        success: function(response) {
-                            location.reload();
-                        }
-                    });
-                },
-                cancel: function() {}
-            }
-        });
     }
 
     $(document).ready(function() {
@@ -470,151 +530,28 @@
             $.ajax({
                 async: false,
                 global: false,
-                url: "{{ url('tutor-subject-edit') }}/" + edit,
+                url: "{{ url('tutor-offline-booking-edit') }}/" + edit,
                 type: "GET",
                 success: function(response) {
-                    var val = JSON.parse(res);
+                    var val = JSON.parse(response);
                     $("#main_subject_edit").find("option[value=" + val.subject_id + "]").attr('selected', true);
                     $("#level_edit").find("option[value=" + val.level_id + "]").attr('selected', true);
-                    $("#level_id_edit").val(val.tutor_id);
-                    $("#main_id_edit").val(val.id);
+                    $("#day_edit").find("option[value=" + val.tuition_day + "]").attr('selected', true);
+                    $("#sname_edit").val(val.userName);
+                    $("#idel_time_edit").val(val.teaching_start_time);
                 }
             });
             $('#editajax-crud-modal').modal('show');
         <?php } ?>
-        <?php if (Request::get('addpopupresource') == '1') { ?>
-            $("#resource-ajax-crud-modal").modal('show');
-        <?php } ?>
-        <?php if (Request::get('editpopupresource') == '1') { ?>
-            var edit = <?php echo Request::get('id'); ?>;
-            $.ajax({
-                async: false,
-                global: false,
-                url: "{{URL::to('tutor-resource')}}/" + edit,
-                type: "GET",
-                success: function(response) {
-                    var val = JSON.parse(res);
-                    $("#title_edit").val(val.title);
-                    $("#description_edit").val(val.description);
-                    $('.view-document').attr("href", val.upload_data);
-                    $("#user_id").val(val.id);
-                }
-            });
-            $('#resource-edit-ajax-crud-modal').modal('show');
-        <?php } ?>
-    });
-    $('#text_book_upload').change(function() {
-        var name = $('#text_book_upload').val().split('\\').pop();
-        $('#uploadtitle').html(name);
-    });
-    $('#text_book_upload_edit').change(function() {
-        var name = $('#text_book_upload_edit').val().split('\\').pop();
-        $('#uploadtitleEdit').html(name);
-    });
-    $('#btn-resource-save').click(function(e) {
-        var titleVal = $('#resource-title').val();
-        var descriptionVal = $('#resource-description').val();
-        var document = $('#text_book_upload').val();
-        var cnt = 0;
-        console.log(titleVal);
-        $('#title_error').html("");
-        $('#description_error').html("");
-        $('#document_error').html("");
-        if (titleVal.trim() == '') {
-            $('#title_error').html("Title is required");
-            cnt = 1;
-        }
-        if (descriptionVal.trim() == '') {
-            $('#description_error').html("Description is required");
-            cnt = 1;
-        }
-        regex = new RegExp("(.*?)\.(jpeg|png|jpg|gif|docx|ppt|pdf|doc)$");
-        if (document != "") {
-            if (!(regex.test(document))) {
-                $('#document_error').html("Document must be Type!! Like: JPEG, PNG, JPG, GIF, PPT, PDF, DOCX, and DOC");
-                cnt = 1;
-            }
-        } else {
-            $('#document_error').html("Please enter Document");
-            cnt = 1;
-        }
-        if (cnt == 1) {
-            return false;
-        } else {
-            return true;
-        }
     });
 
-    function editResourceDetail(id) {
-        if (id != "") {
-            $('#resource-edit-ajax-crud-modal').modal('show');
-            $.ajax({
-                url: "{{URL::to('tutor-resource')}}/" + id,
-                type: "GET",
-                success: function(res) {
-                    var val = JSON.parse(res);
-                    $("#resource_title_edit").val(val.title);
-                    $("#resource_description_edit").val(val.description);
-                    $('.view-document').attr("href", val.upload_data);
-                    $("#user_id").val(val.id);
-                }
-            });
-
-        }
-    }
-
-    $('#btn-update-resource').click(function(e) {
-        var title = $('#resource_title_edit').val();
-        var description = $('#resource_description_edit').val();
-        var document = $('#text_book_upload').val();
-        var cnt = 0;
-        $('#title_error_edit').html("");
-        $('#description_error_edit').html("");
-        $('#document_error_edit').html("");
-        if (title.trim() == '') {
-            $('#title_error_edit').html("Title is required");
-            cnt = 1;
-        }
-        if (description.trim() == '') {
-            $('#description_error_edit').html("Description is required");
-            cnt = 1;
-        }
-        regex = new RegExp("(.*?)\.(jpeg|png|jpg|gif|docx|ppt|pdf|doc)$");
-        if (document != "") {
-            if (!(regex.test(document))) {
-                $('#document_error_edit').html("Document must be Type!! Like: JPEG, PNG, JPG, GIF, PPT, PDF, DOCX, and DOC");
-                cnt = 1;
-            }
-        }
-        if (cnt == 1) {
-            return false;
-        } else {
-            return true;
-        }
+    $('body').on('click', '.pagination a', function(event) {
+        $('li').removeClass('active');
+        $(this).parent('li').addClass('active');
+        event.preventDefault();
+        var myurl = $(this).attr('href');
+        var page = $(this).attr('href').split('page=')[1];
+        ajaxList(page);
     });
-
-    function deleteResourceDetail(deleteId) {
-        event.preventDefault(); // prevent form submit
-        $.confirm({
-            title: 'Delete!',
-            content: 'you want to delete this resource?',
-            buttons: {
-                confirm: function() {
-                    $.ajax({
-                        url: "{{route('tutor-resource.destroy','')}}" + "/" + deleteId,
-                        type: "DELETE",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            _method: "DELETE"
-                        },
-                        success: function(response) {
-                            location.reload();
-                        }
-                    });
-                },
-                cancel: function() {}
-            }
-        });
-    }
 </script>
 @endsection

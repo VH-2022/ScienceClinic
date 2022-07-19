@@ -73,7 +73,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('tutor-subject', "TutorMasterController@getSubjectDetails")->name('tutor-subject');
         $backendVerified->get('tutor-level-ist', "TutorMasterController@getLevelDetails")->name('tutor-level-list');
         $backendVerified->get('get-count', "TutorMasterController@getCount")->name('get-count');
-        
+        $backendVerified->get('offline-bookings', "OfflineBookingController@index")->name('offline-bookings');
+        $backendVerified->get('offline-bookings-ajax', "OfflineBookingController@ajaxList")->name('offline-bookings-ajax');
         $backendVerified->get('tutor-other-list', "TutorMasterController@getOtherDetails")->name('tutor-other-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
         $backendVerified->post('add-hourly-rate', "TutorMasterController@addHourlyRate")->name('add-hourly-rate');
@@ -124,10 +125,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('e-learning-cms-ajax-list', "ELearningController@ajaxList")->name('e-learning-cms-ajax-list');
         $backendVerified->resource('past-papers-cms', "PastPapersController");
         $backendVerified->get('past-papers-cms-ajax-list', "PastPapersController@ajaxList")->name('past-papers-cms-ajax-list');
-        
-
-        
-
+        $backendVerified->post('admin-offline-booking-store', 'OfflineBookingController@storeOfflineBooking')->name('admin-offline-booking-store');
+        $backendVerified->get('check-tutor-avalibility', 'OfflineBookingController@checkTutorAvalibility')->name('check-tutor-avalibility');
 
     });
 });
@@ -225,7 +224,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->get('tutor-support-edit/{id}', "TutorSupportController@edit")->name('tutor-support-edit');
         $backendVerified->get('tutor-missed-lessons', 'TutorAvailabilityController@tutorMissedLesson')->name('tutor-missed-lessons');
         $backendVerified->get('tutor-offline-booking', 'TutorAvailabilityController@tutorOfflineBooking')->name('tutor-offline-booking');
-        $backendVerified->post('offling-booking-store', 'TutorAvailabilityController@storeOfflineBooking')->name('offling-booking-store');
+        $backendVerified->post('offline-booking-store', 'TutorAvailabilityController@storeOfflineBooking')->name('offline-booking-store');
+        $backendVerified->get('tutor-offline-subject-ajax', 'TutorAvailabilityController@getOfflineBookingAjax')->name('tutor-offline-subject-ajax');
+        $backendVerified->get('tutor-offline-booking-edit/{id}', "TutorAvailabilityController@editOfflineBooking")->name('tutor-offline-booking-edit');
+        $backendVerified->post('offline-booking-update', 'TutorAvailabilityController@updateOfflineBooking')->name('offline-booking-update');
+
         $backendVerified->get('tutor-missed-lesson-ajax', 'TutorAvailabilityController@missedLessonAjax')->name('tutor-missed-lesson-ajax');
         $backendVerified->post('add-missed-lesson-reason', 'TutorAvailabilityController@addMissedLessonReason')->name('add-missed-lesson-reason');
         $backendVerified->get('merithub-classroom', 'TutorMerithubController@getToken')->name('merithub-classroom');
