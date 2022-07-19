@@ -131,11 +131,11 @@
         <!--begin::Wrapper-->
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Name</label>
+            <label class="col-4 col-form-label">Parent Name</label>
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="name" autocomplete="off">
+                <input class="form-control" placeHolder="Enter Parent Name" type="text" name="name" id="name" autocomplete="off">
 
             </div>
 
