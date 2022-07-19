@@ -70,7 +70,7 @@
 
                                         <label>Title <span class="text-danger">*</span></label>
 
-                                        <input class="form-control validate_field" placeholder="Title" autocomplete="off" id="title" type="text" data-msg="Title" name="title">
+                                        <input class="form-control validate_field" placeholder="Title" autocomplete="off" id="title" type="text" data-msg="Title" name="title" maxlength="100">
 
                                         <span class="form-text error title_error">{{ $errors->useredit->first('title')}}</span>
 

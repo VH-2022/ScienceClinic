@@ -55,7 +55,7 @@ class SubjectController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'title' => 'required | max:255',
+            'title' => 'required | max:100',
             /*'sub_title' => 'required',
             'sub_title_two' => 'required',
             'link_more' => 'required',
@@ -162,7 +162,7 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required | max:255',
+            'title' => 'required | max:100',
             /*'sub_title' => 'required',
             'sub_title_two' => 'required',
             'link_more' => 'required',
