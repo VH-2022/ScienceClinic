@@ -489,7 +489,7 @@
 
                             <div class="card-footer">
 
-                                <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Submit</button>
+                                <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Update</button>
 
                                 <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('subject-master')}}"'>Cancel</button>
 
