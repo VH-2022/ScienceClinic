@@ -131,11 +131,11 @@
         <!--begin::Wrapper-->
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Name</label>
+            <label class="col-4 col-form-label">Parent Name</label>
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Name" type="text" name="name" id="name">
+                <input class="form-control" placeHolder="Enter Parent Name" type="text" name="name" id="name" autocomplete="off">
 
             </div>
 
@@ -146,7 +146,7 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Email" type="text" name="email" id="email">
+                <input class="form-control" placeHolder="Enter Search Email" type="text" name="email" id="email" autocomplete="off">
 
             </div>
 
@@ -157,7 +157,7 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search Phone" type="text" name="phone" id="phone">
+                <input class="form-control" placeHolder="Enter Search Phone" type="text" name="phone" id="phone" autocomplete="off">
 
             </div>
 
@@ -168,7 +168,7 @@
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Search address" type="text" name="address" id="address">
+                <input class="form-control" placeHolder="Enter Search address" type="text" name="address" id="address" autocomplete="off">
 
             </div>
 
@@ -198,7 +198,7 @@
 
                 <div class="input-group" id="kt_daterangepicker_3">
 
-                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date">
+                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date" autocomplete="off">
 
                 </div>
 
@@ -264,7 +264,7 @@
 
                 formSubmit: {
 
-                    text: 'Submit',
+                    text: 'Delete',
 
                     btnClass: 'btn-danger',
 
@@ -308,7 +308,10 @@
 
                     }
 
-                }
+                },
+                cancel: function() {
+
+                },
 
             }
 
@@ -494,11 +497,9 @@
                         });
                     }
                 },
-                cancel: function() {
-                },
+                cancel: function() {},
             },
-            onContentReady: function() {
-            }
+            onContentReady: function() {}
         });
     }
 </script>

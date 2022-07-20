@@ -100,7 +100,7 @@ class SubjectHelper
 
                 }
 
-        $query = $query->paginate(10);
+        $query = $query->orderBy('id', 'DESC')->paginate(10);
 
         return $query;
 
@@ -174,6 +174,18 @@ class SubjectHelper
 
         return $query;
 
+    }
+
+    public static function checkDuplicateTitle($title)
+    {
+        $query  = SubjectMaster::whereNull('deleted_at')->where('main_title', $title)->count();
+
+        return $query;
+    }
+    public static function checkEditDuplicateTitle($title, $id)
+    {
+        $query  = SubjectMaster::whereNull('deleted_at')->where('id','!=',$id)->where('main_title', $title)->count();
+        return $query;
     }
 
 }

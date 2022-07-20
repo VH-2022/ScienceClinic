@@ -63,6 +63,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->post('change-password-update', "ProfileController@PasswordUpdate")->name('change-password-update');
         $backendVerified->resource('subject-master', "SubjectController");
         $backendVerified->get('subject-master-ajax-list', "SubjectController@ajaxList");
+        $backendVerified->get('subject-unique', "SubjectController@subjectUnique")->name('subject-unique');
+        $backendVerified->get('edit-subject-unique', "SubjectController@editSubjectUnique")->name('edit-subject-unique');
         $backendVerified->resource('sub-subject-master', "SubSubjectController");
         $backendVerified->get('sub-subject-master-ajax-list', "SubSubjectController@ajaxList");
         $backendVerified->resource('tutor-level', "TutorLevelController");
@@ -141,7 +143,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('check-email', "BecomeTutorController@checkEmail")->name('check.email');
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
-    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');;
+    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');
     $frontend->get('tutor-availability-get', "FindATutorController@tutorAvailabilityDetails")->name('tutor-availability-get');
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
     $frontend->post('check-email-parent', "FindATutorController@checkEmailParent")->name('check-email-parent');

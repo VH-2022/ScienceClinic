@@ -1,6 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    .break-text {
+        word-break: break-all;
+    }
+
+    .bold-text {
+        padding-right: 15px;
+    }
+</style>
 
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
 
@@ -52,33 +61,40 @@
 
                         <div class="form-group row">
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Full Name: </strong>
+                                    </div>
+                                    <div>
+                                        {{ $tutor->first_name }}
+                                    </div>
 
-                                    <strong>Full Name: </strong>
-
-                                    {{ $tutor->first_name }}
 
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Email: </strong>
+                                    </div>
 
-                                    <strong>Email: </strong> {{ $tutor->email }}
-
+                                    <div class="ml-7">
+                                        {{ $tutor->email }}
+                                    </div>
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Mobile No: </strong>
+                                    <strong class="bold-text">Mobile No: </strong>
 
                                     {{ $tutor->mobile_id }}
 
@@ -86,76 +102,92 @@
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
-                                <div class="d-flex mb-4">
+                                <div class="d-flex mb-4 ">
 
-                                    <strong>Address1: </strong>
-
-                                    {{ $tutor->address1 }}
-
+                                    <strong class="bold-text">Address1: </strong>
+                                    <div class="break-text">
+                                        {{ $tutor->address1 }}
+                                    </div>
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Address2: </strong>
-
-                                    {{ $tutor->address2 }}
-
+                                    <strong class="bold-text">Address2: </strong>
+                                    <div class="break-text">
+                                        {{ $tutor->address2 }}
+                                    </div>
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
-                                <div class="d-flex mb-4">
+                                <div class="d-flex mb-4 ">
 
-                                    <strong>Address3: </strong>
-
-                                    {{ $tutor->address3 }}
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4">
-
-                                <strong>City: </strong>
-
-                                {{ $tutor->city }}
-
-                            </div>
-
-                            <div class="col-lg-4">
-
-                                <div class="d-flex mb-4">
-
-                                    <strong>Post Code: </strong> {{ $tutor->postcode }}
-
+                                    <strong class="bold-text">Address3: </strong>
+                                    <div class="break-text">
+                                        {{ $tutor->address3 }}
+                                    </div>
 
 
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
+                                <div class="d-flex mb-4 ">
+                                    <div>
+                                        <strong class="bold-text">City: </strong>
+                                    </div>
+                                    <div class="ml-10">
+                                        {{ $tutor->city }}
+                                    </div>
+                                </div>
+                            </div>
 
-                                <strong>Status: </strong> <span id="status_id">@if($tutor->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
+                            <div class="col-lg-6">
 
+                                <div class="d-flex mb-4">
+
+                                    <strong class="bold-text">Post Code: </strong> {{ $tutor->postcode }}
+
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Status: </strong>
+                                    </div>
+                                    <div class="ml-5">
+                                        <span id="status_id">@if($tutor->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
+                                    </div>
+                                </div>
 
 
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Bio:</strong>
+                                    </div>
 
-                                <strong>Bio:</strong>
+                                    <div class="ml-14">
+                                        {{ $tutor->bio }}
+                                    </div>
 
-                                {{ $tutor->bio }}
 
+                                </div>
                             </div>
 
 
@@ -483,7 +515,6 @@
                 'id': id,
             },
             success: function(res) {
-                console.log(res.data);
                 $('#tutor_id').val(res.data);
             }
         })
@@ -492,6 +523,12 @@
 
     function changeStatus(status, id) {
         var count = $('#tutor_id').val();
+        var name = '';
+        if (status == 'Accepted') {
+            name = 'Accept';
+        } else {
+            name = 'Reject';
+        }
         $.confirm({
 
             title: 'Are you sure?',
@@ -506,7 +543,7 @@
 
                 formSubmit: {
 
-                    text: 'Submit',
+                    text: name,
 
                     btnClass: 'btn-primary',
 
@@ -570,6 +607,9 @@
 
                     }
 
+                },
+                cancel: function() {
+                   
                 },
 
 

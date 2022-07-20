@@ -92,7 +92,7 @@
                 <div class="col-8">
                     <div class="input-group" id="kt_daterangepicker_3">
                         <input type="text" name="created_date" id="created_date" class="form-control"
-                            placeholder="Created Date">
+                            placeholder="Created Date" autocomplete="off">
                     </div>
                 </div>
             </div>

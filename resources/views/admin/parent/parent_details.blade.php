@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    .text-wrap {
+        word-break: break-all;
+    }
+</style>
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
 
 <div class="d-flex flex-column-fluid">
@@ -44,7 +49,7 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Full Name : </strong>&nbsp;
+                                    <strong>Full Name:</strong>
 
                                     {{ $parents->first_name }} {{ $parents->last_name }}
 
@@ -52,34 +57,49 @@
 
                             </div>
 
-                            <div class="col-lg-4">
 
-                                <div class="d-flex mb-4">
-
-                                    <strong>Email : </strong>&nbsp; {{ $parents->email }}
-
-                                </div>
-
-                            </div>
 
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Mobile No : </strong>&nbsp;
+                                    <strong>Mobile No:</strong>
 
                                     {{ $parents->mobile_id }}
 
                                 </div>
 
                             </div>
+                            <div class="col-lg-4">
+
+                                <strong>Status:</strong><span id="status_id">@if($parents->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($parents->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
+
+
+
+                            </div>
+                            <div class="col-lg-4">
+
+                                <div class="d-flex mb-4">
+
+                                    <strong>Email:</strong>
+                                    <div class="text-wrap ml-5">
+                                        {{ $parents->email }}
+                                    </div>
+
+
+                                </div>
+
+                            </div>
 
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Address : </strong>&nbsp;
-                                    {{ $parents->address1 }}
+                                    <strong>Address:</strong>
+                                    <div class="text-wrap ml-5">
+                                        {{ $parents->address1 }}
+                                    </div>
+
 
                                 </div>
 
@@ -91,13 +111,7 @@
 
 
 
-                            <div class="col-lg-4">
 
-                                <strong>Status : </strong>&nbsp; <span id="status_id">@if($parents->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($parents->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
-
-
-
-                            </div>
 
 
 

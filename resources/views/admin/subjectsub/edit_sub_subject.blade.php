@@ -517,7 +517,7 @@
 
                             <div class="card-footer">
 
-                                <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Submit</button>
+                                <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Update</button>
 
                                 <a class="btn btn-secondary" href="{{ url('sub-subject-master')}}">Cancel</a>
 
