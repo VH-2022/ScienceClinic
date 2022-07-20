@@ -78,7 +78,7 @@
         <div class="form-group row">
             <label class="col-4 col-form-label">Tutor Type</label>
             <div class="col-8">
-                <input class="form-control" placeHolder="Enter Search Type" type="text" name="tutor_type" id="tutor_type" autocomplete="off">
+                <input class="form-control" placeHolder="Enter Tutor Type" type="text" name="tutor_type" id="tutor_type" autocomplete="off">
             </div>
         </div>
         <div class="form-group row">
@@ -87,8 +87,6 @@
                 <input class="form-control" placeHolder="Enter Search Email" type="text" name="email" id="email" autocomplete="off">
             </div>
         </div>
-
-
         <div class="form-group row">
             <label class="col-4 col-form-label">Created Date</label>
             <div class="col-8">

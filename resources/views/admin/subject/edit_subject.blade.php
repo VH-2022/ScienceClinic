@@ -3,7 +3,6 @@
 @section('content')
 
 <style>
-
     .remove-btn1 {
 
         margin-top: 26.5px;
@@ -15,471 +14,314 @@
         color: red;
 
     }
-
 </style>
 
 <div class="d-flex flex-column-fluid">
 
     <!--begin::Container-->
 
-        <div class="container-fluid">
+    <div class="container-fluid">
 
-        
 
-            <div class="d-flex flex-row">
 
-            
+        <div class="d-flex flex-row">
 
-                <div class="flex-row-fluid" >
 
-                    <div class="card card-custom card-stretch">
 
-                    
+            <div class="flex-row-fluid">
 
-                        <div class="card-header py-3">
+                <div class="card card-custom card-stretch">
 
-                            <div class="card-title align-items-start flex-column">
 
-                                <h3 class="card-label font-weight-bolder text-dark">Edit Subject</h3>
 
-                            </div>
+                    <div class="card-header py-3">
+
+                        <div class="card-title align-items-start flex-column">
+
+                            <h3 class="card-label font-weight-bolder text-dark">Edit Subject</h3>
 
                         </div>
 
-                    
+                    </div>
 
-                        <form class="form" id="submitid" method="post" action="{{url('subject-master')}}/{{$basic_details->id}}" enctype="multipart/form-data">
 
-                            @csrf
 
-                            @method('put')
+                    <form class="form" id="submitid" method="post" action="{{url('subject-master')}}/{{$basic_details->id}}" enctype="multipart/form-data">
 
-                            <input type="hidden" name="id" value="{{ $basic_details->id}}">
+                        @csrf
 
-                            <div class="card-body">
+                        @method('put')
 
-                                <div class="card-title align-items-start flex-column">
+                        <input type="hidden" name="id" id="subject_id" value="{{ $basic_details->id}}">
 
-                                    <h4 class="card-label font-weight-bolder text-dark">Banner Information</h4>
+                        <div class="card-body">
 
-                                </div>
+                            <div class="card-title align-items-start flex-column">
 
-                                <div class="row">
+                                <h4 class="card-label font-weight-bolder text-dark">Banner Information</h4>
 
-                                    <div class="col-md-6">
+                            </div>
 
-                                        <div class="form-group">
+                            <div class="row">
 
-                                            <label>Title <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
 
-                                            <input class="form-control validate_field" placeholder="Title" autocomplete="off" id="title" type="text" data-msg="Title" name="title" value="{{ $basic_details->main_title}}" maxlength="100">
+                                    <div class="form-group">
 
-                                            <span class="form-text error title_error">{{ $errors->useredit->first('title')}}</span>
+                                        <label>Title <span class="text-danger">*</span></label>
 
-                                        </div>
+                                        <input class="form-control validate_field" placeholder="Title" autocomplete="off" id="title" type="text" data-msg="Title" name="title" value="{{ $basic_details->main_title}}" maxlength="100">
 
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-
-                                            <label>Sub Title</label>
-
-                                            <input class="form-control validate_field" placeholder="Sub Title" autocomplete="off" id="sub_title" type="text" data-msg="Sub Title" name="sub_title"  value="{{ $basic_details->sub_title_one}}">
-
-                                            <span class="form-text error sub_title_error">{{ $errors->useredit->first('sub_title')}}</span>
-
-                                        </div>
+                                        <span class="form-text error title_error">{{ $errors->useredit->first('title')}}</span>
 
                                     </div>
 
                                 </div>
 
-                                <div class="row">
+                                <div class="col-md-6">
 
-                                    <div class="col-md-12">
+                                    <div class="form-group">
 
-                                        <div class="form-group">
+                                        <label>Sub Title</label>
 
-                                            <label>Sub Title 2 </label>
+                                        <input class="form-control validate_field" placeholder="Sub Title" autocomplete="off" id="sub_title" type="text" data-msg="Sub Title" name="sub_title" value="{{ $basic_details->sub_title_one}}">
 
-                                            <input class="form-control validate_field" placeholder="Sub Title 2" autocomplete="off" id="sub_title_two" type="text" data-msg="Sub Title Two" name="sub_title_two" value="{{ $basic_details->sub_title_two}}">
-
-                                            <span class="form-text error sub_title_two_error">{{ $errors->useredit->first('sub_title_two')}}</span>
-
-                                        </div>
+                                        <span class="form-text error sub_title_error">{{ $errors->useredit->first('sub_title')}}</span>
 
                                     </div>
 
                                 </div>
 
-                                <div class="row">
+                            </div>
 
-                                    <div class="col-md-12">
+                            <div class="row">
 
-                                        <div id="solumailAddMore">
+                                <div class="col-md-12">
 
+                                    <div class="form-group">
 
+                                        <label>Sub Title 2 </label>
 
-                                            @if(!empty($bannerSection[0]))
+                                        <input class="form-control validate_field" placeholder="Sub Title 2" autocomplete="off" id="sub_title_two" type="text" data-msg="Sub Title Two" name="sub_title_two" value="{{ $basic_details->sub_title_two}}">
 
-                                                
+                                        <span class="form-text error sub_title_two_error">{{ $errors->useredit->first('sub_title_two')}}</span>
 
-                                                @foreach($bannerSection as $key=> $val)
+                                    </div>
 
-                                                    @php
+                                </div>
 
-                                                        $uniqid = uniqid();
+                            </div>
 
-                                                    @endphp
+                            <div class="row">
 
-                                                    <div class="scopy_id" id="{{ $uniqid }}">
+                                <div class="col-md-12">
 
-                                                        <div class="row">
-
-                                                            <div class="col-md-6 mb-4">
-
-                                                                <div class="form-group">
-
-                                                                    <label> @if($key ==0) Title @endif</label>
-
-                                                                    <input placeholder="Title" maxlength="255" class="form-control validate_field section_one_title_more{{ $uniqid }}_error" data-id="{{ $uniqid }}" autocomplete="off" id="section_one_title{{ $uniqid }}" type="text" data-msg="Section One Title" name="section_one_title_more[]" value="{{$val->title}}">
-
-                                                                    <span class="form-text error section_one_title_more{{ $uniqid }}_error"></span>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-5 mb-4">
-
-                                                                <div class="form-group">
-
-                                                                    <label>@if($key ==0) Link @endif</label>
-
-                                                                    <input placeholder="Link" maxlength="255" class="form-control validate_field link_more{{ $uniqid }}_error" autocomplete="off" data-id="{{ $uniqid }}" id="link_more{{ $uniqid }}" type="text" data-msg="Link" name="link_more[]"  value="{{$val->link}}">
-
-                                                                    <span class="form-text error link_more{{ $uniqid }}_error"></span>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-1 text-end p-0" style="@if(count($bannerSection) ==1) display:none @endif" id="remove_ids">
-
-                                                                <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
-
-                                                            </div>
-
-                                                        </div>
+                                    <div id="solumailAddMore">
 
 
 
-                                                    </div>
-
-                                                @endforeach
+                                        @if(!empty($bannerSection[0]))
 
 
 
-                                            @else
+                                        @foreach($bannerSection as $key=> $val)
 
-                                            @php
+                                        @php
 
-                                            $uniqid = uniqid();
+                                        $uniqid = uniqid();
 
-                                            @endphp
+                                        @endphp
 
-                                            <div class="scopy_id" id="{{ $uniqid }}">
+                                        <div class="scopy_id" id="{{ $uniqid }}">
 
-                                                <div class="row">
+                                            <div class="row">
 
-                                                    <div class="col-md-6 mb-4">
+                                                <div class="col-md-6 mb-4">
 
-                                                        <div class="form-group">
+                                                    <div class="form-group">
 
-                                                            <label>Title</label>
+                                                        <label> @if($key ==0) Title @endif</label>
 
-                                                            <input placeholder="Title" class="form-control validate_field section_one_title_more{{ $uniqid }}_error" data-id="{{ $uniqid }}" autocomplete="off" id="section_one_title{{ $uniqid }}" type="text" data-msg="Section One Title" maxlength="255" name="section_one_title_more[]">
+                                                        <input placeholder="Title" maxlength="255" class="form-control validate_field section_one_title_more{{ $uniqid }}_error" data-id="{{ $uniqid }}" autocomplete="off" id="section_one_title{{ $uniqid }}" type="text" data-msg="Section One Title" name="section_one_title_more[]" value="{{$val->title}}">
 
-                                                            <span class="form-text error section_one_title_more{{ $uniqid }}_error"></span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="col-md-5 mb-4">
-
-                                                        <div class="form-group">
-
-                                                            <label>Link </label>
-
-                                                            <input placeholder="Link" class="form-control validate_field link_more{{ $uniqid }}_error" autocomplete="off" data-id="{{ $uniqid }}" id="link_more{{ $uniqid }}" type="text" data-msg="Link" maxlength="255" name="link_more[]">
-
-                                                            <span class="form-text error link_more{{ $uniqid }}_error"></span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="col-md-1 text-end p-0" style="display:none" id="remove_ids">
-
-                                                        <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
+                                                        <span class="form-text error section_one_title_more{{ $uniqid }}_error"></span>
 
                                                     </div>
 
                                                 </div>
 
+                                                <div class="col-md-5 mb-4">
 
+                                                    <div class="form-group">
 
-                                            </div>
+                                                        <label>@if($key ==0) Link @endif</label>
 
-                                            @endif
+                                                        <input placeholder="Link" maxlength="255" class="form-control validate_field link_more{{ $uniqid }}_error" autocomplete="off" data-id="{{ $uniqid }}" id="link_more{{ $uniqid }}" type="text" data-msg="Link" name="link_more[]" value="{{$val->link}}">
 
-                                           
-
-                                            
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-12 text-end">
-
-                                        <a class="btn btn-primary float-right" href="javascript:void(0)" onclick="addMoreSolution();" style="width: 81px;">Add</a>
-
-                                    </div>
-
-                                </div>
-
-                                <hr>
-
-                                <div class="card-title align-items-start flex-column">
-
-                                    <h4 class="card-label font-weight-bolder text-dark">Section One</h4>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-
-                                            <label>Title</label>
-
-                                            <input placeholder="Title" class="form-control validate_field" autocomplete="off" id="title_section_one" type="text" data-msg="Title" name="title_section_one" value="{{ $basic_details->title}}">
-
-                                            <span class="form-text error title_section_one_error">{{ $errors->useredit->first('title_section_one')}}</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="row">
-
-                                            <div class="col-md-10">
-
-                                                <div class="form-group">
-
-                                                    <label>Image</label>
-
-                                                    <div>
-
-                                                        <input type="file" name="subject_image" data-msg="Image" accept=".png, .jpg, .jpeg">
-
-                                                        <span class="form-text error subject_image_error"></span>
+                                                        <span class="form-text error link_more{{ $uniqid }}_error"></span>
 
                                                     </div>
 
                                                 </div>
 
+                                                <div class="col-md-1 text-end p-0" style="@if(count($bannerSection) ==1) display:none @endif" id="remove_ids">
+
+                                                    <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
+
+                                                </div>
+
                                             </div>
 
-                                            <div class="col-md-2">
-                                                @if($basic_details->image)
-                                                    <img src="{{ $basic_details->image}}" style="width:60px;height:60px;">
-                                                @endif
 
-                                            </div>
 
                                         </div>
 
-                                        
-
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-12">
-
-                                        <div class="form-group">
-
-                                            <label>Description</label>
-
-                                            <textarea placeholder="Description" name="subject_description" id="subject_description" data-msg="Description" value="{{ $basic_details->description}}">{{ $basic_details->description}}</textarea>
-
-                                            <span class="form-text error subject_description_error">{{ $errors->useredit->first('subject_description')}}</span>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <hr>
-
-                                <div class="card-title align-items-start flex-column">
-
-                                    <h4 class="card-label font-weight-bolder text-dark">Section Two</h4>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-12">
-
-                                        <div id="solumailAddMoreSectionTwo">
-
-                                        @if(!empty($SectionTwo[0]))
-
-                                                
-
-                                                @foreach($SectionTwo as $key=> $vals)
-
-                                                    @php
-
-                                                        $uniqid = time().uniqid().''.$key;
-
-                                                    @endphp
-
-                                                    <div class="scopy_id_sec" id="{{ $uniqid }}">
-
-                                                        <div class="row">
-
-                                                            <div class="col-md-6 mb-4">
-
-                                                                <div class="form-group">
-
-                                                                    <label>Title</label>
-
-                                                                    <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" maxlength="255" data-msg="Title Section Two" name="title_section_two[]" value="{{ $vals->title}}">
-
-                                                                    <span class="form-text error title_section_two{{ $uniqid }}_error"></span>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-5 mb-4">
-
-                                                                <div class="form-group">
-
-                                                                    <label>Description</label>
-
-                                                                    <textarea placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two{{ $uniqid }}" value="{{ $vals->description}}" data-msg="Description">{{ $vals->description}}</textarea>
-
-                                                                    <span class="form-text error description_section_two{{ $uniqid }}_error"></span>
-
-                                                                </div>
-
-                                                            </div>
+                                        @endforeach
 
 
-
-                                                            <div class="col-md-1 text-end p-0" style="@if(count($SectionTwo) ==1) display:none @endif" id="remove_ids_section_two">
-
-                                                                <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
-
-                                                            </div>
-
-                                                        </div>
-
-
-
-                                                    </div>
-
-                                                    <script> 
-
-                                                     CKEDITOR.replace( 'description_section_two{{ $uniqid }}' );
-
-
-
-                                                    </script>
-
-                                                    @endforeach
-
-                                                    
 
                                         @else
 
                                         @php
 
-                                            $uniqid = uniqid();
+                                        $uniqid = uniqid();
 
-                                            @endphp
+                                        @endphp
 
-                                            <div class="scopy_id_sec" id="{{ $uniqid }}">
+                                        <div class="scopy_id" id="{{ $uniqid }}">
 
-                                                <div class="row">
+                                            <div class="row">
 
-                                                    <div class="col-md-6 mb-4">
+                                                <div class="col-md-6 mb-4">
 
-                                                        <div class="form-group">
+                                                    <div class="form-group">
 
-                                                            <label>Title</label>
+                                                        <label>Title</label>
 
-                                                            <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" data-msg="Title Section Two" name="title_section_two[]">
+                                                        <input placeholder="Title" class="form-control validate_field section_one_title_more{{ $uniqid }}_error" data-id="{{ $uniqid }}" autocomplete="off" id="section_one_title{{ $uniqid }}" type="text" data-msg="Section One Title" maxlength="255" name="section_one_title_more[]">
 
-                                                            <span class="form-text error title_section_two{{ $uniqid }}_error"></span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="col-md-5 mb-4">
-
-                                                        <div class="form-group">
-
-                                                            <label>Description</label>
-
-                                                            <textarea type="text" placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two"  data-msg="Description"></textarea>
-
-                                                            <span class="form-text error description_section_two{{ $uniqid }}_error"></span>
-
-                                                        </div>
-
-                                                    </div>
-
-
-
-                                                    <div class="col-md-1 text-end p-0" style="display:none" id="remove_ids_section_two">
-
-                                                        <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolutionNew('{{ $uniqid }}');">Remove</a>
+                                                        <span class="form-text error section_one_title_more{{ $uniqid }}_error"></span>
 
                                                     </div>
 
                                                 </div>
 
+                                                <div class="col-md-5 mb-4">
 
+                                                    <div class="form-group">
+
+                                                        <label>Link </label>
+
+                                                        <input placeholder="Link" class="form-control validate_field link_more{{ $uniqid }}_error" autocomplete="off" data-id="{{ $uniqid }}" id="link_more{{ $uniqid }}" type="text" data-msg="Link" maxlength="255" name="link_more[]">
+
+                                                        <span class="form-text error link_more{{ $uniqid }}_error"></span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-1 text-end p-0" style="display:none" id="remove_ids">
+
+                                                    <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
+
+                                                </div>
 
                                             </div>
 
+
+
+                                        </div>
+
                                         @endif
 
-                                            
+
+
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 text-end">
+
+                                    <a class="btn btn-primary float-right" href="javascript:void(0)" onclick="addMoreSolution();" style="width: 81px;">Add</a>
+
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+                            <div class="card-title align-items-start flex-column">
+
+                                <h4 class="card-label font-weight-bolder text-dark">Section One</h4>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Title</label>
+
+                                        <input placeholder="Title" class="form-control validate_field" autocomplete="off" id="title_section_one" type="text" data-msg="Title" name="title_section_one" value="{{ $basic_details->title}}">
+
+                                        <span class="form-text error title_section_one_error">{{ $errors->useredit->first('title_section_one')}}</span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="row">
+
+                                        <div class="col-md-10">
+
+                                            <div class="form-group">
+
+                                                <label>Image</label>
+
+                                                <div>
+
+                                                    <input type="file" name="subject_image" data-msg="Image" accept=".png, .jpg, .jpeg">
+
+                                                    <span class="form-text error subject_image_error"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            @if($basic_details->image)
+                                            <img src="{{ $basic_details->image}}" style="width:60px;height:60px;">
+                                            @endif
 
                                         </div>
 
                                     </div>
 
-                                    <div class="col-md-12 text-end">
 
-                                        <a class="btn btn-primary float-right" href="javascript:void(0)" onclick="addMoreSolutionSectionTwo();" style="width: 81px;">Add</a>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+
+                                        <label>Description</label>
+
+                                        <textarea placeholder="Description" name="subject_description" id="subject_description" data-msg="Description" value="{{ $basic_details->description}}">{{ $basic_details->description}}</textarea>
+
+                                        <span class="form-text error subject_description_error">{{ $errors->useredit->first('subject_description')}}</span>
 
                                     </div>
 
@@ -487,35 +329,187 @@
 
                             </div>
 
-                            <div class="card-footer">
+                            <hr>
 
-                                <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Update</button>
+                            <div class="card-title align-items-start flex-column">
 
-                                <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('subject-master')}}"'>Cancel</button>
+                                <h4 class="card-label font-weight-bolder text-dark">Section Two</h4>
 
                             </div>
 
-                            <!--end::Body-->
+                            <div class="row">
 
-                            
+                                <div class="col-md-12">
 
-                        </form>
+                                    <div id="solumailAddMoreSectionTwo">
 
-                    </div>
+                                        @if(!empty($SectionTwo[0]))
+
+
+
+                                        @foreach($SectionTwo as $key=> $vals)
+
+                                        @php
+
+                                        $uniqid = time().uniqid().''.$key;
+
+                                        @endphp
+
+                                        <div class="scopy_id_sec" id="{{ $uniqid }}">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6 mb-4">
+
+                                                    <div class="form-group">
+
+                                                        <label>Title</label>
+
+                                                        <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" maxlength="255" data-msg="Title Section Two" name="title_section_two[]" value="{{ $vals->title}}">
+
+                                                        <span class="form-text error title_section_two{{ $uniqid }}_error"></span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-5 mb-4">
+
+                                                    <div class="form-group">
+
+                                                        <label>Description</label>
+
+                                                        <textarea placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two{{ $uniqid }}" value="{{ $vals->description}}" data-msg="Description">{{ $vals->description}}</textarea>
+
+                                                        <span class="form-text error description_section_two{{ $uniqid }}_error"></span>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <div class="col-md-1 text-end p-0" style="@if(count($SectionTwo) ==1) display:none @endif" id="remove_ids_section_two">
+
+                                                    <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolution('{{ $uniqid }}');">Remove</a>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                        <script>
+                                            CKEDITOR.replace('description_section_two{{ $uniqid }}');
+                                        </script>
+
+                                        @endforeach
+
+
+
+                                        @else
+
+                                        @php
+
+                                        $uniqid = uniqid();
+
+                                        @endphp
+
+                                        <div class="scopy_id_sec" id="{{ $uniqid }}">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6 mb-4">
+
+                                                    <div class="form-group">
+
+                                                        <label>Title</label>
+
+                                                        <input placeholder="Title" class="form-control validate_field title_section_two{{ $uniqid }}" autocomplete="off" data-id="{{ $uniqid }}" id="title_section_two{{ $uniqid }}" type="text" data-msg="Title Section Two" name="title_section_two[]">
+
+                                                        <span class="form-text error title_section_two{{ $uniqid }}_error"></span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-5 mb-4">
+
+                                                    <div class="form-group">
+
+                                                        <label>Description</label>
+
+                                                        <textarea type="text" placeholder="Description" data-id="{{ $uniqid }}" class="form-control validate_field description_section_two{{ $uniqid }}" name="description_section_two[]" id="description_section_two" data-msg="Description"></textarea>
+
+                                                        <span class="form-text error description_section_two{{ $uniqid }}_error"></span>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <div class="col-md-1 text-end p-0" style="display:none" id="remove_ids_section_two">
+
+                                                    <a class="btn btn-danger  remove-btn1 mb-4" href="javascript:void(0)" onclick="removeSolutionNew('{{ $uniqid }}');">Remove</a>
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                        @endif
+
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 text-end">
+
+                                    <a class="btn btn-primary float-right" href="javascript:void(0)" onclick="addMoreSolutionSectionTwo();" style="width: 81px;">Add</a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+
+                            <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Update</button>
+
+                            <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('subject-master')}}"'>Cancel</button>
+
+                        </div>
+
+                        <!--end::Body-->
+
+
+
+                    </form>
 
                 </div>
 
             </div>
 
-            <!--end::Content-->
-
         </div>
 
-        <!--end::Subject List-->
+        <!--end::Content-->
 
     </div>
 
-    <!--end::Container-->
+    <!--end::Subject List-->
+
+</div>
+
+<!--end::Container-->
 
 
 
@@ -528,18 +522,16 @@
 
 
 <script>
-
     var _Add_SUBJECT = "{{route('subject-master.store')}}";
-
+    var checkSubjectNameEdit = "{{route('edit-subject-unique')}}";
 </script>
 
 <script>
-
     // Class definition
 
 
 
-    CKEDITOR.replace( 'subject_description' );
+    CKEDITOR.replace('subject_description');
 
 
 
@@ -573,9 +565,9 @@
 
             ');">Remove</a>' +
 
-            '</div>'+
+            '</div>' +
 
-            '</div>'+
+            '</div>' +
 
             '</div>'
 
@@ -607,9 +599,9 @@
 
             '<div class="row">' +
 
-            '<div class="col-md-6 mb-4"><div class="form-group"><input placeholder="Title" class="form-control validate_field title_section_two'+uniqid+'_error" autocomplete="off" data-id="'+uniqid+'" maxlength="255" id="title_section_two'+uniqid+'" type="text" data-msg="Title Section Two" name="title_section_two[]"><span class="form-text error title_section_two'+uniqid+'_error"></span> </div></div>' +
+            '<div class="col-md-6 mb-4"><div class="form-group"><input placeholder="Title" class="form-control validate_field title_section_two' + uniqid + '_error" autocomplete="off" data-id="' + uniqid + '" maxlength="255" id="title_section_two' + uniqid + '" type="text" data-msg="Title Section Two" name="title_section_two[]"><span class="form-text error title_section_two' + uniqid + '_error"></span> </div></div>' +
 
-            '<div class="col-md-5 mb-4"><div class="form-group"><textarea type="text" placeholder="Descritpion" data-id="'+length+'" class="form-control validate_field description_section_two'+length+'" name="description_section_two[]" id="description_section_two'+length+'"  data-msg="Description"></textarea><span class="form-text error description_section_two'+length+'_error"></span></div></div>' +
+            '<div class="col-md-5 mb-4"><div class="form-group"><textarea type="text" placeholder="Descritpion" data-id="' + length + '" class="form-control validate_field description_section_two' + length + '" name="description_section_two[]" id="description_section_two' + length + '"  data-msg="Description"></textarea><span class="form-text error description_section_two' + length + '_error"></span></div></div>' +
 
             '<div class="col-md-1 text-end p-0" id="remove_ids_section_two">' +
 
@@ -633,15 +625,15 @@
 
             $('#remove_ids_section_two').attr('style', '');
 
-            var id= '#description_section_two'+uniqid;
+            var id = '#description_section_two' + uniqid;
 
-            
 
-            
+
+
 
         }
 
-        CKEDITOR.replace('description_section_two'+length);
+        CKEDITOR.replace('description_section_two' + length);
 
     }
 
@@ -667,7 +659,7 @@
 
 
 
-    function removeSolutionSection(id){
+    function removeSolutionSection(id) {
 
         var copyLength = $('.scopy_id_sec').length;
 
@@ -680,10 +672,8 @@
         }
 
     }
-
 </script>
 
 
 
 @endsection
-

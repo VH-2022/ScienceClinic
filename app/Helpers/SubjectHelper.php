@@ -176,6 +176,18 @@ class SubjectHelper
 
     }
 
+    public static function checkDuplicateTitle($title)
+    {
+        $query  = SubjectMaster::whereNull('deleted_at')->where('main_title', $title)->count();
+
+        return $query;
+    }
+    public static function checkEditDuplicateTitle($title, $id)
+    {
+        $query  = SubjectMaster::whereNull('deleted_at')->where('id','!=',$id)->where('main_title', $title)->count();
+        return $query;
+    }
+
 }
 
 

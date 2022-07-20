@@ -365,6 +365,7 @@
 <script>
 
     var _Add_SUBJECT = "{{route('subject-master.store')}}";
+    var checkSubjectName = "{{route('subject-unique')}}";
 
 </script>
 

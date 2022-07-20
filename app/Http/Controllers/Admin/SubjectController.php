@@ -44,18 +44,33 @@ class SubjectController extends Controller
         }
         return view('admin.subject.addsubject');
     }
+    public function subjectUnique(Request $request)
+    {
+        $data =  SubjectHelper::checkDuplicateTitle($request->title);
+        if ($data != 0) {
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+            return response()->json(['status' => 1]);
+        } else {
+
+            return response()->json(['status' => 0]);
+        }
+    }
+    public function editSubjectUnique(Request $request)
+    {
+        $data =  SubjectHelper::checkEditDuplicateTitle($request->title, $request->id);
+        if ($data != 0) {
+            return response()->json(['status' => 1]);
+        } else {
+
+            return response()->json(['status' => 0]);
+        }
+    }
+   
     public function store(Request $request)
     {
         
         $validator = Validator::make($request->all(), [
-            'title' => 'required | max:100',
+            'title' => 'required | max:100 | unique:sc_subject_master,main_title',
             /*'sub_title' => 'required',
             'sub_title_two' => 'required',
             'link_more' => 'required',
@@ -162,7 +177,7 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required | max:100',
+            'title' => 'required | max:100 | unique:sc_subject_master,main_title,' . $request->input('id'),
             /*'sub_title' => 'required',
             'sub_title_two' => 'required',
             'link_more' => 'required',
