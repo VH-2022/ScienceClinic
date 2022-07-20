@@ -127,7 +127,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('past-papers-cms-ajax-list', "PastPapersController@ajaxList")->name('past-papers-cms-ajax-list');
         $backendVerified->post('admin-offline-booking-store', 'OfflineBookingController@storeOfflineBooking')->name('admin-offline-booking-store');
         $backendVerified->get('check-tutor-avalibility', 'OfflineBookingController@checkTutorAvalibility')->name('check-tutor-avalibility');
-
+        $backendVerified->get('admin-offline-booking-edit/{id}', "OfflineBookingController@editOfflineBooking")->name('admin-offline-booking-edit');
     });
 });
 

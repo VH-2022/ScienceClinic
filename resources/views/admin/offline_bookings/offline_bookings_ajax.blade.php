@@ -5,7 +5,7 @@
         <tr>
 
             <th nowrap="nowrap">ID</th>
-
+            <th style="white-space: nowrap">User Type</th>
             <th style="white-space: nowrap">Student Name</th>
             <th style="white-space: nowrap">Tutor Name</th>
             <th style="white-space: nowrap">Subject Name</th>
@@ -27,7 +27,11 @@
         <tr>
 
             <td>{{ $i++ }}</td>
-
+            @if($val->created_by == 1)
+            <td><span class="badge badge-success">Admin</span></td>
+            @else
+            <td><span class="badge badge-primary">Tutor</span></td>
+            @endif
             <td>{{$val->user_name}}</td>
             <td>{{$val->tutorDetails->first_name}}</td>
             <td>{{$val->subjectDetails->main_title}}</td>

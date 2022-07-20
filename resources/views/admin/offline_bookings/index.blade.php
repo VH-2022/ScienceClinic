@@ -268,7 +268,7 @@
 
             </div>
 
-            <form action="{{route('admin-offline-booking-store')}}" method="post" id="subjectForm" name="userForm" class="form-horizontal">
+            <form action="{{route('admin-offline-booking-store')}}" method="post" id="offlineBookingForm" name="userForm" class="form-horizontal">
 
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -399,7 +399,173 @@
 
                 <div class="modal-footer">
 
-                    <button type="submit" class="btn btn-primary" id="btn-save" title="Submit">Submit
+                    <button type="button" class="btn btn-primary" id="btn-save" title="Submit">Submit
+
+                    </button>
+
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" aria-hidden="true" title="Cancel">Cancel</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade title-edit" id="editajax-crud-modal" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">Edit booking</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <i aria-hidden="true" class="ki ki-close"></i>
+
+                </button>
+
+            </div>
+
+            <form action="{{route('offline-booking-update')}}" method="post" id="subjectForm" name="userForm" class="form-horizontal">
+
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="main_id_edit" id="main_id_edit">
+
+                <div class="modal-body">
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+
+                            <label for="exampleSelectd">Student Name <span class="text-danger">*</span></label>
+                            <input type="text" autocomplete="off" class="form-control" name="sname_edit" id="sname_edit">
+                            <span class="title error_msg error" style="color: red;" id="name_error_edit">{{ $errors->booking_edit->first('sname_edit')}}</span>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+
+                            <label for="exampleSelectd">Tutor <span class="text-danger">*</span></label>
+
+                            <select class="form-control validate_field main_subject" name="tutor_name" id="tutor_name_edit">
+
+                                <option value="">Select Tutor</option>
+
+                                @foreach($tutorData as $val)
+                                <option value="{{$val->id}}">{{$val->first_name}}</option>
+                                @endforeach
+
+                            </select>
+
+                            <span class="title error_msg error" style="color: red;" id="tutor_name_error_edit">{{ $errors->booking_edit->first('tutor_name_edit')}}</span>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+
+                            <label for="exampleSelectd">Subject <span class="text-danger">*</span></label>
+
+                            <select class="form-control validate_field main_subject" name="main_subject_edit" id="main_subject_edit">
+
+                                <option value="">Select Subject</option>
+
+                                @foreach($subject as $val)
+                                <option value="{{$val->id}}">{{$val->main_title}}</option>
+                                @endforeach
+
+                            </select>
+
+                            <span class="title error_msg error" style="color: red;" id="subject_error_edit">{{ $errors->booking_edit->first('main_subject_edit')}}</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+
+                            <label for="exampleSelectd">Level <span class="text-danger">*</span></label>
+
+                            <select class="form-control validate_field main_subject" name="level_edit" id="level_edit">
+
+                                <option value="">Select Level</option>
+
+                                @foreach($level as $val)
+                                <option value="{{$val->id}}">{{$val->title}}</option>
+                                @endforeach
+
+                            </select>
+
+                            <span class="title error_msg error" style="color: red;" id="level_error_edit">{{ $errors->booking_edit->first('level_edit')}}</span>
+
+                        </div>
+
+                    </div>
+                    @php $daysArr = [ 'Monday' =>'monday',
+                    'Tuesday' => 'tuesday',
+                    'Wednesday' => 'wednesday',
+                    'Thursday' => 'thursday',
+                    'Friday' => 'friday',
+                    'Saturday' => 'saturday',
+                    'Sunday' => 'sunday'] @endphp
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+
+                            <label for="exampleSelectd">Day <span class="text-danger">*</span></label>
+
+                            <select class="form-control validate_field main_subject" name="day_edit" id="day_edit">
+
+                                <option value="">Select Day</option>
+
+                                @foreach($daysArr as $key=>$val)
+                                <option value="{{$val}}">
+                                    {{$key}}
+                                </option>
+                                @endforeach
+
+                            </select>
+
+                            <span class="title error_msg error" style="color: red;" id="day_error_edit">{{ $errors->booking_edit->first('level_edit')}}</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+
+                            <label for="exampleSelectd">Idel Time <span class="text-danger">*</span></label>
+
+                            <input type="text" class="form-control" name="idel_time_edit" id="idel_time_edit">
+
+
+                            <span class="idel_time error_msg error" style="color: red;" id="idel_time_error_edit">{{ $errors->booking_edit->first('idel_time_edit')}}</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary" id="btn-update" title="Submit">Update
 
                     </button>
 
@@ -489,8 +655,8 @@
         var name = $('#main_subject').val();
         var studentName = $('#student_name').val();
         var tutorName = $('#tutor_name').val();
-        var level = $('#level_add').val();
-        var day = $('#day_add').val();
+        var level = $('#add_level').val();
+        var day = $('#add_day').val();
         var idelTime = $('#idel_time').val();
         var cnt = 0;
         $('#name_error').html("");
@@ -531,9 +697,17 @@
                 url: "{{route('check-tutor-avalibility')}}",
                 data: {
                     'id': tutorName,
+                    'day': day,
+                    'idelTime': idelTime
                 },
                 success: function(res) {
-                    return false;
+                    if (res == 1) {
+                        $('#offlineBookingForm').submit();
+                        $('#idel_time_error').html('');
+                    } else {
+                        $('#idel_time_error').html('Tutor is not Available at this time. Please enter other time.');
+                        return false;
+                    }
                 }
             })
         }
@@ -595,6 +769,27 @@
         ajaxList(1);
     });
 
+    function editDetail(id) {
+        if (id != "") {
+            $('#editajax-crud-modal').modal('show');
+            $.ajax({
+                url: "{{ url('admin-offline-booking-edit') }}/" + id,
+                type: "GET",
+                success: function(res) {
+                    var val = JSON.parse(res);
+                    console.log(res);
+                    $("#main_subject_edit").find("option[value=" + val.subject_id + "]").attr('selected', true);
+                    $("#level_edit").find("option[value=" + val.level_id + "]").attr('selected', true);
+                    $("#tutor_name_edit").find("option[value=" + val.tutor_details.id + "]").attr('selected', true);
+                    $("#day_edit").find("option[value=" + val.tuition_day + "]").attr('selected', true);
+                    $("#sname_edit").val(val.userName);
+                    $("#main_id_edit").val(val.id);
+                    $("#idel_time_edit").val(val.teaching_start_time);
+                }
+            });
+
+        }
+    }
     $(document).ready(function() {
         <?php if (Request::get('addpopup') == '1') { ?>
             $("#ajax-crud-modal").modal('show');

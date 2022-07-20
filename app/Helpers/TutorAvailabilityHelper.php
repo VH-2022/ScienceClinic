@@ -29,5 +29,10 @@ class TutorAvailabilityHelper
        $query = TutorAvailability::where('tutor_id',$id)->whereNull('deleted_at')->get();
        return $query;
     }
+    public static function checkAvalibility($tutorId, $dayTime)
+    {
+       $query = TutorAvailability::where('tutor_id',$tutorId)->whereNull('deleted_at')->where('available_datetime', $dayTime)->first();
+       return $query;
+    }
 
 }
