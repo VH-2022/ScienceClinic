@@ -31,8 +31,9 @@ class TutorPaymentController extends Controller
         $name = $request->name;
 
         $created_date = $request->created_date;
-
-        $data['query'] = ParentPaymentHelper::getPaidListwithPaginate($name, $created_date);
+        $tutorName = $request->tutorName;
+        $tutionDay = $request->tutionDay;
+        $data['query'] = ParentPaymentHelper::getPaidListwithPaginate($name, $created_date, $tutorName, $tutionDay);
 
         return view('admin.tutor.tutor_payment_list_ajax', $data);
     }
