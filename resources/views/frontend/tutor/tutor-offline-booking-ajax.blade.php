@@ -16,8 +16,6 @@
 
             <th>Time</th>
 
-            <th>Actions</th>
-
         </tr>
 
     </thead>
@@ -44,10 +42,6 @@
             <td style="text-transform: capitalize;">{{ $val->tuition_day }}</td>
 
             <td>{{ Utility::convertTime($val->teaching_start_time) }}</td>
-
-            <td>
-                <a href="javascript:void(0)" onclick="editDetail('{{$val->id}}')" class="edit-details" data-id="{{$val->id}}"><i class="fa fa-edit"></i></a>
-            </td>
 
         </tr>
 
