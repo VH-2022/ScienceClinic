@@ -472,7 +472,7 @@
         
                             formSubmit: {
         
-                                text: 'Submit',
+                                text: 'Delete',
         
                                 btnClass: 'btn-danger',
         

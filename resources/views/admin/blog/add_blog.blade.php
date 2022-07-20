@@ -31,7 +31,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Title <span class="text-danger">*</span></label>
-                                        <input placeholder="Title" class="form-control validate_field charCls" autocomplete="off" id="title" type="text" data-msg="Title" value="{{ old('title')}}" name="title" maxlength=255>
+                                        <input placeholder="Title" class="form-control validate_field charCls txtOnly" autocomplete="off" id="title" type="text" data-msg="Title" value="{{ old('title')}}" name="title" maxlength=255>
                                         <span class="form-text error title_error" id="title_error">{{ $errors->first('title')}}</span>
                                     </div>
                                 </div>
@@ -80,6 +80,12 @@
         if (!regex.test(key)) {
             event.preventDefault();
             return false;
+        }
+    });
+    $(".txtOnly").keypress(function(e) {
+        var key = e.keyCode;
+        if (key >= 48 && key <= 57) {
+            e.preventDefault();
         }
     });
     CKEDITOR.replace('description');
