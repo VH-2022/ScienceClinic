@@ -295,7 +295,8 @@ class TutorAvailabilityController extends Controller
                 'teaching_end_time' => $finalEndTime,
                 'inquiry_type' => 2,
                 'user_name' => $request->sname,
-                'payment_status' => "Success"
+                'payment_status' => "Success",
+                'created_by' => $tutorId
 
             );
             $saveData = ParentDetailHelper::save($offlineUserInquiryData);
