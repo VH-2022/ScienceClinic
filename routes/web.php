@@ -95,6 +95,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
         $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
+        $backendVerified->get('get-hourly-rate', "ParentMasterController@getHourlyRate")->name('get-hourly-rate');
         $backendVerified->get('calander-booking', "ParentMasterController@getCalanderBooking")->name('calander-booking');
         $backendVerified->get('getBooklesson', "ParentMasterController@getBooklesson")->name('getBooklesson');
         $backendVerified->post('update-book-lesson', "ParentMasterController@updateBooklesson")->name('update-book-lesson');
@@ -104,6 +105,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('testimonial', "TestimonialController");
 
         $backendVerified->get('send-payment-link-parent', "ParentMasterController@sendPaymentLinkMail")->name('send-payment-link-parent');
+        $backendVerified->post('add-subject-hourly-rate', "ParentMasterController@addHourlyRate")->name('add-subject-hourly-rate');
         $backendVerified->resource('parent-payment-history', "ParentPaymentController");
         $backendVerified->get('parent-payment-list-ajax', "ParentPaymentController@ajaxList")->name('parent-payment-list-ajax');
         
@@ -141,7 +143,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function ($fronte
     $frontend->get('check-email', "BecomeTutorController@checkEmail")->name('check.email');
     $frontend->get('find-tutor', "FindATutorController@index")->name('find-tutor');
     $frontend->get('find-tutor-user', "FindATutorController@getTutors")->name('get.tutors');
-    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');;
+    $frontend->get('tutors-details/{id}', "FindATutorController@tutorDetails")->name('tutors-details');
     $frontend->get('tutor-availability-get', "FindATutorController@tutorAvailabilityDetails")->name('tutor-availability-get');
     $frontend->get('submit-review', "FindATutorController@saveReview")->name('submit.review');
     $frontend->post('check-email-parent', "FindATutorController@checkEmailParent")->name('check-email-parent');

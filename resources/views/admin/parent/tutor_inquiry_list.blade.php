@@ -58,9 +58,8 @@
                 
                 if($parentStatus != '' && $parentStatus != 'Pending' && $parentStatus != 'Rejected'){ @endphp
                 @if($val->payment_link_flag == '0')
-                    @if($val->hourly_rate !='' && $val->teaching_start_time !='' && $val->teaching_hours !='')
+                    @if($val->teaching_start_time !='' && $val->teaching_hours !='')
                         <a href="javascript:void(0);" onclick="editDetail('{{$val->id}}')" class="btn btn-success btn-sm">Edit Lesson</a>
-    
                         <a href="javascript:void(0);" onclick="sendPaymentmail({{$val->id}})" class="btn btn-info btn-sm">Book Lesson</a>
                     @endif
                         

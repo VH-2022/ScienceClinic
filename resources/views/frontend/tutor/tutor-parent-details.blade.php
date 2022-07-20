@@ -51,8 +51,8 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>First Name: </strong>
-                                    {{$parentData->first_name}}
+                                    <strong>First Name:</strong>
+                                    <span class="ml-1">{{$parentData->first_name}}</span>
 
                                 </div>
 
@@ -62,7 +62,7 @@
                                 <div class="d-flex mb-4">
 
                                     <strong>Last Name: </strong>
-                                    {{$parentData->last_name}}
+                                    <span class="ml-1">{{$parentData->last_name}}</span>
 
                                 </div>
 
@@ -74,7 +74,7 @@
                                 <div class="d-flex mb-4">
 
                                     <strong>Address1: </strong>
-                                    {{$parentData->address1}}
+                                    <span class="ml-1">{{$parentData->address1}}</span>
                                 </div>
 
                             </div>
@@ -223,11 +223,6 @@
                         '<span class="text-danger" id="error_hours"></span>' +
                         '</div>' +
                         '<div class="form-group">' +
-                        '<label>Enter Hourly Rate <span class="text-danger">*</span></label>' +
-                        '<input type="number" name="hourly_rate" id="hourly_rate" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" maxlength="3" placeholder="Enter Hourly Rate" class="hours form-control number-only" required />' +
-                        '<span class="text-danger" id="error_hourly_rate"></span>' +
-                        '</div>' +
-                        '<div class="form-group">' +
                         '<label>Enter Teaching Start Time <span class="text-danger">*</span></label>' +
                         '<input type="text" name="teaching_start_time" id="teaching_start_time" placeholder="Enter Teaching Start Time" class="form-control" required />' +
                         '<span class="text-danger" id="error_teaching_start_time"></span>' +
@@ -244,7 +239,7 @@
                             btnClass: 'btn-blue',
                             action: function() {
                                 var hours = $("#teaching_hours").val();
-                                var hourly_rate = $("#hourly_rate").val();
+                                // var hourly_rate = $("#hourly_rate").val();
                                 var teaching_start_time = $("#teaching_start_time").val();
                                 var teaching_type = $("#teaching_type").val();
                                 var tutionTime = $('#desc' + id).html();
@@ -261,7 +256,7 @@
                                 var minutes = hours.split('.');
                                 var temp = 0;
                                 $('#error_hours').html("");
-                                $('#error_hourly_rate').html("");
+                                // $('#error_hourly_rate').html("");
                                 $('#error_teaching_start_time').html("");
                                 $('#error_teaching_type').html("");
                                 if (hours.trim() == '') {
@@ -273,10 +268,10 @@
                                         temp++;
                                     }
                                 }
-                                if (hourly_rate.trim() == '') {
-                                    $('#error_hourly_rate').html("Please enter Hourly Rates");
-                                    temp++;
-                                }
+                                // if (hourly_rate.trim() == '') {
+                                //     $('#error_hourly_rate').html("Please enter Hourly Rates");
+                                //     temp++;
+                                // }
                                 if (teaching_start_time.trim() == '') {
                                     $('#error_teaching_start_time').html("Please enter Teaching Start Time");
                                     temp++;
@@ -297,7 +292,7 @@
                                             'id': id,
                                             'hours': minutes[0],
                                             'minutes':minutes[1],
-                                            'hourly_rate': hourly_rate,
+                                            // 'hourly_rate': hourly_rate,
                                             'teaching_start_time': teaching_start_time,
                                             'teaching_type': teaching_type,
                                             "_token": "{{ csrf_token() }}"
@@ -319,12 +314,12 @@
                                             } else {
                                                 $('#error_hours').html('');
                                             }
-                                            if (jqXHR.responseJSON.error_msg.hourly_rate[0]) {
-                                                $('#error_hourly_rate').html(jqXHR.responseJSON.error_msg.hourly_rate[0]);
-                                                tempVal++;
-                                            } else {
-                                                $('#error_hourly_rate').html('');
-                                            }
+                                            // if (jqXHR.responseJSON.error_msg.hourly_rate[0]) {
+                                            //     $('#error_hourly_rate').html(jqXHR.responseJSON.error_msg.hourly_rate[0]);
+                                            //     tempVal++;
+                                            // } else {
+                                            //     $('#error_hourly_rate').html('');
+                                            // }
                                             if (jqXHR.responseJSON.error_msg.teaching_type[0]) {
                                                 $('#error_teaching_type').html(jqXHR.responseJSON.error_msg.teaching_type[0]);
                                                 tempVal++;

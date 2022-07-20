@@ -307,8 +307,7 @@ class TutorMasterController extends Controller
     }
     public function getCount(Request $request)
     {
-
-        $data = TutorLevelDetailHelper::getDetailsById($request->id);
+        $data = TutorLevelDetailHelper::getDetailsHourlyRateById($request->id);
 
         return response()->json(['error_msg' => 'Success', 'data' => $data], 200);
     }

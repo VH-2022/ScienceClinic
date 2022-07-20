@@ -37,6 +37,8 @@
                         <div class="card-toolbar">
 
                             <input type="hidden" id="tutor_id" value="{{$tutor->id}}">
+                            <input type="hidden" id="counter" value="">
+
 
                             @if($tutor->status == '' || $tutor->status == 'Pending')
                             <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$tutor->id}})" @if($tutor->status=="Accepted") style="display:none" @endif>Accept</a>
@@ -56,19 +58,9 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Full Name: </strong>
+                                    <strong>Full Name:</strong>
 
-                                    {{ $tutor->first_name }}
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4">
-
-                                <div class="d-flex mb-4">
-
-                                    <strong>Email: </strong> {{ $tutor->email }}
+                                    <span class="ml-1">{{ $tutor->first_name }}</span>
 
                                 </div>
 
@@ -78,9 +70,7 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Mobile No: </strong>
-
-                                    {{ $tutor->mobile_id }}
+                                    <strong>Email:</strong> <span class="ml-1">{{ $tutor->email }}</span>
 
                                 </div>
 
@@ -90,21 +80,9 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Address1: </strong>
+                                    <strong>Mobile No:</strong>
 
-                                    {{ $tutor->address1 }}
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4">
-
-                                <div class="d-flex mb-4">
-
-                                    <strong>Address2: </strong>
-
-                                    {{ $tutor->address2 }}
+                                    <span class="ml-1">{{ $tutor->mobile_id }}</span>
 
                                 </div>
 
@@ -114,19 +92,11 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Address3: </strong>
+                                    <strong>Address1:</strong>
 
-                                    {{ $tutor->address3 }}
+                                    <span class="ml-1">{{ $tutor->address1 }}</span>
 
                                 </div>
-
-                            </div>
-
-                            <div class="col-lg-4">
-
-                                <strong>City: </strong>
-
-                                {{ $tutor->city }}
 
                             </div>
 
@@ -134,7 +104,39 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Post Code: </strong> {{ $tutor->postcode }}
+                                    <strong>Address2:</strong>
+
+                                    <span class="ml-1">{{ $tutor->address2 }}</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="d-flex mb-4">
+
+                                    <strong>Address3:</strong>
+
+                                    <span class="ml-1">{{ $tutor->address3 }}</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <strong>City:</strong>
+
+                                <span class="ml-1">{{ $tutor->city }}</span>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="d-flex mb-4">
+
+                                    <strong>Post Code:</strong> <span class="ml-1">{{ $tutor->postcode }}</span>
 
 
 
@@ -144,7 +146,7 @@
 
                             <div class="col-lg-4">
 
-                                <strong>Status: </strong> <span id="status_id">@if($tutor->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
+                                <strong>Status: </strong> <span id="status_id">@if($tutor->status =='Pending') <span class="ml-1 badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="ml-1 badge badge-danger">Rejected</span> @endif</span>
 
 
 
@@ -154,7 +156,7 @@
 
                                 <strong>Bio:</strong>
 
-                                {{ $tutor->bio }}
+                                <span class="ml-1">{{ $tutor->bio }}</span>
 
                             </div>
 
@@ -346,7 +348,10 @@
         });
 
     }
+    $(document).ready(function(){
 
+        getCounter();
+    });
     function getUniversityDetails(page) {
 
         $.ajax({
@@ -475,7 +480,6 @@
 <script>
     function getCounter() {
         var id = $('#tutor_id').val();
-
         $.ajax({
             method: "GET",
             url: "{{ route('get-count') }}",
@@ -483,7 +487,6 @@
                 'id': id,
             },
             success: function(res) {
-                console.log(res.data);
                 $('#tutor_id').val(res.data);
             }
         })
@@ -542,6 +545,7 @@
 
                                 var html_res = '<span class="badge badge-success">Accepted</span>';
 
+                                $('.rejected_id').attr('style', 'display:none');
                                 $('.accepted_id').attr('style', 'display:none');
 
                             } else {
@@ -549,6 +553,7 @@
                                 var html_res = '<span class="badge badge-danger">Rejected</span>';
 
                                 $('.rejected_id').attr('style', 'display:none');
+                                $('.accepted_id').attr('style', 'display:none');
 
                             }
 
@@ -578,8 +583,6 @@
 
 
         });
-
-
     }
 </script>
 

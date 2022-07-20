@@ -44,19 +44,9 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Full Name : </strong>&nbsp;
+                                    <strong>Full Name:</strong>
 
-                                    {{ $parents->first_name }} {{ $parents->last_name }}
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4">
-
-                                <div class="d-flex mb-4">
-
-                                    <strong>Email : </strong>&nbsp; {{ $parents->email }}
+                                    <span class="ml-1">{{ $parents->first_name }} {{ $parents->last_name }}</span>
 
                                 </div>
 
@@ -66,9 +56,7 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Mobile No : </strong>&nbsp;
-
-                                    {{ $parents->mobile_id }}
+                                    <strong>Email:</strong> <span class="ml-1">{{ $parents->email }}</span>
 
                                 </div>
 
@@ -78,8 +66,20 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong>Address : </strong>&nbsp;
-                                    {{ $parents->address1 }}
+                                    <strong>Mobile No:</strong>
+
+                                    <span class="ml-1">{{ $parents->mobile_id }}</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="d-flex mb-4">
+
+                                    <strong>Address:</strong>
+                                    <span class="ml-1">{{ $parents->address1 }}</span>
 
                                 </div>
 
@@ -93,7 +93,7 @@
 
                             <div class="col-lg-4">
 
-                                <strong>Status : </strong>&nbsp; <span id="status_id">@if($parents->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($parents->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
+                                <strong>Status:</strong> <span id="status_id">@if($parents->status =='Pending') <span class="ml-1 badge badge-primary">Pending</span> @elseif($parents->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="ml-1 badge badge-danger">Rejected</span> @endif</span>
 
 
 
@@ -487,34 +487,163 @@
 
     }
 
-    function sendPaymentmail(id) {
+    function addhourlyrate(id) {
+        console.log("done");
         $.confirm({
-            title: 'Are you sure?',
-            columnClass: "col-md-6",
-            content: "you want to book lesson?",
-            buttons: {
-                formSubmit: {
-                    text: 'Submit',
-                    btnClass: 'btn-primary',
-                    action: function() {
-                        $.ajax({
-                            method: "GET",
-                            url: "{{ route('send-payment-link-parent') }}",
-                            data: {
-                                'id': id,
+            title: 'Add Hourly Rate',
+            content: '' +
+                '<form action="" class="formName">' +
+                '<div class="form-group">' +
+                '<label>Enter Rate</label>' +
+                '<input type="number" placeholder="Your Rate" class="rate form-control" required />' +
+                '<span class="text-danger" id="error_rate"></span>' +
+                '</div>' +
+                '</form>',
+            // buttons: {
+            //     formSubmit: {
+            //         text: 'Submit',
+            //         btnClass: 'btn-blue',
+            //         action: function() {
+            //             var rate = this.$content.find('.rate').val();
+            //             if (rate.trim() == '') {
+            //                 $('#error_rate').html("Please enter rate");
+            //                 return false;
+            //             }
+
+            //             $.ajax({
+
+            //                 type: "post",
+
+            //                 url: "{{ route('add-hourly-rate') }}",
+            //                 data: {
+            //                     'rate': rate,
+            //                     "_token": "{{ csrf_token() }}"
+            //                 },
+
+            //                 success: function(res) {
+
+            //                     toastr.success(res.error_msg);
+            //                 }
+
+            //             })
+            //         }
+            //     },
+            //     cancel: function() {
+
+            //     },
+            // },
+            onContentReady: function() {
+
+                var jc = this;
+                this.$content.find('form').on('submit', function(e) {
+
+                    e.preventDefault();
+                    jc.$$formSubmit.trigger('click');
+                });
+            }
+        });
+
+    }
+
+    function sendPaymentmail(id) {
+        if (id != '') {
+            $.ajax({
+                method: "GET",
+                async: false,
+                url: "{{ route('get-hourly-rate') }}",
+                data: {
+                    'id': id,
+                },
+                success: function(res) {
+                    var data = JSON.parse(res);
+                    if (data.hourly_rate == null) {
+                        $.confirm({
+                            title: 'Add Hourly Rate',
+                            content: '' +
+                                '<form action="" class="formName">' +
+                                '<div class="form-group">' +
+                                '<label>Enter Rate</label>' +
+                                '<input type="number" placeholder="Enter Rate" class="rate form-control" required />' +
+                                '<span class="text-danger" id="error_rate"></span>' +
+                                '</div>' +
+                                '</form>',
+                            buttons: {
+                                formSubmit: {
+                                    text: 'Submit',
+                                    btnClass: 'btn-blue',
+                                    action: function() {
+                                        var rate = $('.rate').val();
+                                        $('#error_rate').html("");
+                                        if (rate.trim() == '') {
+                                            $('#error_rate').html("Please enter rate");
+                                            return false;
+                                        }
+
+                                        $.ajax({
+
+                                            type: "post",
+
+                                            url: "{{ route('add-subject-hourly-rate') }}",
+                                            data: {
+                                                'rate': rate,
+                                                'id': id,
+                                                "_token": "{{ csrf_token() }}"
+                                            }
+
+                                        }).done(function(r) {
+                                            toastr.success('Hourly Rate Added. Please Book Lesson');
+                                            sendPaymentmail();
+                                        }).fail(function() {
+                                            toastr.error('Sorry, something went wrong. Please try again.');
+                                        })
+                                    }
+                                },
+                                cancel: function() {
+
+                                },
+                            },
+                            onContentReady: function() {
+
+                                var jc = this;
+                                this.$content.find('form').on('submit', function(e) {
+
+                                    e.preventDefault();
+                                    jc.$$formSubmit.trigger('click');
+                                });
                             }
-                        }).done(function(r) {
-                            toastr.success('Payment mail are sending successfully. Please also check spam.');
-                            inquiryDetails(1);
-                        }).fail(function() {
-                            toastr.error('Sorry, something went wrong. Please try again.');
+                        });
+                    } else {
+                        $.confirm({
+                            title: 'Are you sure?',
+                            columnClass: "col-md-6",
+                            content: "you want to book lesson?",
+                            buttons: {
+                                formSubmit: {
+                                    text: 'Submit',
+                                    btnClass: 'btn-primary',
+                                    action: function() {
+                                        $.ajax({
+                                            method: "GET",
+                                            url: "{{ route('send-payment-link-parent') }}",
+                                            data: {
+                                                'id': id,
+                                            }
+                                        }).done(function(r) {
+                                            toastr.success('Payment mail are sending successfully. Please also check spam.');
+                                            inquiryDetails(1);
+                                        }).fail(function() {
+                                            toastr.error('Sorry, something went wrong. Please try again.');
+                                        });
+                                    }
+                                },
+                                cancel: function() {},
+                            },
+                            onContentReady: function() {}
                         });
                     }
-                },
-                cancel: function() {},
-            },
-            onContentReady: function() {}
-        });
+                }
+            });
+        }
     }
 
     function editDetail(id) {

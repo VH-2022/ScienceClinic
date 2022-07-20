@@ -207,6 +207,11 @@ class TutorLevelDetailHelper
         $query = TutorLevelDetail::where('tutor_id',$id)->count();
         return $query;
     }
+    public static function getDetailsHourlyRateById($id)
+    {
+        $query = TutorLevelDetail::where('tutor_id',$id)->whereNull('hourly_rate')->count();
+        return $query;
+    }
     public static function saveHourlyRate($id, $rate, $subjectId)
     {
         $arrData = array(
