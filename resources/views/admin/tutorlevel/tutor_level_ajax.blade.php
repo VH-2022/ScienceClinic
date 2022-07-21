@@ -6,7 +6,7 @@
 
             <th nowrap="nowrap">ID</th>
 
-            <th style="white-space: nowrap">Name </th>
+            <th style="white-space: nowrap">Level Name </th>
 
             <th style="white-space: nowrap">Created Date</th>
 

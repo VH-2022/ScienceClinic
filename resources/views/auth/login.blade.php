@@ -63,7 +63,17 @@
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 
-<!--begin::Main-->
+    <style>
+        .custom-position {
+            position: relative;
+        }
+
+        .eye-icon {
+            top: 12px !important;
+            right: 5px !important;
+        }
+    </style>
+    <!--begin::Main-->
 
     <div class="d-flex flex-column flex-root">
 
@@ -101,7 +111,7 @@
 
                         </div>
 
-                        <form class="form" id="kt_login_signin_form" method="POST" action="{{ route('verify-login') }}" onsubmit="return validate();">
+                        <form class="form" id="kt_login_signin_form" method="POST" action="{{ route('verify-login') }}">
 
                             @csrf
 
@@ -109,21 +119,24 @@
 
                                 <input class="form-control h-auto  py-4 px-8" type="text" placeholder="Email" id="email" name="email" autocomplete="off">
 
-                                <span style="color: red;" id="emailerror"></span>
+                                <span style="color: red;margin-right: 270px;" id="emailerror"></span>
 
                             </div>
 
-                            <div class="form-group mb-5">
+                            <div class="form-group mb-5 custom-position">
 
-                                <input class="form-control h-auto  py-4 px-8" type="password" id="password" placeholder="Password" name="password" />
-
-                                <span style="color: red;" id="passworderror"></span>
+                                <input class="form-control h-auto pass-icons py-4 px-8" type="password" id="password" placeholder="Password" name="password" />
+                                <button id="toggle-password" class="pass-icons eye-icon" type="button">
+                                    <img src="{{ asset('front/img/close-eye.svg')}}" alt="eye icon" class="icon1">
+                                    <img src="{{ asset('front/img/eye.svg')}}" alt="eye icon" class="icon2">
+                                </button>
+                                <span style="color:red;margin-right: 240px;" id="passworderror"></span>
 
                             </div>
 
                             <div class="form-group d-flex flex-wrap justify-content-between align-items-center" style="float: right;">
 
-                                
+
 
                                 <a href="{{ route('password.request') }}" id="kt_login_forgot" class="text-muted text-hover-primary dark-sign-color">Forgot Password?</a>
 
@@ -161,6 +174,23 @@
     <!--end::Global Theme Bundle-->
 
     <script>
+        var togglePassword = document.getElementById("toggle-password");
+
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    $(this).addClass("active");
+                } else {
+                    x.type = "password";
+                    $(this).removeClass("active");
+
+                    // $("#toggle-password" <!--Background Area Start-->).removeClass("active");
+
+                }
+            });
+        }
 
         function ValidateEmail(email) {
 
@@ -169,9 +199,7 @@
             return expr.test(email);
 
         }
-
-        function validate() {
-
+        $('#kt_login_signin_form').submit(function() {
             var temp = 0;
 
             var email = $("#email").val();
@@ -211,7 +239,7 @@
             }
 
             if (temp == 0) {
-
+                $("#kt_login_signin_submit").prop('disabled', true);
                 return true;
 
             } else {
@@ -219,17 +247,19 @@
                 return false;
 
             }
+        });
+
+        function validate() {
+
+
 
         }
-
     </script>
 
     @if(Session::has('success'))
 
     <script>
-
         Command: toastr["success"]('<?php echo Session::get('success') ?>')
-
     </script>
 
     @endif
@@ -239,9 +269,7 @@
     @if(Session::has('error'))
 
     <script>
-
         Command: toastr["error"]('<?php echo Session::get('error') ?>')
-
     </script>
 
     @endif

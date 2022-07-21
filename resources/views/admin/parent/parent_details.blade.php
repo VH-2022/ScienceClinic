@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    .text-wrap {
+        word-break: break-all;
+    }
+</style>
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
 
 <div class="d-flex flex-column-fluid">
@@ -52,6 +57,8 @@
 
                             </div>
 
+
+
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
@@ -61,7 +68,13 @@
                                 </div>
 
                             </div>
+                            <div class="col-lg-4">
 
+                                <strong>Status:</strong><span id="status_id">@if($parents->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($parents->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
+
+
+
+                            </div>
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
@@ -96,8 +109,6 @@
                                 <strong>Status:</strong> <span id="status_id">@if($parents->status =='Pending') <span class="ml-1 badge badge-primary">Pending</span> @elseif($parents->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="ml-1 badge badge-danger">Rejected</span> @endif</span>
 
 
-
-                            </div>
 
 
 

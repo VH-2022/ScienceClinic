@@ -382,7 +382,6 @@
 
                 // var validation_filed_array = ['title', 'sub_title', 'title_section_one', 'main_subject'];
                 var validation_filed_array = ['title', 'main_subject'];
-
                 for (var i = 0; i < validation_filed_array.length; i++) {
 
                     validation_status += parseInt(validatField($('#' + validation_filed_array[i] + '.validate_field')));
@@ -987,7 +986,6 @@
             var time_valid = $this.hasClass('time-picker') ? true : false;
 
             var range_valid = $this.hasClass('training_datepicker') ? true : false;
-
             if (elem_type == 'SELECT') {
 
                 $('.' + cur_elem_id + '_error').html('');
@@ -1017,14 +1015,12 @@
                 if (cur_elem_type == 'text') {
 
 
-
                     $('.' + cur_elem_id + '_error').html('');
 
                     if (cur_elm_val.trim() == '' && !range_valid) {
 
-                        console.log(cur_elem_id);
 
-                        $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
+                        // $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
 
                         $('.' + cur_elem_id + '_error').html(cur_err_msg + ' is required.');
 
@@ -1036,7 +1032,7 @@
 
                         if (isNaN(cur_elm_val)) {
 
-                            $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
+                            // $('#' + cur_elem_id).addClass('is-invalid').removeClass('is-valid');
 
                             $('.' + cur_elem_id + '_error').html(cur_err_msg + ' must be a number.');
 
@@ -1044,7 +1040,7 @@
 
                         } else {
 
-                            $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
+                            // $('#' + cur_elem_id).addClass('is-valid').removeClass('is-invalid');
 
                         }
 

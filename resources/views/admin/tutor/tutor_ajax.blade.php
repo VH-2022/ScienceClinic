@@ -6,7 +6,7 @@
 
             <th nowrap="nowrap">ID</th>
 
-            <th style="white-space: nowrap">Full Name </th>
+            <th style="white-space: nowrap">Tutor Name </th>
 
             <th style="white-space: nowrap">Email </th>
 

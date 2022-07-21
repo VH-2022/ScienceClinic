@@ -1,6 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+<style>
+    .break-text {
+        word-break: break-all;
+    }
+
+    .bold-text {
+        padding-right: 15px;
+    }
+</style>
 
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirmation/css/jquery-confirm.min.css') }}">
 
@@ -54,9 +63,15 @@
 
                         <div class="form-group row">
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Full Name: </strong>
+                                    </div>
+                                    <div>
+                                        {{ $tutor->first_name }}
+                                    </div>
 
                                     <strong>Full Name:</strong>
 
@@ -66,9 +81,12 @@
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Email: </strong>
+                                    </div>
 
                                     <strong>Email:</strong> <span class="ml-1">{{ $tutor->email }}</span>
 
@@ -76,7 +94,7 @@
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
 
@@ -95,12 +113,11 @@
                                     <strong>Address1:</strong>
 
                                     <span class="ml-1">{{ $tutor->address1 }}</span>
-
                                 </div>
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
 
@@ -112,9 +129,9 @@
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
-                                <div class="d-flex mb-4">
+                                <div class="d-flex mb-4 ">
 
                                     <strong>Address3:</strong>
 
@@ -132,7 +149,7 @@
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
 
@@ -148,16 +165,32 @@
 
                                 <strong>Status: </strong> <span id="status_id">@if($tutor->status =='Pending') <span class="ml-1 badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="ml-1 badge badge-danger">Rejected</span> @endif</span>
 
+                            <div class="col-lg-6">
+                                <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Status: </strong>
+                                    </div>
+                                    <div class="ml-5">
+                                        <span id="status_id">@if($tutor->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
+                                    </div>
+                                </div>
 
 
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="d-flex mb-4">
+                                    <div>
+                                        <strong class="bold-text">Bio:</strong>
+                                    </div>
 
-                                <strong>Bio:</strong>
+                                    <div class="ml-14">
+                                        {{ $tutor->bio }}
+                                    </div>
 
                                 <span class="ml-1">{{ $tutor->bio }}</span>
 
+                                </div>
                             </div>
 
 
@@ -495,6 +528,12 @@
 
     function changeStatus(status, id) {
         var count = $('#tutor_id').val();
+        var name = '';
+        if (status == 'Accepted') {
+            name = 'Accept';
+        } else {
+            name = 'Reject';
+        }
         $.confirm({
 
             title: 'Are you sure?',
@@ -509,7 +548,7 @@
 
                 formSubmit: {
 
-                    text: 'Submit',
+                    text: name,
 
                     btnClass: 'btn-primary',
 
@@ -575,6 +614,9 @@
 
                     }
 
+                },
+                cancel: function() {
+                   
                 },
 
 

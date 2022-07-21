@@ -63,6 +63,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->post('change-password-update', "ProfileController@PasswordUpdate")->name('change-password-update');
         $backendVerified->resource('subject-master', "SubjectController");
         $backendVerified->get('subject-master-ajax-list', "SubjectController@ajaxList");
+        $backendVerified->get('subject-unique', "SubjectController@subjectUnique")->name('subject-unique');
+        $backendVerified->get('edit-subject-unique', "SubjectController@editSubjectUnique")->name('edit-subject-unique');
         $backendVerified->resource('sub-subject-master', "SubSubjectController");
         $backendVerified->get('sub-subject-master-ajax-list', "SubSubjectController@ajaxList");
         $backendVerified->resource('tutor-level', "TutorLevelController");
