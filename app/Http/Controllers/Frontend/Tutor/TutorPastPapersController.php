@@ -182,72 +182,85 @@ class TutorPastPapersController extends Controller
             );
             $upload_paper = '';
             $upload_mark_scheme = '';
-            $update = PastPapersHelper::update($data_array, array('id' => $id));
-            if ($update) {
+            $update = PastPapersHelper::update($data_array,array('id' => $id));
+            if($update){
 
                 // delete data
 
                 $deletedID = $request->deletedID;
-                if ($deletedID != '') {
-                    $deletedIDs = explode(',', $deletedID);
-                    $deleteData = PastPapersDetailHelper::SoftDelete(array(), array('id' => $deletedID));
+                if($deletedID !=''){
+                    $deletedIDs = explode(',',$deletedID);
+                    $deleteData = PastPapersDetailHelper::SoftDelete(array(), array('id' => $deletedIDs));
                 }
 
 
                 $detail_id = $request->detail_id;
-                $valCount = $request->detail_id_val;
-                if ($detail_id != '') {
-                    for ($i = 0; $i < count($valCount); $i++) {
-                        if ($valCount[$i] != '0') {
-                            $updateArray = array(
-                                'paper_id' => $id,
-                                'subject_paper_title' => $request->subject_paper_title[$i],
-                            );
+                
+                if($detail_id !=''){
+                    
+                    for($i=0;$i<count($detail_id);$i++){
+                        
+                    if($detail_id[$i] !='0'){
+                        $updateArray = array(
+                            'paper_id' => $id,
+                            'subject_paper_title' => $request->subject_paper_title[$i],
+                        );
+                       
+            
+                        
+                        if ($_FILES['upload_paper']['name'][$i] != '') {
 
-                            if ($_FILES['upload_paper']['name'][$i] != '') {
-
-                                $upload_paper = $this->uploadImageWithCompress($request->file('upload_paper')[$i], 'uploads/past_paper');
-                            }
-                            if ($upload_paper != '') {
-                                $updateArray['upload_paper'] = $upload_paper;
-                            }
-
-                            if ($_FILES['upload_mark_scheme']['name'][$i] != '') {
-                                $upload_mark_scheme = $this->uploadImageWithCompress($request->file('upload_mark_scheme')[$i], 'uploads/past_paper');
-                            }
-                            if ($upload_mark_scheme != '') {
-                                $updateArray['upload_mark_scheme'] = $upload_mark_scheme;
-                            }
-                            $update = PastPapersDetailHelper::update($updateArray, array('id' => $detail_id[$i]));
-                        } else if($request->upload_paper != '') {
-                            $insertArray = array(
-                                'paper_id' => $id,
-                                'subject_paper_title' => $request->subject_paper_title[$i],
-                            );
-                            if ($_FILES['upload_paper']['name'][$i] != '') {
-                                $upload_paper = $this->uploadImageWithCompress($request->file('upload_paper')[$i], 'uploads/past_paper');
-                            }
-                            if ($upload_paper != '') {
-                                $insertArray['upload_paper'] = $upload_paper;
-                            }
-
-                            if ($_FILES['upload_mark_scheme']['name'][$i] != '') {
-                                $upload_mark_scheme = $this->uploadImageWithCompress($request->file('upload_mark_scheme')[$i], 'uploads/past_paper');
-                            }
-                            if ($upload_mark_scheme != '') {
-                                $insertArray['upload_mark_scheme'] = $upload_mark_scheme;
-                            }
-
-                            $paperinsert = PastPapersDetailHelper::save($insertArray);
+                            $upload_paper = $this->uploadImageWithCompress($request->file('upload_paper')[$i], 'uploads/past_paper');
                         }
+                        if ($upload_paper != '') {
+                            $updateArray['upload_paper'] = $upload_paper;
+                        }
+                        
+                        if ($_FILES['upload_mark_scheme']['name'][$i] != '') {
+                            $upload_mark_scheme = $this->uploadImageWithCompress($request->file('upload_mark_scheme')[$i], 'uploads/past_paper');
+                        }
+                        if ($upload_mark_scheme != '') {
+                            $updateArray['upload_mark_scheme'] = $upload_mark_scheme;
+                        }
+                        $update = PastPapersDetailHelper::update($updateArray,array('id' => $detail_id[$i]));
+                    }else{
+                        $insertArray = array(
+                            'paper_id' => $id,
+                            'subject_paper_title' => $request->subject_paper_title[$i],
+                        );
+                        if ($_FILES['upload_paper']['name'][$i] != '') {
+                            $upload_paper = $this->uploadImageWithCompress($request->file('upload_paper')[$i], 'uploads/past_paper');
+                        }
+                        if ($upload_paper != '') {
+                            $insertArray['upload_paper'] = $upload_paper;
+                        }
+                        
+                        if ($_FILES['upload_mark_scheme']['name'][$i] != '') {
+                            $upload_mark_scheme = $this->uploadImageWithCompress($request->file('upload_mark_scheme')[$i], 'uploads/past_paper');
+                        }
+                        if ($upload_mark_scheme != '') {
+                            $insertArray['upload_mark_scheme'] = $upload_mark_scheme;
+                        }
+
+                        $paperinsert = PastPapersDetailHelper::save($insertArray);
+
+                    
+                
+                    }
+                        
+
                     }
                 }
-                Session::flash('success', trans('messages.updatedSuccessfully'));
+                
+                Session::flash('success',trans('messages.updatedSuccessfully'));
                 return redirect('/tutor-past-papers');
-            } else {
-                Session::flash('error', trans('messages.error'));
-                return redirect('/tutor-past-papers/' . $id . '/edit');
+            }else{
+                Session::flash('error',trans('messages.error'));
+                return redirect('/tutor-past-papers/'.$id.'/edit');
             }
+            
+            
+           
         }
     }
 

@@ -109,8 +109,8 @@
                             @if(count($paper_basic_details) > 0)
                             
                                 @foreach($paper_basic_details as $key)
-                                <input type="hidden" name="detail_id[]" value="{{ $key->id}}">
-                                    <div class="row" id="deleteRowEdit_{{$i}}">
+                                <input type="hidden" name="detail_id[]" class="detail_id_{{$key->id}}" value="{{ $key->id}}">
+                                    <div class="row" id="deleteRow_{{$i}}">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Subject Title <span class="text-danger">*</span></label>
@@ -191,7 +191,6 @@
                                     </div>
                                 </div>
                             @endif
-                            <input type="hidden" name="detail_id_val[]" id="final_data">
                             <input type="hidden" id="deletedID" name="deletedID" />
                             <div id="appendData"></div>
                            
@@ -314,7 +313,7 @@ function removeID(id){
 }
 
 var idArray = [];
-function removeDeleteID(id, val){
+function removeDeleteID(id,deleteId){
     $.confirm({
     title: 'Are you sure?',
     columnClass:"col-md-6",
@@ -326,8 +325,8 @@ function removeDeleteID(id, val){
             action: function () {
                 idArray.push(id);
                 $("#deletedID").val(idArray);
-                $("#final_data").val(val);
-                $("#deleteRowEdit_"+val).remove();
+                $("#deleteRow_"+deleteId).remove();
+                $(".detail_id_"+id).remove();
             }
         },
         cancel: function () {
