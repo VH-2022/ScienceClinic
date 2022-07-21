@@ -6,12 +6,14 @@
 
             <th nowrap="nowrap"> ID</th>
 
-            <th style="white-space: nowrap">Title </th>
+            <th style="white-space: nowrap">Tutor Name</th>
 
-
-
-            <th style="white-space: nowrap">Created Date</th>
-
+            <th style="white-space: nowrap">Student Name</th>
+            <th style="white-space: nowrap">Day Of Tuition</th>
+            <th style="white-space: nowrap">Tuition Time</th>
+            <th style="white-space: nowrap">Rate</th>
+            <th style="white-space: nowrap">Commission</th>
+            <th style="white-space: nowrap">Month</th>
             <th>Actions</th>
 
         </tr>
@@ -24,47 +26,64 @@
 
 
 
-        $i = $page * 50 - 49;
+        $i = $page * 10 - 9;
 
         @endphp
 
         @if (count($query) > 0)
 
-        @foreach ($query as $live_in)
+        @foreach ($query as $value)
 
 
 
         <tr>
 
-            <td>
+            <td>{{ $i++}}</td>
 
-                {{ $i++}}
-
+            <td>{{ $value->tutor_name}}</td>
+            <td>{{ $value->student_name}}</td>
+            <td>{{ ucfirst($value->day_of_tution)}}</td>
+            <td>{{ $value->tution_time}}</td>
+            <td>{{ $value->rate}}</td>
+            <td>{{ $value->commission}}%</td>
+            <td> @if($value->month == 1)
+                January
+                @elseif($value->month == 2)
+                February
+                @elseif($value->month == 3) March
+                @elseif($value->month == 4) April
+                @elseif($value->month == 5) May
+                @elseif($value->month == 6) June
+                @elseif($value->month == 7) July
+                @elseif($value->month == 8) August
+                @elseif($value->month == 9) September
+                @elseif($value->month == 10) October
+                @elseif($value->month == 11) November
+                @elseif($value->month == 12) December
+                @else
+                N/A
+                @endif
             </td>
+            <!-- 
 
-            <td>
-
-                {{ $live_in->main_title}}
-
-            </td>
 
 
 
             <td>
 
-                @if($live_in->created_at !='')
+                @if($value->created_at !='')
 
-                {{ Utility::convertYMDTimeToDMYTime($live_in->created_at) }}
+                {{ Utility::convertYMDTimeToDMYTime($value->created_at) }}
 
                 @endif
 
-            </td>
+            </td> -->
 
             <td>
 
-                <a href="{{ url('subject-master') }}/{{$live_in->id}}/edit"><i class="fa fa-edit" title="Edit"></i></a>
+                <a href="{{ url('subject-master') }}/{{$value->id}}/edit"><i class="fa fa-edit" title="Edit"></i></a>
                 <!--
-                    <a href="javascript:void(0)" class="delete-category" data-id="{{ $live_in->id}}"><i class="fa fa-trash"></i></a> -->
+                    <a href="javascript:void(0)" class="delete-category" data-id="{{ $value->id}}"><i class="fa fa-trash"></i></a> -->
 
             </td>
 

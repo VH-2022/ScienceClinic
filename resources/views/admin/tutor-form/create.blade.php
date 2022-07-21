@@ -46,7 +46,7 @@
 
 
 
-                    <form class="form" id="submitid" method="post" action="{{route('tutor-form.store')}}" enctype="multipart/form-data">
+                    <form class="form" id="submitid" method="post" action="{{route('tutor-form.store')}}">
 
                         @csrf
 
@@ -78,7 +78,7 @@
 
                                         <label>Day Of Tuition <span class="text-danger">*</span></label>
                                         <select name="tuition_day" id="tuition_day" class="form-control validate_field">
-                                            <option value=" ">Please Select Day</option>
+                                            <option value="">Please Select Day</option>
                                             @foreach($daysArr as $key=>$val)
                                             <option value="{{$val}}">
                                                 {{$key}}
@@ -92,7 +92,7 @@
 
                                         <label>Rate</label>
 
-                                        <input class="form-control validate_field" placeholder="Enter Rate" autocomplete="off" id="rate" type="text" data-msg="Student Name" name="rate">
+                                        <input class="form-control validate_field" placeholder="Enter Rate" maxlength="5" onkeypress="return isNumber(event)" autocomplete="off" id="rate" type="text" data-msg="Student Name" name="rate">
 
                                         <span class="form-text error rate_error">{{ $errors->useredit->first('rate')}}</span>
 
@@ -118,7 +118,7 @@
                                         <label>Month</label>
 
                                         <select name="month" id="month" class="form-control validate_field">
-                                            <option value=" ">Please Select Month</option>
+                                            <option value="">Please Select Month</option>
                                             @foreach($month as $key => $val)
                                             <option value="{{$key}}">{{$val}}</option>
                                             @endforeach
@@ -148,7 +148,7 @@
                                         <label>Time</label>
 
                                         <select name="tuition_time" id="tuition_time" class="form-control validate_field">
-                                            <option value=" ">Please Select Time</option>
+                                            <option value="">Please Select Time</option>
                                             <option value="24:00:00-01:00:00">
                                                 12am- 1am
                                             </option>
@@ -232,7 +232,7 @@
 
                                         <label>Commission</label>
 
-                                        <input class="form-control validate_field" placeholder="Enter Commission" autocomplete="off" id="commission" type="text" data-msg="Student Name" name="commission">
+                                        <input class="form-control validate_field" placeholder="Enter Commission" autocomplete="off" id="commission" onkeypress="return isNumber(event)" maxlength="2" type="text" data-msg="Student Name" name="commission">
 
                                         <span class="form-text error commission_error">{{ $errors->useredit->first('commission')}}</span>
 
@@ -246,7 +246,7 @@
                             <div class="both-btn-form">
                                 <button type="button" id="add_tutor_form" class="btn btn-primary mr-2" style="background-color:#3498db !important">Submit</button>
                                 <a href="{{route('tutor-form.index')}}" class="btn btn-secondary">Cancel</a>
-                                
+
                             </div>
                         </div>
                         <!--end::Body-->
@@ -276,16 +276,69 @@
 @endsection
 
 @section('page-js')
-
-<!-- <script src="{{asset('assets/Modulejs/subject.js')}}"></script> -->
-
-
-
 <script>
-    var _Add_SUBJECT = "{{route('subject-master.store')}}";
-    var checkSubjectName = "{{route('subject-unique')}}";
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode >
+            31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+    $('#add_tutor_form').click(function() {
+
+        var tutorName = $('#tutor-name').val();
+        var studentName = $('#student_name').val();
+        var day = $('#tuition_day').val();
+        var time = $('#tuition_time').val();
+        var rate = $('#rate').val();
+        var commission = $('#commission').val();
+        var month = $('#month').val();
+        var temp = 0;
+        $('tutor_name_error').html("");
+        $('.student_name_error').html("");
+        $('.tuition_day_error').html("");
+        $('.tuition_time_error').html("");
+        $('.rate_error').html("");
+        $('.month_error').html("");
+        $('.commission_error').html("");
+
+        if (tutorName.trim() == "") {
+            $('.tutor_name_error').html("Please enter Tutor Name");
+            temp++;
+        }
+        if (studentName.trim() == "") {
+            $('.student_name_error').html("Please enter Student Name");
+            temp++;
+        }
+        if (day == "") {
+            $('.tuition_day_error').html("Please select Tuition Day");
+            temp++;
+        }
+        if (time == "") {
+            $('.tuition_time_error').html("Please select Tuition Time");
+            temp++;
+        }
+        if (rate.trim() == "") {
+            $('.rate_error').html("Please select Rate");
+            temp++;
+        }
+        if (commission.trim() == "") {
+            $('.commission_error').html("Please enter Commission");
+            temp++;
+        }
+        if (month == "") {
+            $('.month_error').html("Please select Month");
+            temp++;
+        }
+
+        if (temp == 0) {
+            $('#submitid').submit();
+        } else {
+            return false
+        }
+
+    });
 </script>
-
-
-
 @endsection

@@ -55,5 +55,32 @@ class TutorFormHelper
         $query = $query->orderBy('id','desc')->paginate(10);
         return $query;
     }
-   
+    public static function getListwithPaginate($request)
+    {
+        $query = TutorForm::orderBy('id', 'desc');
+        if ($request->tutor_name != '') {
+            $query->where('tutor_name', 'LIKE', '%' . $request->tutor_name . '%');
+        }
+        if ($request->student_name != '') {
+            $query->where('student_name', 'LIKE', '%' . $request->student_name . '%');
+        }
+        if ($request->tuition_day != '') {
+            $query->where('day_of_tution', 'LIKE', '%' . $request->tuition_day . '%');
+        }
+        if ($request->rate != '') {
+            $query->where('rate', 'LIKE', '%' . $request->rate . '%');
+        }
+        if ($request->commission != '') {
+            $query->where('commission', 'LIKE', '%' . $request->commission . '%');
+        }
+        if ($request->month != '') {
+            $query->where('month', 'LIKE', '%' . $request->month . '%');
+        }
+        // if ($request->created_date != '') {
+        //     $explode = explode('-', $request->created_date);
+        //     $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
+        // }
+        $query = $query->paginate(10);
+        return $query;
+    }
 }

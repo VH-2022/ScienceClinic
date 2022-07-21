@@ -20,14 +20,14 @@ return new class extends Migration
                 $table->string('tutor_name')->nullable();
                 $table->string('student_name')->nullable();
                $table->string('day_of_tution')->nullable();
-               $table->time('tution_time')->nullable();
+               $table->string('tution_time')->nullable();
                $table->integer('rate')->nullable();
                $table->integer('commission')->nullable();
                $table->integer('month')->nullable();
-                $table->timestamp('time')->nullable();
                 $table->integer('created_by')->nullable();
                 $table->integer('updated_by')->nullable();
                 $table->integer('deleted_by')->nullable();
+                $table->softDeletes();
                 $table->timestamps();
             }
         );

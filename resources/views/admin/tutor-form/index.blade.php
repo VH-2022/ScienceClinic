@@ -168,29 +168,99 @@
 
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Title</label>
+            <label class="col-4 col-form-label">Tutor Name</label>
 
             <div class="col-8">
 
-                <input class="form-control" placeHolder="Enter Title" type="text" name="name" id="title">
+                <input class="form-control" placeHolder="Enter Tutor Name" type="text" name="tutor_name" id="tutor_name">
 
             </div>
 
         </div>
-
         <div class="form-group row">
 
-            <label class="col-4 col-form-label">Created Date</label>
+            <label class="col-4 col-form-label">Student Name</label>
 
             <div class="col-8">
 
-                <div class="input-group" id="kt_daterangepicker_3">
+                <input class="form-control" placeHolder="Enter Student Name" type="text" name="student_name" id="student_name">
 
-                    <input type="text" name="created_date" id="created_date" class="form-control" placeholder="Created Date">
+            </div>
 
+        </div>
+        @php $daysArr = [ 'Monday' =>'monday',
+        'Tuesday' => 'tuesday',
+        'Wednesday' => 'wednesday',
+        'Thursday' => 'thursday',
+        'Friday' => 'friday',
+        'Saturday' => 'saturday',
+        'Sunday' => 'sunday'] @endphp
+        <div class="form-group row">
 
+            <label class="col-4 col-form-label">Day Of Tuition</label>
 
-                </div>
+            <div class="col-8">
+                <select name="tuition_day" id="tuition_day" class="form-control">
+                    <option value="">Please Select Day</option>
+                    @foreach($daysArr as $key=>$val)
+                    <option value="{{$val}}">
+                        {{$key}}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Rate</label>
+
+            <div class="col-8">
+
+                <input class="form-control" onkeypress="return isNumber(event)" placeHolder="Enter Rate" type="text" name="rate" id="rate">
+
+            </div>
+
+        </div>
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Commission</label>
+
+            <div class="col-8">
+
+                <input class="form-control" onkeypress="return isNumber(event)" placeHolder="Enter Commission" type="text" name="commission" id="commission">
+
+            </div>
+
+        </div>
+        @php
+        $month = array(
+        '01' => 'January',
+        '02' => 'February',
+        '03' => 'March',
+        '04' => 'April',
+        '05' => 'May',
+        '06' => 'June',
+        '07' => 'July',
+        '08' => 'August',
+        '09' => 'September',
+        '10' => 'October',
+        '11' => 'November',
+        '12' => 'December',
+        );
+        @endphp
+        <div class="form-group row">
+
+            <label class="col-4 col-form-label">Month</label>
+
+            <div class="col-8">
+
+                <select name="month" id="month" class="form-control">
+                    <option value="">Please Select Month</option>
+                    @foreach($month as $key => $val)
+                    <option value="{{$key}}">{{$val}}</option>
+                    @endforeach
+                </select>
 
             </div>
 
@@ -236,59 +306,100 @@
 
 @section('page-js')
 
-<script src="{{asset('assets/Modulejs/subject.js')}}"></script>
-
-<script src="{{ asset('assets/js/pages/jquery-confirmation/js/jquery-confirm.min.js') }}"></script>
-
-<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.2.9') }}"></script>
-
-<script src="{{asset('assets/js/pages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
-
 <script>
-    var _AJAX_LIST = "{{url('subject-master-ajax-list')}}";
+    // var _CSRF_TOKEN = '{{ csrf_token() }}';
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode >
+            31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
 
-    var _DELETE_URL = '{{ url("subject-master")}}';
+    function ajaxList1(page) {
 
-    var _CSRF_TOKEN = '{{ csrf_token() }}';
+        var tutorName = $('#tutor_name').val();
+        var studentName = $('#student_name').val();
+        var day = $('#tuition_day').val();
+        var rate = $('#rate').val();
+        var commission = $('#commission').val();
+        var month = $('#month').val();
 
+        $('.ki-close').click();
+        $.ajax({
+            type: "GET",
+            url: "{{route('tutor-form-ajax-list')}}",
+            data: {
+                'tutor_name': tutorName,
+                'student_name': studentName,
+                'tuition_day': day,
+                'page': page,
+                'rate': rate,
+                'commission': commission,
+                'month': month
+            },
+
+            success: function(res) {
+                $('#response_id').html("");
+                $('#response_id').html(res);
+            }
+
+        });
+    }
+    $(document).ready(function() {
+        ajaxList1(1);
+    });
+
+    $('body').on('click', '.pagination a', function(event) {
+
+        $('li').removeClass('active');
+
+        $(this).parent('li').addClass('active');
+
+        event.preventDefault();
+
+        var myurl = $(this).attr('href');
+
+        var page = $(this).attr('href').split('page=')[1];
+
+        ajaxList1(page);
+
+    });
+
+    $('.search_id').click(function(e) {
+
+        ajaxList1(1);
+
+    });
+
+    $('.clear').click(function(e) {
+        $('#tutor_name').val("");
+        $('#student_name').val("");
+        $('#tuition_day').val("");
+        $('#rate').val("");
+        $('#commission').val("");
+        $('#month').val("");
+        ajaxList1(1);
+    });
+</script>
+<script>
     $(function() {
-
-
-
-
-
         var start = moment().subtract(29, 'days');
-
         var end = moment();
-
-
-
         $('#kt_daterangepicker_3').daterangepicker({
-
             buttonClasses: ' btn',
-
             applyClass: 'btn-primary',
-
             cancelClass: 'btn-secondary',
-
-
-
             startDate: start,
-
             endDate: end,
-
             ranges: {
-
                 'Today': [moment(), moment()],
-
                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-
                 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-
                 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 
             }

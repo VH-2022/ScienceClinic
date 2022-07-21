@@ -94,7 +94,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('about-ajax', "AboutController@ajaxList")->name('about-ajax');
         $backendVerified->resource('about-list', "AboutController");
         $backendVerified->resource('tutor-form', "TutorFormController");
-
+        $backendVerified->get('tutor-form-ajax-list', "TutorFormController@ajaxList")->name('tutor-form-ajax-list');
         $backendVerified->get('parent-list', "ParentMasterController@index")->name('parent.index');
         $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
