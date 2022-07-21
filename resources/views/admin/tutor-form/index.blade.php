@@ -49,12 +49,36 @@
                             <!--begin::Dropdown-->
 
                             <div class="dropdown dropdown-inline mr-2">
+                                <button class="btn btn-primary mr-2" onclick="importmodel();">
 
+                                    <span class="svg-icon svg-icon-md import">
+
+                                        <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Flatten.svg-->
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+
+                                                <rect x="0" y="0" width="24" height="24"></rect>
+
+                                                <circle fill="#000000" cx="9" cy="15" r="6"></circle>
+
+                                                <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"></path>
+
+                                            </g>
+
+                                        </svg>
+
+                                        <!--end::Svg Icon-->
+
+                                    </span>Import</button>
                                 <button id="kt_demo_panel_toggle" type="button" class="btn btn-light-primary font-weight-bolder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     <span class="svg-icon svg-icon-md">
 
                                         <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+
+
 
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 
@@ -307,7 +331,89 @@
 @section('page-js')
 
 <script>
-    // var _CSRF_TOKEN = '{{ csrf_token() }}';
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function importmodel() {
+        $.confirm({
+            title: 'Import File',
+            content: '' +
+                '<form action="" class="formName" id="fileform" enctype="multipart/form-data">' +
+                '<div class="form-group">' +
+                '<label>Select File</label>' +
+                '<input type="file" class="csvFile form-control" name="csvfile" required />' +
+                '<span id="csvfile_error" class="text-danger"></span>' +
+                '</div>' +
+                '</form>',
+            buttons: {
+                formSubmit: {
+                    text: 'Submit',
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        var file = $('.csvFile').prop('files');
+                        var temp = 0;
+                        if (file.length == 0) {
+                            $('#csvfile_error').html("Please Select File");
+                            temp++;
+                        } else {
+                            if (file.length != 0) {
+                                $('#csvfile_error').html("");
+                                var FileUploadPath = file[0].name;
+                                var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                                if (Extension == 'csv') {} else {
+                                    $('#csvfile_error').html("File only allows CSV");
+                                    temp++;
+                                }
+                            }
+                        }
+                        if (temp == 0) {
+                            $.ajax({
+                                url: "{{route('import-file')}}",
+                                type: 'post',
+                                data: new FormData($('#fileform')[0]),
+                                processData: false,
+                                contentType: false,
+                                cache: false,
+                                success: function(res) {
+                                    toastr.success(res.error_msg);
+                                    $('#fileform').trigger("reset");
+                                    ajaxList1(1);
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+
+                                    var tempVal = 0;
+
+                                    if (jqXHR.responseJSON.message.csvfile) {
+                                        tempVal++;
+                                        $('#csvfile_error').text(jqXHR.responseJSON.message.csvfile);
+                                    } else {
+                                        $('#csvfile_error').text('');
+                                    }
+
+                                    if (tempVal == 0) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            })
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                },
+                cancel: function() {},
+            },
+
+        });
+    }
+
+
+
     function isNumber(evt) {
         evt = (evt) ? evt : window.event;
         var charCode = (evt.which) ? evt.which : evt.keyCode;

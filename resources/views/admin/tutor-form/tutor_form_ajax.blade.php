@@ -14,7 +14,6 @@
             <th style="white-space: nowrap">Rate</th>
             <th style="white-space: nowrap">Commission</th>
             <th style="white-space: nowrap">Month</th>
-            <th>Actions</th>
 
         </tr>
 
@@ -64,28 +63,7 @@
                 N/A
                 @endif
             </td>
-            <!-- 
-
-
-
-
-            <td>
-
-                @if($value->created_at !='')
-
-                {{ Utility::convertYMDTimeToDMYTime($value->created_at) }}
-
-                @endif
-
-            </td> -->
-
-            <td>
-
-                <a href="{{ url('subject-master') }}/{{$value->id}}/edit"><i class="fa fa-edit" title="Edit"></i></a>
-                <!--
-                    <a href="javascript:void(0)" class="delete-category" data-id="{{ $value->id}}"><i class="fa fa-trash"></i></a> -->
-
-            </td>
+            
 
         </tr>
 

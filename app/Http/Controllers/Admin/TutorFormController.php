@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\TutorFormHelper;
 use App\Http\Controllers\Controller;
+use App\Imports\TutorFormImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TutorFormController extends Controller
 {
@@ -78,13 +80,25 @@ class TutorFormController extends Controller
             }
         }
     }
+      public function importCsvFile(Request $request)
+      {
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        $validator = Validator::make($request->all(), [
+            'csvfile' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 'inactive', 'data' => array()], 400);
+        }
+       $data = Excel::import(new TutorFormImport, request()->file('csvfile'));
+        if ($data) {
+            return response()->json(['error_msg' => "Successfully Imported"], 200);
+        } else {
+            return response()->json(['error_msg' => trans('messages.error')], 500);
+        }
+    }
+      
+  
     public function show($id)
     {
         //
