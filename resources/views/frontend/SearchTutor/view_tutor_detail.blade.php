@@ -35,7 +35,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-5">
                                             <div class="overlay-effect">
-                                                <img alt="" src="{{$data->profile_photo}}" class="tutors-detailimg">
+                                                <img alt="" src="{{$data->profile_photo}}" class="tutors-detailimg" style="border: 3px solid #107dc2;">
                                             </div>
                                         </div>
                                         <div class="col-md-7" style="padding-left: 0px;">
@@ -709,8 +709,13 @@
                 contentType: false,
                 cache: false,
                 success: function(res) {
-                    toastr.success(res.error_msg);
-                    $('#submitinquiry').trigger("reset");
+                    if(res.status == 0){
+                        toastr.error(res.error_msg);
+                    }
+                    else{
+                        toastr.success(res.error_msg);
+                        $('#submitinquiry').trigger("reset");
+                    }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
 

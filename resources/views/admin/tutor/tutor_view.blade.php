@@ -66,14 +66,8 @@
                             <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
-                                    <div>
-                                        <strong class="bold-text">Full Name: </strong>
-                                    </div>
-                                    <div>
-                                        {{ $tutor->first_name }}
-                                    </div>
 
-                                    <strong>Full Name:</strong>
+                                <strong>Full Name:</strong>
 
                                     <span class="ml-1">{{ $tutor->first_name }}</span>
 
@@ -84,9 +78,6 @@
                             <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
-                                    <div>
-                                        <strong class="bold-text">Email: </strong>
-                                    </div>
 
                                     <strong>Email:</strong> <span class="ml-1">{{ $tutor->email }}</span>
 
@@ -106,7 +97,7 @@
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
 
@@ -141,7 +132,7 @@
 
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
 
                                 <strong>City:</strong>
 
@@ -161,16 +152,13 @@
 
                             </div>
 
-                            <div class="col-lg-4">
-
-                                <strong>Status: </strong> <span id="status_id">@if($tutor->status =='Pending') <span class="ml-1 badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="ml-1 badge badge-danger">Rejected</span> @endif</span>
 
                             <div class="col-lg-6">
                                 <div class="d-flex mb-4">
                                     <div>
-                                        <strong class="bold-text">Status: </strong>
+                                        <strong>Status: </strong>
                                     </div>
-                                    <div class="ml-5">
+                                    <div class="ml-1">
                                         <span id="status_id">@if($tutor->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
                                     </div>
                                 </div>
@@ -181,10 +169,10 @@
                             <div class="col-lg-6">
                                 <div class="d-flex mb-4">
                                     <div>
-                                        <strong class="bold-text">Bio:</strong>
+                                        <strong>Bio:</strong>
                                     </div>
 
-                                    <div class="ml-14">
+                                    <div class="ml-1">
                                         {{ $tutor->bio }}
                                     </div>
 

@@ -68,13 +68,13 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-4">
+                            <!-- <div class="col-lg-4">
 
                                 <strong>Status:</strong><span id="status_id">@if($parents->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($parents->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
 
 
 
-                            </div>
+                            </div> -->
                             <div class="col-lg-4">
 
                                 <div class="d-flex mb-4">
