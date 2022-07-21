@@ -53,7 +53,7 @@
 
 
 
-                    <form class="form" id="submitid" method="post" action="{{route('past-papers-cms.store')}}" enctype="multipart/form-data">
+                    <form class="form" id="submitid" method="post" action="{{route('tutor-past-papers.store')}}" enctype="multipart/form-data">
 
                         @csrf
 
@@ -158,7 +158,7 @@
 
                             <button type="button" id="add_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Submit</button>
 
-                            <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('past-papers-cms')}}"'>Cancel</button>
+                            <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('tutor-past-papers')}}"'>Cancel</button>
 
                         </div>
 
@@ -205,7 +205,7 @@ $('#upload_mark_scheme0').change(function() {
 
 
 
-var _Add_SUBJECT = "{{route('past-papers-cms.store')}}";
+var _Add_SUBJECT = "{{route('tutor-past-papers.store')}}";
 var id = 1;
 function appendMore(){
     var html ='<div class="row" id="deleteRow_'+id+'"><div class="col-md-4"><div class="form-group"><label>Subject Title <span class="text-danger">*</span></label><input class="form-control validate_field" placeholder="Subject Title" autocomplete="off" id="subject_paper_title'+id+'" type="text" data-msg="Paper Sub Title" name="subject_paper_title[]"> <span class="form-text error subject_paper_title_error_'+id+'"></span></div></div><div class="col-md-3"><div class="form-group"><label>Upload Paper <span class="text-danger">*</span></label><div class="position-relative"><input type="file" class="input-upload-cus" name="upload_paper[]" id="upload_paper'+id+'" class="form-control validate_field" data-msg="Upload"><div class="upload-photo-main"><i class="fa fa-plus plus-sign-upload"></i></div></div><span id="uploadBook'+id+'"></span><span class="form-text error upload_paper_error_'+id+'"></span></div></div><div class="col-md-3"><div class="form-group"><label>Upload Mark Scheme <span class="text-danger">*</span></label><div class="position-relative"><input type="file" class="input-upload-cus" name="upload_mark_scheme[]" id="upload_mark_scheme'+id+'" class="form-control validate_field" data-msg="Upload"><div class="upload-photo-main"><i class="fa fa-plus plus-sign-upload"></i></div></div><span id="uploadtitle'+id+'"></span><span class="form-text error upload_mark_scheme_error_'+id+'"></span></div></div><div class="col-md-1"><div class="form-group"><button type="button" onclick="removeID('+id+')" class="btn btn-secondary btn-sm">Delete</button></div></div></div>';

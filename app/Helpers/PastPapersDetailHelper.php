@@ -101,7 +101,7 @@ class PastPapersDetailHelper
         return $query;
     }
     public static function getDetailsByid($id){
-        $query = PastPapersDetail::where('paper_id',$id)->get();
+        $query = PastPapersDetail::where('paper_id',$id)->whereNull('deleted_at')->get();
         return $query;
     }
     public static function getAllsubject(){
