@@ -72,7 +72,7 @@ class ParentDetailHelper
     public static function getListwithPaginateWithParent($parentID, $id)
     {
 
-        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)->whereDate('booking_date', '>=', date('Y-m-d'))->groupBy('subject_id')->get();
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)->whereDate('booking_date', '>=', date('Y-m-d'))->get();
         return $query;
     }
     public static function getBookSlotData($time)
@@ -279,6 +279,10 @@ class ParentDetailHelper
             'updated_at' => date('Y-m-d H:i:s')
         );
         $query = ParentDetail::where('user_id', $id)->where('subject_id', $subjectinquiry)->where('level_id', $level)->where('tutor_id', $tutorId)->update($updateArr);
+        return $query;
+    }
+    public static function getDetailsExists($userId, $subjectId, $levelId, $tutorId, $bookDate){
+        $query = ParentDetail::where('subject_id', $subjectId)->where('level_id', $levelId)->where('tutor_id', $tutorId)->where('user_id', $userId)->where('booking_date', $bookDate)->whereNotNull('hourly_rate')->first();
         return $query;
     }
 }
