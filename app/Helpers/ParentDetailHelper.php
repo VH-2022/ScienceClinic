@@ -257,6 +257,10 @@ class ParentDetailHelper
         $query = ParentDetail::where('subject_id', $subjectId)->where('level_id', $levelId)->where('tutor_id', $tutorId)->get();
         return $query;
     }
+    public static function getDetailsHourlyRateExists($subjectId, $levelId, $tutorId){
+        $query = ParentDetail::where('subject_id', $subjectId)->where('level_id', $levelId)->where('tutor_id', $tutorId)->whereNotNull('hourly_rate')->first();
+        return $query;
+    }
     public static function updateHourlyRate($id, $rate)
     {
         $user = Auth()->user();
@@ -266,6 +270,15 @@ class ParentDetailHelper
             'updated_by' => $user['id']
         );
         $query = ParentDetail::where('id', $id)->update($updateArr);
+        return $query;
+    }
+    public static function updateHourlyRateExists($id, $rate, $subjectinquiry, $level, $tutorId)
+    {
+        $updateArr = array(
+            'hourly_rate' => $rate,
+            'updated_at' => date('Y-m-d H:i:s')
+        );
+        $query = ParentDetail::where('user_id', $id)->where('subject_id', $subjectinquiry)->where('level_id', $level)->where('tutor_id', $tutorId)->update($updateArr);
         return $query;
     }
 }

@@ -285,11 +285,14 @@ class FindATutorController extends Controller
 
 
                     $inquiry = ParentDetailHelper::save($inquiryArr);
+                    $lastId = $userData;
                     if ($inquiry) {
+                        $getHourlyRateDetails = ParentDetailHelper::getDetailsHourlyRateExists($request->subjectinquiry, $request->level, $request->tutorid);
+                        $updateUser = ParentDetailHelper::updateHourlyRateExists($lastId, $getHourlyRateDetails->hourly_rate, $request->subjectinquiry, $request->level, $request->tutorid);
                         $adminData = UserHelper::getAdminData();
                         $email = $adminData->email;
                         $html = '<p>Here mention new parent inquiry details.</p><br>
-                            <p style="margin-bottom: 0px;">Name : <span>' . $request->first_name . ' '.$request->last_name.'</span></p>
+                            <p style="margin-bottom: 0px;">Name : <span>' . $request->first_name . ' ' . $request->last_name . '</span></p>
                             <p style="margin-bottom: 0px;">Email : <span>' . $request->email . '</span></p>
                             <p style="margin-bottom: 0px;">Phone No : <span>' . $request->phone . '</span></p>
                             <p style="margin-bottom: 0px;">Address : <span>' . $request->address . '</span></p>
