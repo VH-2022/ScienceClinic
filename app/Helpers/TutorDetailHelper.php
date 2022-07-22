@@ -4,8 +4,7 @@
 
 namespace App\Helpers;
 
-
-
+use App\Models\ParentDetail;
 use URL;
 
 use App\Models\TutorDetail;
@@ -91,6 +90,12 @@ class TutorDetailHelper
     public static function getOtherListwithPaginate($id){
 
         $query = TutorDetail::where('tutor_id',$id)->paginate(10);
+        return $query;
+
+    }
+    public static function getStudentListwithPaginate($id){
+
+        $query = ParentDetail::with(['userDetails','subjectDetails','levelDetails'])->where('tutor_id',$id)->where('booking_status','Success')->where('payment_status','Success')->where('inquiry_type',1)->whereNull('deleted_at')->whereNotNull('teaching_hours')->whereNotNull('hourly_rate')->paginate(10);
         return $query;
 
     }

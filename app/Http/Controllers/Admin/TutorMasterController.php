@@ -158,6 +158,15 @@ class TutorMasterController extends Controller
 
         return view('admin.tutor.tutor_other_list', $data);
     }
+    public function getStudentDetails(Request $request)
+    {
+        $data['page'] = $request->page;
+
+        $tutor_id = $request->tutor_id;
+
+        $data['query'] = TutorDetailHelper::getStudentListwithPaginate($tutor_id);
+        return view('admin.tutor.tutor_student_list', $data);
+    }
     function base64url_encode($str)
     {
         return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');

@@ -78,6 +78,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('offline-bookings', "OfflineBookingController@index")->name('offline-bookings');
         $backendVerified->get('offline-bookings-ajax', "OfflineBookingController@ajaxList")->name('offline-bookings-ajax');
         $backendVerified->get('tutor-other-list', "TutorMasterController@getOtherDetails")->name('tutor-other-list');
+        $backendVerified->get('tutor-student-list', "TutorMasterController@getStudentDetails")->name('tutor-student-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
         $backendVerified->post('add-hourly-rate', "TutorMasterController@addHourlyRate")->name('add-hourly-rate');
 

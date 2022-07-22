@@ -67,7 +67,7 @@
 
                                 <div class="d-flex mb-4">
 
-                                <strong>Full Name:</strong>
+                                    <strong>Full Name:</strong>
 
                                     <span class="ml-1">{{ $tutor->first_name }}</span>
 
@@ -176,7 +176,7 @@
                                         {{ $tutor->bio }}
                                     </div>
 
-                                <span class="ml-1">{{ $tutor->bio }}</span>
+                                    <span class="ml-1">{{ $tutor->bio }}</span>
 
                                 </div>
                             </div>
@@ -232,6 +232,16 @@
 
                                 </li>
 
+                                <li class="nav-item">
+
+                                    <a class="nav-link" href="#other" data-toggle="tab" onclick="getStudentDetails(1)" aria-controls="Other">
+
+                                        <span class="nav-text">Student</span>
+
+                                    </a>
+
+                                </li>
+
                             </ul>
 
                         </div>
@@ -270,6 +280,14 @@
                         <div class="tab-pane" id="other">
                             <div class="table-responsive">
                                 <span id="responsived1_id"></span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="tab-pane" id="student_list">
+                            <div class="table-responsive">
+                                <span id="responsived2_id"></span>
                             </div>
 
 
@@ -369,10 +387,11 @@
         });
 
     }
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         getCounter();
     });
+
     function getUniversityDetails(page) {
 
         $.ajax({
@@ -496,6 +515,35 @@
     }
 
     getOtherDetails(1);
+
+    function getStudentDetails(page) {
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "{{ route('tutor-student-list') }}",
+
+            data: {
+
+                'tutor_id': '{{ $tutor->id }}',
+
+                'page': page,
+
+            },
+
+            success: function(res) {
+                $('#responsived1_id').html("");
+
+                $('#responsived1_id').html(res);
+
+            }
+
+        })
+
+    }
+
+    getStudentDetails(1);
 </script>
 
 <script>
@@ -604,7 +652,7 @@
 
                 },
                 cancel: function() {
-                   
+
                 },
 
 
