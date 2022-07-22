@@ -71,7 +71,7 @@
 
                                         <!--end::Svg Icon-->
 
-                                    </span>Import</button>
+                                    </span>Import Data</button>
                                 <button id="kt_demo_panel_toggle" type="button" class="btn btn-light-primary font-weight-bolder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     <span class="svg-icon svg-icon-md">
@@ -259,15 +259,15 @@
         </div>
         @php
         $month = array(
-        '01' => 'January',
-        '02' => 'February',
-        '03' => 'March',
-        '04' => 'April',
-        '05' => 'May',
-        '06' => 'June',
-        '07' => 'July',
-        '08' => 'August',
-        '09' => 'September',
+        '1' => 'January',
+        '2' => 'February',
+        '3' => 'March',
+        '4' => 'April',
+        '5' => 'May',
+        '6' => 'June',
+        '7' => 'July',
+        '8' => 'August',
+        '9' => 'September',
         '10' => 'October',
         '11' => 'November',
         '12' => 'December',
@@ -347,6 +347,9 @@
                 '<input type="file" class="csvFile form-control" name="csvfile" required />' +
                 '<span id="csvfile_error" class="text-danger"></span>' +
                 '</div>' +
+                '<div>'+
+                '<a href="{{asset("uploads/csv_format/sample.csv")}}" download>Sample File</a>'+
+                '</div>'+
                 '</form>',
             buttons: {
                 formSubmit: {
@@ -378,27 +381,15 @@
                                 contentType: false,
                                 cache: false,
                                 success: function(res) {
-                                    toastr.success(res.error_msg);
-                                    $('#fileform').trigger("reset");
-                                    ajaxList1(1);
+                                    if (res.status == 1) {
+                                        toastr.success(res.error_msg);
+                                        $('#fileform').trigger("reset");
+                                        ajaxList1(1);
+                                    } else {
+                                        toastr.error(res.error_msg);
+                                    }
                                 },
-                                error: function(jqXHR, textStatus, errorThrown) {
 
-                                    var tempVal = 0;
-
-                                    if (jqXHR.responseJSON.message.csvfile) {
-                                        tempVal++;
-                                        $('#csvfile_error').text(jqXHR.responseJSON.message.csvfile);
-                                    } else {
-                                        $('#csvfile_error').text('');
-                                    }
-
-                                    if (tempVal == 0) {
-                                        return true;
-                                    } else {
-                                        return false;
-                                    }
-                                }
                             })
                             return true;
                         } else {

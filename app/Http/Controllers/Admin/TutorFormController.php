@@ -19,14 +19,14 @@ class TutorFormController extends Controller
      */
     public function index()
     {
-       return view('admin.tutor-form.index');
+        return view('admin.tutor-form.index');
     }
-      public function ajaxList(Request $request)
-      {
+    public function ajaxList(Request $request)
+    {
         $data['page'] = $request->page;
         $data['query'] = TutorFormHelper::getListwithPaginate($request);
         return view('admin.tutor-form.tutor_form_ajax', $data);
-      }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +35,6 @@ class TutorFormController extends Controller
     public function create()
     {
         return view('admin.tutor-form.create');
-
     }
 
     /**
@@ -57,11 +56,11 @@ class TutorFormController extends Controller
         ]);
         if ($validator->fails()) {
             return redirect()->route('tutor-form.create')
-            ->withErrors($validator, 'useredit')
-            ->withInput();
+                ->withErrors($validator, 'useredit')
+                ->withInput();
         } else {
-         
-            $tutorFormArray= array(
+
+            $tutorFormArray = array(
                 'tutor_name' => $request->input('tutor-name'),
                 'student_name' => $request->student_name,
                 'day_of_tution' => $request->tuition_day,
@@ -80,25 +79,69 @@ class TutorFormController extends Controller
             }
         }
     }
-      public function importCsvFile(Request $request)
-      {
+    public function importCsvFile(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
             'csvfile' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error_msg' => $validator->errors()->all(), 'status' => 'inactive', 'data' => array()], 400);
-        }
-       $data = Excel::import(new TutorFormImport, request()->file('csvfile'));
-        if ($data) {
-            return response()->json(['error_msg' => "Successfully Imported"], 200);
+            return response()->json([
+                'error_msg' => $validator->errors()->all(),
+                'data' => array()
+            ], 400);
         } else {
-            return response()->json(['error_msg' => trans('messages.error')], 500);
+            
+            $path = $request->file('csvfile')->getRealPath();
+            $importData = array_map('str_getcsv', file($path));
+
+            $csv_name =  time() . uniqid() . '.csv';
+
+            $path = public_path('uploads/csv/' . $csv_name);
+
+            $newCsv = fopen($path, 'w');
+
+            $status = "";
+            foreach ($importData as $key => $row) {
+                if ($key == 0) {
+                    continue;
+                } else {
+                    $temp = 0;
+                    $count = count($row);
+                    for ($i = 1; $i < $count; $i++) {
+                        if ($row[$i] == "") {
+                            $temp++;
+                        }
+                    }
+                    if ($temp == 0) {
+                            $formArray = array(
+                                'tutor_name' => $row[0],
+                                'student_name' => $row[1],
+                                'day_of_tution' => $row[2],
+                                'tution_time' => $row[3],
+                                'rate' => $row[4],
+                                'commission' => $row[5],
+                                'month' => $row[6]
+                            );
+                            $data = TutorFormHelper::save($formArray);
+                        
+                    } else {
+                        $status = "Invalid Format";
+                    }
+                }
+            }
+            if (!empty($status)) {
+                return response()->json(['error_msg' => $status, 'status' => 0]);
+            } elseif ($data) {
+                return response()->json(['error_msg' => "Successfully Imported", 'status' => 1]);
+            } else {
+                return response()->json(['error_msg' => trans('messages.error'), 'status' => 0]);
+            }
         }
     }
-      
-  
+
+
     public function show($id)
     {
         //

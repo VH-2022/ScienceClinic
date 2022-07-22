@@ -76,11 +76,11 @@ class TutorFormHelper
         if ($request->month != '') {
             $query->where('month', 'LIKE', '%' . $request->month . '%');
         }
-        // if ($request->created_date != '') {
-        //     $explode = explode('-', $request->created_date);
-        //     $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
-        // }
         $query = $query->paginate(10);
+        return $query;
+    }
+    public static function getData(){
+        $query = TutorForm::get();
         return $query;
     }
 }

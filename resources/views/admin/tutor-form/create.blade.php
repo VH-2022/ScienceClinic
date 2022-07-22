@@ -99,15 +99,15 @@
                                     </div>
                                     @php
                                     $month = array(
-                                    '01' => 'January',
-                                    '02' => 'February',
-                                    '03' => 'March',
-                                    '04' => 'April',
-                                    '05' => 'May',
-                                    '06' => 'June',
-                                    '07' => 'July',
-                                    '08' => 'August',
-                                    '09' => 'September',
+                                    '1' => 'January',
+                                    '2' => 'February',
+                                    '3' => 'March',
+                                    '4' => 'April',
+                                    '5' => 'May',
+                                    '6' => 'June',
+                                    '7' => 'July',
+                                    '8' => 'August',
+                                    '9' => 'September',
                                     '10' => 'October',
                                     '11' => 'November',
                                     '12' => 'December',
@@ -296,7 +296,7 @@
         var commission = $('#commission').val();
         var month = $('#month').val();
         var temp = 0;
-        $('tutor_name_error').html("");
+        $('.tutor_name_error').html("");
         $('.student_name_error').html("");
         $('.tuition_day_error').html("");
         $('.tuition_time_error').html("");
