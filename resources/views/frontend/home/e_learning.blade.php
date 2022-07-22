@@ -32,7 +32,7 @@
                                             in a structured and fun way.
                                         </p> -->
                                         <div class="banner-readmore">
-                                            <a class="button-default inline" href="find-tutor.html">Find a Tutor</a>
+                                            <a class="button-default inline" href="{{route('find-tutor')}}">Find a Tutor</a>
                                         </div>
                                     </div>
                                 </div>

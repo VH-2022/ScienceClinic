@@ -42,7 +42,7 @@
 
 
 
-                    <form class="form" id="submitid" method="post" action="{{url('past-papers-cms')}}/{{$basic_details->id}}" enctype="multipart/form-data">
+                    <form class="form" id="submitid" method="post" action="{{url('tutor-past-papers')}}/{{$basic_details->id}}" enctype="multipart/form-data">
 
                         @csrf
                         @method('put')
@@ -200,7 +200,7 @@
 
                             <button type="button" id="edit_subject" class="btn btn-primary mr-2" style="background-color:#3498db !important">Submit</button>
 
-                            <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('past-papers-cms')}}"'>Cancel</button>
+                            <button type="reset" class="btn btn-secondary" onclick='window.location.href="{{ url('tutor-past-papers')}}"'>Cancel</button>
 
                         </div>
 

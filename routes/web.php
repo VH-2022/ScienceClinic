@@ -78,6 +78,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('offline-bookings', "OfflineBookingController@index")->name('offline-bookings');
         $backendVerified->get('offline-bookings-ajax', "OfflineBookingController@ajaxList")->name('offline-bookings-ajax');
         $backendVerified->get('tutor-other-list', "TutorMasterController@getOtherDetails")->name('tutor-other-list');
+        $backendVerified->get('tutor-student-list', "TutorMasterController@getStudentDetails")->name('tutor-student-list');
         $backendVerified->get('changestatus', "TutorMasterController@changeStatus")->name('changestatus');
         $backendVerified->post('add-hourly-rate', "TutorMasterController@addHourlyRate")->name('add-hourly-rate');
 
@@ -100,6 +101,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->get('parent-list-ajax', "ParentMasterController@ajaxList")->name('parent-list-ajax');
         $backendVerified->get('parent-list/{id}', "ParentMasterController@parentDetails")->name('parent.details');
         $backendVerified->get('tutor-Inquiry', "ParentMasterController@getInquiryDetails")->name('tutor.inquiry');
+        $backendVerified->get('get-hourly-rate', "ParentMasterController@getHourlyRate")->name('get-hourly-rate');
         $backendVerified->get('calander-booking', "ParentMasterController@getCalanderBooking")->name('calander-booking');
         $backendVerified->get('getBooklesson', "ParentMasterController@getBooklesson")->name('getBooklesson');
         $backendVerified->post('update-book-lesson', "ParentMasterController@updateBooklesson")->name('update-book-lesson');
@@ -109,6 +111,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function ($admins) {
         $backendVerified->resource('testimonial', "TestimonialController");
 
         $backendVerified->get('send-payment-link-parent', "ParentMasterController@sendPaymentLinkMail")->name('send-payment-link-parent');
+        $backendVerified->post('add-subject-hourly-rate', "ParentMasterController@addHourlyRate")->name('add-subject-hourly-rate');
         $backendVerified->resource('parent-payment-history', "ParentPaymentController");
         $backendVerified->get('parent-payment-list-ajax', "ParentPaymentController@ajaxList")->name('parent-payment-list-ajax');
         
@@ -238,6 +241,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Frontend\Tutor'], function ($
         $backendVerified->post('add-missed-lesson-reason', 'TutorAvailabilityController@addMissedLessonReason')->name('add-missed-lesson-reason');
         $backendVerified->get('merithub-classroom', 'TutorMerithubController@getToken')->name('merithub-classroom');
         $backendVerified->get('get-online-tutoring-data', 'ParentListController@getOnlineTutoringData')->name('get-online-tutoring-data');
+        $backendVerified->resource('tutor-e-learning', "TutorELearningController");
+        $backendVerified->get('tutor-e-learning-ajax-list', "TutorELearningController@ajaxList")->name('tutor-e-learning-ajax-list');
+        $backendVerified->resource('tutor-past-papers', "TutorPastPapersController");
+        $backendVerified->get('tutor-past-papers-ajax-list', "TutorPastPapersController@ajaxList")->name('tutor-past-papers-ajax-list');
+        $backendVerified->resource('tutor-e-learning', "TutorELearningController");
+        $backendVerified->get('tutor-e-learning-ajax-list', "TutorELearningController@ajaxList")->name('tutor-e-learning-ajax-list');
     });
 });
 Route::group(['namespace' => 'App\Http\Controllers\Frontend\Parent'], function ($pfrontend) {

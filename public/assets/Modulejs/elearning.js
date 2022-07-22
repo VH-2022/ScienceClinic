@@ -469,7 +469,7 @@
         
         
         
-                        content: "you want to delete this text book?",
+                        content: "you want to delete this E-Learning Resource?",
         
                         buttons: {
         

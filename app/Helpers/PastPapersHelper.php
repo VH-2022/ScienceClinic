@@ -97,7 +97,29 @@ class PastPapersHelper
                     $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
 
                 }
-        $query = $query->paginate(50);
+        $query = $query->paginate(10);
+        return $query;
+    }
+    public static function getListwithPaginateTutor($id,$title,$created_date){
+
+        $query = PastPapers::whereNull('deleted_at');
+
+                if($title !=""){
+
+                    $query->where('paper_title','LIKE','%'.$title.'%');
+
+                }
+
+                if($created_date !=""){
+
+                    $explode = explode('-',$created_date);
+
+                    $query->whereDate('created_at','>=',date('Y-m-d',strtotime($explode[0])))->whereDate('created_at','<=',date('Y-m-d',strtotime($explode[1])));
+
+                }
+        $query = $query
+        ->where('created_by', $id)
+        ->paginate(10);
         return $query;
     }
     public static function getDetailsByid($id){

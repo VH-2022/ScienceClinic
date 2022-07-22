@@ -72,7 +72,7 @@ class ParentDetailHelper
     public static function getListwithPaginateWithParent($parentID, $id)
     {
 
-        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)->whereDate('booking_date', '>=', date('Y-m-d'))->groupBy('subject_id')->get();
+        $query = ParentDetail::with(['tutorDetails', 'subjectDetails', 'levelDetails'])->whereNull('deleted_at')->where('user_id', $parentID)->where('tutor_id', $id)->whereDate('booking_date', '>=', date('Y-m-d'))->get();
         return $query;
     }
     public static function getBookSlotData($time)
@@ -84,7 +84,20 @@ class ParentDetailHelper
     {
         return ParentDetail::where('tuition_time', $time)->where('id', $userId)->first();
     }
-    public static function saveHours($id, $hours, $minutes, $hourly_rate, $teaching_start_time, $teaching_type)
+    public static function getTutorListwithPaginate($id){
+
+     
+        $query = ParentDetail::selectRaw('sc_tutor_level_details.*,sb.main_title,GROUP_CONCAT(level.title) as level_name')->leftjoin('sc_subject_master as sb', function ($join) {
+            $join->on('sb.id', '=', 'sc_tutor_level_details.subject_id');
+        })->leftjoin('sc_tutor_level as level', function ($join) {
+            $join->on('level.id', '=', 'sc_tutor_level_details.level_id');
+        })->where('sc_tutor_level_details.tutor_id',$id)->groupBy('sb.id')->paginate(10);
+        
+
+        return $query;
+
+    }
+    public static function saveHours($id, $hours, $minutes, $teaching_start_time, $teaching_type)
     {
         $finalEndTime = "";
         $time = Carbon::parse($teaching_start_time);
@@ -96,7 +109,6 @@ class ParentDetailHelper
         }
         $arrData = array(
             'teaching_hours' => $hours,
-            'hourly_rate' => $hourly_rate,
             'teaching_type' => $teaching_type,
             'teaching_start_time' => date("H:i:s", strtotime($teaching_start_time)),
             'teaching_end_time' => $finalEndTime
@@ -235,6 +247,42 @@ class ParentDetailHelper
             ->whereNotNull('user_name')
             ->where('inquiry_type', "2")
             ->paginate(10);
+        return $query;
+    }
+    public static function getHourlyRate($id){
+        $query = ParentDetail::select('id','hourly_rate')->where('id', $id)->first();
+        return $query;
+    }
+    public static function getDetailsHourlyRate($subjectId, $levelId, $tutorId){
+        $query = ParentDetail::where('subject_id', $subjectId)->where('level_id', $levelId)->where('tutor_id', $tutorId)->get();
+        return $query;
+    }
+    public static function getDetailsHourlyRateExists($subjectId, $levelId, $tutorId){
+        $query = ParentDetail::where('subject_id', $subjectId)->where('level_id', $levelId)->where('tutor_id', $tutorId)->whereNotNull('hourly_rate')->first();
+        return $query;
+    }
+    public static function updateHourlyRate($id, $rate)
+    {
+        $user = Auth()->user();
+        $updateArr = array(
+            'hourly_rate' => $rate,
+            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_by' => $user['id']
+        );
+        $query = ParentDetail::where('id', $id)->update($updateArr);
+        return $query;
+    }
+    public static function updateHourlyRateExists($id, $rate, $subjectinquiry, $level, $tutorId)
+    {
+        $updateArr = array(
+            'hourly_rate' => $rate,
+            'updated_at' => date('Y-m-d H:i:s')
+        );
+        $query = ParentDetail::where('user_id', $id)->where('subject_id', $subjectinquiry)->where('level_id', $level)->where('tutor_id', $tutorId)->update($updateArr);
+        return $query;
+    }
+    public static function getDetailsExists($userId, $subjectId, $levelId, $tutorId, $bookDate){
+        $query = ParentDetail::where('subject_id', $subjectId)->where('level_id', $levelId)->where('tutor_id', $tutorId)->where('user_id', $userId)->where('booking_date', $bookDate)->whereNotNull('hourly_rate')->first();
         return $query;
     }
 }

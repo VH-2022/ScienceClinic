@@ -4,29 +4,23 @@
 
         <tr>
             <th>ID</th>
-
             <th>Subject Name</th>
             <th>Level Name</th>
-
-
             <th>Created Date</th>
-
         </tr>
 
     </thead>
-
     <tbody>
-
+        
         @php
-
+        
         $i = $page * 10 - 9;
-
+        
         @endphp
-
+        
         @if (count($query) > 0)
-
+        
         @foreach ($query as $val)
-
         <tr>
             <td>{{ $i++ }}</td>
 
@@ -43,7 +37,6 @@
                 @endif
 
             </td>
-           
 
 
         </tr>

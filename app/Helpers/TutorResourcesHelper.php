@@ -16,15 +16,40 @@ class TutorResourcesHelper
         return $insertId;
     }
     public static function getListWithPaginate($id){
-        $query = TutorResources::where('user_id',$id)->whereNull('deleted_at')->paginate(10);
+        $query = TutorResources::where('user_id',$id)->where('view_flag',1)->whereNull('deleted_at')->paginate(10);
         return $query;
     }
-    public static function getListwithPaginateAdmin(){
-        $query = TutorResources::whereNull('deleted_at')->paginate(10);
+    public static function getListwithPaginateAdmin($title,$created_date){
+        $query = TutorResources::whereNull('deleted_at');
+        if ($title != '') {
+            $query->where('title', $title);
+        }
+        if ($created_date != '') {
+            $explode = explode('-', $created_date);
+            $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
+        }
+        $query = $query
+        ->where('view_flag', 0)
+        ->paginate(10);
+        return $query;
+    }
+    public static function getListwithPaginateTutor($id,$title,$created_date){
+        $query = TutorResources::whereNull('deleted_at');
+        if ($title != '') {
+            $query->where('title', $title);
+        }
+        if ($created_date != '') {
+            $explode = explode('-', $created_date);
+            $query->whereDate('created_at', '>=', date('Y-m-d', strtotime($explode[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime($explode[1])));
+        }
+        $query = $query
+        ->where('user_id', $id)
+        ->where('view_flag', 0)
+        ->paginate(10);
         return $query;
     }
     public static function getListwithPaginateAdminAll(){
-        $query = TutorResources::whereNull('deleted_at')->get();
+        $query = TutorResources::whereNull('deleted_at')->where('view_flag',0)->get();
         return $query;
     }
     public static function getData($id){

@@ -68,6 +68,7 @@ class TutorResourceController extends Controller
             }
             $tutorResourceDetails = array(
                 'user_id' => $id,
+                'view_flag' => 1,
                 'title' => $title,
                 'description' => $description,
                 'upload_data' => $document,

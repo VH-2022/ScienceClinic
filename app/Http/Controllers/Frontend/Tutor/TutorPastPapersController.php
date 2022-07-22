@@ -1,23 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Frontend\Tutor;
 
-use App\Helpers\OnlineTutoringHelper;
 use App\Helpers\PastPapersDetailHelper;
 use App\Helpers\PastPapersHelper;
-use App\Helpers\SubjectHelper;
-use App\Helpers\SubjectOtherSectionMasterHelper;
-use App\Helpers\SubjectBannerHelper;
-use App\Helpers\TutorResourcesHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ImageUploadTrait;
 use Validator;
 use Session;
-class PastPapersController extends Controller
+
+class TutorPastPapersController extends Controller
 {
     use ImageUploadTrait;
-    public $successStatus =200;
+    public $successStatus = 200;
     /**
      * Display a listing of the resource.
      *
@@ -25,15 +21,17 @@ class PastPapersController extends Controller
      */
     public function index()
     {
-        return view('admin.past_pappers.past_pappers');
+        return view('frontend.tutor.past-pappers');
     }
-    public function ajaxList(Request $request){
+    public function ajaxList(Request $request)
+    {
         $data['page'] = $request->input('page');
         $created_date = $request->input('created_date');
         $title = $request->input('title');
-        $data['query'] = PastPapersHelper::getListwithPaginate($title,$created_date);
-        return view('admin.past_pappers.past_pappers_ajax_list',$data);
-     }
+        $auth = auth()->user();
+        $data['query'] = PastPapersHelper::getListwithPaginateTutor($auth['id'], $title, $created_date);
+        return view('frontend.tutor.past-pappers-ajax-list', $data);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -42,12 +40,12 @@ class PastPapersController extends Controller
     public function create()
     {
         $auth = auth()->user();
-        if(empty($auth)){
-            return redirect('/login');
+        if (empty($auth)) {
+            return redirect('/tutor-login');
         }
         $data['papersCategory'] = PastPapersHelper::getAllcategory();
         $data['subject_list'] = PastPapersHelper::getAllsubject();
-        return view('admin.past_pappers.addpast_pappers',$data);
+        return view('frontend.tutor.addpast-pappers', $data);
     }
 
     /**
@@ -58,7 +56,7 @@ class PastPapersController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'paper_category_id' => 'required',
             'paper_title' => 'required',
@@ -69,12 +67,12 @@ class PastPapersController extends Controller
             'upload_mark_scheme.*' => 'required|mimes:jpeg,png,jpg,gif,pptx,pdf,doc,docx',
         ]);
         if ($validator->fails()) {
-            return redirect("/past-papers-cms/create")
-            ->withErrors($validator, 'useredit')
-            ->withInput();
+            return redirect("/tutor-past-papers/create")
+                ->withErrors($validator, 'useredit')
+                ->withInput();
         } else {
             $userId = Auth()->user()->id;
-            
+
             $data_array = array(
                 'paper_category_id' => $request->input('paper_category_id'),
                 'paper_title' => $request->input('paper_title'),
@@ -84,14 +82,14 @@ class PastPapersController extends Controller
 
             $upload_paper = '';
             $upload_mark_scheme = '';
-            
+
             $insert = PastPapersHelper::save($data_array);
-            if($insert){
+            if ($insert) {
 
                 $subject_paper_title = $request->subject_paper_title;
-                if($subject_paper_title !=''){
-                    
-                    for($i=0;$i<count($subject_paper_title);$i++){
+                if ($subject_paper_title != '') {
+
+                    for ($i = 0; $i < count($subject_paper_title); $i++) {
                         $insertArray = array(
                             'paper_id' => $insert,
                             'subject_paper_title' => $request->subject_paper_title[$i],
@@ -102,7 +100,7 @@ class PastPapersController extends Controller
                         if ($upload_paper != '') {
                             $insertArray['upload_paper'] = $upload_paper;
                         }
-                        
+
                         if ($request->file('upload_mark_scheme') != '') {
                             $upload_mark_scheme = $this->uploadImageWithCompress($request->file('upload_mark_scheme')[$i], 'uploads/past_paper');
                         }
@@ -111,18 +109,15 @@ class PastPapersController extends Controller
                         }
 
                         $paperinsert = PastPapersDetailHelper::save($insertArray);
-
                     }
                 }
 
-                Session::flash('success',trans('messages.addedSuccessfully'));
-                return redirect('/past-papers-cms');
-            }else{
-                Session::flash('error',trans('messages.error'));
-                return redirect('/past-papers-cms/create');
-                
+                Session::flash('success', trans('messages.addedSuccessfully'));
+                return redirect('/tutor-past-papers');
+            } else {
+                Session::flash('error', trans('messages.error'));
+                return redirect('/tutor-past-papers/create');
             }
-           
         }
     }
 
@@ -146,14 +141,14 @@ class PastPapersController extends Controller
     public function edit($id)
     {
         $auth = auth()->user();
-        if(empty($auth)){
+        if (empty($auth)) {
             return redirect('/login');
         }
         $data['papersCategory'] = PastPapersHelper::getAllcategory();
         $data['subject_list'] = PastPapersHelper::getAllsubject();
         $data['basic_details'] = PastPapersHelper::getDetailsByid($id);
         $data['paper_basic_details'] = PastPapersDetailHelper::getDetailsByid($id);
-        return view('admin.past_pappers.edit_past_pappers',$data);
+        return view('frontend.tutor.edit-past-pappers', $data);
     }
 
     /**
@@ -175,11 +170,10 @@ class PastPapersController extends Controller
             'upload_mark_scheme.*' => 'required|mimes:jpeg,png,jpg,gif,pptx,pdf,doc,docx',
         ]);
         if ($validator->fails()) {
-            return redirect("/past-papers-cms/".$request->input('id').'/edit')
-            ->withErrors($validator, 'useredit')
-            ->withInput();
+            return redirect("/tutor-past-papers/" . $request->input('id') . '/edit')
+                ->withErrors($validator, 'useredit')
+                ->withInput();
         } else {
-            
             $data_array = array(
                 'paper_category_id' => $request->input('paper_category_id'),
                 'paper_title' => $request->input('paper_title'),
@@ -200,7 +194,6 @@ class PastPapersController extends Controller
                         $deleteData = PastPapersDetailHelper::SoftDelete(array(), array('id' => $val));
                     }
                 }
-
 
                 $detail_id = $request->detail_id;
                 
@@ -261,10 +254,10 @@ class PastPapersController extends Controller
                 }
                 
                 Session::flash('success',trans('messages.updatedSuccessfully'));
-                return redirect('/past-papers-cms');
+                return redirect('/tutor-past-papers');
             }else{
                 Session::flash('error',trans('messages.error'));
-                return redirect('/past-papers-cms/'.$id.'/edit');
+                return redirect('/tutor-past-papers/'.$id.'/edit');
             }
             
             
@@ -280,7 +273,7 @@ class PastPapersController extends Controller
      */
     public function destroy($id)
     {
-      
+
 
         $update = PastPapersHelper::SoftDelete(array(), array('id' => $id));
 
@@ -290,9 +283,7 @@ class PastPapersController extends Controller
 
             return response()->json(['error_msg' => trans('messages.deletedSuccessfully'), 'data' => array()], 200);
         } else {
-            return response()->json(['error_msg' => trans('messages.error_msg'),'data' => array()], 500);
+            return response()->json(['error_msg' => trans('messages.error_msg'), 'data' => array()], 500);
         }
     }
-
-    
 }

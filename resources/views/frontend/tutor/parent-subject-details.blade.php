@@ -12,7 +12,7 @@
             <th>Tuition Day </th>
             <th>Ideal Time</th>
             <th>Teaching Hours</th>
-            <th>Hourly Rate</th>
+            <!-- <th>Hourly Rate</th> -->
             <th>Action</th>
 
         </tr>
@@ -46,9 +46,9 @@
             <td>
                 {{$val->teaching_hours}}
             </td>
-            <td>
+            <!-- <td>
                 {{$val->hourly_rate}}
-            </td>
+            </td> -->
             <span id="desc{{$val->id}}" style="display:none">{{ $val->tuition_time}}</span>
             <td>
                 @if($val->teaching_hours == '')

@@ -46,6 +46,8 @@
                         <div class="card-toolbar">
 
                             <input type="hidden" id="tutor_id" value="{{$tutor->id}}">
+                            <input type="hidden" id="counter" value="">
+
 
                             @if($tutor->status == '' || $tutor->status == 'Pending')
                             <a href="javascript:void(0);" class="btn btn-success mr-2 accepted_id" onclick="changeStatus('Accepted',{{$tutor->id}})" @if($tutor->status=="Accepted") style="display:none" @endif>Accept</a>
@@ -64,13 +66,10 @@
                             <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
-                                    <div>
-                                        <strong class="bold-text">Full Name: </strong>
-                                    </div>
-                                    <div>
-                                        {{ $tutor->first_name }}
-                                    </div>
 
+                                    <strong>Full Name:</strong>
+
+                                    <span class="ml-1">{{ $tutor->first_name }}</span>
 
                                 </div>
 
@@ -79,13 +78,9 @@
                             <div class="col-lg-6">
 
                                 <div class="d-flex mb-4">
-                                    <div>
-                                        <strong class="bold-text">Email: </strong>
-                                    </div>
 
-                                    <div class="ml-7">
-                                        {{ $tutor->email }}
-                                    </div>
+                                    <strong>Email:</strong> <span class="ml-1">{{ $tutor->email }}</span>
+
                                 </div>
 
                             </div>
@@ -94,9 +89,32 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong class="bold-text">Mobile No: </strong>
+                                    <strong>Mobile No:</strong>
 
-                                    {{ $tutor->mobile_id }}
+                                    <span class="ml-1">{{ $tutor->mobile_id }}</span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <div class="d-flex mb-4">
+
+                                    <strong>Address1:</strong>
+
+                                    <span class="ml-1">{{ $tutor->address1 }}</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <div class="d-flex mb-4">
+
+                                    <strong>Address2:</strong>
+
+                                    <span class="ml-1">{{ $tutor->address2 }}</span>
 
                                 </div>
 
@@ -106,11 +124,19 @@
 
                                 <div class="d-flex mb-4 ">
 
-                                    <strong class="bold-text">Address1: </strong>
-                                    <div class="break-text">
-                                        {{ $tutor->address1 }}
-                                    </div>
+                                    <strong>Address3:</strong>
+
+                                    <span class="ml-1">{{ $tutor->address3 }}</span>
+
                                 </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <strong>City:</strong>
+
+                                <span class="ml-1">{{ $tutor->city }}</span>
 
                             </div>
 
@@ -118,57 +144,21 @@
 
                                 <div class="d-flex mb-4">
 
-                                    <strong class="bold-text">Address2: </strong>
-                                    <div class="break-text">
-                                        {{ $tutor->address2 }}
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-6">
-
-                                <div class="d-flex mb-4 ">
-
-                                    <strong class="bold-text">Address3: </strong>
-                                    <div class="break-text">
-                                        {{ $tutor->address3 }}
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="d-flex mb-4 ">
-                                    <div>
-                                        <strong class="bold-text">City: </strong>
-                                    </div>
-                                    <div class="ml-10">
-                                        {{ $tutor->city }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-
-                                <div class="d-flex mb-4">
-
-                                    <strong class="bold-text">Post Code: </strong> {{ $tutor->postcode }}
+                                    <strong>Post Code:</strong> <span class="ml-1">{{ $tutor->postcode }}</span>
 
 
 
                                 </div>
 
                             </div>
+
 
                             <div class="col-lg-6">
                                 <div class="d-flex mb-4">
                                     <div>
-                                        <strong class="bold-text">Status: </strong>
+                                        <strong>Status: </strong>
                                     </div>
-                                    <div class="ml-5">
+                                    <div class="ml-1">
                                         <span id="status_id">@if($tutor->status =='Pending') <span class="badge badge-primary">Pending</span> @elseif($tutor->status =='Accepted') <span class="badge badge-success">Accepted</span> @else <span class="badge badge-danger">Rejected</span> @endif</span>
                                     </div>
                                 </div>
@@ -179,13 +169,14 @@
                             <div class="col-lg-6">
                                 <div class="d-flex mb-4">
                                     <div>
-                                        <strong class="bold-text">Bio:</strong>
+                                        <strong>Bio:</strong>
                                     </div>
 
-                                    <div class="ml-14">
+                                    <div class="ml-1">
                                         {{ $tutor->bio }}
                                     </div>
 
+                                    <span class="ml-1">{{ $tutor->bio }}</span>
 
                                 </div>
                             </div>
@@ -241,6 +232,16 @@
 
                                 </li>
 
+                                <li class="nav-item">
+
+                                    <a class="nav-link" href="#other" data-toggle="tab" onclick="getStudentDetails(1)" aria-controls="Other">
+
+                                        <span class="nav-text">Student</span>
+
+                                    </a>
+
+                                </li>
+
                             </ul>
 
                         </div>
@@ -279,6 +280,14 @@
                         <div class="tab-pane" id="other">
                             <div class="table-responsive">
                                 <span id="responsived1_id"></span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="tab-pane" id="student_list">
+                            <div class="table-responsive">
+                                <span id="responsived2_id"></span>
                             </div>
 
 
@@ -378,6 +387,10 @@
         });
 
     }
+    $(document).ready(function() {
+
+        getCounter();
+    });
 
     function getUniversityDetails(page) {
 
@@ -502,12 +515,40 @@
     }
 
     getOtherDetails(1);
+
+    function getStudentDetails(page) {
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "{{ route('tutor-student-list') }}",
+
+            data: {
+
+                'tutor_id': '{{ $tutor->id }}',
+
+                'page': page,
+
+            },
+
+            success: function(res) {
+                $('#responsived1_id').html("");
+
+                $('#responsived1_id').html(res);
+
+            }
+
+        })
+
+    }
+
+    getStudentDetails(1);
 </script>
 
 <script>
     function getCounter() {
         var id = $('#tutor_id').val();
-
         $.ajax({
             method: "GET",
             url: "{{ route('get-count') }}",
@@ -579,6 +620,7 @@
 
                                 var html_res = '<span class="badge badge-success">Accepted</span>';
 
+                                $('.rejected_id').attr('style', 'display:none');
                                 $('.accepted_id').attr('style', 'display:none');
 
                             } else {
@@ -586,6 +628,7 @@
                                 var html_res = '<span class="badge badge-danger">Rejected</span>';
 
                                 $('.rejected_id').attr('style', 'display:none');
+                                $('.accepted_id').attr('style', 'display:none');
 
                             }
 
@@ -609,7 +652,7 @@
 
                 },
                 cancel: function() {
-                   
+
                 },
 
 
@@ -618,8 +661,6 @@
 
 
         });
-
-
     }
 </script>
 

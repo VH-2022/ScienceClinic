@@ -203,7 +203,7 @@ class ParentListController extends Controller
 
         $rules = array(
             'hours' => 'required | max:4',
-            'hourly_rate' => 'required',
+            // 'hourly_rate' => 'required',
             'teaching_type' => 'required'
         );
         $validator = Validator::make($request->all(), $rules);
@@ -211,7 +211,7 @@ class ParentListController extends Controller
         if ($validator->fails()) {
             return response()->json(['error_msg' => $validator->errors(), 'status' => 0], 400);
         } else {
-            $update = ParentDetailHelper::saveHours($request->id, $request->hours,$request->minutes, $request->hourly_rate, $request->teaching_start_time, $request->teaching_type);
+            $update = ParentDetailHelper::saveHours($request->id, $request->hours,$request->minutes, $request->teaching_start_time, $request->teaching_type);
 
             if ($update) {
                 return response()->json(['error_msg' => trans('messages.updatedSuccessfully'), 'data' => $update, 'status' => 1], 200);

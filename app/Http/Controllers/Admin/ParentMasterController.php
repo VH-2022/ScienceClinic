@@ -192,4 +192,24 @@ class ParentMasterController extends Controller
             ]);
         }
     }
+    public function getHourlyRate(Request $request){
+        $data = ParentDetailHelper::getHourlyRate($request->id);
+        return json_encode($data);
+    }
+    public function addHourlyRate(Request $request){
+        $getDetails = ParentDetailHelper::getParentDetailsById($request->id);
+        $subjectId = $getDetails->subject_id;
+        $levelId = $getDetails->level_id;
+        $tutorId = $getDetails->tutor_id;
+        $getHourlyRateDetails = ParentDetailHelper::getDetailsHourlyRate($subjectId, $levelId, $tutorId);
+        foreach($getHourlyRateDetails as $val){
+            $updateUser = ParentDetailHelper::updateHourlyRate($val->id, $request->rate);
+        }
+        if($updateUser){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
 }

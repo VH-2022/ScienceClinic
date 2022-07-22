@@ -285,11 +285,14 @@ class FindATutorController extends Controller
 
 
                     $inquiry = ParentDetailHelper::save($inquiryArr);
+                    $lastId = $userData;
                     if ($inquiry) {
+                        $getHourlyRateDetails = ParentDetailHelper::getDetailsHourlyRateExists($request->subjectinquiry, $request->level, $request->tutorid);
+                        $updateUser = ParentDetailHelper::updateHourlyRateExists($lastId, $getHourlyRateDetails->hourly_rate, $request->subjectinquiry, $request->level, $request->tutorid);
                         $adminData = UserHelper::getAdminData();
                         $email = $adminData->email;
                         $html = '<p>Here mention new parent inquiry details.</p><br>
-                            <p style="margin-bottom: 0px;">Name : <span>' . $request->first_name . ' '.$request->last_name.'</span></p>
+                            <p style="margin-bottom: 0px;">Name : <span>' . $request->first_name . ' ' . $request->last_name . '</span></p>
                             <p style="margin-bottom: 0px;">Email : <span>' . $request->email . '</span></p>
                             <p style="margin-bottom: 0px;">Phone No : <span>' . $request->phone . '</span></p>
                             <p style="margin-bottom: 0px;">Address : <span>' . $request->address . '</span></p>
@@ -304,18 +307,25 @@ class FindATutorController extends Controller
                     return response()->json(['error_msg' => "Something went wrong", 'data' => ''], 500);
                 }
             } else {
-                $inquiryArr = array(
-                    'user_id' => $count->id,
-                    'subject_id' => $request->subjectinquiry,
-                    'level_id' => $request->level,
-                    'tuition_day' => $request->days,
-                    'tuition_time' => $request->tuition_time,
-                    'booking_date' => $bookDate,
-                    'tutor_id' => $request->tutorid,
-                );
-
-                ParentDetailHelper::save($inquiryArr);
-                return response()->json(['error_msg' => "Successfully instered", 'data' => $inquiryArr], 200);
+                $getDetails = ParentDetailHelper::getDetailsExists($count->id, $request->subjectinquiry, $request->level, $request->tutorid, $bookDate);
+                if($getDetails){
+                    return response()->json(['error_msg' => "Inquiry Already Exists", 'data' => '', 'status' => 0], 200);
+                }
+                else
+                {
+                    $inquiryArr = array(
+                        'user_id' => $count->id,
+                        'subject_id' => $request->subjectinquiry,
+                        'level_id' => $request->level,
+                        'tuition_day' => $request->days,
+                        'tuition_time' => $request->tuition_time,
+                        'booking_date' => $bookDate,
+                        'tutor_id' => $request->tutorid,
+                    );
+    
+                    ParentDetailHelper::save($inquiryArr);
+                    return response()->json(['error_msg' => "Successfully instered", 'data' => $inquiryArr, 'status' => 1], 200);
+                }
             }
         }
     }
