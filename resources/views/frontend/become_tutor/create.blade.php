@@ -125,7 +125,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="name" maxlength="30" class="mb-0" autocomplete="off" id="name" placeholder="Name">
+                                            <input type="text" name="name" maxlength="30" class="mb-0" autocomplete="off" id="name" placeholder="Name *">
 
                                             <span class="text-danger" id="error_name">{{ $errors->useredit->first('name') }}</span>
 
@@ -133,7 +133,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="email" class="mb-0" autocomplete="off" id="email" placeholder="Email">
+                                            <input type="text" name="email" class="mb-0" autocomplete="off" id="email" placeholder="Email *">
 
                                             <span class="text-danger" id="error_email">{{ $errors->useredit->first('email') }}</span>
 
@@ -141,7 +141,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" class="mb-0 numberCls" maxlength="12" autocomplete="off" name="mobile" id="mobile" placeholder="Telephone">
+                                            <input type="text" class="mb-0 numberCls" maxlength="12" autocomplete="off" name="mobile" id="mobile" placeholder="Telephone *">
 
                                             <span class="text-danger" id="error_mobile">{{ $errors->useredit->first('mobile') }}</span>
 
@@ -149,7 +149,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" maxlength="255" name="address1" class="mb-0" autocomplete="off" id="address1" placeholder="Address 1">
+                                            <input type="text" maxlength="255" name="address1" class="mb-0" autocomplete="off" id="address1" placeholder="Address 1 *">
 
                                             <span class="text-danger" id="error_address1">{{ $errors->useredit->first('address1') }}</span>
 
@@ -157,7 +157,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" maxlength="255" name="address2" class="mb-0" autocomplete="off" id="address2" placeholder="Address 2">
+                                            <input type="text" maxlength="255" name="address2" class="mb-0" autocomplete="off" id="address2" placeholder="Address 2 *">
 
                                             <span class="text-danger" id="error_address2">{{ $errors->useredit->first('address2') }}</span>
 
@@ -165,7 +165,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" maxlength="255" name="address3" class="mb-0" autocomplete="off" id="address3" placeholder="Address 3">
+                                            <input type="text" maxlength="255" name="address3" class="mb-0" autocomplete="off" id="address3" placeholder="Address 3 *">
 
                                             <span class="text-danger" id="error_address3">{{ $errors->useredit->first('address3') }}</span>
 
@@ -173,7 +173,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" maxlength="15" name="city" class="mb-0" autocomplete="off" id="city" placeholder="Town/City">
+                                            <input type="text" maxlength="15" name="city" class="mb-0" autocomplete="off" id="city" placeholder="Town/City *">
 
                                             <span class="text-danger" id="error_city">{{ $errors->useredit->first('city') }}</span>
 
@@ -181,7 +181,7 @@
 
                                         <div class="col-md-6">
 
-                                            <input type="text" name="postcode" maxlength="6" class="mb-0" autocomplete="off" id="postcode" placeholder="Postcode">
+                                            <input type="text" name="postcode" maxlength="6" class="mb-0" autocomplete="off" id="postcode" placeholder="Postcode *">
 
                                             <span class="text-danger" id="error_postcode">{{ $errors->useredit->first('postcode') }}</span>
 
@@ -189,9 +189,7 @@
 
                                         <div class="col-md-12">
 
-                                            <textarea name="bio" id="bio" class="mb-0" cols="30" rows="10" placeholder="Bio
-
-                                                "></textarea>
+                                            <textarea name="bio" id="bio" class="mb-0" cols="30" rows="10" placeholder="Bio *"></textarea>
 
                                             <span class="text-danger" id="error_bio">{{ $errors->useredit->first('bio') }}</span>
 
@@ -207,19 +205,19 @@
 
                                                 <div class="col-md-3 mb-2">
 
-                                                    <h6>University/Institution</h6>
+                                                    <h6>University/Institution *</h6>
 
                                                 </div>
 
                                                 <div class="col-md-3 mb-2">
 
-                                                    <h6>Qualification</h6>
+                                                    <h6>Qualification *</h6>
 
                                                 </div>
 
                                                 <div class="col-md-4 mb-2">
 
-                                                    <h6>Upload Certificates Here</h6>
+                                                    <h6>Upload Certificates Here *</h6>
 
                                                 </div>
 
@@ -241,7 +239,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="university[]" maxlength="35" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution">
+                                                                <input name="university[]" maxlength="35" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="University/Institution *">
 
                                                                 <span id="customer_name_{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('university') }}</span>
 
@@ -249,7 +247,7 @@
 
                                                             <div class="col-md-3">
 
-                                                                <input name="qualification[]" maxlength="35" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="Qualification">
+                                                                <input name="qualification[]" maxlength="35" class="mb-0" autocomplete="off" data-id="{{ $uniqid }}" type="text" placeholder="Qualification *">
 
                                                                 <span id="qualification{{ $uniqid }}_error" class="text-danger">{{ $errors->useredit->first('qualification') }}</span>
 
@@ -305,13 +303,13 @@
 
                                                 <div class="col-md-6 mb-2">
 
-                                                    <h6 class="mb-2">Subject you wish to tutor. (required)</h6>
+                                                    <h6 class="mb-2">Subject you wish to tutor *</h6>
 
                                                 </div>
 
                                                 <div class="col-md-5 mb-2">
 
-                                                    <h6 class="mb-2">Level you wish to tutor. (required)</h6>
+                                                    <h6 class="mb-2">Level you wish to tutor *</h6>
 
                                                 </div>
 
@@ -384,7 +382,7 @@
                                                 <h6 class="mb-2">Do you have an enhanced DBS disclosure (less than
                                                     a
 
-                                                    year old)? (required)</h6>
+                                                    year old)? *</h6>
 
                                                 <div class="custom-control custom-radio">
 
@@ -446,8 +444,7 @@
 
                                             <div class="col-md-6 mb-23">
 
-                                                <h6 class="mb-2">Do you have tutoring experience in the UK?
-                                                    (required)
+                                                <h6 class="mb-2">Do you have tutoring experience in the UK? *
 
                                                 </h6>
 
@@ -473,9 +470,7 @@
                                             <div class="col-md-6 mb-23">
 
                                                 <h6 class="mb-2">If yes, how much UK tutoring experience do you
-                                                    have?
-
-                                                    (required)
+                                                    have? *
 
                                                 </h6>
 
@@ -519,7 +514,7 @@
 
                                                     you will be self-employed as a tutor and pay your own tax to the UK
 
-                                                    Government. (required)</h6>
+                                                    Government *</h6>
 
                                                 <div class="custom-control custom-radio">
 
@@ -551,7 +546,7 @@
 
                                         <div class="col-md-2 mb-23">
 
-                                            <h6 class="mb-2">Upload your photo</h6>
+                                            <h6 class="mb-2">Upload your photo *</h6>
 
                                             <div class="avatar-upload">
 
@@ -582,16 +577,16 @@
                                         </div>
 
                                         <div class="col-md-5">
-                                            <h6>User Name</h6>
-                                            <input name="user_name" maxlength="30" class="mb-0" autocomplete="off" id="user_name" type="text" placeholder="User Name">
+                                            <h6>User Name *</h6>
+                                            <input name="user_name" maxlength="30" class="mb-0" autocomplete="off" id="user_name" type="text" placeholder="User Name *">
 
                                             <span id="user_name_error" class="text-danger">{{ $errors->useredit->first('user_name') }}</span>
 
                                         </div>
 
                                         <div class="col-md-5">
-                                            <h6>Password</h6>
-                                            <input name="password" class="mb-0" id="password" type="password" placeholder="Password">
+                                            <h6>Password *</h6>
+                                            <input name="password" class="mb-0" id="password" type="password" placeholder="Password *">
 
                                             <span id="password_error" class="text-danger">{{ $errors->useredit->first('password') }}</span>
 
@@ -605,7 +600,7 @@
 
 
                                                 <label class="form-check-label condition-text" for="defaultCheck1">
-                                                    <a class="condition-text" href="{{url('terms-and-conditions')}}">Terms & conditions </a>
+                                                    <a class="condition-text" href="{{url('terms-and-conditions')}}">Terms & conditions *</a>
 
                                                 </label>
 
@@ -835,7 +830,6 @@
 
     });
 </script>
-
 <script>
     function ValidateEmail(email) {
         var expr =
@@ -1009,7 +1003,7 @@
 
         if (mobile.trim() == '') {
 
-            $('#error_mobile').html('Please enter mobile');
+            $('#error_mobile').html('Please enter telephone');
 
             temp++;
 
@@ -1041,7 +1035,7 @@
 
         if (city.trim() == '') {
 
-            $('#error_city').html('Please enter city');
+            $('#error_city').html('Please enter town/city');
 
             temp++;
 
@@ -1222,22 +1216,26 @@
 
             temp++
 
+        } else {
+            $('#exprienceinuk_error').html('');
         }
-
         if (tutorexperienceinuk == false) {
 
             $('#tutorexperienceinuk_error').html('Please select UK tutoring experience');
 
             temp++
 
+        } else {
+            $('#tutorexperienceinuk_error').html('');
         }
-
         if (paytax == false) {
 
             $('#paytax_error').html('Please select tutor and pay your own tax');
 
             temp++
 
+        } else {
+            $('#paytax_error').html('');
         }
         if ($("input[name='term']:checked").length == 0) {
             $('#error_term').html('Please select Term & condition');
