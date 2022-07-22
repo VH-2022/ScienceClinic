@@ -589,69 +589,134 @@
                         var upload_paper = document.getElementsByName("upload_paper[]");
                         var upload_mark_scheme = document.getElementsByName("upload_mark_scheme[]");
                        
+                        $('input[name^="subject_paper_title[]"]').each(function(){
+                            var dataId = $(this).attr("data-id");
+                            var fileU = $(this).val();
+                            if(fileU == ''){
+                                $("#subject_paper_title"+dataId).addClass('is-invalid');
+                                $(".subject_paper_title_error_"+dataId).html('Subject Title is required.');
+                                validation_status = 1;
+                            }else{
+                                
+                                $("#subject_paper_title"+dataId).removeClass('is-invalid');
+                                $("#subject_paper_title"+dataId).addClass('valid');
+                                $(".subject_paper_title_error_"+dataId).html('');
+                                    
+                            }
+                        });
                         
-                        for (var z = 0; z < subject_paper_title.length; z++) {            
-                                if (subject_paper_title[z].value == '') {
-                                        $("#subject_paper_title"+z).addClass('is-invalid');
-                                        $(".subject_paper_title_error_"+z).html('Subject Title is required.');
-                                        validation_status = 1;
-                                }else{
-                                    $("#subject_paper_title"+z).removeClass('is-invalid');
-                                    $("#subject_paper_title"+z).addClass('valid');
-                                    $(".subject_paper_title_error_"+z).html('');
-                                }
-                        }
+                        // for (var z = 0; z < subject_paper_title.length; z++) {            
+                        //         if (subject_paper_title[z].value == '') {
+                        //                 $("#subject_paper_title"+z).addClass('is-invalid');
+                        //                 $(".subject_paper_title_error_"+z).html('Subject Title is required.');
+                        //                 validation_status = 1;
+                        //         }else{
+                        //             $("#subject_paper_title"+z).removeClass('is-invalid');
+                        //             $("#subject_paper_title"+z).addClass('valid');
+                        //             $(".subject_paper_title_error_"+z).html('');
+                        //         }
+                        // }
                         
-                        for (var z1 = 0; z1 < upload_paper.length; z1++) {
-                                var fileU = $("#upload_paperdata"+z1).val();
-                                if(fileU == ''){
-                                    $('.upload_paper_error_'+z1).html("Upload is required.");
-                                    validation_status = 1;
-                                }else{
+                        // for (var z1 = 0; z1 < upload_paper.length; z1++) {
+                        //         var fileU = $("#upload_paperdata"+z1).val();
+                        //         if(fileU == ''){
+                        //             $('.upload_paper_error_'+z1).html("Upload is required.");
+                        //             validation_status = 1;
+                        //         }else{
                                    
-                                        var file = $('#upload_paper'+z1).val().split('\\').pop();
-                                        if(file != ''){
-                                            var FileUploadPath = file;
-                                            var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                        //                 var file = $('#upload_paper'+z1).val().split('\\').pop();
+                        //                 if(file != ''){
+                        //                     var FileUploadPath = file;
+                        //                     var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
                                             
-                                            if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg' || Extension == 'pptx' || Extension == 'pdf' || Extension == 'doc' || Extension == 'docx') {
-                                                $('.upload_paper_error_'+z1).html("");
-                                            } else {
+                        //                     if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg' || Extension == 'pptx' || Extension == 'pdf' || Extension == 'doc' || Extension == 'docx') {
+                        //                         $('.upload_paper_error_'+z1).html("");
+                        //                     } else {
                             
-                                                $('.upload_paper_error_'+z1).html("Image only allows image types of PNG, JPG, JPEG, PPTX, PDF, DOC, DOCX");
-                                                    validation_status = 1;
+                        //                         $('.upload_paper_error_'+z1).html("Image only allows image types of PNG, JPG, JPEG, PPTX, PDF, DOC, DOCX");
+                        //                             validation_status = 1;
                             
-                                            }
-                                        }
+                        //                     }
+                        //                 }
                                         
-                                }
-                        }
-                         for (var z2 = 0; z2 < upload_mark_scheme.length; z2++) {
-                                var fileD = $('#upload_mark_schemeData'+z2).val();
-                                if(fileD == ''){
-                                    $('.upload_mark_scheme_error_'+z2).html("Upload is required.");
-                                    validation_status = 1;
-                                }else{
+                        //         }
+                        // }
+                        $('input[name^="upload_paper[]"]').each(function(){
+                            var dataId = $(this).attr("data-id");
+                            var fileU = $('#upload_paperdata'+dataId).val();
+                            if(fileU == ''){
+                                $('.upload_paper_error_'+dataId).html("Upload is required.");
+                                validation_status = 1;
+                            }else{
+                                
+                                var file = $('#upload_paper'+dataId).val().split('\\').pop();
+                                if(file != ''){
+                                    var FileUploadPath = file;
+                                    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
                                     
-                                        var file = $('#upload_mark_scheme'+z2).val().split('\\').pop();
-                                        if(file != ''){
-                                            var FileUploadPath = file;
-                                            var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-                                        
-                                            if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg' || Extension == 'pptx' || Extension == 'pdf' || Extension == 'doc' || Extension == 'docx') {
-                                                $('.upload_mark_scheme_error_'+z2).html("");
-                                            } else {
-                        
-                                                $('.upload_mark_scheme_error_'+z2).html("Image only allows image types of PNG, JPG, JPEG, PPTX, PDF, DOC, DOCX");
-                                                validation_status = 1;
-                        
-                                            }
+                                    if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg' || Extension == 'pptx' || Extension == 'pdf' || Extension == 'doc' || Extension == 'docx') {
+                                        $('.upload_paper_error_'+dataId).html("");
+                                    } else {
+                    
+                                        $('.upload_paper_error_'+dataId).html("Image only allows image types of PNG, JPG, JPEG, PPTX, PDF, DOC, DOCX");
+                                            validation_status = 1;
+                    
                                     }
+                                }
+                                    
+                            }
+                        });
+                        //  for (var z2 = 0; z2 < upload_mark_scheme.length; z2++) {
+                        //         var fileD = $('#upload_mark_schemeData'+z2).val();
+                        //         if(fileD == ''){
+                        //             $('.upload_mark_scheme_error_'+z2).html("Upload is required.");
+                        //             validation_status = 1;
+                        //         }else{
+                                    
+                        //                 var file = $('#upload_mark_scheme'+z2).val().split('\\').pop();
+                        //                 if(file != ''){
+                        //                     var FileUploadPath = file;
+                        //                     var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                                        
+                        //                     if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg' || Extension == 'pptx' || Extension == 'pdf' || Extension == 'doc' || Extension == 'docx') {
+                        //                         $('.upload_mark_scheme_error_'+z2).html("");
+                        //                     } else {
+                        
+                        //                         $('.upload_mark_scheme_error_'+z2).html("Image only allows image types of PNG, JPG, JPEG, PPTX, PDF, DOC, DOCX");
+                        //                         validation_status = 1;
+                        
+                        //                     }
+                        //             }
                                         
                                     
                                     
+                        //         }
+                        // }
+                        $('input[name^="upload_mark_scheme[]"]').each(function(){
+                            var dataId = $(this).attr("data-id");
+                            var fileU = $('#upload_mark_schemeData'+dataId).val();
+                            if(fileU == ''){
+                                $('.upload_mark_scheme_error_'+dataId).html("Upload is required.");
+                                validation_status = 1;
+                            }else{
+                                
+                                var file = $('#upload_mark_scheme'+dataId).val().split('\\').pop();
+                                if(file != ''){
+                                    var FileUploadPath = file;
+                                    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                                    
+                                    if (Extension == 'jpg' || Extension == 'png' || Extension == 'gif' || Extension == 'jpeg' || Extension == 'pptx' || Extension == 'pdf' || Extension == 'doc' || Extension == 'docx'){
+                                        $('.upload_mark_scheme_error_'+dataId).html("");
+                                    } else {
+                    
+                                        $('.upload_mark_scheme_error_'+dataId).html("Image only allows image types of PNG, JPG, JPEG, PPTX, PDF, DOC, DOCX");
+                                            validation_status = 1;
+                    
+                                    }
                                 }
-                        }
+                                    
+                            }
+                        });
         
                     if (validation_status == 0) {
         

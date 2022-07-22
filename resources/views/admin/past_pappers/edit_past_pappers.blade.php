@@ -109,7 +109,7 @@
                             @if(count($paper_basic_details) > 0)
                             
                                 @foreach($paper_basic_details as $key)
-                                <input type="hidden" name="detail_id[]" value="{{ $key->id}}">
+                                <input type="hidden" name="detail_id[]" class="detail_id_{{$key->id}}" value="{{ $key->id}}">
                                     <div class="row" id="deleteRow_{{$i}}">
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -122,7 +122,7 @@
                                             <div class="form-group">
                                                 <label>Upload Paper <span class="text-danger">*</span></label>
                                                 <div class="position-relative">
-                                                    <input type="file" class="input-upload-cus" name="upload_paper[]" id="upload_paper{{$i}}" class="form-control validate_field" data-msg="Upload">
+                                                    <input type="file" class="input-upload-cus" name="upload_paper[]" id="upload_paper{{$i}}" data-id="{{$i}}" class="form-control validate_field" data-msg="Upload">
                                                     <div class="upload-photo-main">
                                                         <i class="fa fa-plus plus-sign-upload"></i>
                                                     </div>
@@ -136,7 +136,7 @@
                                             <div class="form-group">
                                                 <label>Upload Mark Scheme <span class="text-danger">*</span></label>
                                                 <div class="position-relative">
-                                                    <input type="file" class="input-upload-cus" name="upload_mark_scheme[]" id="upload_mark_scheme{{$i}}" class="form-control validate_field" data-msg="Upload">
+                                                    <input type="file" class="input-upload-cus" name="upload_mark_scheme[]" id="upload_mark_scheme{{$i}}" data-id="{{$i}}" class="form-control validate_field" data-msg="Upload">
                                                     <div class="upload-photo-main">
                                                         <i class="fa fa-plus plus-sign-upload"></i>
                                                     </div>
@@ -146,7 +146,7 @@
                                                 <span class="form-text error upload_mark_scheme_error_{{$i}}"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-1"><div class="form-group"><button type="button" onclick="removeDeleteID({{$key->id}})" class="btn btn-secondary btn-sm">Delete</button></div></div>
+                                        <div class="col-md-1"><div class="form-group"><button type="button" onclick="removeDeleteID({{$key->id}},{{$i}})" class="btn-delete btn btn-secondary btn-sm">Delete</button></div></div>
                                     </div>
                                     @php $i++;  @endphp
                                 @endforeach
@@ -263,13 +263,13 @@ if(oldID !=''){
 }
 
 function appendMore(){
-    var html ='<div class="row" id="deleteRow_'+id+'"><input type="hidden" name="detail_id[]" value="0"><div class="col-md-4"><div class="form-group"><label>Subject Title <span class="text-danger">*</span></label><input class="form-control validate_field" placeholder="Subject Title" autocomplete="off" id="subject_paper_title'+id+'" type="text" data-msg="Paper Sub Title" name="subject_paper_title[]"> <span class="form-text error subject_paper_title_error_'+id+'"></span></div></div><div class="col-md-3"><div class="form-group"><label>Upload Paper <span class="text-danger">*</span></label><div class="position-relative"><input type="file" class="input-upload-cus" name="upload_paper[]" id="upload_paper'+id+'" class="form-control validate_field" data-msg="Upload"><div class="upload-photo-main"><i class="fa fa-plus plus-sign-upload"></i></div></div><input type="hidden" value="" id="upload_paperdata'+id+'" /><span id="uploadBook'+id+'"></span><span class="form-text error upload_paper_error_'+id+'"></span></div></div><div class="col-md-3"><div class="form-group"><label>Upload Mark Scheme <span class="text-danger">*</span></label><div class="position-relative"><input type="file" class="input-upload-cus" name="upload_mark_scheme[]" id="upload_mark_scheme'+id+'" class="form-control validate_field" data-msg="Upload"><div class="upload-photo-main"><i class="fa fa-plus plus-sign-upload"></i></div></div><input type="hidden" value="" id="upload_mark_schemeData'+id+'" /><span id="uploadtitle'+id+'"></span><span class="form-text error upload_mark_scheme_error_'+id+'"></span></div></div><div class="col-md-1"><div class="form-group"><button type="button" onclick="removeID('+id+')" class="btn btn-secondary btn-sm">Delete</button></div></div></div>';
+    var html ='<div class="row" id="deleteRow_'+id+'"><input type="hidden" name="detail_id[]" value="0"><div class="col-md-4"><div class="form-group"><label>Subject Title <span class="text-danger">*</span></label><input class="form-control validate_field" placeholder="Subject Title" autocomplete="off" data-id="'+id+'" id="subject_paper_title'+id+'" type="text" data-msg="Paper Sub Title" name="subject_paper_title[]"> <span class="form-text error subject_paper_title_error_'+id+'"></span></div></div><div class="col-md-3"><div class="form-group"><label>Upload Paper <span class="text-danger">*</span></label><div class="position-relative"><input type="file" class="input-upload-cus" name="upload_paper[]" data-id="'+id+'" id="upload_paper'+id+'" class="form-control validate_field" data-msg="Upload"><div class="upload-photo-main"><i class="fa fa-plus plus-sign-upload"></i></div></div><input type="hidden" value="" id="upload_paperdata'+id+'" /><span id="uploadBook'+id+'"></span><span class="form-text error upload_paper_error_'+id+'"></span></div></div><div class="col-md-3"><div class="form-group"><label>Upload Mark Scheme <span class="text-danger">*</span></label><div class="position-relative"><input type="file" class="input-upload-cus" name="upload_mark_scheme[]" data-id="'+id+'" id="upload_mark_scheme'+id+'" class="form-control validate_field" data-msg="Upload"><div class="upload-photo-main"><i class="fa fa-plus plus-sign-upload"></i></div></div><input type="hidden" value="" id="upload_mark_schemeData'+id+'" /><span id="uploadtitle'+id+'"></span><span class="form-text error upload_mark_scheme_error_'+id+'"></span></div></div><div class="col-md-1"><div class="form-group"><button type="button" onclick="removeID('+id+')" class="btn-delete btn btn-secondary btn-sm">Delete</button></div></div></div>';
 
     $("#appendData").append(html);
 
 
     changes(id);
-
+    $('.btn-delete').show();
     id++;
 
 
@@ -290,6 +290,8 @@ function changes(id){
 }
 
 function removeID(id){
+    var totalLength = $('input[name^="detail_id[]"]').length;
+    var length = totalLength - 1;
     $.confirm({
         title: 'Are you sure?',
         columnClass:"col-md-6",
@@ -299,6 +301,12 @@ function removeID(id){
                 text: 'Submit',
                 btnClass: 'btn-danger',
                 action: function () {
+                    if(length == 1){
+                    $('.btn-delete').hide();
+                    }
+                    else{
+                        $('.btn-delete').show();
+                    }
                     $("#deleteRow_"+id).remove();
                 }
             },
@@ -313,7 +321,9 @@ function removeID(id){
 }
 
 var idArray = [];
-function removeDeleteID(id){
+function removeDeleteID(id,deleteId){
+    var totalLength = $('input[name^="detail_id[]"]').length;
+    var length = totalLength - 1;
     $.confirm({
     title: 'Are you sure?',
     columnClass:"col-md-6",
@@ -323,9 +333,17 @@ function removeDeleteID(id){
             text: 'Submit',
             btnClass: 'btn-danger',
             action: function () {
+                console.log(length);
+                if(length == 1){
+                    $('.btn-delete').hide();
+                }
+                else{
+                    $('.btn-delete').show();
+                }
                 idArray.push(id);
                 $("#deletedID").val(idArray);
-                $("#deleteRow_"+id).remove();
+                $("#deleteRow_"+deleteId).remove();
+                $(".detail_id_"+id).remove();
             }
         },
         cancel: function () {
@@ -337,6 +355,15 @@ function removeDeleteID(id){
     }
 });
 }
+$(document).ready(function(){
+    var totalLength = $('input[name^="detail_id[]"]').length;
+    if(totalLength == 1){
+        $('.btn-delete').hide();
+    }
+    else{
+        $('.btn-delete').show();
+    }
+});
 </script>
 
 @endsection

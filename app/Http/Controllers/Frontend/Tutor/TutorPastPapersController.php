@@ -190,9 +190,10 @@ class TutorPastPapersController extends Controller
                 $deletedID = $request->deletedID;
                 if($deletedID !=''){
                     $deletedIDs = explode(',',$deletedID);
-                    $deleteData = PastPapersDetailHelper::SoftDelete(array(), array('id' => $deletedIDs));
+                    foreach($deletedIDs as $val){
+                        $deleteData = PastPapersDetailHelper::SoftDelete(array(), array('id' => $val));
+                    }
                 }
-
 
                 $detail_id = $request->detail_id;
                 
